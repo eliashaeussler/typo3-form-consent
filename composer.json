@@ -1,0 +1,96 @@
+{
+	"name": "eliashaeussler/typo3-form-consent",
+	"type": "typo3-cms-extension",
+	"description": "Extension for TYPO3 CMS that adds double opt-in functionality to EXT:form",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Elias Häußler",
+			"email": "elias@haeussler.dev",
+			"homepage": "https://haeussler.dev",
+			"role": "Maintainer"
+		}
+	],
+	"require": {
+		"php": "^7.2 || 8.0.*",
+		"ext-json": "*",
+		"psr/event-dispatcher": "^1.0",
+		"psr/http-message": "^1.0",
+		"psr/log": "^1.0",
+		"symfony/mailer": "^4.4 || ^5.0",
+		"symfony/mime": "^4.4 || ^5.0",
+		"typo3/cms-backend": "^10.4 || 11.*.*@dev",
+		"typo3/cms-core": "^10.4 || 11.*.*@dev",
+		"typo3/cms-extbase": "^10.4 || 11.*.*@dev",
+		"typo3/cms-fluid": "^10.4 || 11.*.*@dev",
+		"typo3/cms-form": "^10.4 || 11.*.*@dev",
+		"typo3/cms-frontend": "^10.4 || 11.*.*@dev"
+	},
+	"require-dev": {
+		"captainhook/plugin-composer": "^5.3",
+		"ergebnis/composer-normalize": "^2.15",
+		"helmich/typo3-typoscript-lint": "^2.5",
+		"jangregor/phpstan-prophecy": "^0.8",
+		"phpspec/prophecy-phpunit": "^2.0",
+		"phpstan/phpstan": "^0.12",
+		"phpunit/phpcov": "^8.2",
+		"phpunit/phpunit": "^9.3",
+		"roave/security-advisories": "dev-latest",
+		"saschaegerer/phpstan-typo3": "^0.13.3",
+		"typo3/cms-filelist": "^10.4 || 11.*.*@dev",
+		"typo3/cms-install": "^10.4 || 11.*.*@dev",
+		"typo3/cms-lowlevel": "^10.4 || 11.*.*@dev",
+		"typo3/coding-standards": "^0.3.0",
+		"typo3/testing-framework": "^6.11"
+	},
+	"config": {
+		"bin-dir": ".Build/bin",
+		"sort-packages": true,
+		"vendor-dir": ".Build/vendor"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "form_consent",
+			"web-dir": ".Build/web"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"EliasHaeussler\\Typo3FormConsent\\": "Classes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"EliasHaeussler\\Typo3FormConsent\\Tests\\": "Tests/"
+		}
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"mkdir -p .Build/web/typo3conf/ext/",
+			"[ -L .Build/web/typo3conf/ext/form_consent ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/form_consent"
+		],
+		"lint": [
+			"@lint:php",
+			"@lint:typoscript"
+		],
+		"lint:php": "php-cs-fixer fix",
+		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
+		"sca": [
+			"@sca:php"
+		],
+		"sca:php": "phpstan analyse -c phpstan.neon",
+		"test": [
+			"@test:functional",
+			"@test:unit"
+		],
+		"test:ci": [
+			"@test:ci:functional",
+			"@test:ci:unit"
+		],
+		"test:ci:functional": "phpunit -c phpunit.ci.functional.xml",
+		"test:ci:merge": "phpcov merge --html .Build/log/coverage/html/_merged --clover .Build/log/coverage/clover.xml --text php://stdout .Build/log/coverage/php",
+		"test:ci:unit": "phpunit -c phpunit.ci.unit.xml",
+		"test:functional": "phpunit -c phpunit.functional.xml",
+		"test:unit": "phpunit -c phpunit.unit.xml"
+	}
+}

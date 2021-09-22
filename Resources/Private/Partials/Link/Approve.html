@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:variable name="link">
+    <f:uri.action action="approve"
+                  controller="Consent"
+                  extensionName="FormConsent"
+                  pluginName="Consent"
+                  absolute="1"
+                  arguments="{hash: consent.validationHash, email: consent.email}"
+                  pageUid="{pageUid}" />
+</f:variable>
+
+<a href="{link -> f:spaceless()}">{link -> f:spaceless()}</a>
+
+</html>

@@ -1,0 +1,7 @@
+<f:uri.action action="dismiss"
+              controller="Consent"
+              extensionName="FormConsent"
+              pluginName="Consent"
+              absolute="1"
+              arguments="{hash: consent.validationHash, email: consent.email}"
+              pageUid="{pageUid}" />

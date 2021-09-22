@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="SystemEmail" />
+
+<f:section name="Title">
+    {f:translate(key: 'consentMail.title', extensionName: 'FormConsent')}
+</f:section>
+
+<f:section name="Main">
+    <p>
+        {f:translate(key: 'consentMail.salutation', extensionName: 'FormConsent', arguments: '{0: consent.email}') -> f:spaceless()},
+    </p>
+    <p>
+        {f:translate(key: 'consentMail.body.approve', extensionName: 'FormConsent')}
+    </p>
+    <p>
+        {f:render(partial: 'Link/Approve', arguments: '{consent: consent, pageUid: confirmationPid}')}
+    </p>
+
+    <f:if condition="{showDismissLink}">
+        <hr>
+        <p>
+            {f:translate(key: 'consentMail.body.dismiss', extensionName: 'FormConsent')}
+        </p>
+        <p>
+            {f:render(partial: 'Link/Dismiss', arguments: '{consent: consent, pageUid: confirmationPid}')}
+        </p>
+    </f:if>
+</f:section>
+
+</html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+    <file source-language="en">
+        <header/>
+        <body>
+            <trans-unit id="consentMail.subject">
+                <source>Approve your consent</source>
+            </trans-unit>
+            <trans-unit id="consentMail.title">
+                <source>Please approve your consent</source>
+            </trans-unit>
+            <trans-unit id="consentMail.salutation">
+                <source>Hello %s</source>
+            </trans-unit>
+            <trans-unit id="consentMail.body.approve">
+                <source>your consent was registered successfully. Please click the following link to approve it:</source>
+            </trans-unit>
+            <trans-unit id="consentMail.body.dismiss">
+                <source>If you feel this consent was given by accident or if you want to dismiss it, please click the following link:</source>
+            </trans-unit>
+			<trans-unit id="consentMail.error">
+				<source>The consent mail could not be sent.</source>
+			</trans-unit>
+
+			<trans-unit id="consent.approve.error.invalidConsent.title">
+				<source>Invalid link</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.error.invalidConsent.body">
+				<source>The link you clicked is no longer valid or has already been clicked. Please fill out the form again.</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.error.invalidEmail.title">
+				<source>Invalid email address</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.error.invalidEmail.body">
+				<source>The email address sent with the link is not valid. Please fill out the form again.</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.error.alreadyApproved.title">
+				<source>Consent already given</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.error.alreadyApproved.body">
+				<source>The link you clicked has already been clicked. This means that consent has already been given and the link is no longer valid.</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.error.unknown.title">
+				<source>Unknown error</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.error.unknown.body">
+				<source>An unknown error has occurred. Please try clicking the link from the email again. If the problem persists, please fill out the form again.</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.success.title">
+				<source>Consent successful</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.success.body">
+				<source>Thank you, your approval was successful. You can now delete the email.</source>
+			</trans-unit>
+
+			<trans-unit id="consent.dismiss.error.invalidConsent.title">
+				<source>Invalid link</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.error.invalidConsent.body">
+				<source>The link you clicked is no longer valid or has already been clicked.</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.error.invalidEmail.title">
+				<source>Invalid email address</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.error.invalidEmail.body">
+				<source>The email address sent with the link is not valid. Please fill out the form again.</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.error.unknown.title">
+				<source>Unknown error</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.error.unknown.body">
+				<source>An unknown error has occurred. Please try clicking the link from the email again. If the problem persists, please fill out the form again.</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.success.title">
+				<source>Consent successfully revoked</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.success.body">
+				<source>You have successfully revoked your consent. You can now delete the email.</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

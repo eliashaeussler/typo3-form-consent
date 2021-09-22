@@ -1,0 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="alert {f:if(condition: severity, then: 'alert-{severity}')}">
+    <h4 class="alert-title">{f:translate(key: titleKey, extensionName: 'FormConsent')}</h4>
+    <p class="alert-message">{f:translate(key: messageKey, extensionName: 'FormConsent')}</p>
+</div>
+
+</html>

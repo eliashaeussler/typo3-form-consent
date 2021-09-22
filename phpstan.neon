@@ -1,0 +1,13 @@
+includes:
+    - .Build/vendor/jangregor/phpstan-prophecy/extension.neon
+    - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
+parameters:
+    bootstrapFiles:
+        - .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php
+    level: 6
+    paths:
+        - Classes
+        - Configuration
+        - Tests
+    ignoreErrors:
+        - '#^Property [a-zA-Z0-9\\_]+::\$coreExtensionsToLoad type has no value type specified in iterable type array\.$#'

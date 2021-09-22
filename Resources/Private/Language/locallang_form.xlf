@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+    <file source-language="en">
+        <header/>
+        <body>
+            <trans-unit id="formEditor.elements.Form.editor.finishers.Consent.label">
+                <source>Consent</source>
+            </trans-unit>
+
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.default.label">
+                <source>Consent</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.subject.label">
+                <source>Subject</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientAddress.label">
+                <source>Recipient e-mail address</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientName.label">
+                <source>Recipient name</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderAddress.label">
+                <source>Sender e-mail address</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderName.label">
+                <source>Sender name</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label">
+                <source>Approval period</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.fieldExplanationText">
+                <source>Time period in seconds where consent can be given. Set this value to "0" to allow unlimited approval.</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.label">
+                <source>Show dismiss link</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.fieldExplanationText">
+                <source>Enable this checkbox if users should be able to dismiss their consent.</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.label">
+                <source>Confirmation page</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.buttonLabel">
+                <source>Page</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.label">
+                <source>Storage page</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel">
+                <source>Page</source>
+            </trans-unit>
+
+            <trans-unit id="formEditor.elements.Form.finisher.Consent.editor.header.label">
+                <source>Consent</source>
+            </trans-unit>
+
+            <trans-unit id="tt_content.finishersDefinition.Consent.label">
+                <source>Consent</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.subject.label">
+                <source>Subject</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.recipientAddress.label">
+                <source>Recipient e-mail address</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.recipientName.label">
+                <source>Recipient name</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.senderAddress.label">
+                <source>Sender e-mail address</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.senderName.label">
+                <source>Sender name</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.approvalPeriod.label">
+                <source>Approval period</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.showDismissLink.label">
+                <source>Show dismiss link</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.confirmationPid.label">
+                <source>Confirmation page</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.Consent.storagePid.label">
+                <source>Storage page</source>
+            </trans-unit>
+
+			<trans-unit id="validation.recipientAddress.empty">
+				<source>The finisher option "recipientAddress" must be set.</source>
+			</trans-unit>
+			<trans-unit id="validation.recipientAddress.invalid">
+				<source>The finisher option "recipientAddress" must contain a valid e-mail address.</source>
+			</trans-unit>
+			<trans-unit id="validation.senderAddress.invalid">
+				<source>The finisher option "senderAddress" must contain a valid e-mail address.</source>
+			</trans-unit>
+			<trans-unit id="validation.validationPeriod.invalid">
+				<source>The finisher option "validationPeriod" must be zero or more seconds.</source>
+			</trans-unit>
+			<trans-unit id="validation.confirmationPid.empty">
+				<source>The finisher option "confirmationPid" must be set.</source>
+			</trans-unit>
+			<trans-unit id="validation.confirmationPid.invalid">
+				<source>The finisher option "confirmationPid" must be set to a valid page.</source>
+			</trans-unit>
+			<trans-unit id="validation.storagePid.empty">
+				<source>The finisher option "storagePid" must be set.</source>
+			</trans-unit>
+			<trans-unit id="validation.storagePid.invalid">
+				<source>The finisher option "storagePid" must be set to a valid page.</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

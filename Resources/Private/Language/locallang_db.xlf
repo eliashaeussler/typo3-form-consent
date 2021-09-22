@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+    <file source-language="en">
+        <header/>
+        <body>
+            <trans-unit id="tabs.consent">
+                <source>Consent</source>
+            </trans-unit>
+
+            <trans-unit id="plugins.consent">
+                <source>Form consent</source>
+            </trans-unit>
+            <trans-unit id="plugins.consent.header">
+                <source>Form consent</source>
+            </trans-unit>
+            <trans-unit id="plugins.consent.body">
+                <source>Inserts a plugin which allows approval and dismiss of form consents.</source>
+            </trans-unit>
+
+            <trans-unit id="tx_formconsent_domain_model_consent">
+                <source>Consent</source>
+            </trans-unit>
+            <trans-unit id="tx_formconsent_domain_model_consent.email">
+                <source>E-mail address</source>
+            </trans-unit>
+            <trans-unit id="tx_formconsent_domain_model_consent.date">
+                <source>Submit date</source>
+            </trans-unit>
+            <trans-unit id="tx_formconsent_domain_model_consent.data">
+                <source>Form data</source>
+            </trans-unit>
+			<trans-unit id="tx_formconsent_domain_model_consent.form_persistence_identifier">
+				<source>Form location</source>
+			</trans-unit>
+            <trans-unit id="tx_formconsent_domain_model_consent.approved">
+                <source>Approved</source>
+            </trans-unit>
+            <trans-unit id="tx_formconsent_domain_model_consent.valid_until">
+                <source>Valid until</source>
+            </trans-unit>
+            <trans-unit id="tx_formconsent_domain_model_consent.approval_date">
+                <source>Date of approval</source>
+            </trans-unit>
+            <trans-unit id="tx_formconsent_domain_model_consent.validation_hash">
+                <source>Validation hash</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
