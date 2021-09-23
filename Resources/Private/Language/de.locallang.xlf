@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="consentMail.subject" approved="yes">
+        <source>Approve your consent</source>
+        <target state="final">Bestätigen Sie Ihre Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="consentMail.title" approved="yes">
+        <source>Please approve your consent</source>
+        <target state="final">Bitte bestätigen Sie Ihre Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="consentMail.salutation" approved="yes">
+        <source>Hello %s</source>
+        <target state="final">Hallo %s</target>
+      </trans-unit>
+      <trans-unit id="consentMail.body.approve" approved="yes">
+        <source>your consent was registered successfully. Please click the following link to approve it:</source>
+        <target state="final">Ihre Einwilligung wurde erfolgreich registriert. Bitte klicken Sie auf den folgenden Link, um sie zu bestätigen:</target>
+      </trans-unit>
+      <trans-unit id="consentMail.body.dismiss" approved="yes">
+        <source>If you feel this consent was given by accident or if you want to dismiss it, please click the following link:</source>
+        <target state="final">Wenn Sie der Meinung sind, diese Einwilligung wurde gegen Ihren Willen gegeben, oder wenn Sie die Einwilligung ablehnen möchten, klicken Sie bitte auf den folgenden Link:</target>
+      </trans-unit>
+      <trans-unit id="consentMail.error" approved="yes">
+        <source>The consent mail could not be sent.</source>
+        <target state="final">Die Zustimmungsmail konnte nicht gesendet werden.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.invalidConsent.title" approved="yes">
+        <source>Invalid link</source>
+        <target state="final">Ungültiger Link</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.invalidConsent.body" approved="yes">
+        <source>The link you clicked is no longer valid or has already been clicked. Please fill out the form again.</source>
+        <target state="final">Der Link, auf den Sie geklickt haben, ist nicht mehr gültig oder wurde bereits angeklickt. Bitte füllen Sie das Formular erneut aus.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.invalidEmail.title" approved="yes">
+        <source>Invalid email address</source>
+        <target state="final">Ungültige E-Mail-Adresse</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.invalidEmail.body" approved="yes">
+        <source>The email address sent with the link is not valid. Please fill out the form again.</source>
+        <target state="final">Die mit dem Link übermittelte E-Mail-Adresse ist nicht gültig. Bitte füllen Sie das Formular erneut aus.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.alreadyApproved.title" approved="yes">
+        <source>Consent already given</source>
+        <target state="final">Zustimmung bereits erteilt</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.alreadyApproved.body" approved="yes">
+        <source>The link you clicked has already been clicked. This means that consent has already been given and the link is no longer valid.</source>
+        <target state="final">Der Link, auf den Sie geklickt haben, wurde bereits angeklickt. Die Zustimmung wurde dadurch bereits erteilt und der Link ist nicht mehr gültig.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.unknown.title" approved="yes">
+        <source>Unknown error</source>
+        <target state="final">Unbekannter Fehler</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.unknown.body" approved="yes">
+        <source>An unknown error has occurred. Please try clicking the link from the email again. If the problem persists, please fill out the form again.</source>
+        <target state="final">Ein unbekannter Fehler ist aufgetreten. Bitte klicken Sie erneut auf den Link aus der E-Mail. Wenn das Problem weiterhin besteht, füllen Sie bitte das Formular erneut aus.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.success.title" approved="yes">
+        <source>Consent successful</source>
+        <target state="final">Zustimmung erfolgreich</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.success.body" approved="yes">
+        <source>Thank you, your approval was successful. You can now delete the email.</source>
+        <target state="final">Vielen Dank, Ihre Genehmigung war erfolgreich. Sie können nun die E-Mail löschen.</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.invalidConsent.title" approved="yes">
+        <source>Invalid link</source>
+        <target state="final">Ungültiger Link</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.invalidConsent.body" approved="yes">
+        <source>The link you clicked is no longer valid or has already been clicked.</source>
+        <target state="final">Der Link, den Sie geklickt haben, ist nicht mehr gültig oder wurde bereits angeklickt.</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.invalidEmail.title" approved="yes">
+        <source>Invalid email address</source>
+        <target state="final">Ungültige E-Mail-Adresse</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.invalidEmail.body" approved="yes">
+        <source>The email address sent with the link is not valid. Please fill out the form again.</source>
+        <target state="final">Die mit dem Link übermittelte E-Mail-Adresse ist nicht gültig. Bitte füllen Sie das Formular erneut aus.</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.unknown.title" approved="yes">
+        <source>Unknown error</source>
+        <target state="final">Unbekannter Fehler</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.unknown.body" approved="yes">
+        <source>An unknown error has occurred. Please try clicking the link from the email again. If the problem persists, please fill out the form again.</source>
+        <target state="final">Ein unbekannter Fehler ist aufgetreten. Bitte klicken Sie erneut auf den Link aus der E-Mail. Wenn das Problem weiterhin besteht, füllen Sie bitte das Formular erneut aus.</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.success.title" approved="yes">
+        <source>Consent successfully revoked</source>
+        <target state="final">Zustimmung erfolgreich widerrufen</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.success.body" approved="yes">
+        <source>You have successfully revoked your consent. You can now delete the email.</source>
+        <target state="final">Sie haben Ihre Zustimmung erfolgreich widerrufen. Sie können die E-Mail nun löschen.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
