@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="hu">
+    <header/>
+    <body>
+      <trans-unit id="tabs.consent">
+        <source>Consent</source>
+        <target state="needs-translation">Consent</target>
+      </trans-unit>
+      <trans-unit id="plugins.consent">
+        <source>Form consent</source>
+        <target state="needs-translation">Form consent</target>
+      </trans-unit>
+      <trans-unit id="plugins.consent.header">
+        <source>Form consent</source>
+        <target state="needs-translation">Form consent</target>
+      </trans-unit>
+      <trans-unit id="plugins.consent.body">
+        <source>Inserts a plugin which allows approval and dismiss of form consents.</source>
+        <target state="needs-translation">Inserts a plugin which allows approval and dismiss of form consents.</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent">
+        <source>Consent</source>
+        <target state="needs-translation">Consent</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.email">
+        <source>E-mail address</source>
+        <target state="needs-translation">E-mail address</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.date">
+        <source>Submit date</source>
+        <target state="needs-translation">Submit date</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.data">
+        <source>Form data</source>
+        <target state="needs-translation">Form data</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.form_persistence_identifier">
+        <source>Form location</source>
+        <target state="needs-translation">Form location</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.approved">
+        <source>Approved</source>
+        <target state="needs-translation">Approved</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.valid_until">
+        <source>Valid until</source>
+        <target state="needs-translation">Valid until</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.approval_date">
+        <source>Date of approval</source>
+        <target state="needs-translation">Date of approval</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.validation_hash">
+        <source>Validation hash</source>
+        <target state="needs-translation">Validation hash</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
