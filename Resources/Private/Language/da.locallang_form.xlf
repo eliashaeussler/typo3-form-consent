@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="da">
+    <header/>
+    <body>
+      <trans-unit id="formEditor.elements.Form.editor.finishers.Consent.label">
+        <source>Consent</source>
+        <target state="needs-translation">Consent</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.default.label">
+        <source>Consent</source>
+        <target state="needs-translation">Consent</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.subject.label">
+        <source>Subject</source>
+        <target state="needs-translation">Subject</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientAddress.label">
+        <source>Recipient e-mail address</source>
+        <target state="needs-translation">Recipient e-mail address</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientName.label">
+        <source>Recipient name</source>
+        <target state="needs-translation">Recipient name</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderAddress.label">
+        <source>Sender e-mail address</source>
+        <target state="needs-translation">Sender e-mail address</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderName.label">
+        <source>Sender name</source>
+        <target state="needs-translation">Sender name</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label">
+        <source>Approval period</source>
+        <target state="needs-translation">Approval period</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.fieldExplanationText">
+        <source>Time period in seconds where consent can be given. Set this value to "0" to allow unlimited approval.</source>
+        <target state="needs-translation">Time period in seconds where consent can be given. Set this value to "0" to allow unlimited approval.</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.label">
+        <source>Show dismiss link</source>
+        <target state="needs-translation">Show dismiss link</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.fieldExplanationText">
+        <source>Enable this checkbox if users should be able to dismiss their consent.</source>
+        <target state="needs-translation">Enable this checkbox if users should be able to dismiss their consent.</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.label">
+        <source>Confirmation page</source>
+        <target state="needs-translation">Confirmation page</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.buttonLabel">
+        <source>Page</source>
+        <target state="needs-translation">Page</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.label">
+        <source>Storage page</source>
+        <target state="needs-translation">Storage page</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel">
+        <source>Page</source>
+        <target state="needs-translation">Page</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finisher.Consent.editor.header.label">
+        <source>Consent</source>
+        <target state="needs-translation">Consent</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.label">
+        <source>Consent</source>
+        <target state="needs-translation">Consent</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.subject.label">
+        <source>Subject</source>
+        <target state="needs-translation">Subject</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.recipientAddress.label">
+        <source>Recipient e-mail address</source>
+        <target state="needs-translation">Recipient e-mail address</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.recipientName.label">
+        <source>Recipient name</source>
+        <target state="needs-translation">Recipient name</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.senderAddress.label">
+        <source>Sender e-mail address</source>
+        <target state="needs-translation">Sender e-mail address</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.senderName.label">
+        <source>Sender name</source>
+        <target state="needs-translation">Sender name</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.approvalPeriod.label">
+        <source>Approval period</source>
+        <target state="needs-translation">Approval period</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.showDismissLink.label">
+        <source>Show dismiss link</source>
+        <target state="needs-translation">Show dismiss link</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.confirmationPid.label">
+        <source>Confirmation page</source>
+        <target state="needs-translation">Confirmation page</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.storagePid.label">
+        <source>Storage page</source>
+        <target state="needs-translation">Storage page</target>
+      </trans-unit>
+      <trans-unit id="validation.recipientAddress.empty">
+        <source>The finisher option "recipientAddress" must be set.</source>
+        <target state="needs-translation">The finisher option "recipientAddress" must be set.</target>
+      </trans-unit>
+      <trans-unit id="validation.recipientAddress.invalid">
+        <source>The finisher option "recipientAddress" must contain a valid e-mail address.</source>
+        <target state="needs-translation">The finisher option "recipientAddress" must contain a valid e-mail address.</target>
+      </trans-unit>
+      <trans-unit id="validation.senderAddress.invalid">
+        <source>The finisher option "senderAddress" must contain a valid e-mail address.</source>
+        <target state="needs-translation">The finisher option "senderAddress" must contain a valid e-mail address.</target>
+      </trans-unit>
+      <trans-unit id="validation.validationPeriod.invalid">
+        <source>The finisher option "validationPeriod" must be zero or more seconds.</source>
+        <target state="needs-translation">The finisher option "validationPeriod" must be zero or more seconds.</target>
+      </trans-unit>
+      <trans-unit id="validation.confirmationPid.empty">
+        <source>The finisher option "confirmationPid" must be set.</source>
+        <target state="needs-translation">The finisher option "confirmationPid" must be set.</target>
+      </trans-unit>
+      <trans-unit id="validation.confirmationPid.invalid">
+        <source>The finisher option "confirmationPid" must be set to a valid page.</source>
+        <target state="needs-translation">The finisher option "confirmationPid" must be set to a valid page.</target>
+      </trans-unit>
+      <trans-unit id="validation.storagePid.empty">
+        <source>The finisher option "storagePid" must be set.</source>
+        <target state="needs-translation">The finisher option "storagePid" must be set.</target>
+      </trans-unit>
+      <trans-unit id="validation.storagePid.invalid">
+        <source>The finisher option "storagePid" must be set to a valid page.</source>
+        <target state="needs-translation">The finisher option "storagePid" must be set to a valid page.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
