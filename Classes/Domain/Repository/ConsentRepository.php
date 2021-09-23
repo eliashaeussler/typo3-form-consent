@@ -38,8 +38,6 @@ class ConsentRepository extends Repository
 {
     public function initializeObject(): void
     {
-        // @todo check whether this works in v10
-
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);

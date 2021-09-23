@@ -8,6 +8,8 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # Prepare environment
       - name: Setup PHP
