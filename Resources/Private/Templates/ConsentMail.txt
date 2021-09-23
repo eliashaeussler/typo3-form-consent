@@ -1,0 +1,12 @@
+<f:layout name="SystemEmail" />
+
+<f:section name="Title">{f:translate(key: 'consentMail.title', extensionName: 'FormConsent')}</f:section>
+
+<f:section name="Main">{f:translate(key: 'consentMail.salutation', extensionName: 'FormConsent', arguments: '{0: consent.email}') -> f:spaceless()},
+
+{f:translate(key: 'consentMail.body.approve', extensionName: 'FormConsent')}
+
+{f:render(partial: 'Link/Approve', arguments: '{consent: consent, pageUid: confirmationPid}') -> f:spaceless()}
+<f:if condition="{showDismissLink}">{f:translate(key: 'consentMail.body.dismiss', extensionName: 'FormConsent')}
+
+{f:render(partial: 'Link/Dismiss', arguments: '{consent: consent, pageUid: confirmationPid}') -> f:spaceless()}</f:if></f:section>

@@ -1,0 +1,22 @@
+plugin.tx_formconsent {
+  view {
+    templateRootPaths {
+      20 = EXT:form_consent/Resources/Private/Templates
+      30 = {$plugin.tx_formconsent.view.templateRootPath}
+    }
+
+    partialRootPaths {
+      20 = EXT:form_consent/Resources/Private/Partials
+      30 = {$plugin.tx_formconsent.view.partialRootPath}
+    }
+
+    layoutRootPaths {
+      20 = EXT:form_consent/Resources/Private/Layouts
+      30 = {$plugin.tx_formconsent.view.layoutRootPath}
+    }
+  }
+
+  persistence {
+    storagePid = {$plugin.tx_formconsent.persistence.storagePid}
+  }
+}

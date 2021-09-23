@@ -1,0 +1,170 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formEditor:
+            translationFiles:
+              1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
+          formElementsDefinition:
+            Form:
+              renderingOptions:
+                translation:
+                  translationFiles:
+                    # @todo is this still required?
+                    # 10: 'EXT:form/Resources/Private/Language/locallang.xlf'
+                    1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      1576524144:
+                        value: 'Consent'
+                        label: 'formEditor.elements.Form.editor.finishers.Consent.label'
+                propertyCollections:
+                  finishers:
+                    1576524144:
+                      identifier: 'Consent'
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        100:
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.default.label'
+                        200:
+                          identifier: 'subject'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.subject.label'
+                          propertyPath: 'options.subject'
+                        300:
+                          identifier: 'recipientAddress'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.recipientAddress.label'
+                          propertyPath: 'options.recipientAddress'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'NotEmpty'
+                            20: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        400:
+                          identifier: 'recipientName'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.recipientName.label'
+                          propertyPath: 'options.recipientName'
+                        500:
+                          identifier: 'senderAddress'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.senderAddress.label'
+                          propertyPath: 'options.senderAddress'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        600:
+                          identifier: 'senderName'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.senderName.label'
+                          propertyPath: 'options.senderName'
+                        700:
+                          identifier: 'approvalPeriod'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label'
+                          propertyPath: 'options.approvalPeriod'
+                          fieldExplanationText: 'formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.fieldExplanationText'
+                          propertyValidators:
+                            10: 'NotEmpty'
+                            20: 'Integer'
+                        800:
+                          identifier: 'showDismissLink'
+                          templateName: 'Inspector-CheckboxEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.showDismissLink.label'
+                          propertyPath: 'options.showDismissLink'
+                          fieldExplanationText: 'formEditor.elements.Form.finishers.Consent.editor.showDismissLink.fieldExplanationText'
+                        900:
+                          identifier: 'confirmationPid'
+                          templateName: 'Inspector-Typo3WinBrowserEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.confirmationPid.label'
+                          buttonLabel: 'formEditor.elements.Form.finishers.Consent.editor.confirmationPid.buttonLabel'
+                          browsableType: pages
+                          iconIdentifier: apps-pagetree-page-default
+                          propertyPath: 'options.confirmationPid'
+                          propertyValidators:
+                            10: 'NotEmpty'
+                            20: 'Integer'
+                        1000:
+                          identifier: 'storagePid'
+                          templateName: 'Inspector-Typo3WinBrowserEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.storagePid.label'
+                          buttonLabel: 'formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel'
+                          browsableType: pages
+                          iconIdentifier: 'apps-pagetree-page-default'
+                          propertyPath: 'options.storagePid'
+          finishersDefinition:
+            Consent:
+              formEditor:
+                iconIdentifier: 'form-finisher'
+                label: 'formEditor.elements.Form.finisher.Consent.editor.header.label'
+                predefinedDefaults:
+                  options:
+                    subject: ''
+                    recipientAddress: ''
+                    recipientName: ''
+                    senderAddress: ''
+                    senderName: ''
+                    # Approval period in seconds (default: 1 day)
+                    approvalPeriod: '86400'
+                    showDismissLink: false
+                    confirmationPid: ''
+                    storagePid: ''
+              FormEngine:
+                label: 'tt_content.finishersDefinition.Consent.label'
+                elements:
+                  subject:
+                    label: 'tt_content.finishersDefinition.Consent.subject.label'
+                    config:
+                      type: 'input'
+                      eval: 'trim'
+                  recipientAddress:
+                    label: 'tt_content.finishersDefinition.Consent.recipientAddress.label'
+                    config:
+                      type: 'input'
+                      eval: 'trim,required'
+                  recipientName:
+                    label: 'tt_content.finishersDefinition.Consent.recipientName.label'
+                    config:
+                      type: 'input'
+                      eval: 'trim'
+                  senderAddress:
+                    label: 'tt_content.finishersDefinition.Consent.senderAddress.label'
+                    config:
+                      type: 'input'
+                      eval: 'trim'
+                  senderName:
+                    label: 'tt_content.finishersDefinition.Consent.senderName.label'
+                    config:
+                      type: 'input'
+                      eval: 'trim'
+                  approvalPeriod:
+                    label: 'tt_content.finishersDefinition.Consent.approvalPeriod.label'
+                    config:
+                      type: 'input'
+                      eval: 'trim,int'
+                  showDismissLink:
+                    label: 'tt_content.finishersDefinition.Consent.showDismissLink.label'
+                    config:
+                      type: 'check'
+                  confirmationPid:
+                    label: 'tt_content.finishersDefinition.Consent.confirmationPid.label'
+                    config:
+                      type: 'group'
+                      internal_type: 'db'
+                      allowed: 'pages'
+                      size: 1
+                      minitems: 1
+                      maxitems: 1
+                  storagePid:
+                    label: 'tt_content.finishersDefinition.Consent.storagePid.label'
+                    config:
+                      type: 'group'
+                      internal_type: 'db'
+                      allowed: 'pages'
+                      size: 1
+                      minitems: 1
+                      maxitems: 1

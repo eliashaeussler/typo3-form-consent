@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+    <file source-language="en">
+        <header/>
+        <body>
+            <trans-unit id="form.message.newRecord">
+                <source>No data submitted yet.</source>
+            </trans-unit>
+            <trans-unit id="form.message.noDataAvailable">
+                <source>No form data was submitted.</source>
+            </trans-unit>
+
+			<trans-unit id="form.data.header">
+				<source>Submitted form data</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

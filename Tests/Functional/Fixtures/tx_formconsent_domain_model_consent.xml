@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <tx_formconsent_domain_model_consent>
+        <uid>1</uid>
+        <deleted>0</deleted>
+        <approved>0</approved>
+        <validation_hash>foo</validation_hash>
+    </tx_formconsent_domain_model_consent>
+    <tx_formconsent_domain_model_consent>
+        <uid>2</uid>
+        <deleted>0</deleted>
+        <approved>0</approved>
+        <valid_until>2147483647</valid_until>
+        <validation_hash>baz</validation_hash>
+    </tx_formconsent_domain_model_consent>
+    <tx_formconsent_domain_model_consent>
+        <uid>3</uid>
+        <deleted>1</deleted>
+        <approved>0</approved>
+        <valid_until>2147483647</valid_until>
+        <validation_hash>blub</validation_hash>
+    </tx_formconsent_domain_model_consent>
+    <tx_formconsent_domain_model_consent>
+        <uid>4</uid>
+        <deleted>0</deleted>
+        <approved>1</approved>
+        <valid_until>100</valid_until>
+        <validation_hash>dummy</validation_hash>
+    </tx_formconsent_domain_model_consent>
+</dataset>

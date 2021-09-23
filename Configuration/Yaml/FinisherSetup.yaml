@@ -1,0 +1,18 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          finishersDefinition:
+            Consent:
+              implementationClassName: 'EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher'
+              options:
+                subject: ''
+                recipientAddress: ''
+                recipientName: ''
+                senderAddress: ''
+                senderName: ''
+                approvalPeriod: ''
+                showDismissLink: false
+                confirmationPid: ''
+                storagePid: ''
