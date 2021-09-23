@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="ro">
+    <header/>
+    <body>
+      <trans-unit id="consentMail.subject">
+        <source>Approve your consent</source>
+        <target state="needs-translation">Approve your consent</target>
+      </trans-unit>
+      <trans-unit id="consentMail.title">
+        <source>Please approve your consent</source>
+        <target state="needs-translation">Please approve your consent</target>
+      </trans-unit>
+      <trans-unit id="consentMail.salutation">
+        <source>Hello %s</source>
+        <target state="needs-translation">Hello %s</target>
+      </trans-unit>
+      <trans-unit id="consentMail.body.approve">
+        <source>your consent was registered successfully. Please click the following link to approve it:</source>
+        <target state="needs-translation">your consent was registered successfully. Please click the following link to approve it:</target>
+      </trans-unit>
+      <trans-unit id="consentMail.body.dismiss">
+        <source>If you feel this consent was given by accident or if you want to dismiss it, please click the following link:</source>
+        <target state="needs-translation">If you feel this consent was given by accident or if you want to dismiss it, please click the following link:</target>
+      </trans-unit>
+      <trans-unit id="consentMail.error">
+        <source>The consent mail could not be sent.</source>
+        <target state="needs-translation">The consent mail could not be sent.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.invalidConsent.title">
+        <source>Invalid link</source>
+        <target state="needs-translation">Invalid link</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.invalidConsent.body">
+        <source>The link you clicked is no longer valid or has already been clicked. Please fill out the form again.</source>
+        <target state="needs-translation">The link you clicked is no longer valid or has already been clicked. Please fill out the form again.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.invalidEmail.title">
+        <source>Invalid email address</source>
+        <target state="needs-translation">Invalid email address</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.invalidEmail.body">
+        <source>The email address sent with the link is not valid. Please fill out the form again.</source>
+        <target state="needs-translation">The email address sent with the link is not valid. Please fill out the form again.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.alreadyApproved.title">
+        <source>Consent already given</source>
+        <target state="needs-translation">Consent already given</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.alreadyApproved.body">
+        <source>The link you clicked has already been clicked. This means that consent has already been given and the link is no longer valid.</source>
+        <target state="needs-translation">The link you clicked has already been clicked. This means that consent has already been given and the link is no longer valid.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.unknown.title">
+        <source>Unknown error</source>
+        <target state="needs-translation">Unknown error</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.error.unknown.body">
+        <source>An unknown error has occurred. Please try clicking the link from the email again. If the problem persists, please fill out the form again.</source>
+        <target state="needs-translation">An unknown error has occurred. Please try clicking the link from the email again. If the problem persists, please fill out the form again.</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.success.title">
+        <source>Consent successful</source>
+        <target state="needs-translation">Consent successful</target>
+      </trans-unit>
+      <trans-unit id="consent.approve.success.body">
+        <source>Thank you, your approval was successful. You can now delete the email.</source>
+        <target state="needs-translation">Thank you, your approval was successful. You can now delete the email.</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.invalidConsent.title">
+        <source>Invalid link</source>
+        <target state="needs-translation">Invalid link</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.invalidConsent.body">
+        <source>The link you clicked is no longer valid or has already been clicked.</source>
+        <target state="needs-translation">The link you clicked is no longer valid or has already been clicked.</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.invalidEmail.title">
+        <source>Invalid email address</source>
+        <target state="needs-translation">Invalid email address</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.invalidEmail.body">
+        <source>The email address sent with the link is not valid. Please fill out the form again.</source>
+        <target state="needs-translation">The email address sent with the link is not valid. Please fill out the form again.</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.unknown.title">
+        <source>Unknown error</source>
+        <target state="needs-translation">Unknown error</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.error.unknown.body">
+        <source>An unknown error has occurred. Please try clicking the link from the email again. If the problem persists, please fill out the form again.</source>
+        <target state="needs-translation">An unknown error has occurred. Please try clicking the link from the email again. If the problem persists, please fill out the form again.</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.success.title">
+        <source>Consent successfully revoked</source>
+        <target state="needs-translation">Consent successfully revoked</target>
+      </trans-unit>
+      <trans-unit id="consent.dismiss.success.body">
+        <source>You have successfully revoked your consent. You can now delete the email.</source>
+        <target state="needs-translation">You have successfully revoked your consent. You can now delete the email.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
