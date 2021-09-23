@@ -13,6 +13,8 @@ jobs:
       release-notes-url: ${{ steps.create-release.outputs.url }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # Check if tag is valid
       - name: Check tag
@@ -65,6 +67,8 @@ jobs:
       TYPO3_EXCLUDE_FROM_PACKAGING: packaging_exclude.php
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # Check if tag is valid
       - name: Check tag
