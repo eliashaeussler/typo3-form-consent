@@ -11,8 +11,6 @@ TYPO3:
               renderingOptions:
                 translation:
                   translationFiles:
-                    # @todo is this still required?
-                    # 10: 'EXT:form/Resources/Private/Language/locallang.xlf'
                     1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
               formEditor:
                 editors:
@@ -96,6 +94,9 @@ TYPO3:
                           browsableType: pages
                           iconIdentifier: 'apps-pagetree-page-default'
                           propertyPath: 'options.storagePid'
+          formEngine:
+            translationFiles:
+              1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
           finishersDefinition:
             Consent:
               formEditor:
