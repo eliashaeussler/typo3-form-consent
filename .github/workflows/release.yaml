@@ -30,7 +30,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           addSections: '{"documentation":{"prefix":"### Documentation","labels":["documentation"]},"feature":{"prefix":"### Added","labels":["feature"]}}'
-          issueLineLabels: "breaking"
           breakingLabel: "### Breaking"
           enhancementLabel: "### Changed"
           bugsLabel: "### Fixed"
