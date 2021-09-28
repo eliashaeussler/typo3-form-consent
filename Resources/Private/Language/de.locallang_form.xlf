@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="formEditor.elements.Form.editor.finishers.Consent.label" approved="yes">
+        <source>Consent</source>
+        <target state="final">Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.default.label" approved="yes">
+        <source>Consent</source>
+        <target state="final">Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.subject.label" approved="yes">
+        <source>Subject</source>
+        <target state="final">Betreff</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientAddress.label" approved="yes">
+        <source>Recipient e-mail address</source>
+        <target state="final">E-Mail-Adresse des Empfängers</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientName.label" approved="yes">
+        <source>Recipient name</source>
+        <target state="final">Name des Empfängers</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderAddress.label" approved="yes">
+        <source>Sender e-mail address</source>
+        <target state="final">Absender-E-Mail-Adresse</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderName.label" approved="yes">
+        <source>Sender name</source>
+        <target state="final">Name des Absenders</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label" approved="yes">
+        <source>Approval period</source>
+        <target state="final">Zustimmungszeitraum</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.fieldExplanationText" approved="yes">
+        <source>Time period in seconds where consent can be given. Set this value to "0" to allow unlimited approval.</source>
+        <target state="final">Zeitraum in Sekunden, in dem die Zustimmung erteilt werden kann. Setzen Sie diesen Wert auf "0", um eine unbefristete Zustimmung zu ermöglichen.</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.label" approved="yes">
+        <source>Show dismiss link</source>
+        <target state="final">Link zum Ablehnen mitsenden</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.fieldExplanationText" approved="yes">
+        <source>Enable this checkbox if users should be able to dismiss their consent.</source>
+        <target state="final">Aktivieren Sie dieses Kästchen, wenn Benutzer ihre Einwilligung verwerfen können.</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.label" approved="yes">
+        <source>Confirmation page</source>
+        <target state="final">Bestätigungsseite</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.buttonLabel" approved="yes">
+        <source>Page</source>
+        <target state="final">Seite</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.label" approved="yes">
+        <source>Storage page</source>
+        <target state="final">Datensatz-Speicherort</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel" approved="yes">
+        <source>Page</source>
+        <target state="final">Seite</target>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finisher.Consent.editor.header.label" approved="yes">
+        <source>Consent</source>
+        <target state="final">Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.label" approved="yes">
+        <source>Consent</source>
+        <target state="final">Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.subject.label" approved="yes">
+        <source>Subject</source>
+        <target state="final">Betreff</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.recipientAddress.label" approved="yes">
+        <source>Recipient e-mail address</source>
+        <target state="final">E-Mail-Adresse des Empfängers</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.recipientName.label" approved="yes">
+        <source>Recipient name</source>
+        <target state="final">Name des Empfängers</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.senderAddress.label" approved="yes">
+        <source>Sender e-mail address</source>
+        <target state="final">Absender-E-Mail-Adresse</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.senderName.label" approved="yes">
+        <source>Sender name</source>
+        <target state="final">Name des Absenders</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.approvalPeriod.label" approved="yes">
+        <source>Approval period</source>
+        <target state="final">Zustimmungszeitraum</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.showDismissLink.label" approved="yes">
+        <source>Show dismiss link</source>
+        <target state="final">Link zum Ablehnen mitsenden</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.confirmationPid.label" approved="yes">
+        <source>Confirmation page</source>
+        <target state="final">Bestätigungsseite</target>
+      </trans-unit>
+      <trans-unit id="tt_content.finishersDefinition.Consent.storagePid.label" approved="yes">
+        <source>Storage page</source>
+        <target state="final">Datensatz-Speicherort</target>
+      </trans-unit>
+      <trans-unit id="validation.recipientAddress.empty" approved="yes">
+        <source>The finisher option "recipientAddress" must be set.</source>
+        <target state="final">Die Finisher-Option "recipientAddress" muss gesetzt sein.</target>
+      </trans-unit>
+      <trans-unit id="validation.recipientAddress.invalid" approved="yes">
+        <source>The finisher option "recipientAddress" must contain a valid e-mail address.</source>
+        <target state="final">Die Finisher-Option "recipientAddress" muss eine gültige E-Mail Adresse enthalten.</target>
+      </trans-unit>
+      <trans-unit id="validation.senderAddress.invalid" approved="yes">
+        <source>The finisher option "senderAddress" must contain a valid e-mail address.</source>
+        <target state="final">Die Finisher-Option "senderAddress" muss eine gültige E-Mail Adresse enthalten.</target>
+      </trans-unit>
+      <trans-unit id="validation.validationPeriod.invalid" approved="yes">
+        <source>The finisher option "validationPeriod" must be zero or more seconds.</source>
+        <target state="final">Die Finisher-Option "validationPeriod" muss 0 oder mehr Sekunden betragen.</target>
+      </trans-unit>
+      <trans-unit id="validation.confirmationPid.empty" approved="yes">
+        <source>The finisher option "confirmationPid" must be set.</source>
+        <target state="final">Die Finisher-Option "confirmationPid" muss gesetzt sein.</target>
+      </trans-unit>
+      <trans-unit id="validation.confirmationPid.invalid" approved="yes">
+        <source>The finisher option "confirmationPid" must be set to a valid page.</source>
+        <target state="final">Die Finisher-Option "confirmationPid" muss auf eine gültige Seite gesetzt werden.</target>
+      </trans-unit>
+      <trans-unit id="validation.storagePid.empty" approved="yes">
+        <source>The finisher option "storagePid" must be set.</source>
+        <target state="final">Die Finisher-Option "storagePid" muss gesetzt sein.</target>
+      </trans-unit>
+      <trans-unit id="validation.storagePid.invalid" approved="yes">
+        <source>The finisher option "storagePid" must be set to a valid page.</source>
+        <target state="final">Die Finisher-Option "storagePid" muss auf eine gültige Seite gesetzt werden.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
