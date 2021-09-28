@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Controller\ConsentController;
+use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Form\Element\ConsentDataElement;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
 
 /**
  * Extension
@@ -85,5 +87,21 @@ final class Extension
         );
 
         Icon::registerForPluginIdentifier('Consent');
+    }
+
+    /**
+     * Register garbage collection task for consent table.
+     *
+     * FOR USE IN ext_localconf.php ONLY.
+     */
+    public static function registerGarbageCollectionTask(): void
+    {
+        if (!ExtensionManagementUtility::isLoaded('scheduler')) {
+            return;
+        }
+
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][TableGarbageCollectionTask::class]['options']['tables'][Consent::TABLE_NAME] = [
+            'expireField' => 'valid_until',
+        ];
     }
 }
