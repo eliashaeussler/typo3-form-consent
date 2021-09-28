@@ -84,7 +84,7 @@ class IconTest extends UnitTestCase
      */
     public function forPluginIdentifierThrowsExceptionIfPluginIdentifierIsInvalid(string $pluginName): void
     {
-        $this->expectException(\LogicException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionCode(1587655457);
 
         Icon::forPluginIdentifier($pluginName);
@@ -99,6 +99,45 @@ class IconTest extends UnitTestCase
     public function forPluginIdentifierReturnsCorrectPluginIdentifier(string $pluginName, string $expected): void
     {
         self::assertSame($expected, Icon::forPluginIdentifier($pluginName));
+    }
+
+    /**
+     * @test
+     * @dataProvider forWidgetReturnsCorrectFileNameDataProvider
+     * @param string|null $type
+     * @param string $expected
+     */
+    public function forWidgetReturnsCorrectFileName(?string $type, string $expected): void
+    {
+        if ($type !== null) {
+            self::assertSame($expected, Icon::forWidget('dummy', $type));
+        } else {
+            self::assertSame($expected, Icon::forWidget('dummy'));
+        }
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidIdentifierDataProvider
+     * @param string $widgetName
+     */
+    public function forWidgetIdentifierThrowsExceptionIfWidgetIdentifierIsInvalid(string $widgetName): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1632850400);
+
+        Icon::forWidgetIdentifier($widgetName);
+    }
+
+    /**
+     * @test
+     * @dataProvider forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider
+     * @param string $widgetName
+     * @param string $expected
+     */
+    public function forWidgetIdentifierReturnsCorrectWidgetIdentifier(string $widgetName, string $expected): void
+    {
+        self::assertSame($expected, Icon::forWidgetIdentifier($widgetName));
     }
 
     /**
@@ -141,5 +180,26 @@ class IconTest extends UnitTestCase
         yield 'valid plugin name' => ['foo', 'content-plugin-foo'];
         yield 'plugin name with whitespaces' => [' foo   ', 'content-plugin-foo'];
         yield 'plugin name in upper camelcase' => ['FooBaz', 'content-plugin-foo-baz'];
+    }
+
+    /**
+     * @return \Generator<string, array>
+     */
+    public function forWidgetReturnsCorrectFileNameDataProvider(): \Generator
+    {
+        yield 'no type' => [null, 'EXT:form_consent/Resources/Public/Icons/widget.dummy.svg'];
+        yield 'custom type' => ['jpg', 'EXT:form_consent/Resources/Public/Icons/widget.dummy.jpg'];
+        yield 'non-trimmed type' => ['   svg  ', 'EXT:form_consent/Resources/Public/Icons/widget.dummy.svg'];
+        yield 'case-sensitive type' => ['jpEG', 'EXT:form_consent/Resources/Public/Icons/widget.dummy.jpEG'];
+    }
+
+    /**
+     * @return \Generator<string, array>
+     */
+    public function forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider(): \Generator
+    {
+        yield 'valid widget name' => ['foo', 'content-widget-foo'];
+        yield 'widget name with whitespaces' => [' foo   ', 'content-widget-foo'];
+        yield 'widget name in upper camelcase' => ['FooBaz', 'content-widget-foo-baz'];
     }
 }
