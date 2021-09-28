@@ -31,6 +31,7 @@ use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentEvent;
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentMailEvent;
 use EliasHaeussler\Typo3FormConsent\Service\HashService;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -382,6 +383,12 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
             $mail->from(new Address($this->senderAddress, $this->senderName));
         }
 
+        // Set the PSR-7 request object if available
+        $serverRequest = $this->getServerRequest();
+        if (null !== $serverRequest) {
+            $mail->setRequest($serverRequest);
+        }
+
         return $mail;
     }
 
@@ -491,5 +498,10 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         if ($cancel) {
             $this->finisherContext->cancel();
         }
+    }
+
+    protected function getServerRequest(): ?ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'] ?? null;
     }
 }
