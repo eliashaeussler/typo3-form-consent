@@ -91,6 +91,16 @@ final class Localization
         return self::forKey('form.' . $key, self::TYPE_BACKEND, $translate);
     }
 
+    public static function forWidget(string $widgetName, string $item, bool $translate = false): string
+    {
+        return self::forKey('widgets.' . $widgetName . '.' . $item, self::TYPE_BACKEND, $translate);
+    }
+
+    public static function forChart(string $chartName, bool $translate = false): string
+    {
+        return self::forKey('charts.' . $chartName, self::TYPE_BACKEND, $translate);
+    }
+
     public static function forKey(string $key, ?string $type = self::TYPE_DEFAULT, bool $translate = false): string
     {
         $localizationString = self::buildLocalizationString($type ?? self::TYPE_DEFAULT, $key);

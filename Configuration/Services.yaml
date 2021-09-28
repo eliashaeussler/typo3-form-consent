@@ -6,6 +6,8 @@ services:
 
   EliasHaeussler\Typo3FormConsent\:
     resource: '../Classes/*'
+    exclude:
+      - '../Classes/DependencyInjection/*'
 
   EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher:
     public: true

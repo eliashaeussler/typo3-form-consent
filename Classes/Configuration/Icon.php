@@ -72,6 +72,34 @@ final class Icon
         );
     }
 
+    public static function forWidget(string $widgetName, string $type = 'svg'): string
+    {
+        return self::buildIconPath('widget.' . lcfirst($widgetName), $type);
+    }
+
+    public static function forWidgetIdentifier(string $widgetName): string
+    {
+        $widgetName = trim($widgetName);
+        $widgetName = str_replace('_', '-', GeneralUtility::camelCaseToLowerCaseUnderscored($widgetName));
+
+        if ('' === $widgetName) {
+            throw new \InvalidArgumentException(
+                'Widget name must not be empty when generating icon widget identifier.',
+                1632850400
+            );
+        }
+
+        return 'content-widget-' . $widgetName;
+    }
+
+    public static function registerForWidgetIdentifier(string $widgetName, string $type = 'svg'): void
+    {
+        self::register(
+            self::forWidget($widgetName, $type),
+            self::forWidgetIdentifier($widgetName)
+        );
+    }
+
     /**
      * @param string $fileName
      * @param string $type

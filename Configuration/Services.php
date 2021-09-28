@@ -1,11 +1,11 @@
 <?php
 
-defined('TYPO3') or die();
+declare(strict_types=1);
 
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2021 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,15 @@ defined('TYPO3') or die();
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerFormEngineNode();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPageTsConfig();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPlugin();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerIcons();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerGarbageCollectionTask();
+namespace EliasHaeussler\Typo3FormConsent;
+
+use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigurator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container) {
+    if ($container->hasDefinition('dashboard.views.widget')) {
+        $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
+        $servicesConfigurator->configureServices();
+    }
+};
