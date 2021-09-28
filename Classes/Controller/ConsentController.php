@@ -86,6 +86,7 @@ class ConsentController extends ActionController
         // Approve consent
         $consent->setApproved(true);
         $consent->setApprovalDate(new \DateTime());
+        $consent->setValidUntil(null);
         $this->eventDispatcher->dispatch(new ApproveConsentEvent($consent));
         $this->consentRepository->update($consent);
 
