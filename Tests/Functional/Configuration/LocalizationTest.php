@@ -101,6 +101,26 @@ class LocalizationTest extends FunctionalTestCase
 
     /**
      * @test
+     */
+    public function forWidgetReturnsLocalizationKeyForGivenWidget(): void
+    {
+        $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:widgets.foo.title';
+        self::assertSame($expected, Localization::forWidget('foo', 'title'));
+        $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:widgets.foo.description';
+        self::assertSame($expected, Localization::forWidget('foo', 'description'));
+    }
+
+    /**
+     * @test
+     */
+    public function forChartReturnsLocalizationKeyForGivenChart(): void
+    {
+        $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:charts.foo';
+        self::assertSame($expected, Localization::forChart('foo'));
+    }
+
+    /**
+     * @test
      * @dataProvider forKeyReturnsLocalizationKeyDataProvider
      * @param string $key
      * @param string|null $type

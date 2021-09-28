@@ -54,4 +54,33 @@ class IconTest extends FunctionalTestCase
 
         self::assertSame($expected, $actual);
     }
+
+    /**
+     * @test
+     */
+    public function registerForWidgetIdentifierRegistersIconCorrectly(): void
+    {
+        Icon::registerForWidgetIdentifier('approvedConsents');
+
+        $actual = GeneralUtility::makeInstance(IconRegistry::class)->getIconConfigurationByIdentifier('content-widget-approved-consents');
+        $expected = [
+            'provider' => SvgIconProvider::class,
+            'options' => [
+                'source' => 'EXT:form_consent/Resources/Public/Icons/widget.approvedConsents.svg'
+            ],
+        ];
+
+        self::assertSame($expected, $actual);
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        // Reset icon registry in subject
+        $reflectionClass = new \ReflectionClass(Icon::class);
+        $reflectionProperty = $reflectionClass->getProperty('iconRegistry');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue(null);
+    }
 }

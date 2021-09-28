@@ -85,8 +85,17 @@ final class Extension
                 ConsentController::class => 'approve, dismiss',
             ]
         );
+    }
 
+    /**
+     * Register custom icons.
+     *
+     * FOR USE IN ext_localconf.php ONLY.
+     */
+    public static function registerIcons(): void
+    {
         Icon::registerForPluginIdentifier('Consent');
+        Icon::registerForWidgetIdentifier('approvedConsents');
     }
 
     /**

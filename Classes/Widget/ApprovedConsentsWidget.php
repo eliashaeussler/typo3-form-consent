@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3') or die();
+declare(strict_types=1);
 
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
@@ -21,8 +21,16 @@ defined('TYPO3') or die();
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerFormEngineNode();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPageTsConfig();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPlugin();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerIcons();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerGarbageCollectionTask();
+namespace EliasHaeussler\Typo3FormConsent\Widget;
+
+use TYPO3\CMS\Dashboard\Widgets\DoughnutChartWidget;
+
+/**
+ * ApprovedConsentsWidget
+ *
+ * @author Elias Häußler <elias@haeussler.dev>
+ * @license GPL-2.0-or-later
+ */
+class ApprovedConsentsWidget extends DoughnutChartWidget
+{
+}
