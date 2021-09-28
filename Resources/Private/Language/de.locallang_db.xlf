@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="tabs.consent" approved="yes">
+        <source>Consent</source>
+        <target state="final">Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="plugins.consent" approved="yes">
+        <source>Form consent</source>
+        <target state="final">Formular-Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="plugins.consent.header" approved="yes">
+        <source>Form consent</source>
+        <target state="final">Formular-Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="plugins.consent.body" approved="yes">
+        <source>Inserts a plugin which allows approval and dismiss of form consents.</source>
+        <target state="final">Fügt ein Plug-In ein, das die Zustimmung und Ablehnung von Formular-Einwilligungen ermöglicht.</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent" approved="yes">
+        <source>Consent</source>
+        <target state="final">Einwilligung</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.email" approved="yes">
+        <source>E-mail address</source>
+        <target state="final">E-Mail-Adresse</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.date" approved="yes">
+        <source>Submit date</source>
+        <target state="final">Übermittlungsdatum</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.data" approved="yes">
+        <source>Form data</source>
+        <target state="final">Übermittelte Daten</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.form_persistence_identifier" approved="yes">
+        <source>Form location</source>
+        <target state="final">Formular-Speicherort</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.approved" approved="yes">
+        <source>Approved</source>
+        <target state="final">Zugestimmt</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.valid_until" approved="yes">
+        <source>Valid until</source>
+        <target state="final">Gültig bis</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.approval_date" approved="yes">
+        <source>Date of approval</source>
+        <target state="final">Datum der Zustimmung</target>
+      </trans-unit>
+      <trans-unit id="tx_formconsent_domain_model_consent.validation_hash" approved="yes">
+        <source>Validation hash</source>
+        <target state="final">Validierungs-Hash</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
