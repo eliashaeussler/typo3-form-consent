@@ -24,3 +24,4 @@ defined('TYPO3') or die();
 \EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerFormEngineNode();
 \EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPageTsConfig();
 \EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPlugin();
+\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerGarbageCollectionTask();
