@@ -24,9 +24,9 @@ TYPO3:
                     1576524144:
                       identifier: 'Consent'
                       editors:
-                        __inheritances:
-                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
                         100:
+                          identifier: header
+                          templateName: Inspector-CollectionElementHeaderEditor
                           label: 'formEditor.elements.Form.finishers.Consent.editor.default.label'
                         200:
                           identifier: 'subject'
@@ -94,6 +94,9 @@ TYPO3:
                           browsableType: pages
                           iconIdentifier: 'apps-pagetree-page-default'
                           propertyPath: 'options.storagePid'
+                        9999:
+                          identifier: removeButton
+                          templateName: Inspector-RemoveElementEditor
           formEngine:
             translationFiles:
               1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
