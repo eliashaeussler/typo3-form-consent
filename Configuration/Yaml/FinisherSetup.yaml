@@ -16,3 +16,6 @@ TYPO3:
                 showDismissLink: false
                 confirmationPid: ''
                 storagePid: ''
+                templateRootPaths: { }
+                partialRootPaths: { }
+                layoutRootPaths: { }
