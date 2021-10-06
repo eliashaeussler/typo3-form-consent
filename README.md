@@ -81,6 +81,13 @@ The following options are available to the `Consent` finisher:
 | **`showDismissLink`** | Show dismiss link in consent mail | :x: | `false` |
 | **`confirmationPid`** | Confirmation page (contains plugin) | :white_check_mark: | – |
 | **`storagePid`** | Storage page | :x: | `plugin.tx_formconsent.persistence.storagePid` |
+| **`templateRootPaths`** | Additional paths to template root | :x: | – |
+| **`partialRootPaths`** | Additional paths to template partials | :x: | – |
+| **`layoutRootPaths`** | Additional paths to template layouts | :x: | – |
+
+**Note:** Template paths that are configured via form finisher
+options are only applied to the appropriate form. They are merged
+with the default template paths configured via TypoScript.
 
 ## :gem: Credits
 
