@@ -29,13 +29,23 @@ EXT:form. It uses a system-dependent hash-based validation system
 * Several events for better customization
 * Scheduler garbage collection task for expired consents
 * Dashboard widget for approved, non-approved and dismissed consents
-* Compatible with TYPO3 10.4 LTS and 11 (dev)
+* Compatible with TYPO3 10.4 LTS and 11.5 LTS
 
 ## :fire: Installation
 
 ```bash
 composer require eliashaeussler/typo3-form-consent
 ```
+
+## :zap: Usage
+
+A new finisher `Consent` is available in the backend form editor.
+It saves all submitted form data in the database and sends a
+corresponding mail to either approve or dismiss a given consent.
+
+A plugin is required for approval or dismiss of the consent. The
+associated page containing the plugin must then be specified in the
+finisher settings.
 
 ## :open_file_folder: Configuration
 
@@ -68,16 +78,6 @@ The following options are available to the `Consent` finisher:
 | **`showDismissLink`** | Show dismiss link in consent mail | :x: | `false` |
 | **`confirmationPid`** | Confirmation page (contains plugin) | :white_check_mark: | – |
 | **`storagePid`** | Storage page | :x: | `plugin.tx_formconsent.persistence.storagePid` |
-
-## :zap: Usage
-
-A new finisher `Consent` is available in the backend form editor.
-It saves all submitted form data in the database and sends a
-corresponding mail to either approve or dismiss a given consent.
-
-A plugin is required for approval or dismiss of the consent. The
-associated page containing the plugin must then be specified in the
-finisher settings.
 
 ## :gem: Credits
 
