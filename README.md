@@ -29,7 +29,7 @@ EXT:form. It uses a system-dependent hash-based validation system
 * Several events for better customization
 * Scheduler garbage collection task for expired consents
 * Dashboard widget for approved, non-approved and dismissed consents
-* Compatible with TYPO3 10.4 LTS and 11 (dev)
+* Compatible with TYPO3 10.4 LTS and 11.5 LTS
 
 ## :fire: Installation
 
