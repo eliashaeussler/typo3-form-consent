@@ -18,13 +18,16 @@
 </div>
 
 An extension for TYPO3 CMS that adds double opt-in functionality to
-EXT:form. It uses a system-dependent hash-based validation system
-(using TYPO3's HMAC functionality) to approve and dismiss given consents.
+EXT:form. It allows the dynamic adaptation of the entire double opt-in
+process using various events. In addition, the extension integrates
+seamlessly into TYPO3, for example to delete expired consents in
+compliance with the GDPR.
 
 ## :rocket: Features
 
 * Custom `Consent` form finisher for EXT:form
 * Stores all submitted form data as JSON in database
+* System-dependent hash-based validation system (using TYPO3's HMAC functionality)
 * Plugin to approve or dismiss a consent
 * Several events for better customization
 * Scheduler garbage collection task for expired consents
@@ -78,6 +81,13 @@ The following options are available to the `Consent` finisher:
 | **`showDismissLink`** | Show dismiss link in consent mail | :x: | `false` |
 | **`confirmationPid`** | Confirmation page (contains plugin) | :white_check_mark: | – |
 | **`storagePid`** | Storage page | :x: | `plugin.tx_formconsent.persistence.storagePid` |
+| **`templateRootPaths`** | Additional paths to template root | :x: | – |
+| **`partialRootPaths`** | Additional paths to template partials | :x: | – |
+| **`layoutRootPaths`** | Additional paths to template layouts | :x: | – |
+
+**Note:** Template paths that are configured via form finisher
+options are only applied to the appropriate form. They are merged
+with the default template paths configured via TypoScript.
 
 ## :gem: Credits
 

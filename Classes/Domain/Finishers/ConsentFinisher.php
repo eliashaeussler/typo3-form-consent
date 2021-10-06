@@ -370,8 +370,17 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     protected function initializeMail(): FluidEmail
     {
         $defaultTemplateConfiguration = $GLOBALS['TYPO3_CONF_VARS']['MAIL'];
-        $templateConfiguration = $this->configuration['view'] ?? null;
-        $mergedTemplateConfiguration = array_replace_recursive($defaultTemplateConfiguration, $templateConfiguration);
+        $typoScriptTemplateConfiguration = $this->configuration['view'] ?? [];
+        $finisherTemplateConfiguration = [
+            'templateRootPaths' => $this->options['templateRootPaths'] ?? [],
+            'partialRootPaths' => $this->options['partialRootPaths'] ?? [],
+            'layoutRootPaths' => $this->options['layoutRootPaths'] ?? [],
+        ];
+        $mergedTemplateConfiguration = array_replace_recursive(
+            $defaultTemplateConfiguration,
+            $typoScriptTemplateConfiguration,
+            $finisherTemplateConfiguration
+        );
         $templatePaths = GeneralUtility::makeInstance(TemplatePaths::class, $mergedTemplateConfiguration);
 
         $mail = GeneralUtility::makeInstance(FluidEmail::class, $templatePaths)
