@@ -22,7 +22,7 @@
 /** @noinspection PhpUndefinedVariableInspection */
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Form consent',
-    'description' => 'Adds double opt-in functionality to EXT:form. It uses a system-dependent hash-based validation system (using TYPO3\'s HMAC functionality) to approve and dismiss given consents.',
+    'description' => 'An extension for TYPO3 CMS that adds double opt-in functionality to EXT:form. It allows the dynamic adaptation of the entire double opt-in process using various events. In addition, the extension integrates seamlessly into TYPO3, for example to delete outdated consents in compliance with the GDPR.',
     'category' => 'fe',
     'author' => 'Elias Häußler',
     'author_email' => 'elias@haeussler.dev',
