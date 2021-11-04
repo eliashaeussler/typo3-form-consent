@@ -42,7 +42,7 @@ jobs:
           issuesWoLabels: false
           pullRequests: true
           prWoLabels: true
-          stripHeaders: true
+          stripHeaders: false
           stripGeneratorNotice: true
       - name: Print changelog to console
         run: cat CHANGELOG.md
