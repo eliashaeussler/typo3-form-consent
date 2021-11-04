@@ -68,6 +68,9 @@ class ConsentController extends ActionController
     {
         $consent = $this->consentRepository->findOneByValidationHash($hash);
 
+        // Add template variable
+        $this->view->assign('consent', $consent);
+
         // Early return if consent could not be found
         if (null === $consent) {
             return $this->renderError('invalidConsent');
@@ -90,9 +93,6 @@ class ConsentController extends ActionController
         $this->eventDispatcher->dispatch(new ApproveConsentEvent($consent));
         $this->consentRepository->update($consent);
 
-        // Add template variable
-        $this->view->assign('consent', $consent);
-
         return $this->renderViewAsResponse();
     }
 
@@ -105,8 +105,10 @@ class ConsentController extends ActionController
      */
     public function dismissAction(string $hash, string $email): ?ResponseInterface
     {
-        /** @var Consent|null $consent */
         $consent = $this->consentRepository->findOneByValidationHash($hash);
+
+        // Add template variable
+        $this->view->assign('consent', $consent);
 
         // Early return if consent could not be found
         if ($consent === null) {
@@ -127,9 +129,6 @@ class ConsentController extends ActionController
         // Remove consent
         $this->consentRepository->remove($consent);
         $this->persistenceManager->persistAll();
-
-        // Add template variable
-        $this->view->assign('consent', $consent);
 
         return $this->renderViewAsResponse();
     }
