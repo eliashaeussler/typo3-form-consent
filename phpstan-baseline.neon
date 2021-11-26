@@ -1,0 +1,21 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Right side of \\|\\| is always false\\.$#"
+			count: 1
+			path: Configuration/Extbase/Persistence/Classes.php
+
+		-
+			message: "#^Right side of \\|\\| is always false\\.$#"
+			count: 1
+			path: Configuration/TCA/Overrides/sys_template.php
+
+		-
+			message: "#^Right side of \\|\\| is always false\\.$#"
+			count: 1
+			path: Configuration/TCA/Overrides/tt_content.php
+
+		-
+			message: "#^Right side of \\|\\| is always false\\.$#"
+			count: 1
+			path: Configuration/TCA/tx_formconsent_domain_model_consent.php
