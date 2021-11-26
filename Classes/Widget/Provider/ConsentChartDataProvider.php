@@ -48,7 +48,7 @@ class ConsentChartDataProvider implements ChartDataProviderInterface
     }
 
     /**
-     * @return array{labels: string[], datasets: array}
+     * @return array{labels: array<string>, datasets: array{0: array{backgroundColor: array<string>, data: array<int>}}}
      */
     public function getChartData(): array
     {
@@ -63,7 +63,7 @@ class ConsentChartDataProvider implements ChartDataProviderInterface
                     'backgroundColor' => WidgetApi::getDefaultChartColors(),
                     'data' => [$this->countApproved(), $this->countNonApproved(), $this->countDismissed()],
                 ],
-            ]
+            ],
         ];
     }
 

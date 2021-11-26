@@ -113,7 +113,7 @@ class ConsentRepositoryTest extends FunctionalTestCase
     }
 
     /**
-     * @return \Generator<string, array>
+     * @return \Generator<string, array{string, int}>
      */
     public function findByValidationHashReturnsValidConsentDataProvider(): \Generator
     {

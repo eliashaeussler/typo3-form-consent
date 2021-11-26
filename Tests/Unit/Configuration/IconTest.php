@@ -141,7 +141,7 @@ class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array>
+     * @return \Generator<string, array{string}>
      */
     public function invalidIdentifierDataProvider(): \Generator
     {
@@ -151,7 +151,7 @@ class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array>
+     * @return \Generator<string, array{string|null, string}>
      */
     public function forTableReturnsCorrectFileNameDataProvider(): \Generator
     {
@@ -162,7 +162,7 @@ class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array>
+     * @return \Generator<string, array{string|null, string}>
      */
     public function forPluginReturnsCorrectFileNameDataProvider(): \Generator
     {
@@ -173,7 +173,7 @@ class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array>
+     * @return \Generator<string, array{string, string}>
      */
     public function forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider(): \Generator
     {
@@ -183,7 +183,7 @@ class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array>
+     * @return \Generator<string, array{string|null, string}>
      */
     public function forWidgetReturnsCorrectFileNameDataProvider(): \Generator
     {
@@ -194,7 +194,7 @@ class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array>
+     * @return \Generator<string, array{string, string}>
      */
     public function forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider(): \Generator
     {
