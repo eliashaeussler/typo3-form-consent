@@ -10,25 +10,17 @@ additional_hostnames: []
 additional_fqdns: []
 mariadb_version: "10.3"
 mysql_version: ""
+nfs_mount_enabled: false
+mutagen_enabled: false
 omit_containers: [dba]
 webimage_extra_packages: [php8.0-pcov]
 use_dns_when_possible: true
 composer_version: ""
 web_environment:
-  - typo3DatabaseHost=db
-  - typo3DatabaseUsername=root
-  - typo3DatabasePassword=root
-  - typo3DatabaseName=db
-  - PHP_IDE_CONFIG=serverName=typo3-ext-form-consent.ddev.site
-
-
-# This config.yaml was created with ddev version v1.17.7
-# webimage: drud/ddev-webserver:v1.17.7
-# dbimage: drud/ddev-dbserver-mariadb-10.3:v1.17.7
-# dbaimage: phpmyadmin:5
-# However we do not recommend explicitly wiring these images into the
-# config.yaml as they may break future versions of ddev.
-# You can update this config.yaml using 'ddev config'.
+- typo3DatabaseHost=db
+- typo3DatabaseUsername=root
+- typo3DatabasePassword=root
+- typo3DatabaseName=db
 
 # Key features of ddev's config.yaml:
 
