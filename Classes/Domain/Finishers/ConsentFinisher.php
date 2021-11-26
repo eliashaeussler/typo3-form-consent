@@ -41,8 +41,10 @@ use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Fluid\View\TemplatePaths;
@@ -315,6 +317,17 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         // Remove honeypot field
         $honeypotIdentifier = $this->getHoneypotIdentifier();
         unset($formData[$honeypotIdentifier]);
+
+        foreach ($formData as $key => $value) {
+            if (is_object($value)) {
+                if ($value instanceof ExtbaseFileReference) {
+                    $value = $value->getOriginalResource();
+                }
+                if ($value instanceof CoreFileReference) {
+                    $formData[$key] = $value->getOriginalFile()->getUid();
+                }
+            }
+        }
 
         return $formData;
     }

@@ -185,7 +185,7 @@ class LocalizationTest extends FunctionalTestCase
     }
 
     /**
-     * @return \Generator<string, array>
+     * @return \Generator<string, array{string, string|null, string}>
      */
     public function forKeyReturnsLocalizationKeyDataProvider(): \Generator
     {

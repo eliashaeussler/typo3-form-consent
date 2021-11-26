@@ -48,7 +48,7 @@ class IconTest extends FunctionalTestCase
         $expected = [
             'provider' => SvgIconProvider::class,
             'options' => [
-                'source' => 'EXT:form_consent/Resources/Public/Icons/plugin.consent.svg'
+                'source' => 'EXT:form_consent/Resources/Public/Icons/plugin.consent.svg',
             ],
         ];
 
@@ -66,7 +66,7 @@ class IconTest extends FunctionalTestCase
         $expected = [
             'provider' => SvgIconProvider::class,
             'options' => [
-                'source' => 'EXT:form_consent/Resources/Public/Icons/widget.approvedConsents.svg'
+                'source' => 'EXT:form_consent/Resources/Public/Icons/widget.approvedConsents.svg',
             ],
         ];
 

@@ -1,4 +1,5 @@
 includes:
+    - phpstan-baseline.neon
     - .Build/vendor/jangregor/phpstan-prophecy/extension.neon
     - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
 parameters:
@@ -9,5 +10,3 @@ parameters:
         - Classes
         - Configuration
         - Tests
-    ignoreErrors:
-        - '#^Property [a-zA-Z0-9\\_]+::\$coreExtensionsToLoad type has no value type specified in iterable type array\.$#'
