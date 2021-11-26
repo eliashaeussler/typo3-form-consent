@@ -20,12 +20,12 @@
 		"symfony/dependency-injection": "^4.4 || ^5.0",
 		"symfony/mailer": "^4.4 || ^5.0",
 		"symfony/mime": "^4.4 || ^5.0",
-		"typo3/cms-backend": "^10.4 || ^11.5",
-		"typo3/cms-core": "^10.4 || ^11.5",
-		"typo3/cms-extbase": "^10.4 || ^11.5",
-		"typo3/cms-fluid": "^10.4 || ^11.5",
-		"typo3/cms-form": "^10.4 || ^11.5",
-		"typo3/cms-frontend": "^10.4 || ^11.5"
+		"typo3/cms-backend": "~10.4.0 || ~11.5.0",
+		"typo3/cms-core": "~10.4.0 || ~11.5.0",
+		"typo3/cms-extbase": "~10.4.0 || ~11.5.0",
+		"typo3/cms-fluid": "~10.4.0 || ~11.5.0",
+		"typo3/cms-form": "~10.4.0 || ~11.5.0",
+		"typo3/cms-frontend": "~10.4.0 || ~11.5.0"
 	},
 	"require-dev": {
 		"captainhook/plugin-composer": "^5.3",
@@ -38,17 +38,17 @@
 		"phpunit/phpunit": "^9.3",
 		"roave/security-advisories": "dev-latest",
 		"saschaegerer/phpstan-typo3": "^0.13.3",
-		"typo3/cms-dashboard": "^10.4 || ^11.5",
-		"typo3/cms-filelist": "^10.4 || ^11.5",
-		"typo3/cms-install": "^10.4 || ^11.5",
-		"typo3/cms-lowlevel": "^10.4 || ^11.5",
-		"typo3/cms-scheduler": "^10.4 || ^11.5",
+		"typo3/cms-dashboard": "~10.4.0 || ~11.5.0",
+		"typo3/cms-filelist": "~10.4.0 || ~11.5.0",
+		"typo3/cms-install": "~10.4.0 || ~11.5.0",
+		"typo3/cms-lowlevel": "~10.4.0 || ~11.5.0",
+		"typo3/cms-scheduler": "~10.4.0 || ~11.5.0",
 		"typo3/coding-standards": "^0.3.0",
 		"typo3/testing-framework": "^6.13"
 	},
 	"suggest": {
-		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (^10.4 || ^11.5)",
-		"typo3/cms-scheduler": "Allows garbage collection of expired consents (^10.4 || ^11.5)"
+		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~10.4.0 || ~11.5.0)",
+		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~10.4.0 || ~11.5.0)"
 	},
 	"config": {
 		"bin-dir": ".Build/bin",
