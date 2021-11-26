@@ -9,5 +9,3 @@ parameters:
         - Classes
         - Configuration
         - Tests
-    ignoreErrors:
-        - '#^Property [a-zA-Z0-9\\_]+::\$coreExtensionsToLoad type has no value type specified in iterable type array\.$#'
