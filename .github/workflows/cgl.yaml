@@ -25,6 +25,8 @@ jobs:
       # Linting
       - name: Lint composer.json
         run: composer normalize --dry-run
+      - name: Lint Editorconfig
+        run: .Build/bin/ec
       - name: Lint PHP
         run: composer lint:php -- --dry-run
       - name: Lint TypoScript

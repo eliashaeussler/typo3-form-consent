@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-    <file source-language="en">
-        <header/>
-        <body>
-            <trans-unit id="form.message.newRecord">
-                <source>No data submitted yet.</source>
-            </trans-unit>
-            <trans-unit id="form.message.noDataAvailable">
-                <source>No form data was submitted.</source>
-            </trans-unit>
+	<file source-language="en">
+		<header/>
+		<body>
+			<trans-unit id="form.message.newRecord">
+				<source>No data submitted yet.</source>
+			</trans-unit>
+			<trans-unit id="form.message.noDataAvailable">
+				<source>No form data was submitted.</source>
+			</trans-unit>
 
 			<trans-unit id="form.data.header">
 				<source>Submitted form data</source>
 			</trans-unit>
 
-            <trans-unit id="widgets.approvedConsents.header">
-                <source>Form consent</source>
-            </trans-unit>
-            <trans-unit id="widgets.approvedConsents.body">
-                <source>An overview about all approved consents</source>
-            </trans-unit>
+			<trans-unit id="widgets.approvedConsents.header">
+				<source>Form consent</source>
+			</trans-unit>
+			<trans-unit id="widgets.approvedConsents.body">
+				<source>An overview about all approved consents</source>
+			</trans-unit>
 
-            <trans-unit id="charts.approved">
-                <source>approved</source>
-            </trans-unit>
-            <trans-unit id="charts.nonApproved">
-                <source>non-approved</source>
-            </trans-unit>
-            <trans-unit id="charts.dismissed">
-                <source>dismissed</source>
-            </trans-unit>
-        </body>
-    </file>
+			<trans-unit id="charts.approved">
+				<source>approved</source>
+			</trans-unit>
+			<trans-unit id="charts.nonApproved">
+				<source>non-approved</source>
+			</trans-unit>
+			<trans-unit id="charts.dismissed">
+				<source>dismissed</source>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>
