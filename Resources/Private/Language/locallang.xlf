@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-    <file source-language="en">
-        <header/>
-        <body>
-            <trans-unit id="consentMail.subject">
-                <source>Approve your consent</source>
-            </trans-unit>
-            <trans-unit id="consentMail.title">
-                <source>Please approve your consent</source>
-            </trans-unit>
-            <trans-unit id="consentMail.salutation">
-                <source>Hello %s</source>
-            </trans-unit>
-            <trans-unit id="consentMail.body.approve">
-                <source>your consent was registered successfully. Please click the following link to approve it:</source>
-            </trans-unit>
-            <trans-unit id="consentMail.body.dismiss">
-                <source>If you feel this consent was given by accident or if you want to dismiss it, please click the following link:</source>
-            </trans-unit>
+	<file source-language="en">
+		<header/>
+		<body>
+			<trans-unit id="consentMail.subject">
+				<source>Approve your consent</source>
+			</trans-unit>
+			<trans-unit id="consentMail.title">
+				<source>Please approve your consent</source>
+			</trans-unit>
+			<trans-unit id="consentMail.salutation">
+				<source>Hello %s</source>
+			</trans-unit>
+			<trans-unit id="consentMail.body.approve">
+				<source>your consent was registered successfully. Please click the following link to approve it:</source>
+			</trans-unit>
+			<trans-unit id="consentMail.body.dismiss">
+				<source>If you feel this consent was given by accident or if you want to dismiss it, please click the following link:</source>
+			</trans-unit>
 			<trans-unit id="consentMail.error">
 				<source>The consent mail could not be sent.</source>
 			</trans-unit>
@@ -77,6 +77,6 @@
 			<trans-unit id="consent.dismiss.success.body">
 				<source>You have successfully revoked your consent. You can now delete the email.</source>
 			</trans-unit>
-        </body>
-    </file>
+		</body>
+	</file>
 </xliff>
