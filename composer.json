@@ -28,6 +28,7 @@
 		"typo3/cms-frontend": "~10.4.0 || ~11.5.0"
 	},
 	"require-dev": {
+		"armin/editorconfig-cli": "^1.5",
 		"captainhook/plugin-composer": "^5.3",
 		"ergebnis/composer-normalize": "^2.15",
 		"helmich/typo3-typoscript-lint": "^2.5",
@@ -77,9 +78,11 @@
 			"[ -L .Build/web/typo3conf/ext/form_consent ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/form_consent"
 		],
 		"lint": [
+			"@lint:editorconfig",
 			"@lint:php",
 			"@lint:typoscript"
 		],
+		"lint:editorconfig": "ec --fix",
 		"lint:php": "php-cs-fixer fix",
 		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
 		"sca": [
