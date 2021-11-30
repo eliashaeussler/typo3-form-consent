@@ -22,7 +22,7 @@
 						"args": [
 							[
 								"*.php",
-								".php_cs"
+								".php-cs-fixer.php"
 							]
 						]
 					}
