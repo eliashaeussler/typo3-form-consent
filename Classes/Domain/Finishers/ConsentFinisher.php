@@ -186,6 +186,10 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     public function injectFlashMessageFinisher(FlashMessageFinisher $flashMessageFinisher): void
     {
         $this->flashMessageFinisher = $flashMessageFinisher;
+
+        if (method_exists($this->flashMessageFinisher, 'setFinisherIdentifier')) {
+            $this->flashMessageFinisher->setFinisherIdentifier('FlashMessage');
+        }
     }
 
     public function injectHashService(HashService $hashService): void
