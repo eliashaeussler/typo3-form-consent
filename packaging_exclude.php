@@ -45,6 +45,7 @@ return [
         'packaging_exclude.php',
         'php-cs-fixer.php',
         'phpstan.neon',
+        'phpstan-baseline.neon',
         'phpunit.ci.functional.xml',
         'phpunit.ci.unit.xml',
         'phpunit.functional.xml',
