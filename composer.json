@@ -1,8 +1,8 @@
 {
 	"name": "eliashaeussler/typo3-form-consent",
-	"type": "typo3-cms-extension",
 	"description": "Extension for TYPO3 CMS that adds double opt-in functionality to EXT:form",
 	"license": "GPL-2.0-or-later",
+	"type": "typo3-cms-extension",
 	"authors": [
 		{
 			"name": "Elias Häußler",
@@ -51,6 +51,16 @@
 		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~10.4.0 || ~11.5.0)",
 		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~10.4.0 || ~11.5.0)"
 	},
+	"autoload": {
+		"psr-4": {
+			"EliasHaeussler\\Typo3FormConsent\\": "Classes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"EliasHaeussler\\Typo3FormConsent\\Tests\\": "Tests/"
+		}
+	},
 	"config": {
 		"bin-dir": ".Build/bin",
 		"sort-packages": true,
@@ -60,16 +70,6 @@
 		"typo3/cms": {
 			"extension-key": "form_consent",
 			"web-dir": ".Build/web"
-		}
-	},
-	"autoload": {
-		"psr-4": {
-			"EliasHaeussler\\Typo3FormConsent\\": "Classes/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"EliasHaeussler\\Typo3FormConsent\\Tests\\": "Tests/"
 		}
 	},
 	"scripts": {
