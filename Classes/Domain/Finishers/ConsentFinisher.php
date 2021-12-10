@@ -280,6 +280,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         // Build mail
         $mail = $this->initializeMail()
             ->assign('consent', $consent)
+            ->assign('formRuntime', $this->finisherContext->getFormRuntime())
             ->assign('showDismissLink', $this->showDismissLink)
             ->assign('confirmationPid', $this->confirmationPid);
 
