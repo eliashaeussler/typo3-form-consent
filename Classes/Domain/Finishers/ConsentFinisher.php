@@ -53,6 +53,7 @@ use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Finishers\FlashMessageFinisher;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\CMS\Form\Exception;
+use TYPO3\CMS\Form\ViewHelpers\RenderRenderableViewHelper;
 
 /**
  * ConsentFinisher
@@ -243,7 +244,8 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
 
         // Define consent variables
         $data = $this->resolveFormData();
-        $formPersistenceIdentifier = $this->finisherContext->getFormRuntime()->getFormDefinition()->getPersistenceIdentifier();
+        $formRuntime = $this->finisherContext->getFormRuntime();
+        $formPersistenceIdentifier = $formRuntime->getFormDefinition()->getPersistenceIdentifier();
         $date = new \DateTime('@' . $this->context->getPropertyFromAspect('date', 'timestamp', time()));
         $validUntil = $this->calculateExpiryDate($date);
 
@@ -280,9 +282,16 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         // Build mail
         $mail = $this->initializeMail()
             ->assign('consent', $consent)
-            ->assign('formRuntime', $this->finisherContext->getFormRuntime())
+            ->assign('formRuntime', $formRuntime)
             ->assign('showDismissLink', $this->showDismissLink)
             ->assign('confirmationPid', $this->confirmationPid);
+
+        // Provide form runtime as view helper variable to allow usage of
+        // various form view helpers. This for example allows to list all
+        // submitted form values using the <formvh:renderAllFormValues>
+        // view helper.
+        $mail->getViewHelperVariableContainer()
+            ->add(RenderRenderableViewHelper::class, 'formRuntime', $formRuntime);
 
         // Dispatch ModifyConsentMail event
         $this->eventDispatcher->dispatch(new ModifyConsentMailEvent($mail));
