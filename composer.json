@@ -36,6 +36,7 @@
 		"jangregor/phpstan-prophecy": "^1.0",
 		"phpspec/prophecy-phpunit": "^2.0",
 		"phpstan/phpstan": "^1.2",
+		"phpstan/phpstan-phpunit": "^1.0",
 		"phpunit/phpcov": "^8.2",
 		"phpunit/phpunit": "^9.3",
 		"roave/security-advisories": "dev-latest",
