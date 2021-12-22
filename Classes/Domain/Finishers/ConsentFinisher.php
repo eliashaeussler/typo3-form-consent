@@ -312,9 +312,16 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
 
     protected function getHoneypotIdentifier(): ?string
     {
-        // Get last displayed page
         $formRuntime = $this->finisherContext->getFormRuntime();
-        $lastDisplayedPageIndex = $formRuntime->getFormState()->getLastDisplayedPageIndex();
+        $formState = $formRuntime->getFormState();
+
+        // Early return if form state is not available (this should never happen)
+        if (null === $formState) {
+            return null;
+        }
+
+        // Get last displayed page
+        $lastDisplayedPageIndex = $formState->getLastDisplayedPageIndex();
         try {
             $currentPage = $formRuntime->getFormDefinition()->getPageByIndex($lastDisplayedPageIndex);
         } catch (Exception $e) {
