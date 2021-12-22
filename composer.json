@@ -88,7 +88,7 @@
 			"@lint:php",
 			"@lint:typoscript"
 		],
-		"lint:editorconfig": "ec --fix",
+		"lint:editorconfig": "ec --fix -e .Build",
 		"lint:php": "php-cs-fixer fix",
 		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
 		"sca": [
