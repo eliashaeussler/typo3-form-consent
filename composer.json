@@ -12,8 +12,9 @@
 		}
 	],
 	"require": {
-		"php": "^7.2 || 8.0.*",
+		"php": ">= 7.2 < 8.2",
 		"ext-json": "*",
+		"doctrine/dbal": "^2.13 || ^3.0",
 		"psr/event-dispatcher": "^1.0",
 		"psr/http-message": "^1.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
@@ -62,6 +63,12 @@
 		}
 	},
 	"config": {
+		"allow-plugins": {
+			"captainhook/plugin-composer": true,
+			"ergebnis/composer-normalize": true,
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		},
 		"bin-dir": ".Build/bin",
 		"sort-packages": true,
 		"vendor-dir": ".Build/vendor"
@@ -82,7 +89,7 @@
 			"@lint:php",
 			"@lint:typoscript"
 		],
-		"lint:editorconfig": "ec --fix",
+		"lint:editorconfig": "ec --fix -e .Build",
 		"lint:php": "php-cs-fixer fix",
 		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
 		"sca": [

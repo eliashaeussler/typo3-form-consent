@@ -93,7 +93,7 @@ class ConsentChartDataProvider implements ChartDataProviderInterface
                 $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter($deleted, Connection::PARAM_BOOL))
             )
             ->execute()
-            ->fetchColumn();
+            ->fetchOne();
 
         return (int)$result;
     }
