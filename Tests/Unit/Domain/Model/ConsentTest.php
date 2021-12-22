@@ -114,6 +114,7 @@ class ConsentTest extends UnitTestCase
     public function setValidUntilStoresLastPossibleApprovalDateCorrectly(): void
     {
         $date = \DateTime::createFromFormat('U', (string)(time() + 86400));
+        self::assertInstanceOf(\DateTime::class, $date);
         $this->subject->setValidUntil($date);
         self::assertSame($date, $this->subject->getValidUntil());
     }
