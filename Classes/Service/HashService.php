@@ -57,7 +57,7 @@ class HashService
         }
 
         /** @var GenerateHashEvent $event */
-        $event = $this->eventDispatcher->dispatch(new GenerateHashEvent($hashComponents));
+        $event = $this->eventDispatcher->dispatch(new GenerateHashEvent($hashComponents, $consent));
         $hashComponents = $event->getComponents();
 
         return GeneralUtility::hmac(implode('_', $hashComponents), $consent->getEmail());
