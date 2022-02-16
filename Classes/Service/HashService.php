@@ -57,10 +57,13 @@ class HashService
         }
 
         /** @var GenerateHashEvent $event */
-        $event = $this->eventDispatcher->dispatch(new GenerateHashEvent($hashComponents));
-        $hashComponents = $event->getComponents();
+        $event = $this->eventDispatcher->dispatch(new GenerateHashEvent($hashComponents, $consent));
 
-        return GeneralUtility::hmac(implode('_', $hashComponents), $consent->getEmail());
+        if (null !== ($hash = $event->getHash())) {
+            return $hash;
+        }
+
+        return GeneralUtility::hmac(implode('_', $event->getComponents()), $consent->getEmail());
     }
 
     public function isValid(Consent $consent, string $hash = null): bool

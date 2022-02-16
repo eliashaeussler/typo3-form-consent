@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Event;
 
+use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+
 /**
  * GenerateHashEvent
  *
@@ -34,14 +36,25 @@ class GenerateHashEvent
     /**
      * @var mixed[]
      */
-    protected $components = [];
+    protected $components;
+
+    /**
+     * @var Consent
+     */
+    protected $consent;
+
+    /**
+     * @var string|null
+     */
+    protected $hash;
 
     /**
      * @param mixed[] $components
      */
-    public function __construct(array $components)
+    public function __construct(array $components, Consent $consent)
     {
         $this->components = $components;
+        $this->consent = $consent;
     }
 
     /**
@@ -59,6 +72,22 @@ class GenerateHashEvent
     public function setComponents(array $components): self
     {
         $this->components = $components;
+        return $this;
+    }
+
+    public function getConsent(): Consent
+    {
+        return $this->consent;
+    }
+
+    public function getHash(): ?string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): self
+    {
+        $this->hash = $hash;
         return $this;
     }
 }

@@ -33,6 +33,8 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ *
+ * @extends Repository<Consent>
  */
 class ConsentRepository extends Repository
 {
