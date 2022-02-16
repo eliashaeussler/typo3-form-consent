@@ -44,6 +44,11 @@ class GenerateHashEvent
     protected $consent;
 
     /**
+     * @var string|null
+     */
+    protected $hash;
+
+    /**
      * @param mixed[] $components
      */
     public function __construct(array $components, Consent $consent)
@@ -73,5 +78,16 @@ class GenerateHashEvent
     public function getConsent(): Consent
     {
         return $this->consent;
+    }
+
+    public function getHash(): ?string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): self
+    {
+        $this->hash = $hash;
+        return $this;
     }
 }

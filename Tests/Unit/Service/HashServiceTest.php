@@ -108,6 +108,25 @@ class HashServiceTest extends UnitTestCase
     /**
      * @test
      */
+    public function generateReturnsCustomHashGeneratedThroughEvent(): void
+    {
+        $defaultHashGeneration = $this->subject->generate($this->consent);
+
+        $this->eventDispatcherProphecy->dispatch(Argument::type(GenerateHashEvent::class))->will(function ($args) {
+            /** @var GenerateHashEvent $event */
+            $event = $args[0];
+            $event->setHash('foo');
+            return $event;
+        });
+        $customHashGeneration = $this->subject->generate($this->consent);
+
+        self::assertNotSame($customHashGeneration, $defaultHashGeneration);
+        self::assertSame('foo', $customHashGeneration);
+    }
+
+    /**
+     * @test
+     */
     public function isValidReturnsTrueIfGeneratedHashEqualsConsentValidationHash(): void
     {
         $this->consent->setValidationHash($this->subject->generate($this->consent));

@@ -81,4 +81,22 @@ class GenerateHashEventTest extends UnitTestCase
         $expected = new Consent();
         self::assertEquals($expected, $this->subject->getConsent());
     }
+
+    /**
+     * @test
+     */
+    public function getHashReturnsNullOnInitialState(): void
+    {
+        self::assertNull($this->subject->getHash());
+    }
+
+    /**
+     * @test
+     */
+    public function setHashAppliesHashCorrectly(): void
+    {
+        $hash = 'foo';
+        $this->subject->setHash($hash);
+        self::assertSame($hash, $this->subject->getHash());
+    }
 }
