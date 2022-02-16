@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Widget\Provider;
 
+use Doctrine\DBAL\Result;
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use TYPO3\CMS\Core\Database\Connection;
@@ -86,15 +87,15 @@ class ConsentChartDataProvider implements ChartDataProviderInterface
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
+        /** @var Result $result */
         $result = $queryBuilder->count('*')
             ->from(Consent::TABLE_NAME)
             ->where(
                 $queryBuilder->expr()->eq('approved', $queryBuilder->createNamedParameter($approved, Connection::PARAM_BOOL)),
                 $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter($deleted, Connection::PARAM_BOOL))
             )
-            ->execute()
-            ->fetchColumn();
+            ->execute();
 
-        return (int)$result;
+        return (int)$result->fetchOne();
     }
 }

@@ -17,6 +17,8 @@ jobs:
             php-version: 7.4
           - typo3-version: 11.5
             php-version: 8.0
+          - typo3-version: 11.5
+            php-version: 8.1
             coverage: 1
     env:
       typo3DatabaseName: typo3
@@ -90,6 +92,8 @@ jobs:
             php-version: 7.4
           - typo3-version: 11.5
             php-version: 8.0
+          - typo3-version: 11.5
+            php-version: 8.1
     env:
       typo3DatabaseName: typo3
       typo3DatabaseHost: '127.0.0.1'

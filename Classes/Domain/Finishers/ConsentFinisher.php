@@ -110,51 +110,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
      */
     protected $configuration = [];
 
-    /**
-     * @var string
-     */
-    protected $subject = '';
-
-    /**
-     * @var string
-     */
-    protected $recipientAddress = '';
-
-    /**
-     * @var string
-     */
-    protected $recipientName = '';
-
-    /**
-     * @var string
-     */
-    protected $senderAddress = '';
-
-    /**
-     * @var string
-     */
-    protected $senderName = '';
-
-    /**
-     * @var int
-     */
-    protected $approvalPeriod = 0;
-
-    /**
-     * @var int
-     */
-    protected $confirmationPid = 0;
-
-    /**
-     * @var int
-     */
-    protected $storagePid = 0;
-
-    /**
-     * @var bool
-     */
-    protected $showDismissLink = false;
-
     public function injectContext(Context $context): void
     {
         $this->context = $context;
@@ -225,33 +180,37 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     protected function executeConsent(): void
     {
         // Parse finisher options
-        $this->subject = $this->resolveSubject((string)$this->parseOption('subject'));
-        $this->recipientAddress = (string)$this->parseOption('recipientAddress');
-        $this->recipientName = (string)$this->parseOption('recipientName');
-        $this->senderAddress = (string)$this->parseOption('senderAddress');
-        $this->senderName = (string)$this->parseOption('senderName');
-        $this->approvalPeriod = (int)$this->parseOption('approvalPeriod');
-        $this->confirmationPid = (int)$this->parseOption('confirmationPid');
-        $this->storagePid = (int)$this->parseOption('storagePid');
-        $this->showDismissLink = (bool)$this->parseOption('showDismissLink');
+        $recipientAddress = $this->parseOption('recipientAddress');
+        $recipientName = $this->parseOption('recipientName');
+        $senderAddress = $this->parseOption('senderAddress');
+        $senderName = $this->parseOption('senderName');
+        $approvalPeriod = (int)$this->parseOption('approvalPeriod');
+        $confirmationPid = (int)$this->parseOption('confirmationPid');
+        $storagePid = (int)$this->parseOption('storagePid');
+        $showDismissLink = (bool)$this->parseOption('showDismissLink');
 
         // Validate finisher options
-        $this->validateRecipientAddress();
-        $this->validateSenderAddress();
-        $this->validateApprovalPeriod();
-        $this->validateConfirmationPid();
-        $this->validateStoragePid();
+        $this->validateRecipientAddress($recipientAddress);
+        $this->validateSenderAddress($senderAddress);
+        $this->validateApprovalPeriod($approvalPeriod);
+        $this->validateConfirmationPid($confirmationPid);
+        $this->validateStoragePid($storagePid);
+
+        assert(is_string($recipientAddress));
+        assert(is_string($recipientName));
+        assert(is_string($senderAddress));
+        assert(is_string($senderName));
 
         // Define consent variables
         $data = $this->resolveFormData();
         $formRuntime = $this->finisherContext->getFormRuntime();
         $formPersistenceIdentifier = $formRuntime->getFormDefinition()->getPersistenceIdentifier();
         $date = new \DateTime('@' . $this->context->getPropertyFromAspect('date', 'timestamp', time()));
-        $validUntil = $this->calculateExpiryDate($date);
+        $validUntil = $this->calculateExpiryDate($approvalPeriod, $date);
 
         // Build domain model
         $consent = GeneralUtility::makeInstance(Consent::class)
-            ->setEmail($this->recipientAddress)
+            ->setEmail($recipientAddress)
             ->setDate($date)
             ->setData($data)
             ->setFormPersistenceIdentifier($formPersistenceIdentifier)
@@ -262,8 +221,8 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         $consent->setValidationHash($validationHash);
 
         // Apply storage pid if set, otherwise stick to default pid from TypoScript settings
-        if ($this->storagePid) {
-            $consent->setPid($this->storagePid);
+        if ($storagePid) {
+            $consent->setPid($storagePid);
         }
 
         // Dispatch ModifyConsent event
@@ -281,10 +240,15 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
 
         // Build mail
         $mail = $this->initializeMail()
+            ->to(new Address($recipientAddress, $recipientName))
             ->assign('consent', $consent)
             ->assign('formRuntime', $formRuntime)
-            ->assign('showDismissLink', $this->showDismissLink)
-            ->assign('confirmationPid', $this->confirmationPid);
+            ->assign('showDismissLink', $showDismissLink)
+            ->assign('confirmationPid', $confirmationPid);
+
+        if ($senderAddress !== '') {
+            $mail->from(new Address($senderAddress, $senderName));
+        }
 
         // Provide form runtime as view helper variable to allow usage of
         // various form view helpers. This for example allows to list all
@@ -348,9 +312,16 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
 
     protected function getHoneypotIdentifier(): ?string
     {
-        // Get last displayed page
         $formRuntime = $this->finisherContext->getFormRuntime();
-        $lastDisplayedPageIndex = $formRuntime->getFormState()->getLastDisplayedPageIndex();
+        $formState = $formRuntime->getFormState();
+
+        // Early return if form state is not available (this should never happen)
+        if (null === $formState) {
+            return null;
+        }
+
+        // Get last displayed page
+        $lastDisplayedPageIndex = $formState->getLastDisplayedPageIndex();
         try {
             $currentPage = $formRuntime->getFormDefinition()->getPageByIndex($lastDisplayedPageIndex);
         } catch (Exception $e) {
@@ -376,20 +347,15 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         return (string)$frontendUser->getKey($sessionType, $honeypotSessionIdentifier) ?: null;
     }
 
-    /**
-     * @param \DateTime|null $base
-     * @return \DateTime|null
-     * @throws \Exception
-     */
-    protected function calculateExpiryDate(\DateTime $base = null): ?\DateTime
+    protected function calculateExpiryDate(int $approvalPeriod, \DateTime $base = null): ?\DateTime
     {
         // Early return if invalid approval period is given
-        if ($this->approvalPeriod <= 0) {
+        if ($approvalPeriod <= 0) {
             return null;
         }
 
         $base = $base !== null ? clone $base : new \DateTime();
-        $target = $base->getTimestamp() + $this->approvalPeriod;
+        $target = $base->getTimestamp() + $approvalPeriod;
 
         return new \DateTime('@' . $target);
     }
@@ -410,14 +376,17 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         );
         $templatePaths = GeneralUtility::makeInstance(TemplatePaths::class, $mergedTemplateConfiguration);
 
-        $mail = GeneralUtility::makeInstance(FluidEmail::class, $templatePaths)
-            ->to(new Address($this->recipientAddress, $this->recipientName))
-            ->subject($this->subject)
-            ->setTemplate('ConsentMail');
-
-        if ($this->senderAddress !== '') {
-            $mail->from(new Address($this->senderAddress, $this->senderName));
+        // Resolve mail subject
+        $subject = $this->parseOption('subject');
+        if (!is_string($subject)) {
+            $subject = '';
         }
+        $subject = $this->resolveSubject($subject);
+
+        // Initialize mail
+        $mail = GeneralUtility::makeInstance(FluidEmail::class, $templatePaths)
+            ->subject($subject)
+            ->setTemplate('ConsentMail');
 
         // Set the PSR-7 request object if available
         $serverRequest = $this->getServerRequest();
@@ -429,17 +398,24 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
+     * @param mixed $recipientAddress
      * @throws FinisherException
      */
-    protected function validateRecipientAddress(): void
+    protected function validateRecipientAddress($recipientAddress): void
     {
-        if ('' === trim($this->recipientAddress)) {
+        if (!is_string($recipientAddress)) {
+            throw new FinisherException(
+                Localization::forFormValidation('recipientAddress.invalid', true),
+                1640186663
+            );
+        }
+        if ('' === trim($recipientAddress)) {
             throw new FinisherException(
                 Localization::forFormValidation('recipientAddress.empty', true),
                 1576947638
             );
         }
-        if (!GeneralUtility::validEmail($this->recipientAddress)) {
+        if (!GeneralUtility::validEmail($recipientAddress)) {
             throw new FinisherException(
                 Localization::forFormValidation('recipientAddress.invalid', true),
                 1576947682
@@ -448,11 +424,18 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
+     * @param mixed $senderAddress
      * @throws FinisherException
      */
-    protected function validateSenderAddress(): void
+    protected function validateSenderAddress($senderAddress): void
     {
-        if ('' !== trim($this->senderAddress) && !GeneralUtility::validEmail($this->senderAddress)) {
+        if (!is_string($senderAddress)) {
+            throw new FinisherException(
+                Localization::forFormValidation('senderAddress.invalid', true),
+                1640186811
+            );
+        }
+        if ('' !== trim($senderAddress) && !GeneralUtility::validEmail($senderAddress)) {
             throw new FinisherException(
                 Localization::forFormValidation('senderAddress.invalid', true),
                 1587842752
@@ -461,11 +444,12 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
+     * @param int $approvalPeriod
      * @throws FinisherException
      */
-    protected function validateApprovalPeriod(): void
+    protected function validateApprovalPeriod(int $approvalPeriod): void
     {
-        if ($this->approvalPeriod < 0) {
+        if ($approvalPeriod < 0) {
             throw new FinisherException(
                 Localization::forFormValidation('validationPeriod.invalid', true),
                 1576948900
@@ -474,17 +458,18 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
+     * @param int $confirmationPid
      * @throws FinisherException
      */
-    protected function validateConfirmationPid(): void
+    protected function validateConfirmationPid(int $confirmationPid): void
     {
-        if ($this->confirmationPid <= 0) {
+        if ($confirmationPid <= 0) {
             throw new FinisherException(
                 Localization::forFormValidation('confirmationPid.empty', true),
                 1576948961
             );
         }
-        if (!is_array($this->pageRepository->checkRecord('pages', $this->confirmationPid))) {
+        if (!is_array($this->pageRepository->checkRecord('pages', $confirmationPid))) {
             throw new FinisherException(
                 Localization::forFormValidation('confirmationPid.invalid', true),
                 1576949163
@@ -493,22 +478,23 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
+     * @param int $storagePid
      * @throws FinisherException
      */
-    protected function validateStoragePid(): void
+    protected function validateStoragePid(int $storagePid): void
     {
         // Return if storage pid is not set since it is not a mandatory option
-        if ($this->storagePid === 0) {
+        if ($storagePid === 0) {
             return;
         }
 
-        if ($this->storagePid < 0) {
+        if ($storagePid < 0) {
             throw new FinisherException(
                 Localization::forFormValidation('storagePid.empty', true),
                 1576951495
             );
         }
-        if (!is_array($this->pageRepository->checkRecord('pages', $this->storagePid))) {
+        if (!is_array($this->pageRepository->checkRecord('pages', $storagePid))) {
             throw new FinisherException(
                 Localization::forFormValidation('storagePid.invalid', true),
                 1576951499
