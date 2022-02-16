@@ -39,7 +39,6 @@
 		"phpstan/phpstan-phpunit": "^1.0",
 		"phpunit/phpcov": "^8.2",
 		"phpunit/phpunit": "^9.3",
-		"roave/security-advisories": "dev-latest",
 		"saschaegerer/phpstan-typo3": "^1.0",
 		"typo3/cms-dashboard": "~10.4.0 || ~11.5.0",
 		"typo3/cms-filelist": "~10.4.0 || ~11.5.0",
