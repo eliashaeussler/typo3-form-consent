@@ -116,7 +116,7 @@ class Consent extends AbstractEntity
      */
     public function setData($data): self
     {
-        if (is_array($data)) {
+        if (\is_array($data)) {
             $data = json_encode($data) ?: '';
         }
         $this->data = (string)$data;

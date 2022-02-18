@@ -56,7 +56,7 @@ final class Localization
     public static function forField(string $fieldName, string $tableName, string $item = null, bool $translate = false): string
     {
         $localizationKey = $tableName . '.' . $fieldName;
-        if (is_string($item) && strlen($item) > 0) {
+        if (\is_string($item) && \strlen($item) > 0) {
             $localizationKey .= '.' . $item;
         }
 
@@ -142,7 +142,7 @@ final class Localization
 
     private static function isCoreType(string $type): bool
     {
-        return in_array($type, [
+        return \in_array($type, [
             self::TYPE_CORE_TABS,
         ]);
     }
