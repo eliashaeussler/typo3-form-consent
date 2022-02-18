@@ -108,7 +108,6 @@ class Consent extends AbstractEntity
 
     /**
      * @param string|array<string, mixed> $data
-     * @return self
      */
     public function setData($data): self
     {

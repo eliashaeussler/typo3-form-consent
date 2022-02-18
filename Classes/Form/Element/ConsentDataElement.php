@@ -63,7 +63,6 @@ class ConsentDataElement extends AbstractFormElement
 
     /**
      * @param array<string, mixed> $result
-     * @param string $elementHtml
      * @return array<string, mixed>
      */
     protected function renderFormElement(array $result, string $elementHtml): array

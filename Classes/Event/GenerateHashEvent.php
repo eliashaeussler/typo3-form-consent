@@ -63,7 +63,6 @@ class GenerateHashEvent
 
     /**
      * @param mixed[]  $components
-     * @return self
      */
     public function setComponents(array $components): self
     {

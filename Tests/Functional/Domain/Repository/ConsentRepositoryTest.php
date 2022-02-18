@@ -69,8 +69,6 @@ class ConsentRepositoryTest extends FunctionalTestCase
     /**
      * @test
      * @dataProvider findByValidationHashReturnsValidConsentDataProvider
-     * @param string $hash
-     * @param int $expectedUid
      */
     public function findByValidationHashReturnsValidConsent(string $hash, int $expectedUid): void
     {

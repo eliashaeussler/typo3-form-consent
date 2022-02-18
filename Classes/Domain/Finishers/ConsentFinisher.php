@@ -440,7 +440,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
-     * @param int $approvalPeriod
      * @throws FinisherException
      */
     protected function validateApprovalPeriod(int $approvalPeriod): void
@@ -454,7 +453,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
-     * @param int $confirmationPid
      * @throws FinisherException
      */
     protected function validateConfirmationPid(int $confirmationPid): void
@@ -474,7 +472,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
-     * @param int $storagePid
      * @throws FinisherException
      */
     protected function validateStoragePid(int $storagePid): void
@@ -498,10 +495,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         }
     }
 
-    /**
-     * @param \Exception $exception
-     * @param bool $cancel
-     */
     protected function addFlashMessage(\Exception $exception, bool $cancel = true): void
     {
         // Add flash message

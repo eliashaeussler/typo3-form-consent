@@ -33,7 +33,6 @@ class IconTest extends UnitTestCase
     /**
      * @test
      * @dataProvider invalidIdentifierDataProvider
-     * @param string $tableName
      */
     public function forTableThrowsExceptionIfNoTableNameIsGiven(string $tableName): void
     {
@@ -46,8 +45,6 @@ class IconTest extends UnitTestCase
     /**
      * @test
      * @dataProvider forTableReturnsCorrectFileNameDataProvider
-     * @param string|null $type
-     * @param string $expected
      */
     public function forTableReturnsCorrectFileName(?string $type, string $expected): void
     {
@@ -61,8 +58,6 @@ class IconTest extends UnitTestCase
     /**
      * @test
      * @dataProvider forPluginReturnsCorrectFileNameDataProvider
-     * @param string|null $type
-     * @param string $expected
      */
     public function forPluginReturnsCorrectFileName(?string $type, string $expected): void
     {
@@ -76,7 +71,6 @@ class IconTest extends UnitTestCase
     /**
      * @test
      * @dataProvider invalidIdentifierDataProvider
-     * @param string $pluginName
      */
     public function forPluginIdentifierThrowsExceptionIfPluginIdentifierIsInvalid(string $pluginName): void
     {
@@ -89,8 +83,6 @@ class IconTest extends UnitTestCase
     /**
      * @test
      * @dataProvider forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider
-     * @param string $pluginName
-     * @param string $expected
      */
     public function forPluginIdentifierReturnsCorrectPluginIdentifier(string $pluginName, string $expected): void
     {
@@ -100,8 +92,6 @@ class IconTest extends UnitTestCase
     /**
      * @test
      * @dataProvider forWidgetReturnsCorrectFileNameDataProvider
-     * @param string|null $type
-     * @param string $expected
      */
     public function forWidgetReturnsCorrectFileName(?string $type, string $expected): void
     {
@@ -115,7 +105,6 @@ class IconTest extends UnitTestCase
     /**
      * @test
      * @dataProvider invalidIdentifierDataProvider
-     * @param string $widgetName
      */
     public function forWidgetIdentifierThrowsExceptionIfWidgetIdentifierIsInvalid(string $widgetName): void
     {
@@ -128,8 +117,6 @@ class IconTest extends UnitTestCase
     /**
      * @test
      * @dataProvider forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider
-     * @param string $widgetName
-     * @param string $expected
      */
     public function forWidgetIdentifierReturnsCorrectWidgetIdentifier(string $widgetName, string $expected): void
     {

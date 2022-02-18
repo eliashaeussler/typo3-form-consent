@@ -12,6 +12,7 @@ $config = \TYPO3\CodingStandards\CsFixerConfig::create()
     ->setHeader(sprintf($header, \date('Y')))
     ->addRules([
         'native_function_invocation' => true,
+        'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
     ]);
 
 $finder = $config->getFinder()

@@ -53,9 +53,6 @@ class ConsentController extends ActionController
     }
 
     /**
-     * @param string $hash
-     * @param string $email
-     * @return ResponseInterface|null
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
@@ -92,9 +89,6 @@ class ConsentController extends ActionController
     }
 
     /**
-     * @param string $hash
-     * @param string $email
-     * @return ResponseInterface|null
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */

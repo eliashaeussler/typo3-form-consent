@@ -96,11 +96,6 @@ final class Icon
         );
     }
 
-    /**
-     * @param string $fileName
-     * @param string $type
-     * @return string
-     */
     protected static function buildIconPath(string $fileName, string $type = 'svg'): string
     {
         $fileName = trim($fileName);
@@ -113,10 +108,6 @@ final class Icon
         return 'EXT:' . Extension::KEY . '/Resources/Public/Icons/' . $fileName . '.' . $type;
     }
 
-    /**
-     * @param string $filename
-     * @param string $identifier
-     */
     protected static function register(string $filename, string $identifier): void
     {
         if (self::$iconRegistry === null) {

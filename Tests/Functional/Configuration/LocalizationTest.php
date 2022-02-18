@@ -118,9 +118,6 @@ class LocalizationTest extends FunctionalTestCase
     /**
      * @test
      * @dataProvider forKeyReturnsLocalizationKeyDataProvider
-     * @param string $key
-     * @param string|null $type
-     * @param string $expected
      */
     public function forKeyReturnsLocalizationKey(string $key, ?string $type, string $expected): void
     {
