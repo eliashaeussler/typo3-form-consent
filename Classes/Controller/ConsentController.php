@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Controller;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
 use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
 use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
