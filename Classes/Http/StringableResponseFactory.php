@@ -21,47 +21,37 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Event;
+namespace EliasHaeussler\Typo3FormConsent\Http;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Http\Response;
+use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
- * ApproveConsentEvent
+ * StringableResponseFactory
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ApproveConsentEvent
+final class StringableResponseFactory implements ResponseFactoryInterface
 {
     /**
-     * @var Consent
+     * @var bool
      */
-    protected $consent;
+    private $useCompatibilityLayer;
 
-    /**
-     * @var ResponseInterface|null
-     */
-    protected $response;
-
-    public function __construct(Consent $consent)
+    public function __construct()
     {
-        $this->consent = $consent;
+        $this->useCompatibilityLayer = (new Typo3Version())->getMajorVersion() < 11;
     }
 
-    public function getConsent(): Consent
+    public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
-        return $this->consent;
-    }
+        if ($this->useCompatibilityLayer) {
+            return new StringableResponse('php://temp', $code, [], $reasonPhrase);
+        }
 
-    public function getResponse(): ?ResponseInterface
-    {
-        return $this->response;
-    }
-
-    public function setResponse(?ResponseInterface $response): self
-    {
-        $this->response = $response;
-        return $this;
+        return new Response(null, $code, [], $reasonPhrase);
     }
 }

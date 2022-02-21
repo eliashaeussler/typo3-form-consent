@@ -21,19 +21,24 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent;
+namespace EliasHaeussler\Typo3FormConsent\ExpressionLanguage;
 
-use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigurator;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use EliasHaeussler\Typo3FormConsent\ExpressionLanguage\FunctionsProvider\ConsentConditionFunctionsProvider;
+use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use TYPO3\CMS\Core\ExpressionLanguage\AbstractProvider;
 
-return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container) {
-    $container->registerForAutoconfiguration(TypeTransformerInterface::class)
-        ->addTag('form_consent.type_transformer');
-
-    if ($container->hasDefinition('dashboard.views.widget')) {
-        $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
-        $servicesConfigurator->configureServices();
-    }
-};
+/**
+ * ConsentConditionProvider
+ *
+ * @author Elias Häußler <elias@haeussler.dev>
+ * @license GPL-2.0-or-later
+ */
+final class ConsentConditionProvider extends AbstractProvider
+{
+    /**
+     * @var list<class-string<ExpressionFunctionProviderInterface>>
+     */
+    protected $expressionLanguageProviders = [
+        ConsentConditionFunctionsProvider::class,
+    ];
+}

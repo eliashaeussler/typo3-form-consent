@@ -21,47 +21,44 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Event;
+namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use Psr\Http\Message\ResponseInterface;
+use EliasHaeussler\Typo3FormConsent\Exception\UnsupportedTypeException;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
- * ApproveConsentEvent
+ * TypeTransformerFactory
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ApproveConsentEvent
+final class TypeTransformerFactory
 {
     /**
-     * @var Consent
+     * @var ServiceLocator
      */
-    protected $consent;
+    private $typeTransformers;
+
+    public function __construct(ServiceLocator $transformers)
+    {
+        $this->typeTransformers = $transformers;
+    }
 
     /**
-     * @var ResponseInterface|null
+     * @throws UnsupportedTypeException
      */
-    protected $response;
-
-    public function __construct(Consent $consent)
+    public function get(string $type): TypeTransformerInterface
     {
-        $this->consent = $consent;
-    }
+        if (!$this->typeTransformers->has($type)) {
+            throw UnsupportedTypeException::create($type);
+        }
 
-    public function getConsent(): Consent
-    {
-        return $this->consent;
-    }
+        $transformer = $this->typeTransformers->get($type);
 
-    public function getResponse(): ?ResponseInterface
-    {
-        return $this->response;
-    }
+        if (!($transformer instanceof TypeTransformerInterface)) {
+            throw UnsupportedTypeException::create($type);
+        }
 
-    public function setResponse(?ResponseInterface $response): self
-    {
-        $this->response = $response;
-        return $this;
+        return $transformer;
     }
 }

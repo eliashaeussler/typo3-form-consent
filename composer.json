@@ -12,21 +12,24 @@
 		}
 	],
 	"require": {
-		"php": ">= 7.2 < 8.2",
+		"php": ">= 7.4 < 8.2",
 		"ext-json": "*",
 		"doctrine/dbal": "^2.13 || ^3.0",
 		"psr/event-dispatcher": "^1.0",
+		"psr/http-factory": "^1.0",
 		"psr/http-message": "^1.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
 		"symfony/dependency-injection": "^4.4 || ^5.0",
+		"symfony/expression-language": "^4.4 || ^5.0",
 		"symfony/mailer": "^4.4 || ^5.0",
 		"symfony/mime": "^4.4 || ^5.0",
-		"typo3/cms-backend": "~10.4.0 || ~11.5.0",
-		"typo3/cms-core": "~10.4.0 || ~11.5.0",
-		"typo3/cms-extbase": "~10.4.0 || ~11.5.0",
-		"typo3/cms-fluid": "~10.4.0 || ~11.5.0",
-		"typo3/cms-form": "~10.4.0 || ~11.5.0",
-		"typo3/cms-frontend": "~10.4.0 || ~11.5.0"
+		"symfony/polyfill-php80": "^1.24",
+		"typo3/cms-backend": "~11.5.0",
+		"typo3/cms-core": "~11.5.0",
+		"typo3/cms-extbase": "~11.5.0",
+		"typo3/cms-fluid": "~11.5.0",
+		"typo3/cms-form": "~11.5.0",
+		"typo3/cms-frontend": "~11.5.0"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.5",
@@ -34,23 +37,23 @@
 		"ergebnis/composer-normalize": "^2.15",
 		"helmich/typo3-typoscript-lint": "^2.5",
 		"jangregor/phpstan-prophecy": "^1.0",
+		"nikic/php-parser": "^4.12",
 		"phpspec/prophecy-phpunit": "^2.0",
 		"phpstan/phpstan": "^1.2",
 		"phpstan/phpstan-phpunit": "^1.0",
 		"phpunit/phpcov": "^8.2",
 		"phpunit/phpunit": "^9.3",
 		"saschaegerer/phpstan-typo3": "^1.0",
-		"typo3/cms-dashboard": "~10.4.0 || ~11.5.0",
-		"typo3/cms-filelist": "~10.4.0 || ~11.5.0",
-		"typo3/cms-install": "~10.4.0 || ~11.5.0",
-		"typo3/cms-lowlevel": "~10.4.0 || ~11.5.0",
-		"typo3/cms-scheduler": "~10.4.0 || ~11.5.0",
+		"typo3/cms-dashboard": "~11.5.0",
+		"typo3/cms-filelist": "~11.5.0",
+		"typo3/cms-lowlevel": "~11.5.0",
+		"typo3/cms-scheduler": "~11.5.0",
 		"typo3/coding-standards": "^0.5.0",
 		"typo3/testing-framework": "^6.14"
 	},
 	"suggest": {
-		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~10.4.0 || ~11.5.0)",
-		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~10.4.0 || ~11.5.0)"
+		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~11.5.0)",
+		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~11.5.0)"
 	},
 	"autoload": {
 		"psr-4": {

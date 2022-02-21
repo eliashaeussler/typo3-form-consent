@@ -21,19 +21,38 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent;
+namespace EliasHaeussler\Typo3FormConsent\Registry\Dto;
 
-use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigurator;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 
-return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container) {
-    $container->registerForAutoconfiguration(TypeTransformerInterface::class)
-        ->addTag('form_consent.type_transformer');
+/**
+ * ConsentState
+ *
+ * @author Elias Häußler <elias@haeussler.dev>
+ * @license GPL-2.0-or-later
+ * @internal
+ */
+final class ConsentState
+{
+    /**
+     * @var Consent
+     */
+    private $consent;
 
-    if ($container->hasDefinition('dashboard.views.widget')) {
-        $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
-        $servicesConfigurator->configureServices();
+    public function __construct(Consent $consent)
+    {
+        $this->consent = $consent;
     }
-};
+
+    public function isApproved(): bool
+    {
+        return $this->consent->isApproved();
+    }
+
+    public function isDismissed(): bool
+    {
+        return !$this->consent->isApproved()
+            && null === $this->consent->getData()
+            && null === $this->consent->getOriginalRequestParameters();
+    }
+}

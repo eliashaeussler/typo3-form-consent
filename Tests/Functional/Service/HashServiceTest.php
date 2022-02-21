@@ -21,16 +21,17 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Service;
+namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Service;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\GenerateHashEvent;
 use EliasHaeussler\Typo3FormConsent\Service\HashService;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
+use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use Symfony\Component\DependencyInjection\Container;
+use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * HashServiceTest
@@ -38,19 +39,22 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class HashServiceTest extends UnitTestCase
+class HashServiceTest extends FunctionalTestCase
 {
-    use ProphecyTrait;
-
     /**
      * @var Consent
      */
     protected $consent;
 
     /**
-     * @var ObjectProphecy|EventDispatcherInterface
+     * @var ListenerProvider
      */
-    protected $eventDispatcherProphecy;
+    protected $listenerProvider;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
 
     /**
      * @var HashService
@@ -64,12 +68,12 @@ class HashServiceTest extends UnitTestCase
         $this->consent = (new Consent())
             ->setEmail('dummy@example.com')
             ->setDate(new \DateTime())
-            ->setData(['foo' => 'baz'])
+            ->setData(JsonType::fromArray(['foo' => 'baz']))
             ->setValidUntil(new \DateTime());
 
-        $this->eventDispatcherProphecy = $this->prophesize(EventDispatcherInterface::class);
-        $this->eventDispatcherProphecy->dispatch(Argument::any())->willReturnArgument(0);
-        $this->subject = new HashService($this->eventDispatcherProphecy->reveal());
+        $this->container = $this->getContainer();
+        $this->listenerProvider = $this->container->get(ListenerProvider::class);
+        $this->subject = new HashService($this->container->get(EventDispatcherInterface::class));
     }
 
     /**
@@ -94,12 +98,17 @@ class HashServiceTest extends UnitTestCase
     {
         $hashWithDefaultComponents = $this->subject->generate($this->consent);
 
-        $this->eventDispatcherProphecy->dispatch(Argument::type(GenerateHashEvent::class))->will(function ($args) {
-            /** @var GenerateHashEvent $event */
-            $event = $args[0];
-            $event->setComponents([]);
-            return $event;
-        });
+        $this->addEventListener(
+            GenerateHashEvent::class,
+            __METHOD__,
+            new class() {
+                public function __invoke(GenerateHashEvent $event): void
+                {
+                    $event->setComponents([]);
+                }
+            }
+        );
+
         $hashWithNoComponents = $this->subject->generate($this->consent);
 
         self::assertNotSame($hashWithNoComponents, $hashWithDefaultComponents);
@@ -112,12 +121,17 @@ class HashServiceTest extends UnitTestCase
     {
         $defaultHashGeneration = $this->subject->generate($this->consent);
 
-        $this->eventDispatcherProphecy->dispatch(Argument::type(GenerateHashEvent::class))->will(function ($args) {
-            /** @var GenerateHashEvent $event */
-            $event = $args[0];
-            $event->setHash('foo');
-            return $event;
-        });
+        $this->addEventListener(
+            GenerateHashEvent::class,
+            __METHOD__,
+            new class() {
+                public function __invoke(GenerateHashEvent $event): void
+                {
+                    $event->setHash('foo');
+                }
+            }
+        );
+
         $customHashGeneration = $this->subject->generate($this->consent);
 
         self::assertNotSame($customHashGeneration, $defaultHashGeneration);
@@ -161,14 +175,28 @@ class HashServiceTest extends UnitTestCase
      */
     public function isValidRespectsInitialHashModificationThroughEvent(): void
     {
-        $this->eventDispatcherProphecy->dispatch(Argument::type(GenerateHashEvent::class))->will(function ($args) {
-            /** @var GenerateHashEvent $event */
-            $event = $args[0];
-            $event->setComponents([]);
-            return $event;
-        });
+        $this->addEventListener(
+            GenerateHashEvent::class,
+            __METHOD__,
+            new class() {
+                public function __invoke(GenerateHashEvent $event): void
+                {
+                    $event->setComponents([]);
+                }
+            }
+        );
+
         $hash = $this->subject->generate($this->consent);
         $this->consent->setValidationHash($hash);
+
         self::assertTrue($this->subject->isValid($this->consent));
+    }
+
+    private function addEventListener(string $event, string $service, object $object): void
+    {
+        self::assertInstanceOf(Container::class, $this->container);
+
+        $this->container->set($service, $object);
+        $this->listenerProvider->addListener($event, $service);
     }
 }

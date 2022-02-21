@@ -21,19 +21,20 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent;
+namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
-use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigurator;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 
-return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container) {
-    $container->registerForAutoconfiguration(TypeTransformerInterface::class)
-        ->addTag('form_consent.type_transformer');
+/**
+ * TypeTransformerInterface
+ *
+ * @author Elias Häußler <elias@haeussler.dev>
+ * @license GPL-2.0-or-later
+ */
+interface TypeTransformerInterface
+{
+    /* @phpstan-ignore-next-line */
+    public function transform(): JsonType;
 
-    if ($container->hasDefinition('dashboard.views.widget')) {
-        $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
-        $servicesConfigurator->configureServices();
-    }
-};
+    public static function getName(): string;
+}

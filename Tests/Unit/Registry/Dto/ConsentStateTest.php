@@ -21,57 +21,67 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
+namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Registry\Dto;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
-use TYPO3\CMS\Core\Http\Response;
+use EliasHaeussler\Typo3FormConsent\Registry\Dto\ConsentState;
+use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * ApproveConsentEventTest
+ * ConsentStateTest
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ApproveConsentEventTest extends UnitTestCase
+class ConsentStateTest extends UnitTestCase
 {
-    /**
-     * @var ApproveConsentEvent
-     */
-    protected $subject;
-
     /**
      * @var Consent
      */
     protected $consent;
+
+    /**
+     * @var ConsentState
+     */
+    protected $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->consent = new Consent();
-        $this->subject = new ApproveConsentEvent($this->consent);
+        $this->subject = new ConsentState($this->consent);
     }
 
     /**
      * @test
      */
-    public function getConsentReturnsInitialConsent(): void
+    public function isApprovedReturnsConsentApprovalState(): void
     {
-        $expected = $this->consent;
-        self::assertSame($expected, $this->subject->getConsent());
+        self::assertFalse($this->subject->isApproved());
+
+        $this->consent->setApproved(true);
+
+        self::assertTrue($this->subject->isApproved());
     }
 
     /**
      * @test
      */
-    public function getResponseReturnsResponse(): void
+    public function isDismissedReturnsConsentDismissalState(): void
     {
-        self::assertNull($this->subject->getResponse());
+        $this->consent->setApproved(true);
 
-        $response = new Response();
+        self::assertFalse($this->subject->isDismissed());
 
-        self::assertSame($response, $this->subject->setResponse($response)->getResponse());
+        $this->consent->setOriginalRequestParameters(JsonType::fromArray([]));
+        $this->consent->setApproved(false);
+
+        self::assertFalse($this->subject->isDismissed());
+
+        $this->consent->setOriginalRequestParameters(null);
+
+        self::assertTrue($this->subject->isDismissed());
     }
 }

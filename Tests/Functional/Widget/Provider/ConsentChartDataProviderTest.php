@@ -26,8 +26,6 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Widget\Provider;
 use Doctrine\DBAL\DBALException;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Exception;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -66,7 +64,7 @@ class ConsentChartDataProviderTest extends FunctionalTestCase
         parent::setUp();
 
         // Build subject
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(Consent::TABLE_NAME);
+        $connection = $this->getConnectionPool()->getConnectionForTable(Consent::TABLE_NAME);
         $this->subject = new ConsentChartDataProvider($connection);
 
         // Import data

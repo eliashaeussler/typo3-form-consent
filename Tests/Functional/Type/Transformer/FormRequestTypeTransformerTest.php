@@ -21,57 +21,52 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
+namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Type\Transformer;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
-use TYPO3\CMS\Core\Http\Response;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
+use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
+use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * ApproveConsentEventTest
+ * FormRequestTypeTransformerTest
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ApproveConsentEventTest extends UnitTestCase
+class FormRequestTypeTransformerTest extends FunctionalTestCase
 {
+    protected $coreExtensionsToLoad = [
+        'form',
+    ];
+
     /**
-     * @var ApproveConsentEvent
+     * @var FormRequestTypeTransformer
      */
     protected $subject;
 
     /**
-     * @var Consent
+     * @var FormRuntime
      */
-    protected $consent;
+    protected $formRuntime;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->consent = new Consent();
-        $this->subject = new ApproveConsentEvent($this->consent);
+        $this->subject = new FormRequestTypeTransformer($this->getContainer()->get(HashService::class));
+        $this->formRuntime = $this->getContainer()->get(FormRuntime::class);
     }
 
     /**
      * @test
      */
-    public function getConsentReturnsInitialConsent(): void
+    public function transformThrowsExceptionIfFormRuntimeIsNotGiven(): void
     {
-        $expected = $this->consent;
-        self::assertSame($expected, $this->subject->getConsent());
-    }
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1646044629);
+        $this->expectExceptionMessage('Expected a valid FormRuntime object, but gut none.');
 
-    /**
-     * @test
-     */
-    public function getResponseReturnsResponse(): void
-    {
-        self::assertNull($this->subject->getResponse());
-
-        $response = new Response();
-
-        self::assertSame($response, $this->subject->setResponse($response)->getResponse());
+        $this->subject->transform();
     }
 }

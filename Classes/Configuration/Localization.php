@@ -81,6 +81,11 @@ final class Localization
         return self::forKey('plugins.' . lcfirst($pluginName), self::TYPE_DATABASE, $translate);
     }
 
+    public static function forFinisherOption(string $option, string $item = 'label', bool $translate = false): string
+    {
+        return self::forKey('finishers.' . $option . '.' . $item, self::TYPE_FORM, $translate);
+    }
+
     public static function forFormValidation(string $key, bool $translate = false): string
     {
         return self::forKey('validation.' . $key, self::TYPE_FORM, $translate);

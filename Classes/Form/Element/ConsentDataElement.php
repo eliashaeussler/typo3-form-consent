@@ -85,7 +85,7 @@ class ConsentDataElement extends AbstractFormElement
         $html[] =   '</div>';
         $html[] = '</div>';
 
-        $result['html'] = implode(LF, $html);
+        $result['html'] = implode(PHP_EOL, $html);
 
         return $result;
     }
@@ -96,6 +96,6 @@ class ConsentDataElement extends AbstractFormElement
         $html[] =   Localization::forBackendForm('message.' . $localizationKey, true);
         $html[] = '</div>';
 
-        return implode(LF, $html);
+        return implode(PHP_EOL, $html);
     }
 }

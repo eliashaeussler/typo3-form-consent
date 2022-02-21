@@ -50,9 +50,11 @@ class HashService
     {
         $hashComponents = [
             $consent->getDate()->getTimestamp(),
-            $consent->getData(),
         ];
-        if ($consent->getValidUntil() !== null) {
+        if (null !== $consent->getData()) {
+            $hashComponents[] = (string)$consent->getData();
+        }
+        if (null !== $consent->getValidUntil()) {
             $hashComponents[] = $consent->getValidUntil()->getTimestamp();
         }
 

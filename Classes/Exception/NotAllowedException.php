@@ -21,19 +21,18 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent;
+namespace EliasHaeussler\Typo3FormConsent\Exception;
 
-use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigurator;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container) {
-    $container->registerForAutoconfiguration(TypeTransformerInterface::class)
-        ->addTag('form_consent.type_transformer');
-
-    if ($container->hasDefinition('dashboard.views.widget')) {
-        $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
-        $servicesConfigurator->configureServices();
+/**
+ * NotAllowedException
+ *
+ * @author Elias Häußler <elias@haeussler.dev>
+ * @license GPL-2.0-or-later
+ */
+final class NotAllowedException extends \Exception
+{
+    public static function forMethod(string $methodName): self
+    {
+        return new self(sprintf('Calling the method "%s" is not allowed.', $methodName), 1645781267);
     }
-};
+}

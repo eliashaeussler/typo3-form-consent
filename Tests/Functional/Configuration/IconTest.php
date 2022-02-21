@@ -26,7 +26,6 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 use EliasHaeussler\Typo3FormConsent\Configuration\Icon;
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -38,13 +37,24 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 class IconTest extends FunctionalTestCase
 {
     /**
+     * @var IconRegistry
+     */
+    protected $iconRegistry;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->iconRegistry = $this->getContainer()->get(IconRegistry::class);
+    }
+
+    /**
      * @test
      */
     public function registerForPluginIdentifierRegistersIconCorrectly(): void
     {
         Icon::registerForPluginIdentifier('Consent');
 
-        $actual = GeneralUtility::makeInstance(IconRegistry::class)->getIconConfigurationByIdentifier('content-plugin-consent');
+        $actual = $this->iconRegistry->getIconConfigurationByIdentifier('content-plugin-consent');
         $expected = [
             'provider' => SvgIconProvider::class,
             'options' => [
@@ -62,7 +72,7 @@ class IconTest extends FunctionalTestCase
     {
         Icon::registerForWidgetIdentifier('approvedConsents');
 
-        $actual = GeneralUtility::makeInstance(IconRegistry::class)->getIconConfigurationByIdentifier('content-widget-approved-consents');
+        $actual = $this->iconRegistry->getIconConfigurationByIdentifier('content-widget-approved-consents');
         $expected = [
             'provider' => SvgIconProvider::class,
             'options' => [

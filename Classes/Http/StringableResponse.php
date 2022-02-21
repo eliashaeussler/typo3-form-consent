@@ -21,19 +21,20 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent;
+namespace EliasHaeussler\Typo3FormConsent\Http;
 
-use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigurator;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use TYPO3\CMS\Core\Http\Response;
 
-return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container) {
-    $container->registerForAutoconfiguration(TypeTransformerInterface::class)
-        ->addTag('form_consent.type_transformer');
-
-    if ($container->hasDefinition('dashboard.views.widget')) {
-        $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
-        $servicesConfigurator->configureServices();
+/**
+ * StringableResponse
+ *
+ * @author Elias Häußler <elias@haeussler.dev>
+ * @license GPL-2.0-or-later
+ */
+final class StringableResponse extends Response
+{
+    public function __toString(): string
+    {
+        return (string)$this->body;
     }
-};
+}

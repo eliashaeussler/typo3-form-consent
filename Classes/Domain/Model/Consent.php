@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Model;
 
+use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -46,14 +47,24 @@ class Consent extends AbstractEntity
     protected $date;
 
     /**
-     * @var string
+     * @var JsonType<string, mixed>|null
      */
-    protected $data = '';
+    protected $data;
 
     /**
      * @var string
      */
     protected $formPersistenceIdentifier = '';
+
+    /**
+     * @var JsonType<string, array<string, array<string, mixed>>>|null
+     */
+    protected $originalRequestParameters;
+
+    /**
+     * @var int
+     */
+    protected $originalContentElementUid = 0;
 
     /**
      * @var bool
@@ -97,28 +108,20 @@ class Consent extends AbstractEntity
         return $this;
     }
 
-    public function getData(): string
+    /**
+     * @return JsonType<string, mixed>|null
+     */
+    public function getData(): ?JsonType
     {
         return $this->data;
     }
 
     /**
-     * @return array<string, mixed>
+     * @param JsonType<string, mixed>|null $data
      */
-    public function getDataArray(): array
+    public function setData(?JsonType $data): self
     {
-        return json_decode($this->data, true) ?: [];
-    }
-
-    /**
-     * @param string|array<string, mixed> $data
-     */
-    public function setData($data): self
-    {
-        if (\is_array($data)) {
-            $data = json_encode($data) ?: '';
-        }
-        $this->data = (string)$data;
+        $this->data = $data;
         return $this;
     }
 
@@ -130,6 +133,34 @@ class Consent extends AbstractEntity
     public function setFormPersistenceIdentifier(string $formPersistenceIdentifier): self
     {
         $this->formPersistenceIdentifier = $formPersistenceIdentifier;
+        return $this;
+    }
+
+    /**
+     * @return JsonType<string, array<string, array<string, mixed>>>|null
+     */
+    public function getOriginalRequestParameters(): ?JsonType
+    {
+        return $this->originalRequestParameters;
+    }
+
+    /**
+     * @param JsonType<string, array<string, array<string, mixed>>>|null $originalRequestParameters
+     */
+    public function setOriginalRequestParameters(?JsonType $originalRequestParameters): self
+    {
+        $this->originalRequestParameters = $originalRequestParameters;
+        return $this;
+    }
+
+    public function getOriginalContentElementUid(): int
+    {
+        return $this->originalContentElementUid;
+    }
+
+    public function setOriginalContentElementUid(int $originalContentElementUid): self
+    {
+        $this->originalContentElementUid = $originalContentElementUid;
         return $this;
     }
 

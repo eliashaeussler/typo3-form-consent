@@ -84,6 +84,17 @@ class LocalizationTest extends FunctionalTestCase
     /**
      * @test
      */
+    public function forFinisherOptionReturnsLocalizationKeyForGivenFinisherOption(): void
+    {
+        $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_form.xlf:finishers.foo.label';
+        self::assertSame($expected, Localization::forFinisherOption('foo'));
+        $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_form.xlf:finishers.foo.fieldExplanationText';
+        self::assertSame($expected, Localization::forFinisherOption('foo', 'fieldExplanationText'));
+    }
+
+    /**
+     * @test
+     */
     public function forFormValidationReturnsLocalizationKeyForGivenValidation(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_form.xlf:validation.foo';

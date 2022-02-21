@@ -8,8 +8,19 @@ services:
     resource: '../Classes/*'
     exclude:
       - '../Classes/DependencyInjection/*'
+      - '../Classes/Domain/Finishers/FinisherOptions.php'
       - '../Classes/Domain/Model/*'
 
   EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher:
     public: true
     shared: false
+
+  EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerFactory:
+    arguments:
+      $transformers: !tagged_locator { tag: 'form_consent.type_transformer', default_index_method: 'getName' }
+
+  EliasHaeussler\Typo3FormConsent\Event\Listener\InvokeFinishersOnConsentApprovalListener:
+    tags:
+      - name: event.listener
+        identifier: 'formConsentInvokeFinishersOnApproveListener'
+        event: EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent

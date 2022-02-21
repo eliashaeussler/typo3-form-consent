@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Domain\Model;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -70,16 +71,47 @@ class ConsentTest extends UnitTestCase
      */
     public function setDataStoresUserDataCorrectly(): void
     {
-        $expectedJson = '{"foo":"baz"}';
-        $expectedArray = json_decode($expectedJson, true);
+        $data = JsonType::fromArray(['foo' => 'baz']);
+        $this->subject->setData($data);
+        self::assertSame($data, $this->subject->getData());
+    }
 
-        $this->subject->setData('{"foo":"baz"}');
-        self::assertSame($expectedJson, $this->subject->getData());
-        self::assertSame($expectedArray, $this->subject->getDataArray());
+    /**
+     * @test
+     */
+    public function getOriginalRequestParametersReturnsNullOnInitialObject(): void
+    {
+        self::assertNull($this->subject->getValidUntil());
+    }
 
-        $this->subject->setData(['foo' => 'baz']);
-        self::assertSame($expectedJson, $this->subject->getData());
-        self::assertSame($expectedArray, $this->subject->getDataArray());
+    /**
+     * @test
+     */
+    public function setOriginalRequestParametersStoresOriginalRequestParametersCorrectly(): void
+    {
+        $originalRequestParameters = JsonType::fromArray(['foo' => 'baz']);
+
+        $this->subject->setOriginalRequestParameters($originalRequestParameters);
+
+        self::assertSame($originalRequestParameters, $this->subject->getOriginalRequestParameters());
+    }
+
+    /**
+     * @test
+     */
+    public function getOriginalContentElementUidReturnsZeroOnInitialState(): void
+    {
+        self::assertSame(0, $this->subject->getOriginalContentElementUid());
+    }
+
+    /**
+     * @test
+     */
+    public function setOriginalContentElementUidStoresOriginalContentElementUidCorrectly(): void
+    {
+        $this->subject->setOriginalContentElementUid(123);
+
+        self::assertSame(123, $this->subject->getOriginalContentElementUid());
     }
 
     /**
