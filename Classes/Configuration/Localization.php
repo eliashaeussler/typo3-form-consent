@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ final class Localization
     public static function forField(string $fieldName, string $tableName, string $item = null, bool $translate = false): string
     {
         $localizationKey = $tableName . '.' . $fieldName;
-        if (is_string($item) && strlen($item) > 0) {
+        if (\is_string($item) && \strlen($item) > 0) {
             $localizationKey .= '.' . $item;
         }
 
@@ -142,7 +142,7 @@ final class Localization
 
     private static function isCoreType(string $type): bool
     {
-        return in_array($type, [
+        return \in_array($type, [
             self::TYPE_CORE_TABS,
         ]);
     }

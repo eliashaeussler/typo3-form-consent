@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,7 +67,6 @@ class ConsentDataElement extends AbstractFormElement
 
     /**
      * @param array<string, mixed> $result
-     * @param string $elementHtml
      * @return array<string, mixed>
      */
     protected function renderFormElement(array $result, string $elementHtml): array
