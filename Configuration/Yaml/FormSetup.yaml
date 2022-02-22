@@ -118,6 +118,8 @@ TYPO3:
                     confirmationPid: ''
                     storagePid: ''
               FormEngine:
+                translationFiles:
+                  1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
                 label: 'tt_content.finishersDefinition.Consent.label'
                 elements:
                   subject:
