@@ -29,10 +29,11 @@ compliance with the GDPR.
 * Stores all submitted form data as JSON in database
 * System-dependent hash-based validation system (using TYPO3's HMAC functionality)
 * Plugin to approve or dismiss a consent
-* Several events for better customization
+* Possibility to [invoke finishers on consent approval](#invoke-finishers-on-consent-approval)
+* Several [events](#events) for better customization
 * Scheduler garbage collection task for expired consents
 * Dashboard widget for approved, non-approved and dismissed consents
-* Compatible with TYPO3 10.4 LTS and 11.5 LTS
+* Compatible with TYPO3 10.4 and 11.5 LTS
 
 ## :fire: Installation
 
@@ -88,6 +89,67 @@ The following options are available to the `Consent` finisher:
 **Note:** Template paths that are configured via form finisher
 options are only applied to the appropriate form. They are merged
 with the default template paths configured via TypoScript.
+
+## :writing_hand: Customization
+
+The lifecycle of the entire consent process can be influenced in several
+ways. This leads to high flexibility in customization while maintaining
+high stability of the core components.
+
+### Events
+
+PSR-14 events can be used to modify different areas in the consent process.
+The following events are available:
+
+* [`ApproveConsentEvent`](Classes/Event/ApproveConsentEvent.php)
+* [`DismissConsentEvent`](Classes/Event/DismissConsentEvent.php)
+* [`GenerateHashEvent`](Classes/Event/GenerateHashEvent.php)
+* [`ModifyConsentEvent`](Classes/Event/ModifyConsentEvent.php)
+* [`ModifyConsentMailEvent`](Classes/Event/ModifyConsentMailEvent.php)
+
+### Invoke finishers on consent approval
+
+After a user has given consent, it is often necessary to execute certain
+form finishers. For example, to send an admin email or redirect to a
+specific page.
+
+To achieve this, after the user gives consent, the originally completed
+form is resubmitted. During this resubmission of the form, the selected
+finishers can now be overwritten using the `isConsentApproved()` condition
+in a form variant.
+
+#### Requirements
+
+The following requirements must be met for the form to be resubmitted:
+
+1. Form variant at the root level of the form must exist
+2. Form variant must redefine the finishers used
+3. Condition `isConsentApproved()` must exist in the variant
+
+#### Example
+
+The following form variant is stored directly on the root level of the
+form definition (that is, your `.form.yaml` file). It specifies the form
+finishers to be executed in case of successful approval by the user.
+
+```yaml
+variants:
+  -
+    identifier: post-consent-approval-variant-1
+    condition: 'isConsentApproved()'
+    finishers:
+      -
+        identifier: EmailToReceiver
+        options:
+          # ...
+      -
+        identifier: Redirect
+        options:
+          # ...
+```
+
+In this example, an admin email would be sent after the consent has been
+given and a redirect to the configured confirmation page would take place.
 
 ## :gem: Credits
 
