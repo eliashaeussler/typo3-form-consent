@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Configuration;
 
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -130,7 +131,7 @@ final class Localization
         string $localizationKey = null,
         string $language = null
     ): string {
-        $fileName = isset(self::FILES[$type]) ? self::FILES[$type] : self::FILES[self::TYPE_DEFAULT];
+        $fileName = self::FILES[$type] ?? self::FILES[self::TYPE_DEFAULT];
         $language = $language ? ($language . '.') : '';
         $localizationKey = $localizationKey ? (':' . $localizationKey) : '';
         $extensionKey = self::isCoreType($type) ? 'core' : Extension::KEY;
@@ -154,6 +155,10 @@ final class Localization
 
     private static function isEnvironmentInFrontendMode(): bool
     {
+        if (isset($GLOBALS['TYPO3_REQUEST'])) {
+            return ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend();
+        }
+
         return isset($GLOBALS['TSFE']) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController;
     }
 

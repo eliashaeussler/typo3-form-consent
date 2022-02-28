@@ -28,6 +28,8 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -142,7 +144,24 @@ final class LocalizationTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function translateReturnsTranslationFromTsfeIfEnvironmentIsInFrontendMode(): void
+    public function translateReturnsTranslationFromTsfeIfEnvironmentIsInFrontendModeAndRequestIsAvailable(): void
+    {
+        $this->simulateFrontendEnvironment();
+
+        $serverRequest = new ServerRequest();
+        $GLOBALS['TYPO3_REQUEST'] = $serverRequest->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE);
+
+        $localizationKey = Localization::forKey('foo');
+        $expected = 'baz';
+        self::assertSame($expected, Localization::translate($localizationKey));
+
+        unset($GLOBALS['TYPO3_REQUEST']);
+    }
+
+    /**
+     * @test
+     */
+    public function translateReturnsTranslationFromTsfeIfEnvironmentIsInFrontendModeAndRequestIsNotAvailable(): void
     {
         $this->simulateFrontendEnvironment();
 
