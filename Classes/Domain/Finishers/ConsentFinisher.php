@@ -48,14 +48,14 @@ use TYPO3\CMS\Form\ViewHelpers\RenderRenderableViewHelper;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
+final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    protected ConsentFactory $consentFactory;
-    protected EventDispatcherInterface $eventDispatcher;
-    protected Mailer $mailer;
-    protected PersistenceManagerInterface $persistenceManager;
+    private ConsentFactory $consentFactory;
+    private EventDispatcherInterface $eventDispatcher;
+    private Mailer $mailer;
+    private PersistenceManagerInterface $persistenceManager;
 
     // @todo move to constructor once v10 support is dropped
     public function injectConsentFactory(ConsentFactory $consentFactory): void
@@ -99,7 +99,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
      * @throws FinisherException
      * @throws \Exception
      */
-    protected function executeConsent(): void
+    private function executeConsent(): void
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
         $finisherOptions = new FinisherOptions(fn (string $optionName) => $this->parseOption($optionName));
@@ -140,7 +140,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         }
     }
 
-    protected function initializeMail(FinisherOptions $finisherOptions): FluidEmail
+    private function initializeMail(FinisherOptions $finisherOptions): FluidEmail
     {
         // Initialize mail
         $mail = GeneralUtility::makeInstance(FluidEmail::class, $finisherOptions->getTemplatePaths())
@@ -160,7 +160,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         return $mail;
     }
 
-    protected function addFlashMessage(\Exception $exception, bool $cancel = true): void
+    private function addFlashMessage(\Exception $exception, bool $cancel = true): void
     {
         $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
         $flashMessageFinisher = $formDefinition->createFinisher('FlashMessage', [
@@ -181,7 +181,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         }
     }
 
-    protected function getServerRequest(): ?ServerRequestInterface
+    private function getServerRequest(): ?ServerRequestInterface
     {
         return $GLOBALS['TYPO3_REQUEST'] ?? null;
     }

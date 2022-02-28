@@ -31,14 +31,14 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class GenerateHashEvent
+final class GenerateHashEvent
 {
     /**
      * @var list<mixed>
      */
-    protected array $components;
-    protected Consent $consent;
-    protected ?string $hash = null;
+    private array $components;
+    private Consent $consent;
+    private ?string $hash = null;
 
     /**
      * @param list<mixed> $components

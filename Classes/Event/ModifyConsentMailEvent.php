@@ -31,9 +31,9 @@ use TYPO3\CMS\Core\Mail\FluidEmail;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ModifyConsentMailEvent
+final class ModifyConsentMailEvent
 {
-    protected FluidEmail $mail;
+    private FluidEmail $mail;
 
     public function __construct(FluidEmail $mail)
     {

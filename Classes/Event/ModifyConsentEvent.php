@@ -31,9 +31,9 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ModifyConsentEvent
+final class ModifyConsentEvent
 {
-    protected Consent $consent;
+    private Consent $consent;
 
     public function __construct(Consent $consent)
     {

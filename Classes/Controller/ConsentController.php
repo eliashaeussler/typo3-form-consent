@@ -41,11 +41,11 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ConsentController extends ActionController
+final class ConsentController extends ActionController
 {
-    protected ConsentRepository $consentRepository;
-    protected PersistenceManagerInterface $persistenceManager;
-    protected StringableResponseFactory $stringableResponseFactory;
+    private ConsentRepository $consentRepository;
+    private PersistenceManagerInterface $persistenceManager;
+    private StringableResponseFactory $stringableResponseFactory;
 
     public function __construct(
         ConsentRepository $consentRepository,
@@ -145,7 +145,7 @@ class ConsentController extends ActionController
     /**
      * @throws ImmediateResponseException
      */
-    protected function createErrorResponse(string $reason): ResponseInterface
+    private function createErrorResponse(string $reason): ResponseInterface
     {
         $this->view->assign('error', true);
         $this->view->assign('reason', $reason);
@@ -156,7 +156,7 @@ class ConsentController extends ActionController
     /**
      * @throws ImmediateResponseException
      */
-    protected function createHtmlResponse(ResponseInterface $previous = null): ResponseInterface
+    private function createHtmlResponse(ResponseInterface $previous = null): ResponseInterface
     {
         if (null === $previous) {
             return $this->createResponse();
@@ -176,7 +176,7 @@ class ConsentController extends ActionController
         return $this->createResponse();
     }
 
-    protected function createResponse(string $html = null): ResponseInterface
+    private function createResponse(string $html = null): ResponseInterface
     {
         // TYPO3 v11+
         if (method_exists($this, 'htmlResponse')) {

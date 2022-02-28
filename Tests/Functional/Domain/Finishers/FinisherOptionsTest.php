@@ -36,7 +36,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class FinisherOptionsTest extends FunctionalTestCase
+final class FinisherOptionsTest extends FunctionalTestCase
 {
     protected $coreExtensionsToLoad = [
         'form',

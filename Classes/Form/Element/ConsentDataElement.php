@@ -33,7 +33,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ConsentDataElement extends AbstractFormElement
+final class ConsentDataElement extends AbstractFormElement
 {
     /**
      * @return array<string, mixed>
@@ -51,7 +51,7 @@ class ConsentDataElement extends AbstractFormElement
         return $this->renderFormElement($result, $elementHtml);
     }
 
-    protected function renderRecordDataHtml(): string
+    private function renderRecordDataHtml(): string
     {
         $row = $this->data['databaseRow'] ?? [];
         $formData = (string)$row['data'];
@@ -69,7 +69,7 @@ class ConsentDataElement extends AbstractFormElement
      * @param array<string, mixed> $result
      * @return array<string, mixed>
      */
-    protected function renderFormElement(array $result, string $elementHtml): array
+    private function renderFormElement(array $result, string $elementHtml): array
     {
         $fieldInformationResult = $this->renderFieldInformation();
         $fieldInformationHtml = $fieldInformationResult['html'];
@@ -90,7 +90,7 @@ class ConsentDataElement extends AbstractFormElement
         return $result;
     }
 
-    protected function renderAlert(string $localizationKey): string
+    private function renderAlert(string $localizationKey): string
     {
         $html[] = '<div class="alert alert-info alert-message" role="alert">';
         $html[] =   Localization::forBackendForm('message.' . $localizationKey, true);

@@ -32,10 +32,10 @@ use Psr\Http\Message\ResponseInterface;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ApproveConsentEvent
+final class ApproveConsentEvent
 {
-    protected Consent $consent;
-    protected ?ResponseInterface $response = null;
+    private Consent $consent;
+    private ?ResponseInterface $response = null;
 
     public function __construct(Consent $consent)
     {

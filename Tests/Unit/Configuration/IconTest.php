@@ -32,7 +32,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class IconTest extends UnitTestCase
+final class IconTest extends UnitTestCase
 {
     /**
      * @test

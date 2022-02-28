@@ -33,7 +33,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class GenerateHashEventTest extends UnitTestCase
+final class GenerateHashEventTest extends UnitTestCase
 {
     protected GenerateHashEvent $subject;
 

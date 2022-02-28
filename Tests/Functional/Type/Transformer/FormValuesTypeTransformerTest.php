@@ -37,7 +37,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class FormValuesTypeTransformerTest extends FunctionalTestCase
+final class FormValuesTypeTransformerTest extends FunctionalTestCase
 {
     use ProphecyTrait;
 
