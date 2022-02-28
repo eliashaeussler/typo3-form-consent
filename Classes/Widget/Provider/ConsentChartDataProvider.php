@@ -46,7 +46,7 @@ class ConsentChartDataProvider implements ChartDataProviderInterface
     }
 
     /**
-     * @return array{labels: array<string>, datasets: array{0: array{backgroundColor: array<string>, data: array<int>}}}
+     * @return array{labels: list<string>, datasets: array{array{backgroundColor: list<string>, data: list<int>}}}
      */
     public function getChartData(): array
     {
