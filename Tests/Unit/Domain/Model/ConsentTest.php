@@ -35,10 +35,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class ConsentTest extends UnitTestCase
 {
-    /**
-     * @var Consent
-     */
-    protected $subject;
+    protected Consent $subject;
 
     protected function setUp(): void
     {

@@ -36,10 +36,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class HashService
 {
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
+    protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {

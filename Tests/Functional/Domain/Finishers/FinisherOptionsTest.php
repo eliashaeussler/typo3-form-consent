@@ -46,15 +46,12 @@ class FinisherOptionsTest extends FunctionalTestCase
         'typo3conf/ext/form_consent',
     ];
 
-    /**
-     * @var FinisherOptions
-     */
-    protected $subject;
+    protected FinisherOptions $subject;
 
     /**
      * @var array<string, mixed>
      */
-    protected $options = [];
+    protected array $options = [];
 
     protected function setUp(): void
     {

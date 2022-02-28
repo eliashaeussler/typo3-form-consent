@@ -34,10 +34,7 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
  */
 final class ConsentState
 {
-    /**
-     * @var Consent
-     */
-    private $consent;
+    private Consent $consent;
 
     public function __construct(Consent $consent)
     {

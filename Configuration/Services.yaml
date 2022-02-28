@@ -11,9 +11,15 @@ services:
       - '../Classes/Domain/Finishers/FinisherOptions.php'
       - '../Classes/Domain/Model/*'
 
+  # @todo Remove once v10 support is dropped
   EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher:
     public: true
     shared: false
+
+  # @todo Remove once v10 support is dropped
+  TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface:
+    alias: TYPO3\CMS\Extbase\Configuration\ConfigurationManager
+    public: true
 
   EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerFactory:
     arguments:

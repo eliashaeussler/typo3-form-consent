@@ -34,15 +34,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ApproveConsentEvent
 {
-    /**
-     * @var Consent
-     */
-    protected $consent;
-
-    /**
-     * @var ResponseInterface|null
-     */
-    protected $response;
+    protected Consent $consent;
+    protected ?ResponseInterface $response = null;
 
     public function __construct(Consent $consent)
     {

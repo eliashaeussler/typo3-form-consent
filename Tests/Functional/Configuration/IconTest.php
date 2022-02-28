@@ -36,10 +36,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class IconTest extends FunctionalTestCase
 {
-    /**
-     * @var IconRegistry
-     */
-    protected $iconRegistry;
+    protected IconRegistry $iconRegistry;
 
     protected function setUp(): void
     {

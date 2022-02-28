@@ -33,10 +33,7 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
  */
 class ModifyConsentEvent
 {
-    /**
-     * @var Consent
-     */
-    protected $consent;
+    protected Consent $consent;
 
     public function __construct(Consent $consent)
     {

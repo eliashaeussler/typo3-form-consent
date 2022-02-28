@@ -1,7 +1,7 @@
 name: typo3-ext-form-consent
 type: typo3
 docroot: .Build/web
-php_version: "8.1"
+php_version: "7.4"
 webserver_type: nginx-fpm
 router_http_port: "80"
 router_https_port: "443"
@@ -13,7 +13,7 @@ mysql_version: ""
 nfs_mount_enabled: false
 mutagen_enabled: false
 omit_containers: [dba]
-webimage_extra_packages: [php8.1-pcov]
+webimage_extra_packages: [php7.4-pcov]
 use_dns_when_possible: true
 composer_version: ""
 web_environment:

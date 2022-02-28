@@ -39,10 +39,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 final class FormValuesTypeTransformer implements TypeTransformerInterface
 {
-    /**
-     * @var Context
-     */
-    private $context;
+    private Context $context;
 
     public function __construct(Context $context)
     {

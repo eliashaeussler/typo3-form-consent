@@ -8,9 +8,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3-version: [11.5]
-        php-version: [7.4, 8.0]
         include:
+          - typo3-version: 10.4
+            php-version: 7.4
+          - typo3-version: 11.5
+            php-version: 7.4
+          - typo3-version: 11.5
+            php-version: 8.0
           - typo3-version: 11.5
             php-version: 8.1
             coverage: 1
@@ -82,8 +86,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3-version: [11.5]
-        php-version: [7.4, 8.0, 8.1]
+        include:
+          - typo3-version: 10.4
+            php-version: 7.4
+          - typo3-version: 11.5
+            php-version: 7.4
+          - typo3-version: 11.5
+            php-version: 8.0
+          - typo3-version: 11.5
+            php-version: 8.1
     env:
       typo3DatabaseName: typo3
       typo3DatabaseHost: '127.0.0.1'

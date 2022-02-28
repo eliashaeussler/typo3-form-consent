@@ -29,7 +29,7 @@ use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
 use EliasHaeussler\Typo3FormConsent\Http\StringableResponseFactory;
 use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Http\PropagateResponseException;
+use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -43,20 +43,9 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
  */
 class ConsentController extends ActionController
 {
-    /**
-     * @var ConsentRepository
-     */
-    protected $consentRepository;
-
-    /**
-     * @var PersistenceManagerInterface
-     */
-    protected $persistenceManager;
-
-    /**
-     * @var StringableResponseFactory
-     */
-    protected $stringableResponseFactory;
+    protected ConsentRepository $consentRepository;
+    protected PersistenceManagerInterface $persistenceManager;
+    protected StringableResponseFactory $stringableResponseFactory;
 
     public function __construct(
         ConsentRepository $consentRepository,
@@ -70,6 +59,7 @@ class ConsentController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws ImmediateResponseException
      * @throws UnknownObjectException
      */
     public function approveAction(string $hash, string $email): ResponseInterface
@@ -152,6 +142,9 @@ class ConsentController extends ActionController
         return $this->createResponse();
     }
 
+    /**
+     * @throws ImmediateResponseException
+     */
     protected function createErrorResponse(string $reason): ResponseInterface
     {
         $this->view->assign('error', true);
@@ -160,6 +153,9 @@ class ConsentController extends ActionController
         return $this->createHtmlResponse();
     }
 
+    /**
+     * @throws ImmediateResponseException
+     */
     protected function createHtmlResponse(ResponseInterface $previous = null): ResponseInterface
     {
         if (null === $previous) {
@@ -167,7 +163,8 @@ class ConsentController extends ActionController
         }
 
         if ($previous->getStatusCode() >= 300) {
-            throw new PropagateResponseException($previous, 1645646663);
+            // @todo Use PropagateResponseException once v10 support is dropped
+            throw new ImmediateResponseException($previous, 1645646663);
         }
 
         $content = (string)$previous->getBody();

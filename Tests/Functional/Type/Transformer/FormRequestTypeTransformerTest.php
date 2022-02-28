@@ -25,7 +25,6 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -36,26 +35,13 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class FormRequestTypeTransformerTest extends FunctionalTestCase
 {
-    protected $coreExtensionsToLoad = [
-        'form',
-    ];
-
-    /**
-     * @var FormRequestTypeTransformer
-     */
-    protected $subject;
-
-    /**
-     * @var FormRuntime
-     */
-    protected $formRuntime;
+    protected FormRequestTypeTransformer $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->subject = new FormRequestTypeTransformer($this->getContainer()->get(HashService::class));
-        $this->formRuntime = $this->getContainer()->get(FormRuntime::class);
     }
 
     /**

@@ -38,10 +38,7 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  */
 final class FormRequestTypeTransformer implements TypeTransformerInterface
 {
-    /**
-     * @var HashService
-     */
-    private $hashService;
+    private HashService $hashService;
 
     public function __construct(HashService $hashService)
     {

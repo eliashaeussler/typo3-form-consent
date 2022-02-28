@@ -43,10 +43,7 @@ class ConsentRepositoryTest extends FunctionalTestCase
         'typo3conf/ext/form_consent',
     ];
 
-    /**
-     * @var ConsentRepository
-     */
-    protected $subject;
+    protected ConsentRepository $subject;
 
     protected function setUp(): void
     {

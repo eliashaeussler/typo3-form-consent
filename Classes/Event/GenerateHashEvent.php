@@ -34,22 +34,14 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 class GenerateHashEvent
 {
     /**
-     * @var mixed[]
+     * @var list<mixed>
      */
-    protected $components;
+    protected array $components;
+    protected Consent $consent;
+    protected ?string $hash = null;
 
     /**
-     * @var Consent
-     */
-    protected $consent;
-
-    /**
-     * @var string|null
-     */
-    protected $hash;
-
-    /**
-     * @param mixed[] $components
+     * @param list<mixed> $components
      */
     public function __construct(array $components, Consent $consent)
     {
@@ -58,7 +50,7 @@ class GenerateHashEvent
     }
 
     /**
-     * @return mixed[]
+     * @return list<mixed>
      */
     public function getComponents(): array
     {
@@ -66,7 +58,7 @@ class GenerateHashEvent
     }
 
     /**
-     * @param mixed[]  $components
+     * @param list<mixed>  $components
      */
     public function setComponents(array $components): self
     {

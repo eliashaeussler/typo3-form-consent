@@ -36,10 +36,7 @@ use TYPO3\CMS\Core\Information\Typo3Version;
  */
 final class StringableResponseFactory implements ResponseFactoryInterface
 {
-    /**
-     * @var bool
-     */
-    private $useCompatibilityLayer;
+    private bool $useCompatibilityLayer;
 
     public function __construct()
     {

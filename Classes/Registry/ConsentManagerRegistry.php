@@ -38,7 +38,7 @@ final class ConsentManagerRegistry
     /**
      * @var array<string, array<int, ConsentState>>
      */
-    private static $states = [];
+    private static array $states = [];
 
     public static function registerConsent(Consent $consent): ConsentState
     {

@@ -37,7 +37,7 @@ class JsonTypeTest extends UnitTestCase
     /**
      * @var JsonType<string, string>
      */
-    private JsonType $subject;
+    protected JsonType $subject;
 
     protected function setUp(): void
     {

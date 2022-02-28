@@ -38,15 +38,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class TypeTransformerFactoryTest extends UnitTestCase
 {
-    /**
-     * @var FormRequestTypeTransformer
-     */
-    protected $formRequestTypeTransformer;
-
-    /**
-     * @var TypeTransformerFactory
-     */
-    protected $subject;
+    protected FormRequestTypeTransformer $formRequestTypeTransformer;
+    protected TypeTransformerFactory $subject;
 
     protected function setUp(): void
     {

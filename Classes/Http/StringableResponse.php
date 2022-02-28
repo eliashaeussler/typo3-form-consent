@@ -35,6 +35,10 @@ final class StringableResponse extends Response
 {
     public function __toString(): string
     {
-        return (string)$this->body;
+        if (null === $this->body) {
+            return '';
+        }
+
+        return $this->body->__toString();
     }
 }

@@ -42,10 +42,7 @@ use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
  */
 final class FinisherOptions implements \ArrayAccess
 {
-    /**
-     * @var PageRepository
-     */
-    private static $pageRepository;
+    private static ?PageRepository $pageRepository = null;
 
     /**
      * @var callable(string): mixed

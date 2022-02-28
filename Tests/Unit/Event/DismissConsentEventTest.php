@@ -35,15 +35,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class DismissConsentEventTest extends UnitTestCase
 {
-    /**
-     * @var DismissConsentEvent
-     */
-    protected $subject;
-
-    /**
-     * @var Consent
-     */
-    protected $consent;
+    protected DismissConsentEvent $subject;
+    protected Consent $consent;
 
     protected function setUp(): void
     {

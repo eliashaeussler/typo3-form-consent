@@ -25,6 +25,8 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -37,26 +39,30 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class FormValuesTypeTransformerTest extends FunctionalTestCase
 {
+    use ProphecyTrait;
+
     protected $coreExtensionsToLoad = [
         'form',
     ];
 
-    /**
-     * @var FormValuesTypeTransformer
-     */
-    protected $subject;
+    protected $testExtensionsToLoad = [
+        'typo3conf/ext/form_consent',
+    ];
+
+    protected FormValuesTypeTransformer $subject;
 
     /**
-     * @var FormRuntime
+     * @var FormRuntime|ObjectProphecy
      */
-    protected $formRuntime;
+    protected $formRuntimeProphecy;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->subject = new FormValuesTypeTransformer(new Context());
-        $this->formRuntime = $this->getContainer()->get(FormRuntime::class);
+        // @todo Replace with $this->getContainer()->get(FormRuntime::class) once v10 support is dropped
+        $this->formRuntimeProphecy = $this->prophesize(FormRuntime::class);
     }
 
     /**
@@ -76,6 +82,8 @@ class FormValuesTypeTransformerTest extends FunctionalTestCase
      */
     public function transformReturnsJsonTypeWithEmptyArrayIfFormIsUninitialized(): void
     {
-        self::assertEquals(JsonType::fromArray([]), $this->subject->transform($this->formRuntime));
+        $this->formRuntimeProphecy->getFormState()->willReturn(null);
+
+        self::assertEquals(JsonType::fromArray([]), $this->subject->transform($this->formRuntimeProphecy->reveal()));
     }
 }

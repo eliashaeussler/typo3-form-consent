@@ -33,10 +33,7 @@ use TYPO3\CMS\Core\Mail\FluidEmail;
  */
 class ModifyConsentMailEvent
 {
-    /**
-     * @var FluidEmail
-     */
-    protected $mail;
+    protected FluidEmail $mail;
 
     public function __construct(FluidEmail $mail)
     {

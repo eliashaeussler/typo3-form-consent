@@ -54,16 +54,30 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
 
     protected ConsentFactory $consentFactory;
     protected EventDispatcherInterface $eventDispatcher;
+    protected Mailer $mailer;
     protected PersistenceManagerInterface $persistenceManager;
 
-    /** @noinspection PhpMissingParentConstructorInspection */
-    public function __construct(
-        ConsentFactory $consentFactory,
-        EventDispatcherInterface $eventDispatcher,
-        PersistenceManagerInterface $persistenceManager
-    ) {
+    // @todo move to constructor once v10 support is dropped
+    public function injectConsentFactory(ConsentFactory $consentFactory): void
+    {
         $this->consentFactory = $consentFactory;
+    }
+
+    // @todo move to constructor once v10 support is dropped
+    public function injectEventDispatcher(EventDispatcherInterface $eventDispatcher): void
+    {
         $this->eventDispatcher = $eventDispatcher;
+    }
+
+    // @todo move to constructor once v10 support is dropped
+    public function injectMailer(Mailer $mailer): void
+    {
+        $this->mailer = $mailer;
+    }
+
+    // @todo move to constructor once v10 support is dropped
+    public function injectPersistenceManager(PersistenceManagerInterface $persistenceManager): void
+    {
         $this->persistenceManager = $persistenceManager;
     }
 
@@ -88,9 +102,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     protected function executeConsent(): void
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
-        $finisherOptions = new FinisherOptions(function (string $optionName) {
-            return $this->parseOption($optionName);
-        });
+        $finisherOptions = new FinisherOptions(fn (string $optionName) => $this->parseOption($optionName));
 
         // Create consent
         $consent = $this->consentFactory->createFromForm($finisherOptions, $formRuntime);
@@ -119,8 +131,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
 
         // Send mail
         try {
-            $mailer = GeneralUtility::makeInstance(Mailer::class);
-            $mailer->send($mail);
+            $this->mailer->send($mail);
         } catch (TransportExceptionInterface $e) {
             throw new FinisherException(
                 Localization::forKey('consentMail.error', null, true),

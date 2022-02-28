@@ -45,15 +45,9 @@ class ConsentChartDataProviderTest extends FunctionalTestCase
         'typo3conf/ext/form_consent',
     ];
 
-    /**
-     * @var ConsentChartDataProvider
-     */
-    protected $subject;
+    private static string $languagePrefix = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:';
 
-    /**
-     * @var string
-     */
-    private $languagePrefix = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:';
+    protected ConsentChartDataProvider $subject;
 
     /**
      * @throws DBALException
@@ -82,9 +76,9 @@ class ConsentChartDataProviderTest extends FunctionalTestCase
         $chartData = $this->subject->getChartData();
 
         $labels = $chartData['labels'];
-        self::assertSame($this->languagePrefix . 'charts.approved', $labels[0]);
-        self::assertSame($this->languagePrefix . 'charts.nonApproved', $labels[1]);
-        self::assertSame($this->languagePrefix . 'charts.dismissed', $labels[2]);
+        self::assertSame(self::$languagePrefix . 'charts.approved', $labels[0]);
+        self::assertSame(self::$languagePrefix . 'charts.nonApproved', $labels[1]);
+        self::assertSame(self::$languagePrefix . 'charts.dismissed', $labels[2]);
 
         $data = $chartData['datasets'][0]['data'];
         self::assertSame($expectedApprovedCount, $data[0]);

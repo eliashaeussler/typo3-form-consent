@@ -27,7 +27,6 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\GenerateHashEvent;
 use EliasHaeussler\Typo3FormConsent\Service\HashService;
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\DependencyInjection\Container;
 use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
@@ -41,25 +40,9 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class HashServiceTest extends FunctionalTestCase
 {
-    /**
-     * @var Consent
-     */
-    protected $consent;
-
-    /**
-     * @var ListenerProvider
-     */
-    protected $listenerProvider;
-
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var HashService
-     */
-    protected $subject;
+    protected Consent $consent;
+    protected ListenerProvider $listenerProvider;
+    protected HashService $subject;
 
     protected function setUp(): void
     {
@@ -71,9 +54,8 @@ class HashServiceTest extends FunctionalTestCase
             ->setData(JsonType::fromArray(['foo' => 'baz']))
             ->setValidUntil(new \DateTime());
 
-        $this->container = $this->getContainer();
-        $this->listenerProvider = $this->container->get(ListenerProvider::class);
-        $this->subject = new HashService($this->container->get(EventDispatcherInterface::class));
+        $this->listenerProvider = $this->getContainer()->get(ListenerProvider::class);
+        $this->subject = new HashService($this->getContainer()->get(EventDispatcherInterface::class));
     }
 
     /**
@@ -194,9 +176,11 @@ class HashServiceTest extends FunctionalTestCase
 
     private function addEventListener(string $event, string $service, object $object): void
     {
-        self::assertInstanceOf(Container::class, $this->container);
+        $container = $this->getContainer();
 
-        $this->container->set($service, $object);
+        self::assertInstanceOf(Container::class, $container);
+
+        $container->set($service, $object);
         $this->listenerProvider->addListener($event, $service);
     }
 }

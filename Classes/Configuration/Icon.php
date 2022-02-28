@@ -34,10 +34,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class Icon
 {
-    /**
-     * @var IconRegistry
-     */
-    protected static $iconRegistry;
+    protected static ?IconRegistry $iconRegistry = null;
 
     public static function forTable(string $tableName, string $type = 'svg'): string
     {

@@ -38,15 +38,8 @@ class ModifyConsentMailEventTest extends UnitTestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var ModifyConsentMailEvent
-     */
-    protected $subject;
-
-    /**
-     * @var FluidEmail
-     */
-    protected $mail;
+    protected ModifyConsentMailEvent $subject;
+    protected FluidEmail $mail;
 
     protected function setUp(): void
     {

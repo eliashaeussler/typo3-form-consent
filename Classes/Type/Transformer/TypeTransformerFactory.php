@@ -34,10 +34,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 final class TypeTransformerFactory
 {
-    /**
-     * @var ServiceLocator
-     */
-    private $typeTransformers;
+    private ServiceLocator $typeTransformers;
 
     public function __construct(ServiceLocator $transformers)
     {

@@ -38,10 +38,7 @@ use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
  */
 class ConsentChartDataProvider implements ChartDataProviderInterface
 {
-    /**
-     * @var Connection
-     */
-    protected $connection;
+    protected Connection $connection;
 
     public function __construct(Connection $connection)
     {
