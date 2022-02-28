@@ -8,7 +8,11 @@
 [![Tests](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml/badge.svg)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml)
 [![CGL](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml/badge.svg)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml)
 [![Latest Stable Version](http://poser.pugx.org/eliashaeussler/typo3-form-consent/v)](https://packagist.org/packages/eliashaeussler/typo3-form-consent)
-[![License](http://poser.pugx.org/eliashaeussler/typo3-form-consent/license)](LICENSE.md)
+[![License](http://poser.pugx.org/eliashaeussler/typo3-form-consent/license)](LICENSE.md)\
+![Version](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/version/shields)
+![Downloads](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/downloads/shields)
+![Extension stability](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/stability/shields)
+![TYPO3 badge](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/typo3/shields)
 
 :package:&nbsp;[Packagist](https://packagist.org/packages/eliashaeussler/typo3-form-consent) |
 :hatched_chick:&nbsp;[TYPO3 extension repository](https://extensions.typo3.org/extension/form_consent) |
