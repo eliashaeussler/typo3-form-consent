@@ -136,4 +136,4 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: composer test:ci -- --coverage-text
+        run: composer test
