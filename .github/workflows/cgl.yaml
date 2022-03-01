@@ -18,6 +18,10 @@ jobs:
           php-version: 8.1
           tools: composer:v2, composer-require-checker
 
+      # Validation
+      - name: Validate composer.json
+        run: composer validate --no-check-lock
+
       # Install dependencies
       - name: Install Composer dependencies
         run: composer require --no-progress --no-plugins typo3/cms-dashboard:"~10.4.11 || ~11.5.0" typo3/cms-scheduler:"~10.4.11 || ~11.5.0"
