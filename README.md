@@ -66,10 +66,10 @@ The following TypoScript constants are available:
 
 | TypoScript constant | Description | Required | Default |
 |---------------------|-------------|----------|---------|
-| **`plugin.tx_formconsent.persistence.storagePid`** | Default storage PID for new consents | :x: | `0` |
-| **`plugin.tx_formconsent.view.templateRootPath`** | Path to template root for consent mail and validation plugin | :x: | – |
-| **`plugin.tx_formconsent.view.partialRootPath`** | Path to template partials for consent mail and validation plugin | :x: | – |
-| **`plugin.tx_formconsent.view.layoutRootPath`** | Path to template layouts for consent mail and validation plugin | :x: | – |
+| **`plugin.tx_formconsent.persistence.storagePid`** | Default storage PID for new consents | – | `0` |
+| **`plugin.tx_formconsent.view.templateRootPath`** | Path to template root for consent mail and validation plugin | – | – |
+| **`plugin.tx_formconsent.view.partialRootPath`** | Path to template partials for consent mail and validation plugin | – | – |
+| **`plugin.tx_formconsent.view.layoutRootPath`** | Path to template layouts for consent mail and validation plugin | – | – |
 
 ### Finisher options
 
@@ -77,20 +77,20 @@ The following options are available to the `Consent` finisher:
 
 | Finisher option | Description | Required | Default |
 |-----------------|-------------|----------|---------|
-| **`subject`**   | Mail subject | :x: | `Approve your consent` |
+| **`subject`**   | Mail subject | – | `Approve your consent` |
 | **`recipientAddress`** | Recipient e-mail address | :white_check_mark: | – |
-| **`recipientName`** | Recipient name | :x: | – |
-| **`senderAddress`** | Sender e-mail address | :x: | _System default sender e-mail address_ |
-| **`senderName`** | Sender name | :x: | _System default sender name_ |
+| **`recipientName`** | Recipient name | – | – |
+| **`senderAddress`** | Sender e-mail address | – | _System default sender e-mail address_ |
+| **`senderName`** | Sender name | – | _System default sender name_ |
 | **`approvalPeriod`** | Approval period | :white_check_mark: | `86400` (1 day), `0` = unlimited |
-| **`showDismissLink`** | Show dismiss link in consent mail | :x: | `false` |
+| **`showDismissLink`** | Show dismiss link in consent mail | – | `false` |
 | **`confirmationPid`** | Confirmation page (contains plugin) | :white_check_mark: | – |
-| **`storagePid`** | Storage page | :x: | `plugin.tx_formconsent.persistence.storagePid` |
-| **`templateRootPaths`** | Additional paths to template root | :x: | – |
-| **`partialRootPaths`** | Additional paths to template partials | :x: | – |
-| **`layoutRootPaths`** | Additional paths to template layouts | :x: | – |
+| **`storagePid`** | Storage page | – | `plugin.tx_formconsent.persistence.storagePid` |
+| **`templateRootPaths`** | Additional paths to template root | – | – |
+| **`partialRootPaths`** | Additional paths to template partials | – | – |
+| **`layoutRootPaths`** | Additional paths to template layouts | – | – |
 
-**Note:** Template paths that are configured via form finisher
+:bulb: **Note:** Template paths that are configured via form finisher
 options are only applied to the appropriate form. They are merged
 with the default template paths configured via TypoScript.
 
