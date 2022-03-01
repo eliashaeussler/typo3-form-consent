@@ -49,7 +49,7 @@ final class ConsentConditionFunctionsProvider implements ExpressionFunctionProvi
 
     private function getIsConsentApprovedFunction(): ExpressionFunction
     {
-        return new ExpressionFunction('isConsentApproved', static function () {
+        return new ExpressionFunction('isConsentApproved', static function (): void {
             // Not implemented, we only use the evaluator
         }, static function ($arguments): bool {
             $formRuntime = $arguments['formRuntime'] ?? null;
@@ -64,7 +64,7 @@ final class ConsentConditionFunctionsProvider implements ExpressionFunctionProvi
 
     private function getIsConsentDismissedFunction(): ExpressionFunction
     {
-        return new ExpressionFunction('isConsentDismissed', static function () {
+        return new ExpressionFunction('isConsentDismissed', static function (): void {
             // Not implemented, we only use the evaluator
         }, static function ($arguments): bool {
             $formRuntime = $arguments['formRuntime'] ?? null;
