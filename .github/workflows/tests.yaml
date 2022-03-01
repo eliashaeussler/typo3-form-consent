@@ -34,7 +34,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
-          coverage: xdebug
+          coverage: pcov
 
       # Start MySQL service
       - name: Start MySQL
@@ -111,7 +111,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
-          coverage: xdebug
+          coverage: none
 
       # Start MySQL service
       - name: Start MySQL
