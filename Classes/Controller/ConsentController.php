@@ -30,6 +30,7 @@ use EliasHaeussler\Typo3FormConsent\Http\StringableResponseFactory;
 use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
+use TYPO3\CMS\Core\Http\Stream;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -183,9 +184,13 @@ final class ConsentController extends ActionController
             return $this->htmlResponse($html);
         }
 
+        // @todo Remove once v10 support is dropped
+        $body = new Stream('php://temp', 'r+');
+        $body->write($html ?? $this->view->render());
+
         // TYPO3 v10
         return $this->stringableResponseFactory->createResponse()
             ->withHeader('Content-Type', 'text/html; charset=utf-8')
-            ->withBody($this->streamFactory->createStream($html ?? $this->view->render()));
+            ->withBody($body);
     }
 }

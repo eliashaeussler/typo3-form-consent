@@ -57,28 +57,31 @@ final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInter
     private Mailer $mailer;
     private PersistenceManagerInterface $persistenceManager;
 
-    // @todo move to constructor once v10 support is dropped
-    public function injectConsentFactory(ConsentFactory $consentFactory): void
-    {
-        $this->consentFactory = $consentFactory;
-    }
-
-    // @todo move to constructor once v10 support is dropped
+    // @todo Move to constructor once v10 support is dropped
     public function injectEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    // @todo move to constructor once v10 support is dropped
+    // @todo Move to constructor once v10 support is dropped
     public function injectMailer(Mailer $mailer): void
     {
         $this->mailer = $mailer;
     }
 
-    // @todo move to constructor once v10 support is dropped
+    // @todo Move to constructor once v10 support is dropped
     public function injectPersistenceManager(PersistenceManagerInterface $persistenceManager): void
     {
         $this->persistenceManager = $persistenceManager;
+    }
+
+    public function __construct(string $finisherIdentifier = '')
+    {
+        /* @phpstan-ignore-next-line */
+        parent::__construct($finisherIdentifier);
+
+        // @todo Use dependency injection once v10 support is dropped
+        $this->consentFactory = GeneralUtility::makeInstance(ConsentFactory::class);
     }
 
     /**

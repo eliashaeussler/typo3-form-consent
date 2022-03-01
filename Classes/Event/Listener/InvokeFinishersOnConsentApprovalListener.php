@@ -84,12 +84,25 @@ final class InvokeFinishersOnConsentApprovalListener
             return null;
         }
 
+        // Backup original server request object
+        // @todo Remove once v10 support is dropped
+        $originalRequest = $GLOBALS['TYPO3_REQUEST'];
+        $GLOBALS['TYPO3_REQUEST'] = $serverRequest;
+
         // Build extbase bootstrap object
         $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        $contentObjectRenderer->start($contentElementRecord, 'tt_content', $serverRequest);
+        // @todo Enable third parameter once v10 support is dropped
+        $contentObjectRenderer->start($contentElementRecord, 'tt_content'/**, $serverRequest */);
         $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
         $bootstrap = GeneralUtility::makeInstance(Bootstrap::class);
-        $bootstrap->setContentObjectRenderer($contentObjectRenderer);
+
+        if (method_exists($bootstrap, 'setContentObjectRenderer')) {
+            $bootstrap->setContentObjectRenderer($contentObjectRenderer);
+        } else {
+            // @todo Remove once v10 support is dropped
+            /* @phpstan-ignore-next-line */
+            $bootstrap->cObj = $contentObjectRenderer;
+        }
 
         $configuration = [
             'extensionName' => 'Form',
@@ -98,7 +111,8 @@ final class InvokeFinishersOnConsentApprovalListener
 
         try {
             // Dispatch extbase request
-            $content = $bootstrap->run('', $configuration, $serverRequest);
+            // @todo Enable third parameter once v10 support is dropped
+            $content = $bootstrap->run('', $configuration/**, $serverRequest */);
             $response = new Response();
             $response->getBody()->write($content);
 
@@ -106,6 +120,9 @@ final class InvokeFinishersOnConsentApprovalListener
         } catch (ImmediateResponseException $exception) {
             // If any immediate response is thrown, use this for further processing
             return $exception->getResponse();
+        } finally {
+            // Restore original server request object
+            $GLOBALS['TYPO3_REQUEST'] = $originalRequest;
         }
     }
 

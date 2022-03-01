@@ -42,7 +42,7 @@ final class StringableResponseFactoryTest extends UnitTestCase
      */
     public function createResponseReturnsStringableResponseOnTypo3V10(): void
     {
-        // @todo Remove test once v10 support is dropped
+        // @todo Remove test case once v10 support is dropped
 
         if ($this->getMajorTypo3Version() > 10) {
             self::markTestSkipped(sprintf('Test targets TYPO3 v10, v%d found.', $this->getMajorTypo3Version()));
@@ -56,8 +56,9 @@ final class StringableResponseFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function createResponseReturnsResponseOnTypo3V11(): void
+    public function createResponseReturnsResponse(): void
     {
+        // @todo Remove condition once v10 support is dropped
         if ($this->getMajorTypo3Version() < 11) {
             self::markTestSkipped(sprintf('Test targets TYPO3 v11, v%d found.', $this->getMajorTypo3Version()));
         }

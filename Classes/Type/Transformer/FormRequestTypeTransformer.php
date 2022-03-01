@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
@@ -55,14 +57,17 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
             throw new \InvalidArgumentException('Expected a valid FormRuntime object, but gut none.', 1646044629);
         }
 
+        // @todo Replace with $formRuntime->getRequest() once v10 support is dropped
+        $request = $this->getServerRequest();
+
         // Handle submitted form values
         $requestParameters = [];
-        if (\is_array($formRuntime->getRequest()->getParsedBody())) {
-            $requestParameters = $formRuntime->getRequest()->getParsedBody();
+        if (\is_array($request->getParsedBody())) {
+            $requestParameters = $request->getParsedBody();
         }
 
         // Handle uploaded files
-        $uploadedFiles = $formRuntime->getRequest()->getUploadedFiles();
+        $uploadedFiles = $request->getUploadedFiles();
         array_walk_recursive($uploadedFiles, function (&$value, string $elementIdentifier) use ($formRuntime): void {
             $file = $formRuntime[$elementIdentifier];
             if ($file instanceof ExtbaseFileReference || $file instanceof CoreFileReference) {
@@ -93,6 +98,11 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
                 'resourcePointer' => $this->hashService->appendHmac('file:' . $file->getUid()),
             ],
         ];
+    }
+
+    private function getServerRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'] ?? ServerRequestFactory::fromGlobals();
     }
 
     public static function getName(): string

@@ -17,6 +17,10 @@ services:
     shared: false
 
   # @todo Remove once v10 support is dropped
+  EliasHaeussler\Typo3FormConsent\Domain\Factory\ConsentFactory:
+    public: true
+
+  # @todo Remove once v10 support is dropped
   TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface:
     alias: TYPO3\CMS\Extbase\Configuration\ConfigurationManager
     public: true
