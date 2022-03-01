@@ -16,11 +16,16 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
-          tools: composer:v2
+          tools: composer:v2, composer-require-checker
 
       # Install dependencies
       - name: Install Composer dependencies
-        run: composer install --no-progress
+        run: composer require --no-progress --no-plugins typo3/cms-dashboard:"~10.4.11 || ~11.5.0" typo3/cms-scheduler:"~10.4.11 || ~11.5.0"
+
+      # Check Composer dependencies
+      - name: Check dependencies
+        run: composer-require-checker check --config-file dependency-checker.json
+      - run: composer install --no-progress
 
       # Linting
       - name: Lint composer.json
