@@ -71,14 +71,14 @@ jobs:
         with:
           coverageLocations: |
             ${{ github.workspace }}/.Build/log/coverage/clover.xml:clover
-        if: ${{ matrix.coverage && github.event == 'pull_request' }}
+        if: ${{ matrix.coverage && github.event_name == 'pull_request' }}
       - name: codecov report
         uses: codecov/codecov-action@v2
         with:
           directory: .Build/log/coverage
           fail_ci_if_error: true
           verbose: true
-        if: ${{ matrix.coverage && github.event == 'pull_request' }}
+        if: ${{ matrix.coverage && github.event_name == 'pull_request' }}
 
   tests-lowest:
     name: '[test-lowest] PHP ${{ matrix.php-version }} & TYPO3 ${{ matrix.typo3-version }}'
