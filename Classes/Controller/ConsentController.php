@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Controller;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
 use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
 use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
@@ -58,9 +57,6 @@ class ConsentController extends ActionController
     }
 
     /**
-     * @param string $hash
-     * @param string $email
-     * @return ResponseInterface|null
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
@@ -97,9 +93,6 @@ class ConsentController extends ActionController
     }
 
     /**
-     * @param string $hash
-     * @param string $email
-     * @return ResponseInterface|null
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */

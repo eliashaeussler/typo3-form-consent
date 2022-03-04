@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -196,10 +196,10 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         $this->validateConfirmationPid($confirmationPid);
         $this->validateStoragePid($storagePid);
 
-        assert(is_string($recipientAddress));
-        assert(is_string($recipientName));
-        assert(is_string($senderAddress));
-        assert(is_string($senderName));
+        \assert(\is_string($recipientAddress));
+        \assert(\is_string($recipientName));
+        \assert(\is_string($senderAddress));
+        \assert(\is_string($senderName));
 
         // Define consent variables
         $data = $this->resolveFormData();
@@ -297,7 +297,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         unset($formData[$honeypotIdentifier]);
 
         foreach ($formData as $key => $value) {
-            if (is_object($value)) {
+            if (\is_object($value)) {
                 if ($value instanceof ExtbaseFileReference) {
                     $value = $value->getOriginalResource();
                 }
@@ -378,7 +378,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
 
         // Resolve mail subject
         $subject = $this->parseOption('subject');
-        if (!is_string($subject)) {
+        if (!\is_string($subject)) {
             $subject = '';
         }
         $subject = $this->resolveSubject($subject);
@@ -403,7 +403,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
      */
     protected function validateRecipientAddress($recipientAddress): void
     {
-        if (!is_string($recipientAddress)) {
+        if (!\is_string($recipientAddress)) {
             throw new FinisherException(
                 Localization::forFormValidation('recipientAddress.invalid', true),
                 1640186663
@@ -429,7 +429,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
      */
     protected function validateSenderAddress($senderAddress): void
     {
-        if (!is_string($senderAddress)) {
+        if (!\is_string($senderAddress)) {
             throw new FinisherException(
                 Localization::forFormValidation('senderAddress.invalid', true),
                 1640186811
@@ -444,7 +444,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
-     * @param int $approvalPeriod
      * @throws FinisherException
      */
     protected function validateApprovalPeriod(int $approvalPeriod): void
@@ -458,7 +457,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
-     * @param int $confirmationPid
      * @throws FinisherException
      */
     protected function validateConfirmationPid(int $confirmationPid): void
@@ -469,7 +467,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
                 1576948961
             );
         }
-        if (!is_array($this->pageRepository->checkRecord('pages', $confirmationPid))) {
+        if (!\is_array($this->pageRepository->checkRecord('pages', $confirmationPid))) {
             throw new FinisherException(
                 Localization::forFormValidation('confirmationPid.invalid', true),
                 1576949163
@@ -478,7 +476,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
     }
 
     /**
-     * @param int $storagePid
      * @throws FinisherException
      */
     protected function validateStoragePid(int $storagePid): void
@@ -494,7 +491,7 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
                 1576951495
             );
         }
-        if (!is_array($this->pageRepository->checkRecord('pages', $storagePid))) {
+        if (!\is_array($this->pageRepository->checkRecord('pages', $storagePid))) {
             throw new FinisherException(
                 Localization::forFormValidation('storagePid.invalid', true),
                 1576951499
@@ -502,10 +499,6 @@ class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
         }
     }
 
-    /**
-     * @param \Exception $exception
-     * @param bool $cancel
-     */
     protected function addFlashMessage(\Exception $exception, bool $cancel = true): void
     {
         // Add flash message

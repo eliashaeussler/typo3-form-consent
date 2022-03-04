@@ -3,7 +3,7 @@
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
  *
- * Copyright (C) 2020 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2022 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => false,
     'createDirs' => '',
     'clearCacheOnLoad' => false,
-    'version' => '0.2.1',
+    'version' => '0.2.2',
     'constraints' => [
         'depends' => [
             'typo3' => '10.4.0-11.5.99',
