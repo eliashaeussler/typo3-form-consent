@@ -19,43 +19,52 @@
 		"psr/http-factory": "^1.0",
 		"psr/http-message": "^1.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
-		"symfony/dependency-injection": "^4.4 || ^5.0",
-		"symfony/expression-language": "^4.4 || ^5.0",
-		"symfony/mailer": "^4.4 || ^5.0",
-		"symfony/mime": "^4.4 || ^5.0",
+		"symfony/dependency-injection": "^4.4.30 || ^5.3.7",
+		"symfony/expression-language": "^4.4.30 || ^5.3.7",
+		"symfony/mailer": "^4.4.30 || ^5.3.7",
+		"symfony/mime": "^4.4.30 || ^5.3.7",
 		"symfony/polyfill-php80": "^1.24",
-		"typo3/cms-backend": "~10.4.11 || ~11.5.0",
-		"typo3/cms-core": "~10.4.11 || ~11.5.0",
-		"typo3/cms-extbase": "~10.4.11 || ~11.5.0",
-		"typo3/cms-fluid": "~10.4.11 || ~11.5.0",
-		"typo3/cms-form": "~10.4.11 || ~11.5.0",
-		"typo3/cms-frontend": "~10.4.11 || ~11.5.0"
+		"typo3/cms-backend": "~10.4.11 || ~11.5.1",
+		"typo3/cms-core": "~10.4.11 || ~11.5.1",
+		"typo3/cms-extbase": "~10.4.11 || ~11.5.1",
+		"typo3/cms-fluid": "~10.4.11 || ~11.5.1",
+		"typo3/cms-form": "~10.4.11 || ~11.5.1",
+		"typo3/cms-frontend": "~10.4.11 || ~11.5.1"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.5",
 		"captainhook/plugin-composer": "^5.3",
+		"codeception/c3": "^2.6",
+		"codeception/codeception": "^4.1.11",
+		"codeception/module-asserts": "^2.0",
+		"codeception/module-db": "^2.0",
+		"codeception/module-webdriver": "^2.0",
 		"ergebnis/composer-normalize": "^2.15",
+		"helhum/config-loader": "^0.12.5",
+		"helhum/typo3-console": "^6.6 || ^7.0.5",
 		"helmich/typo3-typoscript-lint": "^2.5",
 		"jangregor/phpstan-prophecy": "^1.0",
 		"nikic/php-parser": "^4.12",
+		"oqq/codeception-email-mailhog": "^2.1",
 		"phpspec/prophecy-phpunit": "^2.0",
 		"phpstan/phpstan": "^1.2",
 		"phpstan/phpstan-phpunit": "^1.0",
 		"phpunit/phpcov": "^8.2",
 		"phpunit/phpunit": "^9.3",
 		"saschaegerer/phpstan-typo3": "^1.0",
-		"typo3/cms-dashboard": "~10.4.11 || ~11.5.0",
-		"typo3/cms-filelist": "~10.4.11 || ~11.5.0",
-		"typo3/cms-fluid-styled-content": "~10.4.11 || ~11.5.0",
-		"typo3/cms-lowlevel": "~10.4.11 || ~11.5.0",
-		"typo3/cms-scheduler": "~10.4.11 || ~11.5.0",
-		"typo3/cms-tstemplate": "~10.4.11 || ~11.5.0",
+		"symfony/process": "^4.4.30 || ^5.3.7",
+		"typo3/cms-dashboard": "~10.4.11 || ~11.5.1",
+		"typo3/cms-filelist": "~10.4.11 || ~11.5.1",
+		"typo3/cms-fluid-styled-content": "~10.4.11 || ~11.5.1",
+		"typo3/cms-lowlevel": "~10.4.11 || ~11.5.1",
+		"typo3/cms-scheduler": "~10.4.11 || ~11.5.1",
+		"typo3/cms-tstemplate": "~10.4.11 || ~11.5.1",
 		"typo3/coding-standards": "^0.5.0",
 		"typo3/testing-framework": "^6.14"
 	},
 	"suggest": {
-		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~10.4.11 || ~11.5.0)",
-		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~10.4.11 || ~11.5.0)"
+		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~10.4.11 || ~11.5.1)",
+		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~10.4.11 || ~11.5.1)"
 	},
 	"autoload": {
 		"psr-4": {
@@ -70,6 +79,7 @@
 	"config": {
 		"allow-plugins": {
 			"captainhook/plugin-composer": true,
+			"codeception/c3": true,
 			"ergebnis/composer-normalize": true,
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
@@ -86,15 +96,30 @@
 	},
 	"scripts": {
 		"post-autoload-dump": [
+			"@environment:prepare"
+		],
+		"environment:prepare": [
+			"@environment:prepare:extension",
+			"@environment:prepare:sites-config",
+			"@environment:prepare:additional-config"
+		],
+		"environment:prepare:additional-config": [
+			"[ -L .Build/web/typo3conf/AdditionalConfiguration.php ] || ln -snvf ../../../Tests/Build/AdditionalConfiguration.php .Build/web/typo3conf/AdditionalConfiguration.php"
+		],
+		"environment:prepare:extension": [
 			"mkdir -p .Build/web/typo3conf/ext/",
 			"[ -L .Build/web/typo3conf/ext/form_consent ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/form_consent"
+		],
+		"environment:prepare:sites-config": [
+			"mkdir -p config/sites/main",
+			"[ -L config/sites/main/config.yaml ] || ln -snvf ../../../Tests/Build/sites-config.yaml config/sites/main/config.yaml"
 		],
 		"lint": [
 			"@lint:editorconfig",
 			"@lint:php",
 			"@lint:typoscript"
 		],
-		"lint:editorconfig": "ec --fix -e .Build",
+		"lint:editorconfig": "ec --fix -e .Build -e Tests/Acceptance/Support/_generated/AcceptanceTesterActions.php",
 		"lint:php": "php-cs-fixer fix",
 		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
 		"sca": [
@@ -102,12 +127,33 @@
 		],
 		"sca:php": "phpstan analyse -c phpstan.neon",
 		"test": [
+			"@test:acceptance",
 			"@test:functional",
 			"@test:unit"
 		],
+		"test:acceptance": [
+			"@test:acceptance:prepare",
+			"@test:acceptance:run"
+		],
+		"test:acceptance:prepare": [
+			"mysql -Nse 'show tables' db | while read table; do mysql -e \"truncate table $table\" db; done",
+			"typo3cms install:setup --no-interaction --force"
+		],
+		"test:acceptance:run": "codecept run",
 		"test:ci": [
+			"@test:ci:acceptance",
 			"@test:ci:functional",
 			"@test:ci:unit"
+		],
+		"test:ci:acceptance": [
+			"@test:ci:acceptance:prepare",
+			"@test:ci:acceptance:run"
+		],
+		"test:ci:acceptance:prepare": "@test:acceptance:prepare",
+		"test:ci:acceptance:run": [
+			"@test:acceptance:run --coverage --coverage-html --debug",
+			"mkdir -p .Build/log/coverage/php",
+			"cp .Build/log/acceptance-reports/coverage.serialized .Build/log/coverage/php/acceptance.cov"
 		],
 		"test:ci:functional": "phpunit -c phpunit.ci.functional.xml",
 		"test:ci:merge": "phpcov merge --html .Build/log/coverage/html/_merged --clover .Build/log/coverage/clover.xml --text php://stdout .Build/log/coverage/php",

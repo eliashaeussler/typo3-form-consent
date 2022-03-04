@@ -12,15 +12,32 @@ mariadb_version: "10.3"
 mysql_version: ""
 nfs_mount_enabled: false
 mutagen_enabled: false
+hooks:
+  post-start:
+  - composer: environment:prepare
+  - exec-host: ddev import-files --src Tests/Acceptance/Data/Fileadmin
 omit_containers: [dba]
-webimage_extra_packages: [php7.4-pcov]
 use_dns_when_possible: true
-composer_version: ""
+composer_version: "2"
+disable_settings_management: true
 web_environment:
+- XDEBUG_MODE=coverage
+- TYPO3_CONTEXT=Development/Ddev
+# DB configuration for functional tests
 - typo3DatabaseHost=db
 - typo3DatabaseUsername=root
 - typo3DatabasePassword=root
 - typo3DatabaseName=db
+# Domain configuration
+- TESTING_DOMAIN=$DDEV_HOSTNAME
+# Environment variables for TYPO3 installation
+- TYPO3_INSTALL_DB_USER=db
+- TYPO3_INSTALL_DB_PASSWORD=db
+- TYPO3_INSTALL_DB_HOST=db
+- TYPO3_INSTALL_DB_USE_EXISTING=0
+- TYPO3_INSTALL_DB_DBNAME=db
+- TYPO3_INSTALL_ADMIN_USER=admin
+- TYPO3_INSTALL_ADMIN_PASSWORD=password
 
 # Key features of ddev's config.yaml:
 

@@ -36,7 +36,9 @@ return [
     ],
     'files' => [
         'DS_Store',
+        'c3.php',
         'captainhook.json',
+        'codeception.yml',
         'composer.lock',
         'crowdin.yaml',
         'dependency-checker.json',

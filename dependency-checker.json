@@ -1,6 +1,6 @@
 {
 	"scan-files": [
-		"*.php",
+		"ext_*.php",
 		"Configuration/TCA/*.php",
 		"Configuration/TCA/Overrides/*.php",
 		"Configuration/*.php"

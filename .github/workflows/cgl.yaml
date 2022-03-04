@@ -35,7 +35,7 @@ jobs:
       - name: Lint composer.json
         run: composer normalize --dry-run --no-check-lock --no-update-lock
       - name: Lint Editorconfig
-        run: .Build/bin/ec -e .Build
+        run: .Build/bin/ec -e .Build -e Tests/Acceptance/Support/_generated/AcceptanceTesterActions.php
       - name: Lint PHP
         run: composer lint:php -- --dry-run
       - name: Lint TypoScript

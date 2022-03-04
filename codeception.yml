@@ -1,0 +1,60 @@
+namespace: EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support
+
+suites:
+  Acceptance:
+    actor: AcceptanceTester
+    path: .
+    modules:
+      enabled:
+        - WebDriver:
+            url: https://%TESTING_DOMAIN%/
+            browser: chrome
+            wait: 5
+            host: selenium
+            port: 4444
+            capabilities:
+              acceptInsecureCerts: true
+        - Db:
+            dsn: 'mysql:host=db;dbname=db'
+            user: 'root'
+            password: 'root'
+            dump:
+              - Tests/Acceptance/Data/Fixtures/be_users.sql
+              - Tests/Acceptance/Data/Fixtures/pages.sql
+              - Tests/Acceptance/Data/Fixtures/sys_file.sql
+              - Tests/Acceptance/Data/Fixtures/sys_template.sql
+              - Tests/Acceptance/Data/Fixtures/tt_content.sql
+              - Tests/Acceptance/Data/Fixtures/tx_formconsent_domain_model_consent.sql
+            populate: true
+            waitlock: 5
+        - MailHog:
+            url: http://%TESTING_DOMAIN%/
+            port: 8025
+            deleteEmailsAfterScenario: true
+        - Asserts
+        - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Email
+        - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Form
+        - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Url
+
+actor_suffix: Tester
+extensions:
+  enabled:
+    - Codeception\Extension\RunFailed
+    - Codeception\Extension\Recorder:
+        delete_successful: true
+    - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Extension\BackendEntrypointModifier
+    - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Extension\FrontendEntrypointModifier
+
+coverage:
+  enabled: true
+  include:
+    - Classes/*
+
+paths:
+  tests: Tests/Acceptance
+  output: .Build/log/acceptance-reports
+  data: Tests/Acceptance/Data
+  support: Tests/Acceptance/Support
+
+params:
+  - env
