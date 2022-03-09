@@ -170,11 +170,6 @@ final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInter
             'messageBody' => $exception->getMessage(),
             'messageCode' => $exception->getCode(),
             'severity' => AbstractMessage::ERROR,
-
-            // Disable finisher since it's already executed below
-            'renderingOptions' => [
-                'enabled' => false,
-            ],
         ]);
         $flashMessageFinisher->execute($this->finisherContext);
 
