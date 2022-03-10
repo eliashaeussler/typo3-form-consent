@@ -9,7 +9,6 @@
 [![CGL](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml/badge.svg)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml)
 [![Latest Stable Version](http://poser.pugx.org/eliashaeussler/typo3-form-consent/v)](https://packagist.org/packages/eliashaeussler/typo3-form-consent)
 [![License](http://poser.pugx.org/eliashaeussler/typo3-form-consent/license)](LICENSE.md)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Feliashaeussler%2Ftypo3-form-consent.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Feliashaeussler%2Ftypo3-form-consent?ref=badge_shield)
 
 :package:&nbsp;[Packagist](https://packagist.org/packages/eliashaeussler/typo3-form-consent) |
 :hatched_chick:&nbsp;[TYPO3 extension repository](https://extensions.typo3.org/extension/form_consent) |
@@ -98,6 +97,5 @@ Icons made by [Google](https://www.flaticon.com/authors/google) from
 ## :star: License
 
 This project is licensed under [GNU General Public License 2.0 (or later)](LICENSE.md).
-
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Feliashaeussler%2Ftypo3-form-consent.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Feliashaeussler%2Ftypo3-form-consent?ref=badge_large)
