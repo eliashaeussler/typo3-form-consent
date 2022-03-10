@@ -51,7 +51,7 @@ final class FormRequestTypeTransformerTest extends FunctionalTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionCode(1646044629);
-        $this->expectExceptionMessage('Expected a valid FormRuntime object, but gut none.');
+        $this->expectExceptionMessage('Expected a valid FormRuntime object, NULL given.');
 
         $this->subject->transform();
     }

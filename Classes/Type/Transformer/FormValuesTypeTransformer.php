@@ -53,7 +53,7 @@ final class FormValuesTypeTransformer implements TypeTransformerInterface
     public function transform(FormRuntime $formRuntime = null): JsonType
     {
         if (null === $formRuntime) {
-            throw new \InvalidArgumentException('Expected a valid FormRuntime object, but gut none.', 1646044591);
+            throw new \InvalidArgumentException('Expected a valid FormRuntime object, NULL given.', 1646044591);
         }
 
         // Early return if form state is not available
@@ -70,13 +70,11 @@ final class FormValuesTypeTransformer implements TypeTransformerInterface
         unset($formValues[$honeypotIdentifier]);
 
         foreach ($formValues as $key => $value) {
-            if (\is_object($value)) {
-                if ($value instanceof ExtbaseFileReference) {
-                    $value = $value->getOriginalResource();
-                }
-                if ($value instanceof CoreFileReference) {
-                    $formValues[$key] = $value->getOriginalFile()->getUid();
-                }
+            if ($value instanceof ExtbaseFileReference) {
+                $value = $value->getOriginalResource();
+            }
+            if ($value instanceof CoreFileReference) {
+                $formValues[$key] = $value->getOriginalFile()->getUid();
             }
         }
 
