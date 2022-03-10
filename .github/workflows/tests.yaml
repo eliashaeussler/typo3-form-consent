@@ -66,11 +66,15 @@ jobs:
           composer test:ci:merge
 
       # Report coverage
-      - name: Fix coverage path
-        working-directory: .Build/log/coverage
-        run: sed -i 's/\/home\/runner\/work\/typo3-form-consent\/typo3-form-consent\//\/github\/workspace\//g' clover.xml
+      - name: CodeClimate report
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageLocations: |
+            ${{ github.workspace }}/.Build/log/coverage/clover.xml:clover
         if: ${{ matrix.coverage }}
-      - name: Report coverage
+      - name: codecov report
         uses: codecov/codecov-action@v2
         with:
           directory: .Build/log/coverage
