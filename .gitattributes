@@ -15,5 +15,4 @@
 /phpunit.ci.unit.xml       export-ignore
 /phpunit.functional.xml    export-ignore
 /phpunit.unit.xml          export-ignore
-/sonar-project.properties  export-ignore
 /typoscript-lint.yml       export-ignore
