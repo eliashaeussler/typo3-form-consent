@@ -50,7 +50,6 @@ return [
         'phpunit.ci.unit.xml',
         'phpunit.functional.xml',
         'phpunit.unit.xml',
-        'sonar-project.properties',
         'typoscript-lint.yml',
     ],
 ];
