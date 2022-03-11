@@ -22,7 +22,7 @@ body:
   - type: textarea
     attributes:
       label: Describe alternatives you've considered
-      description: |
+      description: >
         A clear and concise description of any alternative solutions or features
         you've considered.
   - type: textarea
@@ -33,7 +33,7 @@ body:
     id: terms
     attributes:
       label: Code of Conduct
-      description: |
+      description: >
         By submitting this issue, you agree to follow our
         [Code of Conduct](https://github.com/eliashaeussler/typo3-form-consent/blob/main/.github/CODE_OF_CONDUCT.md).
       options:
@@ -41,7 +41,7 @@ body:
           required: true
   - type: markdown
     attributes:
-      value: |
+      value: >
         :bulb: **Tip:** Have you already looked into our
         [Slack channel](https://typo3.slack.com/archives/C03719PJJJD)? Maybe your problem has
         already been discussed there.
