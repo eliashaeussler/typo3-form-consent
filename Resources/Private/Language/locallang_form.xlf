@@ -94,8 +94,8 @@
 			<trans-unit id="validation.senderAddress.invalid">
 				<source>The finisher option "senderAddress" must contain a valid e-mail address.</source>
 			</trans-unit>
-			<trans-unit id="validation.validationPeriod.invalid">
-				<source>The finisher option "validationPeriod" must be zero or more seconds.</source>
+			<trans-unit id="validation.approvalPeriod.invalid">
+				<source>The finisher option "approvalPeriod" must be zero or more seconds.</source>
 			</trans-unit>
 			<trans-unit id="validation.confirmationPid.empty">
 				<source>The finisher option "confirmationPid" must be set.</source>

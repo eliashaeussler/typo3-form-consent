@@ -4,27 +4,20 @@ on: [push, pull_request]
 jobs:
   tests:
     name: PHP ${{ matrix.php-version }} & TYPO3 ${{ matrix.typo3-version }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
         include:
-          - typo3-version: 10.4
-            php-version: 7.3
-          - typo3-version: 10.4
-            php-version: 7.4
-          - typo3-version: 11.5
-            php-version: 7.4
-          - typo3-version: 11.5
-            php-version: 8.0
-          - typo3-version: 11.5
-            php-version: 8.1
-            coverage: 1
-    env:
-      typo3DatabaseName: typo3
-      typo3DatabaseHost: '127.0.0.1'
-      typo3DatabaseUsername: root
-      typo3DatabasePassword: root
+          - typo3-version: "10.4"
+            php-version: "7.4"
+          - typo3-version: "11.5"
+            php-version: "7.4"
+          - typo3-version: "11.5"
+            php-version: "8.0"
+          - typo3-version: "11.5"
+            php-version: "8.1"
+            coverage: true
     steps:
       - uses: actions/checkout@v2
         with:
@@ -36,69 +29,71 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
-          coverage: xdebug
+          coverage: none
 
-      # Start MySQL service
-      - name: Start MySQL
-        run: sudo /etc/init.d/mysql start
-
-      # Define Composer cache
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Define Composer cache
-        uses: actions/cache@v2
+      # Setup DDEV
+      - name: Setup DDEV
+        uses: jonaseberle/github-action-setup-ddev@v1
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: tests-php-${{ matrix.php-version }}-typo3-${{ matrix.typo3-version }}
-          restore-keys: |
-            tests-php-${{ matrix.php-version }}-typo3-
+          autostart: false
+      - name: Configure and start DDEV
+        run: |
+          ddev config --project-type=typo3 --php-version=${{ matrix.php-version }} --xdebug-enabled=true
+          ddev start
 
       # Install dependencies
       - name: Install TYPO3 and Composer dependencies
-        run: composer require typo3/cms-core:"^${{ matrix.typo3-version }}" --no-progress
+        run: ddev composer require typo3/cms-core:"^${{ matrix.typo3-version }}" --no-progress
 
       # Run tests
       - name: Run tests
         run: |
-          composer test:ci -- --coverage-text
-          composer test:ci:merge
+          ddev composer test:ci
+          ddev composer test:ci:merge
 
       # Report coverage
       - name: Fix coverage path
         working-directory: .Build/log/coverage
-        run: sed -i 's/\/home\/runner\/work\/typo3-form-consent\/typo3-form-consent\//\/github\/workspace\//g' clover.xml
-        if: ${{ matrix.coverage }}
-      - name: Run SonarCloud scan
-        uses: SonarSource/sonarcloud-github-action@master
+        run: sed -i 's#/var/www/html#${{ github.workspace }}#g' clover.xml
+        if: ${{ matrix.coverage && github.event_name == 'pull_request' }}
+      - name: CodeClimate report
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: ${{ matrix.coverage }}
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageLocations: |
+            ${{ github.workspace }}/.Build/log/coverage/clover.xml:clover
+        if: ${{ matrix.coverage && github.event_name == 'pull_request' }}
+      - name: codecov report
+        uses: codecov/codecov-action@v2
+        with:
+          directory: .Build/log/coverage
+          fail_ci_if_error: true
+          verbose: true
+        if: ${{ matrix.coverage && github.event_name == 'pull_request' }}
+
+      # Save acceptance reports
+      - uses: actions/upload-artifact@v3
+        with:
+          name: acceptance-reports-${{ matrix.php-version }}-${{ matrix.typo3-version }}
+          path: .Build/log/acceptance-reports
+        if: failure()
 
   tests-lowest:
     name: '[test-lowest] PHP ${{ matrix.php-version }} & TYPO3 ${{ matrix.typo3-version }}'
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
         include:
-          - typo3-version: 10.4
-            php-version: 7.3
-          - typo3-version: 10.4
-            php-version: 7.4
-          - typo3-version: 11.5
-            php-version: 7.4
-          - typo3-version: 11.5
-            php-version: 8.0
-          - typo3-version: 11.5
-            php-version: 8.1
-    env:
-      typo3DatabaseName: typo3
-      typo3DatabaseHost: '127.0.0.1'
-      typo3DatabaseUsername: root
-      typo3DatabasePassword: root
+          - typo3-version: "10.4"
+            php-version: "7.4"
+          - typo3-version: "11.5"
+            php-version: "7.4"
+          - typo3-version: "11.5"
+            php-version: "8.0"
+          - typo3-version: "11.5"
+            php-version: "8.1"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -110,29 +105,29 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
-          coverage: xdebug
+          coverage: none
 
-      # Start MySQL service
-      - name: Start MySQL
-        run: sudo /etc/init.d/mysql start
-
-      # Define Composer cache
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Define Composer cache
-        uses: actions/cache@v2
+      # Setup DDEV
+      - name: Setup DDEV
+        uses: jonaseberle/github-action-setup-ddev@v1
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: tests-lowest-php-${{ matrix.php-version }}-typo3-${{ matrix.typo3-version }}
-          restore-keys: |
-            tests-lowest-php-${{ matrix.php-version }}-typo3-
+          autostart: false
+      - name: Configure and start DDEV
+        run: |
+          ddev config --project-type=typo3 --php-version=${{ matrix.php-version }}
+          ddev start
 
       # Install dependencies
       - name: Install TYPO3 and Composer dependencies
-        run: composer require typo3/cms-core:"^${{ matrix.typo3-version }}" --prefer-lowest --no-progress
+        run: ddev composer require typo3/cms-core:"^${{ matrix.typo3-version }}" --prefer-lowest --no-progress
 
       # Run tests
       - name: Run tests
-        run: composer test:ci -- --coverage-text
+        run: ddev composer test
+
+      # Save acceptance reports
+      - uses: actions/upload-artifact@v3
+        with:
+          name: acceptance-reports-${{ matrix.php-version }}-${{ matrix.typo3-version }}-lowest
+          path: .Build/log/acceptance-reports
+        if: failure()

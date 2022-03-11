@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Event;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * ApproveConsentEvent
@@ -31,12 +32,10 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ApproveConsentEvent
+final class ApproveConsentEvent
 {
-    /**
-     * @var Consent
-     */
-    protected $consent;
+    private Consent $consent;
+    private ?ResponseInterface $response = null;
 
     public function __construct(Consent $consent)
     {
@@ -46,5 +45,16 @@ class ApproveConsentEvent
     public function getConsent(): Consent
     {
         return $this->consent;
+    }
+
+    public function getResponse(): ?ResponseInterface
+    {
+        return $this->response;
+    }
+
+    public function setResponse(?ResponseInterface $response): self
+    {
+        $this->response = $response;
+        return $this;
     }
 }

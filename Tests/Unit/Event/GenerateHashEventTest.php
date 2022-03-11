@@ -33,18 +33,16 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class GenerateHashEventTest extends UnitTestCase
+final class GenerateHashEventTest extends UnitTestCase
 {
-    /**
-     * @var GenerateHashEvent
-     */
-    protected $subject;
+    protected GenerateHashEvent $subject;
 
     /**
-     * @var mixed[]
+     * @var list<string>
      */
-    protected $components = [
-        'foo' => 'baz',
+    protected array $components = [
+        'foo',
+        'baz',
     ];
 
     protected function setUp(): void

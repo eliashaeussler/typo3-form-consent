@@ -34,12 +34,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class HashService
+final class HashService
 {
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {
@@ -50,9 +47,11 @@ class HashService
     {
         $hashComponents = [
             $consent->getDate()->getTimestamp(),
-            $consent->getData(),
         ];
-        if ($consent->getValidUntil() !== null) {
+        if (null !== $consent->getData()) {
+            $hashComponents[] = (string)$consent->getData();
+        }
+        if (null !== $consent->getValidUntil()) {
             $hashComponents[] = $consent->getValidUntil()->getTimestamp();
         }
 

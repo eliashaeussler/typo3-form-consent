@@ -26,7 +26,11 @@ namespace EliasHaeussler\Typo3FormConsent\Controller;
 use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
 use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
 use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
+use EliasHaeussler\Typo3FormConsent\Http\StringableResponseFactory;
+use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Http\ImmediateResponseException;
+use TYPO3\CMS\Core\Http\Stream;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -38,29 +42,28 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ConsentController extends ActionController
+final class ConsentController extends ActionController
 {
-    /**
-     * @var ConsentRepository
-     */
-    protected $consentRepository;
+    private ConsentRepository $consentRepository;
+    private PersistenceManagerInterface $persistenceManager;
+    private StringableResponseFactory $stringableResponseFactory;
 
-    /**
-     * @var PersistenceManagerInterface
-     */
-    protected $persistenceManager;
-
-    public function __construct(ConsentRepository $consentRepository, PersistenceManagerInterface $persistenceManager)
-    {
+    public function __construct(
+        ConsentRepository $consentRepository,
+        PersistenceManagerInterface $persistenceManager,
+        StringableResponseFactory $stringableResponseFactory
+    ) {
         $this->consentRepository = $consentRepository;
         $this->persistenceManager = $persistenceManager;
+        $this->stringableResponseFactory = $stringableResponseFactory;
     }
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws ImmediateResponseException
      * @throws UnknownObjectException
      */
-    public function approveAction(string $hash, string $email): ?ResponseInterface
+    public function approveAction(string $hash, string $email): ResponseInterface
     {
         $consent = $this->consentRepository->findOneByValidationHash($hash);
 
@@ -69,34 +72,44 @@ class ConsentController extends ActionController
 
         // Early return if consent could not be found
         if (null === $consent) {
-            return $this->renderError('invalidConsent');
+            return $this->createErrorResponse('invalidConsent');
         }
 
         // Early return if given email does not match registered email
         if ($email !== $consent->getEmail()) {
-            return $this->renderError('invalidEmail');
+            return $this->createErrorResponse('invalidEmail');
         }
 
         // Early return if consent is already approved
         if ($consent->isApproved()) {
-            return $this->renderError('alreadyApproved');
+            return $this->createErrorResponse('alreadyApproved');
         }
+
+        // Register consent state
+        ConsentManagerRegistry::registerConsent($consent);
 
         // Approve consent
         $consent->setApproved(true);
         $consent->setApprovalDate(new \DateTime());
         $consent->setValidUntil(null);
-        $this->eventDispatcher->dispatch(new ApproveConsentEvent($consent));
-        $this->consentRepository->update($consent);
 
-        return $this->renderViewAsResponse();
+        // Dispatch approve event
+        $event = new ApproveConsentEvent($consent);
+        $this->eventDispatcher->dispatch($event);
+        $consent->setOriginalRequestParameters(null);
+
+        // Update approved consent
+        $this->consentRepository->update($consent);
+        $this->persistenceManager->persistAll();
+
+        return $this->createHtmlResponse($event->getResponse());
     }
 
     /**
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
-    public function dismissAction(string $hash, string $email): ?ResponseInterface
+    public function dismissAction(string $hash, string $email): ResponseInterface
     {
         $consent = $this->consentRepository->findOneByValidationHash($hash);
 
@@ -105,17 +118,21 @@ class ConsentController extends ActionController
 
         // Early return if consent could not be found
         if ($consent === null) {
-            return $this->renderError('invalidConsent');
+            return $this->createErrorResponse('invalidConsent');
         }
 
         // Early return if given email does not match registered email
         if ($consent->getEmail() !== $email) {
-            return $this->renderError('invalidEmail');
+            return $this->createErrorResponse('invalidEmail');
         }
+
+        // Register consent state
+        ConsentManagerRegistry::registerConsent($consent);
 
         // Un-approve consent and obfuscate submitted data
         $consent->setApproved(false);
-        $consent->setData([]);
+        $consent->setData(null);
+        $consent->setOriginalRequestParameters(null);
         $this->eventDispatcher->dispatch(new DismissConsentEvent($consent));
         $this->consentRepository->update($consent);
 
@@ -123,25 +140,57 @@ class ConsentController extends ActionController
         $this->consentRepository->remove($consent);
         $this->persistenceManager->persistAll();
 
-        return $this->renderViewAsResponse();
+        return $this->createResponse();
     }
 
-    protected function renderError(string $reason): ?ResponseInterface
+    /**
+     * @throws ImmediateResponseException
+     */
+    private function createErrorResponse(string $reason): ResponseInterface
     {
         $this->view->assign('error', true);
         $this->view->assign('reason', $reason);
 
-        return $this->renderViewAsResponse();
+        return $this->createHtmlResponse();
     }
 
-    protected function renderViewAsResponse(): ?ResponseInterface
+    /**
+     * @throws ImmediateResponseException
+     */
+    private function createHtmlResponse(ResponseInterface $previous = null): ResponseInterface
     {
-        if (method_exists($this, 'htmlResponse')) {
-            return $this->htmlResponse();
+        if (null === $previous) {
+            return $this->createResponse();
         }
 
-        // For TYPO3 v10 compatibility, we return NULL in order to render
-        // the view from ActionController::callActionMethod().
-        return null;
+        if ($previous->getStatusCode() >= 300) {
+            // @todo Use PropagateResponseException once v10 support is dropped
+            throw new ImmediateResponseException($previous, 1645646663);
+        }
+
+        $content = (string)$previous->getBody();
+
+        if ('' !== trim($content)) {
+            return $this->createResponse($content);
+        }
+
+        return $this->createResponse();
+    }
+
+    private function createResponse(string $html = null): ResponseInterface
+    {
+        // TYPO3 v11+
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($html);
+        }
+
+        // @todo Remove once v10 support is dropped
+        $body = new Stream('php://temp', 'r+');
+        $body->write($html ?? $this->view->render());
+
+        // TYPO3 v10
+        return $this->stringableResponseFactory->createResponse()
+            ->withHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($body);
     }
 }

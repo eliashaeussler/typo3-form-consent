@@ -23,13 +23,8 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Repository;
 
-use Doctrine\DBAL\DBALException;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\TestingFramework\Core\Exception;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -38,7 +33,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ConsentRepositoryTest extends FunctionalTestCase
+final class ConsentRepositoryTest extends FunctionalTestCase
 {
     protected $coreExtensionsToLoad = [
         'form',
@@ -48,23 +43,14 @@ class ConsentRepositoryTest extends FunctionalTestCase
         'typo3conf/ext/form_consent',
     ];
 
-    /**
-     * @var ConsentRepository
-     */
-    protected $subject;
+    protected ConsentRepository $subject;
 
-    /**
-     * @throws DBALException
-     * @throws Exception
-     */
     protected function setUp(): void
     {
         parent::setUp();
 
         // Build subject
-        $this->subject = new ConsentRepository(GeneralUtility::makeInstance(ObjectManager::class));
-        $this->subject->injectPersistenceManager(GeneralUtility::makeInstance(PersistenceManager::class));
-        $this->subject->initializeObject();
+        $this->subject = $this->getContainer()->get(ConsentRepository::class);
 
         // Import data
         $this->importDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.xml');

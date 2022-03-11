@@ -10,3 +10,5 @@ parameters:
         - Classes
         - Configuration
         - Tests
+    excludePaths:
+        - Tests/Acceptance/Support/_generated/*

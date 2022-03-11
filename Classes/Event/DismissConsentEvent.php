@@ -31,12 +31,9 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class DismissConsentEvent
+final class DismissConsentEvent
 {
-    /**
-     * @var Consent
-     */
-    protected $consent;
+    private Consent $consent;
 
     public function __construct(Consent $consent)
     {
