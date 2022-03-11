@@ -55,7 +55,7 @@ jobs:
       - name: Fix coverage path
         working-directory: .Build/log/coverage
         run: sed -i 's#/var/www/html#${{ github.workspace }}#g' clover.xml
-        if: ${{ matrix.coverage && github.event_name == 'pull_request' }}
+        if: ${{ matrix.coverage }}
       - name: CodeClimate report
         uses: paambaati/codeclimate-action@v3.0.0
         env:
@@ -63,14 +63,14 @@ jobs:
         with:
           coverageLocations: |
             ${{ github.workspace }}/.Build/log/coverage/clover.xml:clover
-        if: ${{ matrix.coverage && github.event_name == 'pull_request' }}
+        if: ${{ matrix.coverage }}
       - name: codecov report
         uses: codecov/codecov-action@v2
         with:
           directory: .Build/log/coverage
           fail_ci_if_error: true
           verbose: true
-        if: ${{ matrix.coverage && github.event_name == 'pull_request' }}
+        if: ${{ matrix.coverage }}
 
       # Save acceptance reports
       - uses: actions/upload-artifact@v3
