@@ -109,13 +109,6 @@
 			<trans-unit id="validation.storagePid.invalid">
 				<source>The finisher option "storagePid" must be set to a valid page.</source>
 			</trans-unit>
-
-			<trans-unit id="finishers._executeAfterConsentApproval.label">
-				<source>Execute after consent approval</source>
-			</trans-unit>
-			<trans-unit id="finishers._executeAfterConsentApproval.fieldExplanationText">
-				<source>If enabled, the finisher will not be executed until the form submitter has given his consent. Will be ignored if no Consent finisher is added to the form.</source>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>
