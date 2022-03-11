@@ -33,7 +33,7 @@ jobs:
 
       # Linting
       - name: Lint composer.json
-        run: composer normalize --dry-run --no-check-lock --no-update-lock
+        run: composer lint:composer -- --dry-run
       - name: Lint Editorconfig
         run: .Build/bin/ec -e .Build -e Tests/Acceptance/Support/_generated/AcceptanceTesterActions.php
       - name: Lint PHP

@@ -115,10 +115,12 @@
 			"[ -L config/sites/main/config.yaml ] || ln -snvf ../../../Tests/Build/sites-config.yaml config/sites/main/config.yaml"
 		],
 		"lint": [
+			"@lint:composer",
 			"@lint:editorconfig",
 			"@lint:php",
 			"@lint:typoscript"
 		],
+		"lint:composer": "@composer normalize --no-check-lock --no-update-lock",
 		"lint:editorconfig": "ec --fix -e .Build -e Tests/Acceptance/Support/_generated/AcceptanceTesterActions.php",
 		"lint:php": "php-cs-fixer fix",
 		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
