@@ -14,7 +14,7 @@
 		"enabled": true,
 		"actions": [
 			{
-				"action": ".Build/bin/ec -e .Build -e Tests/Acceptance/Support/_generated/AcceptanceTesterActions.php",
+				"action": ".Build/bin/ec -e .Build",
 				"options": [],
 				"conditions": [
 					{

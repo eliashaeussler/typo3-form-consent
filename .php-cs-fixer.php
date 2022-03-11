@@ -30,8 +30,6 @@ $config = \TYPO3\CodingStandards\CsFixerConfig::create()
 
 $finder = $config->getFinder()
     ->in(__DIR__)
-    ->notName('c3.php')
-    ->exclude('Tests/Acceptance/Support/_generated')
     ->ignoreVCSIgnored(true);
 
 return $config;
