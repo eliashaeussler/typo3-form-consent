@@ -96,7 +96,8 @@
 	},
 	"scripts": {
 		"post-autoload-dump": [
-			"@environment:prepare"
+			"@environment:prepare",
+			"codecept build"
 		],
 		"environment:prepare": [
 			"@environment:prepare:extension",
