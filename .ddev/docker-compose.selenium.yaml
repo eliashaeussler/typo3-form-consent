@@ -12,6 +12,7 @@ services:
       default:
         aliases:
           - web
+      ddev_default:
     volumes:
       - /dev/shm:/dev/shm
     external_links:
