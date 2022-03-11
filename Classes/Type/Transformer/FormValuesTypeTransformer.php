@@ -24,12 +24,9 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
-use TYPO3\CMS\Form\Exception;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * FormValuesTypeTransformer
@@ -39,13 +36,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 final class FormValuesTypeTransformer implements TypeTransformerInterface
 {
-    private Context $context;
-
-    public function __construct(Context $context)
-    {
-        $this->context = $context;
-    }
-
     /**
      * @return JsonType<string, mixed>
      * @throws \JsonException
@@ -65,70 +55,34 @@ final class FormValuesTypeTransformer implements TypeTransformerInterface
         // Get all form values
         $formValues = $formState->getFormValues();
 
-        // Remove honeypot field
-        $honeypotIdentifier = $this->getHoneypotIdentifier($formRuntime);
-        unset($formValues[$honeypotIdentifier]);
+        foreach ($formValues as $elementIdentifier => $value) {
+            // Remove honeypot field
+            if ($this->isHoneypotElement($elementIdentifier, $formRuntime)) {
+                unset($formValues[$elementIdentifier]);
+                continue;
+            }
 
-        foreach ($formValues as $key => $value) {
+            // Resolve file references
             if ($value instanceof ExtbaseFileReference) {
                 $value = $value->getOriginalResource();
             }
             if ($value instanceof CoreFileReference) {
-                $formValues[$key] = $value->getOriginalFile()->getUid();
+                $formValues[$elementIdentifier] = $value->getOriginalFile()->getUid();
             }
         }
 
         return JsonType::fromArray($formValues);
     }
 
-    private function getHoneypotIdentifier(FormRuntime $formRuntime): ?string
+    private function isHoneypotElement(string $elementIdentifier, FormRuntime $formRuntime): bool
     {
-        // @todo This highly depends on internal logic in FormRuntime
-        //       which is likely to be changed in the future. Consider
-        //       refactoring this to a more robust solution or drop it
-        //       completely to avoid inconsistencies in future versions.
+        $element = $formRuntime->getFormDefinition()->getElementByIdentifier($elementIdentifier);
 
-        $formState = $formRuntime->getFormState();
-
-        // Early return if form state is not available (this should never happen)
-        if (null === $formState) {
-            return null;
-        }
-
-        // Get last displayed page
-        $lastDisplayedPageIndex = $formState->getLastDisplayedPageIndex();
-        try {
-            $currentPage = $formRuntime->getFormDefinition()->getPageByIndex($lastDisplayedPageIndex);
-        } catch (Exception $e) {
-            // If last displayed page is not set, try to use current page instead
-            $currentPage = $formRuntime->getCurrentPage();
-        }
-
-        // Early return if neither last displayed page nor current page are available
-        if ($currentPage === null) {
-            return null;
-        }
-
-        // Build honeypot session identifier
-        $frontendUser = $this->getTypoScriptFrontendController()->fe_user;
-        $isUserAuthenticated = (bool)$this->context->getPropertyFromAspect('frontend.user', 'isLoggedIn', false);
-        $sessionType = $isUserAuthenticated ? 'user' : 'ses';
-        $honeypotSessionIdentifier = implode('', [
-            FormRuntime::HONEYPOT_NAME_SESSION_IDENTIFIER,
-            $formRuntime->getIdentifier(),
-            $currentPage->getIdentifier(),
-        ]);
-
-        return (string)$frontendUser->getKey($sessionType, $honeypotSessionIdentifier) ?: null;
+        return null !== $element && $element->getType() === 'Honeypot';
     }
 
     public static function getName(): string
     {
         return 'formValues';
-    }
-
-    private function getTypoScriptFrontendController(): TypoScriptFrontendController
-    {
-        return $GLOBALS['TSFE'];
     }
 }
