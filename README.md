@@ -165,6 +165,45 @@ variants:
 In this example, an admin email would be sent after the consent has been
 given and a redirect to the configured confirmation page would take place.
 
+## :construction: Migration
+
+### 0.2.x → 0.3.0
+
+#### Post-consent approval finishers
+
+Custom finishers can now be executed after consent was approved.
+
+* Database field `tx_formconsent_domain_model_consent.original_request_parameters` was added.
+  - Manual migration required.
+  - Database field should contain an JSON-encoded string of the parsed body sent with the original
+    form submit request.
+* Database field `tx_formconsent_domain_model_consent.original_content_element_uid` was added.
+  - Manual migration required.
+  - Database field should contain the content element UID of the original form plugin.
+* Post-approval finishers can now be defined [as described above](#invoke-finishers-on-consent-approval).
+  - Manual migration required.
+  - Create form variants and configure the post-approval finishers.
+
+#### [`Consent`][1] model
+
+Form values are now represented as an instance of [`JsonType`][2].
+
+* Method `getDataArray()` was removed.
+  - Use `getData()->toArray()` instead.
+* Return type of `getData()` was changed to `JsonType|null`.
+  - If you need the JSON-encoded string, use `json_encode($consent->getData())` instead.
+* Parameter `$data` of `setData()` was changed to `JsonType|null`.
+  - If you need to pass a JSON-encoded string, use `$consent->setData(new JsonType($json))` instead.
+  - If you need to pass a JSON-decoded array, use `$consent->setData(JsonType::fromArray($array))` instead.
+
+#### Codebase
+
+* Minimum PHP version was raised to PHP 7.4.
+  - Upgrade your codebase to support at least PHP 7.4.
+* Several classes were marked as `final`.
+  - If you still need to extend or override them, consider refactoring
+    your code or [submit an issue][3].
+
 ## :gem: Credits
 
 Icons made by [Google](https://www.flaticon.com/authors/google) from
@@ -175,3 +214,7 @@ Icons made by [Google](https://www.flaticon.com/authors/google) from
 This project is licensed under [GNU General Public License 2.0 (or later)](LICENSE.md).
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Feliashaeussler%2Ftypo3-form-consent.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Feliashaeussler%2Ftypo3-form-consent?ref=badge_large)
+
+[1]: Classes/Domain/Model/Consent.php
+[2]: Classes/Type/JsonType.php
+[3]: https://github.com/eliashaeussler/typo3-form-consent/issues
