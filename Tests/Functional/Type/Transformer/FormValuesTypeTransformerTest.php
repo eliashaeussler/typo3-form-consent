@@ -27,7 +27,6 @@ use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -60,7 +59,7 @@ final class FormValuesTypeTransformerTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->subject = new FormValuesTypeTransformer(new Context());
+        $this->subject = new FormValuesTypeTransformer();
         // @todo Replace with $this->getContainer()->get(FormRuntime::class) once v10 support is dropped
         $this->formRuntimeProphecy = $this->prophesize(FormRuntime::class);
     }
