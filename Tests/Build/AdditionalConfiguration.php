@@ -23,6 +23,10 @@ if (getenv('IS_DDEV_PROJECT') == 'true') {
     $GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive(
         $GLOBALS['TYPO3_CONF_VARS'],
         [
+            'BE' => [
+                // password
+                'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$aVkwaW5iVHR4M0U3TWdaMw$TJQun8VfSLBmGrEuTxpl6B9axxxwfKw1IARSmoImRNo',
+            ],
             'DB' => [
                 'Connections' => [
                     'Default' => [
