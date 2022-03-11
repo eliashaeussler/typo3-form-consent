@@ -34,19 +34,12 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ModifyConsentMailEventTest extends UnitTestCase
+final class ModifyConsentMailEventTest extends UnitTestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var ModifyConsentMailEvent
-     */
-    protected $subject;
-
-    /**
-     * @var FluidEmail
-     */
-    protected $mail;
+    protected ModifyConsentMailEvent $subject;
+    protected FluidEmail $mail;
 
     protected function setUp(): void
     {

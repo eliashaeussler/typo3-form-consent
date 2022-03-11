@@ -1,0 +1,63 @@
+
+renderingOptions:
+  submitButtonLabel: Submit
+identifier: contact-redirect-variant
+label: 'contact redirect variant'
+type: Form
+prototypeName: standard
+variants:
+  -
+    identifier: variant-1
+    condition: isConsentApproved()
+    finishers:
+      -
+        options:
+          pageUid: '1'
+          additionalParameters: ''
+        identifier: Redirect
+finishers:
+  -
+    options:
+      subject: ''
+      recipientAddress: '{email-1}'
+      recipientName: ''
+      senderAddress: ''
+      senderName: ''
+      approvalPeriod: '86400'
+      showDismissLink: true
+      confirmationPid: '2'
+      storagePid: ''
+    identifier: Consent
+  -
+    options:
+      message: 'Please approve your consent.'
+      contentElementUid: ''
+    identifier: Confirmation
+renderables:
+  -
+    renderingOptions:
+      previousButtonLabel: 'Previous step'
+      nextButtonLabel: 'Next step'
+    identifier: page-1
+    label: 'Contact Form'
+    type: Page
+    renderables:
+      -
+        defaultValue: ''
+        type: Email
+        identifier: email-1
+        label: 'Email address'
+        properties:
+          fluidAdditionalAttributes:
+            required: required
+        validators:
+          -
+            identifier: EmailAddress
+          -
+            identifier: NotEmpty
+      -
+        properties:
+          saveToFileMount: '1:/user_upload/'
+        type: FileUpload
+        identifier: fileupload-1
+        label: 'File upload'

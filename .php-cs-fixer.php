@@ -22,7 +22,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 EOM;
 
 $config = \TYPO3\CodingStandards\CsFixerConfig::create()
-    ->setHeader(sprintf($header, \date('Y')), true)
+    ->setHeader(sprintf($header, date('Y')), true)
     ->addRules([
         'native_function_invocation' => true,
         'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
@@ -30,6 +30,8 @@ $config = \TYPO3\CodingStandards\CsFixerConfig::create()
 
 $finder = $config->getFinder()
     ->in(__DIR__)
+    ->notName('c3.php')
+    ->exclude('Tests/Acceptance/Support/_generated')
     ->ignoreVCSIgnored(true);
 
 return $config;

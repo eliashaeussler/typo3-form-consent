@@ -32,6 +32,12 @@
 			<trans-unit id="tx_formconsent_domain_model_consent.form_persistence_identifier">
 				<source>Form location</source>
 			</trans-unit>
+			<trans-unit id="tx_formconsent_domain_model_consent.original_request_parameters">
+				<source>Original request parameters</source>
+			</trans-unit>
+			<trans-unit id="tx_formconsent_domain_model_consent.original_content_element_uid">
+				<source>Content element</source>
+			</trans-unit>
 			<trans-unit id="tx_formconsent_domain_model_consent.approved">
 				<source>Approved</source>
 			</trans-unit>

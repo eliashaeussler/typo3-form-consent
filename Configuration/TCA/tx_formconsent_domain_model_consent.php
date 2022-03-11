@@ -75,6 +75,27 @@ return [
                 'readOnly' => true,
             ],
         ],
+        'original_request_parameters' => [
+            'exclude' => true,
+            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('original_request_parameters', $tableName),
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'original_content_element_uid' => [
+            'exclude' => true,
+            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('original_content_element_uid', $tableName),
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tt_content',
+                'foreign_table' => 'tt_content',
+                'size' => 1,
+                'minitems' => 1,
+                'maxitems' => 1,
+                'readOnly' => true,
+            ],
+        ],
         'approved' => [
             'exclude' => true,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('approved', $tableName),
@@ -127,6 +148,7 @@ return [
                     date,
                     data,
                     form_persistence_identifier,
+                    original_content_element_uid,
                 --div--;' . \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forTab('consent') . ',
                     approved,
                     approval_date,

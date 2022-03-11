@@ -34,10 +34,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class Icon
 {
-    /**
-     * @var IconRegistry
-     */
-    protected static $iconRegistry;
+    private static ?IconRegistry $iconRegistry = null;
 
     public static function forTable(string $tableName, string $type = 'svg'): string
     {
@@ -100,7 +97,7 @@ final class Icon
         );
     }
 
-    protected static function buildIconPath(string $fileName, string $type = 'svg'): string
+    private static function buildIconPath(string $fileName, string $type = 'svg'): string
     {
         $fileName = trim($fileName);
         $type = trim($type) ?: 'svg';
@@ -112,7 +109,7 @@ final class Icon
         return 'EXT:' . Extension::KEY . '/Resources/Public/Icons/' . $fileName . '.' . $type;
     }
 
-    protected static function register(string $filename, string $identifier): void
+    private static function register(string $filename, string $identifier): void
     {
         if (self::$iconRegistry === null) {
             self::$iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);

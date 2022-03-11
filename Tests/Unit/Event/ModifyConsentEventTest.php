@@ -33,17 +33,10 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ModifyConsentEventTest extends UnitTestCase
+final class ModifyConsentEventTest extends UnitTestCase
 {
-    /**
-     * @var ModifyConsentEvent
-     */
-    protected $subject;
-
-    /**
-     * @var Consent
-     */
-    protected $consent;
+    protected ModifyConsentEvent $subject;
+    protected Consent $consent;
 
     protected function setUp(): void
     {

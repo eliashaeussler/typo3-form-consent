@@ -14,7 +14,7 @@
 		"enabled": true,
 		"actions": [
 			{
-				"action": ".Build/bin/ec -e .Build",
+				"action": ".Build/bin/ec -e .Build -e Tests/Acceptance/Support/_generated/AcceptanceTesterActions.php",
 				"options": [],
 				"conditions": [
 					{
@@ -71,7 +71,7 @@
 				]
 			},
 			{
-				"action": "composer normalize --dry-run --no-check-lock --no-update-lock",
+				"action": "composer lint:composer -- --dry-run",
 				"options": [],
 				"conditions": [
 					{

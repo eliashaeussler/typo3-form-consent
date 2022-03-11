@@ -26,8 +26,6 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Widget\Provider;
 use Doctrine\DBAL\DBALException;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Exception;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -37,7 +35,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ConsentChartDataProviderTest extends FunctionalTestCase
+final class ConsentChartDataProviderTest extends FunctionalTestCase
 {
     protected $coreExtensionsToLoad = [
         'form',
@@ -47,15 +45,9 @@ class ConsentChartDataProviderTest extends FunctionalTestCase
         'typo3conf/ext/form_consent',
     ];
 
-    /**
-     * @var ConsentChartDataProvider
-     */
-    protected $subject;
+    private static string $languagePrefix = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:';
 
-    /**
-     * @var string
-     */
-    private $languagePrefix = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:';
+    protected ConsentChartDataProvider $subject;
 
     /**
      * @throws DBALException
@@ -66,7 +58,7 @@ class ConsentChartDataProviderTest extends FunctionalTestCase
         parent::setUp();
 
         // Build subject
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(Consent::TABLE_NAME);
+        $connection = $this->getConnectionPool()->getConnectionForTable(Consent::TABLE_NAME);
         $this->subject = new ConsentChartDataProvider($connection);
 
         // Import data
@@ -84,9 +76,9 @@ class ConsentChartDataProviderTest extends FunctionalTestCase
         $chartData = $this->subject->getChartData();
 
         $labels = $chartData['labels'];
-        self::assertSame($this->languagePrefix . 'charts.approved', $labels[0]);
-        self::assertSame($this->languagePrefix . 'charts.nonApproved', $labels[1]);
-        self::assertSame($this->languagePrefix . 'charts.dismissed', $labels[2]);
+        self::assertSame(self::$languagePrefix . 'charts.approved', $labels[0]);
+        self::assertSame(self::$languagePrefix . 'charts.nonApproved', $labels[1]);
+        self::assertSame(self::$languagePrefix . 'charts.dismissed', $labels[2]);
 
         $data = $chartData['datasets'][0]['data'];
         self::assertSame($expectedApprovedCount, $data[0]);

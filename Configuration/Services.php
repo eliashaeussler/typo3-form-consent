@@ -24,10 +24,14 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent;
 
 use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigurator;
+use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container) {
+return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container): void {
+    $container->registerForAutoconfiguration(TypeTransformerInterface::class)
+        ->addTag('form_consent.type_transformer');
+
     if ($container->hasDefinition('dashboard.views.widget')) {
         $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
         $servicesConfigurator->configureServices();
