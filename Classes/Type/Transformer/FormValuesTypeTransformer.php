@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
+use EliasHaeussler\Typo3FormConsent\Configuration\Configuration;
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
@@ -56,8 +57,8 @@ final class FormValuesTypeTransformer implements TypeTransformerInterface
         $formValues = $formState->getFormValues();
 
         foreach ($formValues as $elementIdentifier => $value) {
-            // Remove honeypot field
-            if ($this->isHoneypotElement($elementIdentifier, $formRuntime)) {
+            // Remove excluded elements
+            if ($this->isElementExcluded($elementIdentifier, $formRuntime)) {
                 unset($formValues[$elementIdentifier]);
                 continue;
             }
@@ -74,11 +75,12 @@ final class FormValuesTypeTransformer implements TypeTransformerInterface
         return JsonType::fromArray($formValues);
     }
 
-    private function isHoneypotElement(string $elementIdentifier, FormRuntime $formRuntime): bool
+    private function isElementExcluded(string $elementIdentifier, FormRuntime $formRuntime): bool
     {
+        $excludedElements = Configuration::getExcludedElementsFromPersistence();
         $element = $formRuntime->getFormDefinition()->getElementByIdentifier($elementIdentifier);
 
-        return null !== $element && $element->getType() === 'Honeypot';
+        return null !== $element && \in_array($element->getType(), $excludedElements, true);
     }
 
     public static function getName(): string

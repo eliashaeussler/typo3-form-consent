@@ -1,0 +1,2 @@
+# cat=persistence/10; type=string; label=Excluded elements from persistence:Define all element types that should be excluded from persistence (comma-separated list)
+persistence.excludedElements = Honeypot

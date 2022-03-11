@@ -58,8 +58,9 @@ finisher settings.
 
 ## :open_file_folder: Configuration
 
-Only the TypoScript setup under `EXT:form_consent/Configuration/TypoScript`
+The TypoScript setup under `EXT:form_consent/Configuration/TypoScript`
 needs to be included and the required database changes need to be made.
+Additionally, an extension configuration is provided.
 
 ### TypoScript
 
@@ -94,6 +95,14 @@ The following options are available to the `Consent` finisher:
 :bulb: **Note:** Template paths that are configured via form finisher
 options are only applied to the appropriate form. They are merged
 with the default template paths configured via TypoScript.
+
+### Extension configuration
+
+The following extension configuration options are available:
+
+| Configuration key | Description | Required | Default |
+|-------------------|-------------|----------|---------|
+| **`persistence.excludedElements`** | Form element types to be excluded from persistence (comma-separated list) | – | `Honeypot` |
 
 ## :writing_hand: Customization
 
