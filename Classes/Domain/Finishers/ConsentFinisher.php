@@ -163,7 +163,7 @@ final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInter
         return $mail;
     }
 
-    private function addFlashMessage(\Exception $exception, bool $cancel = true): void
+    private function addFlashMessage(\Exception $exception): void
     {
         $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
         $flashMessageFinisher = $formDefinition->createFinisher('FlashMessage', [
@@ -174,9 +174,7 @@ final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInter
         $flashMessageFinisher->execute($this->finisherContext);
 
         // Cancel execution
-        if ($cancel) {
-            $this->finisherContext->cancel();
-        }
+        $this->finisherContext->cancel();
     }
 
     private function getServerRequest(): ?ServerRequestInterface
