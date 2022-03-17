@@ -16,7 +16,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
-          tools: composer:v2, composer-require-checker
+          tools: composer:v2, composer-require-checker, composer-unused
 
       # Validation
       - name: Validate composer.json
@@ -24,12 +24,14 @@ jobs:
 
       # Install dependencies
       - name: Install Composer dependencies
-        run: composer require --no-progress --no-plugins typo3/cms-dashboard:"~10.4.11 || ~11.5.0" typo3/cms-scheduler:"~10.4.11 || ~11.5.0"
+        run: composer require --no-progress --no-plugins typo3/cms-dashboard:"~10.4.11 || ~11.5.1" typo3/cms-scheduler:"~10.4.11 || ~11.5.1"
 
       # Check Composer dependencies
       - name: Check dependencies
         run: composer-require-checker check --config-file dependency-checker.json
       - run: composer install --no-progress
+      - name: Check for unused dependencies
+        run: composer-unused
 
       # Linting
       - name: Lint composer.json

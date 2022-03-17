@@ -46,6 +46,9 @@ compliance with the GDPR.
 composer require eliashaeussler/typo3-form-consent
 ```
 
+Alternatively, you can download the extension via the
+[TYPO3 extension repository (TER)][4].
+
 ## :zap: Usage
 
 A new finisher `Consent` is available in the backend form editor.
@@ -218,3 +221,4 @@ This project is licensed under [GNU General Public License 2.0 (or later)](LICEN
 [1]: Classes/Domain/Model/Consent.php
 [2]: Classes/Type/JsonType.php
 [3]: https://github.com/eliashaeussler/typo3-form-consent/issues
+[4]: https://extensions.typo3.org/extension/form_consent

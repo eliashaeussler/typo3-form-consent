@@ -7,7 +7,7 @@ services:
       - selenium
   selenium:
     container_name: ddev-${DDEV_SITENAME}-selenium
-    image: selenium/standalone-chrome-debug:3.13.0-argon
+    image: seleniarm/standalone-chromium:4.1.2-20220227
     networks:
       default:
         aliases:
