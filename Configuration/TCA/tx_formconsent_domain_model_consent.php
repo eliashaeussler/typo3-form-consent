@@ -96,19 +96,37 @@ return [
                 'readOnly' => true,
             ],
         ],
-        'approved' => [
+        'state' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('approved', $tableName),
+            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName),
             'config' => [
-                'type' => 'check',
-                'default' => 0,
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [
+                        \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'new'),
+                        \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
+                        'overlay-scheduled',
+                    ],
+                    [
+                        \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'approved'),
+                        \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::APPROVED,
+                        'overlay-approved',
+                    ],
+                    [
+                        \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'dismissed'),
+                        \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::DISMISSED,
+                        'overlay-readonly',
+                    ],
+                ],
+                'default' => \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
                 'readOnly' => true,
             ],
         ],
-        'valid_until' => [
+        'update_date' => [
             'exclude' => true,
-            'displayCond' => 'FIELD:approved:=:0',
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('valid_until', $tableName),
+            'displayCond' => 'FIELD:state:>:' . \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
+            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('update_date', $tableName),
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -117,10 +135,10 @@ return [
                 'readOnly' => true,
             ],
         ],
-        'approval_date' => [
+        'valid_until' => [
             'exclude' => true,
-            'displayCond' => 'FIELD:approved:>:0',
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('approval_date', $tableName),
+            'displayCond' => 'FIELD:state:=:' . \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
+            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('valid_until', $tableName),
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -150,8 +168,8 @@ return [
                     form_persistence_identifier,
                     original_content_element_uid,
                 --div--;' . \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forTab('consent') . ',
-                    approved,
-                    approval_date,
+                    state,
+                    update_date,
                     valid_until,
                     validation_hash
             ',

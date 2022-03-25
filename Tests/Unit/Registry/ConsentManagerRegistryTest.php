@@ -43,7 +43,7 @@ final class ConsentManagerRegistryTest extends UnitTestCase
 
         $this->consent = new Consent();
         $this->consent->setFormPersistenceIdentifier('foo');
-        $this->consent->setApproved(true);
+        $this->consent->setApproved();
     }
 
     /**
@@ -75,15 +75,21 @@ final class ConsentManagerRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function isConsentApprovedReturnsTrueIfConsentIsApprovedForGivenForm(): void
+    public function isConsentApprovedReturnsFalseIfConsentIsNotRegistered(): void
     {
         self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
+    }
 
+    /**
+     * @test
+     */
+    public function isConsentApprovedReturnsStateOfApprovalOfRegisteredConsent(): void
+    {
         ConsentManagerRegistry::registerConsent($this->consent);
 
         self::assertTrue(ConsentManagerRegistry::isConsentApproved('foo'));
 
-        $this->consent->setApproved(false);
+        $this->consent->setDismissed();
 
         self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
     }
@@ -91,17 +97,23 @@ final class ConsentManagerRegistryTest extends UnitTestCase
     /**
      * @test
      */
-    public function isConsentDismissedReturnsTrueIfConsentIsDismissedForGivenForm(): void
+    public function isConsentDismissedReturnsFalseIfConsentIsNotRegistered(): void
     {
-        $this->consent->setApproved(false);
-
         self::assertFalse(ConsentManagerRegistry::isConsentDismissed('foo'));
+    }
 
+    /**
+     * @test
+     */
+    public function isConsentDismissedReturnsStateOfDismissalOfRegisteredConsent(): void
+    {
         ConsentManagerRegistry::registerConsent($this->consent);
+
+        $this->consent->setDismissed();
 
         self::assertTrue(ConsentManagerRegistry::isConsentDismissed('foo'));
 
-        $this->consent->setApproved(true);
+        $this->consent->setApproved();
 
         self::assertFalse(ConsentManagerRegistry::isConsentDismissed('foo'));
     }

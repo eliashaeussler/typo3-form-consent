@@ -24,3 +24,4 @@
 \EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPlugin();
 \EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerIcons();
 \EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerGarbageCollectionTask();
+\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerUpgradeWizards();

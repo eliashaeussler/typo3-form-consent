@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Controller\ConsentController;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Form\Element\ConsentDataElement;
+use EliasHaeussler\Typo3FormConsent\Updates\MigrateConsentStateUpgradeWizard;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
@@ -112,5 +113,16 @@ final class Extension
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][TableGarbageCollectionTask::class]['options']['tables'][Consent::TABLE_NAME] = [
             'expireField' => 'valid_until',
         ];
+    }
+
+    /**
+     * Register upgrade wizards.
+     *
+     * FOR USE IN ext_localconf.php ONLY.
+     */
+    public static function registerUpgradeWizards(): void
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][MigrateConsentStateUpgradeWizard::IDENTIFIER]
+            = MigrateConsentStateUpgradeWizard::class;
     }
 }
