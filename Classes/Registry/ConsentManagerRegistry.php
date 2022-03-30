@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Registry;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Registry\Dto\ConsentState;
 
 /**
  * ConsentManagerRegistry
@@ -36,13 +35,13 @@ use EliasHaeussler\Typo3FormConsent\Registry\Dto\ConsentState;
 final class ConsentManagerRegistry
 {
     /**
-     * @var array<string, array<int, ConsentState>>
+     * @var array<string, array<int, Consent>>
      */
     private static array $states = [];
 
-    public static function registerConsent(Consent $consent): ConsentState
+    public static function registerConsent(Consent $consent): void
     {
-        return self::$states[$consent->getFormPersistenceIdentifier()][(int)$consent->getUid()] = new ConsentState($consent);
+        self::$states[$consent->getFormPersistenceIdentifier()][(int)$consent->getUid()] = $consent;
     }
 
     public static function unregisterConsent(Consent $consent): void
@@ -52,8 +51,8 @@ final class ConsentManagerRegistry
 
     public static function isConsentApproved(string $formPersistenceIdentifier): bool
     {
-        foreach (self::$states[$formPersistenceIdentifier] ?? [] as $state) {
-            if ($state->isApproved()) {
+        foreach (self::$states[$formPersistenceIdentifier] ?? [] as $consent) {
+            if ($consent->isApproved()) {
                 return true;
             }
         }
@@ -63,8 +62,8 @@ final class ConsentManagerRegistry
 
     public static function isConsentDismissed(string $formPersistenceIdentifier): bool
     {
-        foreach (self::$states[$formPersistenceIdentifier] ?? [] as $state) {
-            if ($state->isDismissed()) {
+        foreach (self::$states[$formPersistenceIdentifier] ?? [] as $consent) {
+            if ($consent->isDismissed()) {
                 return true;
             }
         }

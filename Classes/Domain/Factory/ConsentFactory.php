@@ -27,6 +27,7 @@ use EliasHaeussler\Typo3FormConsent\Domain\Finishers\FinisherOptions;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentEvent;
 use EliasHaeussler\Typo3FormConsent\Service\HashService;
+use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerFactory;
@@ -79,6 +80,7 @@ final class ConsentFactory
             ->setFormPersistenceIdentifier($formRuntime->getFormDefinition()->getPersistenceIdentifier())
             ->setOriginalRequestParameters($formRequestTransformer->transform($formRuntime))
             ->setOriginalContentElementUid($this->getCurrentContentElementUid())
+            ->setState(ConsentStateType::createNew())
             ->setValidUntil($this->calculateExpiryDate($approvalPeriod, $submitDate))
         ;
 

@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Frontend;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Form;
+use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 
 /**
  * ConsentControllerCest
@@ -56,7 +57,7 @@ final class ConsentControllerCest
             [
                 'data' => '{"email-1":"user@example.com","fileupload-1":null}',
                 'email' => 'user@example.com',
-                'approved' => '1',
+                'state' => ConsentStateType::APPROVED,
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
                 'original_request_parameters' => null,
@@ -80,7 +81,7 @@ final class ConsentControllerCest
                 'deleted' => '1',
                 'data' => null,
                 'email' => 'user@example.com',
-                'approved' => '0',
+                'state' => ConsentStateType::DISMISSED,
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
                 'original_request_parameters' => null,
@@ -117,6 +118,24 @@ final class ConsentControllerCest
         $this->submitFormAndExtractUrls($I, Form::REDIRECT_AFTER_APPROVE);
 
         $I->amOnPage($this->approveUrl);
+
+        $I->seeCurrentUrlEquals('/');
+    }
+
+    public function canDismissConsentAndInvokeConfirmationFinisher(AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Form::CONFIRMATION_AFTER_DISMISS);
+
+        $I->amOnPage($this->dismissUrl);
+
+        $I->see('Your consent was dismissed.');
+    }
+
+    public function canDismissConsentAndInvokeRedirectFinisher(AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Form::REDIRECT_AFTER_DISMISS);
+
+        $I->amOnPage($this->dismissUrl);
 
         $I->seeCurrentUrlEquals('/');
     }

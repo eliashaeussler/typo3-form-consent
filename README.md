@@ -34,7 +34,7 @@ compliance with the GDPR.
 * Stores all submitted form data as JSON in database
 * System-dependent hash-based validation system (using TYPO3's HMAC functionality)
 * Plugin to approve or dismiss a consent
-* Possibility to [invoke finishers on consent approval](#invoke-finishers-on-consent-approval)
+* Possibility to [invoke finishers on consent approval or dismissal](#invoke-finishers-on-consent-approval-or-dismissal)
 * Several [events](#events) for better customization
 * Scheduler garbage collection task for expired consents
 * Dashboard widget for approved, non-approved and dismissed consents
@@ -124,16 +124,16 @@ The following events are available:
 * [`ModifyConsentEvent`](Classes/Event/ModifyConsentEvent.php)
 * [`ModifyConsentMailEvent`](Classes/Event/ModifyConsentMailEvent.php)
 
-### Invoke finishers on consent approval
+### Invoke finishers on consent approval or dismissal
 
-After a user has given consent, it is often necessary to execute certain
-form finishers. For example, to send an admin email or redirect to a
+After a user has given or revoked consent, it is often necessary to execute
+certain form finishers. For example, to send an admin email or redirect to a
 specific page.
 
-To achieve this, after the user gives consent, the originally completed
-form is resubmitted. During this resubmission of the form, the selected
-finishers can now be overwritten using the `isConsentApproved()` condition
-in a form variant.
+To achieve this, after the user gives or revokes consent, the originally
+completed form is resubmitted. During this resubmission of the form, the
+selected finishers can now be overwritten using the `isConsentApproved()`
+or `isConsentDismissed()` conditions in a form variant.
 
 #### Requirements
 
@@ -141,7 +141,8 @@ The following requirements must be met for the form to be resubmitted:
 
 1. Form variant at the root level of the form must exist
 2. Form variant must redefine the finishers used
-3. Condition `isConsentApproved()` must exist in the variant
+3. Conditions `isConsentApproved()` or `isConsentDismissed()` must exist
+   in the variant
 
 #### Example
 
@@ -168,7 +169,42 @@ variants:
 In this example, an admin email would be sent after the consent has been
 given and a redirect to the configured confirmation page would take place.
 
+The same behavior can be achieved in case the user revokes his consent. The
+condition `isConsentDismissed()` must then be used instead.
+
 ## :construction: Migration
+
+### 0.3.x → 0.4.0
+
+#### Generic consent state
+
+The current state of form consents is now represented in a more generic way.
+
+* Database field `tx_formconsent_domain_model_consent.approved` was renamed to
+  `tx_formconsent_domain_model_consent.state`.
+  - Upgrade wizard [`formConsentMigrateConsentState`][5] needs to be executed.
+* Database field `tx_formconsent_domain_model_consent.approval_date` was renamed to
+  `tx_formconsent_domain_model_consent.update_date`.
+    - Upgrade wizard [`formConsentMigrateConsentState`][5] needs to be executed.
+    - Note: The database column is now nullable.
+* [`$consent->setApproved()`][1] does no longer accept any parameters.
+  - Use `$consent->setState()` instead.
+* [`$consent->getApprovalDate()`][1] was removed.
+  - Use `$consent->getUpdateDate()` instead.
+* [`$consent->setApprovalDate()`][1] was removed.
+  - Use `$consent->setUpdateDate()` instead.
+
+#### Post-consent dismissal finishers
+
+Custom finishers can now be executed after consent was dismissed.
+
+* Event listener was renamed.
+  - Change references to [`EliasHaeussler\Typo3FormConsent\Event\Listener\InvokeFinishersListener`][6].
+  - Adapt your service configuration, if needed.
+* Listener method was renamed.
+  - Use `onConsentApprove($event)` instead of `__invoke($event)`.
+* Event listener identifier `formConsentInvokeFinishersOnApproveListener` changed.
+  - Change references to `formConsentInvokeFinishersOnConsentApproveListener`.
 
 ### 0.2.x → 0.3.0
 
@@ -222,3 +258,5 @@ This project is licensed under [GNU General Public License 2.0 (or later)](LICEN
 [2]: Classes/Type/JsonType.php
 [3]: https://github.com/eliashaeussler/typo3-form-consent/issues
 [4]: https://extensions.typo3.org/extension/form_consent
+[5]: Classes/Updates/MigrateConsentStateUpgradeWizard.php
+[6]: Classes/Event/Listener/InvokeFinishersListener.php

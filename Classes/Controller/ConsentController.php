@@ -89,13 +89,14 @@ final class ConsentController extends ActionController
         ConsentManagerRegistry::registerConsent($consent);
 
         // Approve consent
-        $consent->setApproved(true);
-        $consent->setApprovalDate(new \DateTime());
+        $consent->setApproved();
         $consent->setValidUntil(null);
 
         // Dispatch approve event
         $event = new ApproveConsentEvent($consent);
         $this->eventDispatcher->dispatch($event);
+
+        // Obfuscate original request
         $consent->setOriginalRequestParameters(null);
 
         // Update approved consent
@@ -107,6 +108,7 @@ final class ConsentController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws ImmediateResponseException
      * @throws UnknownObjectException
      */
     public function dismissAction(string $hash, string $email): ResponseInterface
@@ -129,18 +131,24 @@ final class ConsentController extends ActionController
         // Register consent state
         ConsentManagerRegistry::registerConsent($consent);
 
-        // Un-approve consent and obfuscate submitted data
-        $consent->setApproved(false);
+        // Un-approve consent
+        $consent->setDismissed();
+        $consent->setValidUntil(null);
+
+        // Dispatch dismiss event
+        $event = new DismissConsentEvent($consent);
+        $this->eventDispatcher->dispatch($event);
+
+        // Obfuscate submitted data
         $consent->setData(null);
         $consent->setOriginalRequestParameters(null);
-        $this->eventDispatcher->dispatch(new DismissConsentEvent($consent));
-        $this->consentRepository->update($consent);
 
-        // Remove consent
+        // Remove dismissed consent
+        $this->consentRepository->update($consent);
         $this->consentRepository->remove($consent);
         $this->persistenceManager->persistAll();
 
-        return $this->createResponse();
+        return $this->createHtmlResponse($event->getResponse());
     }
 
     /**

@@ -26,7 +26,10 @@ namespace EliasHaeussler\Typo3FormConsent\Widget\Provider;
 use Doctrine\DBAL\Result;
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\WidgetApi;
 use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
@@ -67,29 +70,36 @@ class ConsentChartDataProvider implements ChartDataProviderInterface
 
     protected function countApproved(): int
     {
-        return $this->count(true, false);
+        return $this->count(ConsentStateType::APPROVED);
     }
 
     protected function countNonApproved(): int
     {
-        return $this->count(false, false);
+        return $this->count(ConsentStateType::NEW);
     }
 
     protected function countDismissed(): int
     {
-        return $this->count(false, true);
+        return $this->count(ConsentStateType::DISMISSED, true);
     }
 
-    protected function count(bool $approved, bool $deleted): int
+    protected function count(int $state, bool $includeDeleted = false): int
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
+
+        if (!$includeDeleted) {
+            $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        }
+
         /** @var Result $result */
         $result = $queryBuilder->count('*')
             ->from(Consent::TABLE_NAME)
             ->where(
-                $queryBuilder->expr()->eq('approved', $queryBuilder->createNamedParameter($approved, Connection::PARAM_BOOL)),
-                $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter($deleted, Connection::PARAM_BOOL))
+                $queryBuilder->expr()->eq(
+                    'state',
+                    $queryBuilder->createNamedParameter($state, Connection::PARAM_INT)
+                )
             )
             ->execute();
 

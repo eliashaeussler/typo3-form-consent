@@ -25,12 +25,29 @@ services:
     alias: TYPO3\CMS\Extbase\Configuration\ConfigurationManager
     public: true
 
+  EliasHaeussler\Typo3FormConsent\Updates\MigrateConsentStateUpgradeWizard:
+    public: true
+    shared: false
+    arguments:
+      $connection: '@connection.tx_formconsent_domain_model_consent'
+
   EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerFactory:
     arguments:
       $transformers: !tagged_locator { tag: 'form_consent.type_transformer', default_index_method: 'getName' }
 
-  EliasHaeussler\Typo3FormConsent\Event\Listener\InvokeFinishersOnConsentApprovalListener:
+  EliasHaeussler\Typo3FormConsent\Event\Listener\InvokeFinishersListener:
     tags:
       - name: event.listener
-        identifier: 'formConsentInvokeFinishersOnApproveListener'
+        identifier: 'formConsentInvokeFinishersOnConsentApproveListener'
         event: EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent
+        method: 'onConsentApprove'
+      - name: event.listener
+        identifier: 'formConsentInvokeFinishersOnConsentDismissListener'
+        event: EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent
+        method: 'onConsentDismiss'
+
+  connection.tx_formconsent_domain_model_consent:
+    class: 'TYPO3\CMS\Core\Database\Connection'
+    factory: ['@TYPO3\CMS\Core\Database\ConnectionPool', 'getConnectionForTable']
+    arguments:
+      - !php/const EliasHaeussler\Typo3FormConsent\Domain\Model\Consent::TABLE_NAME

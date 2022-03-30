@@ -83,7 +83,7 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
         $resolver = $this->createResolver($this->formRuntimeProphecy->reveal());
 
         $consent = new Consent();
-        $consent->setApproved(true);
+        $consent->setApproved();
         $consent->setFormPersistenceIdentifier('foo');
 
         ConsentManagerRegistry::registerConsent($consent);
@@ -109,9 +109,7 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
         $resolver = $this->createResolver($this->formRuntimeProphecy->reveal());
 
         $consent = new Consent();
-        $consent->setApproved(false);
-        $consent->setData(null);
-        $consent->setOriginalRequestParameters(null);
+        $consent->setDismissed();
         $consent->setFormPersistenceIdentifier('foo');
 
         ConsentManagerRegistry::registerConsent($consent);

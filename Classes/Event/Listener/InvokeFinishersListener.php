@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Event\Listener;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
+use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -38,12 +39,12 @@ use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * InvokeFinishersOnConsentApprovalListener
+ * InvokeFinishersListener
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class InvokeFinishersOnConsentApprovalListener
+final class InvokeFinishersListener
 {
     private FormPersistenceManagerInterface $formPersistenceManager;
     private PageRepository $pageRepository;
@@ -54,24 +55,34 @@ final class InvokeFinishersOnConsentApprovalListener
         $this->pageRepository = $pageRepository;
     }
 
-    public function __invoke(ApproveConsentEvent $event): void
+    public function onConsentApprove(ApproveConsentEvent $event): void
     {
-        $consent = $event->getConsent();
+        $response = $this->invokeFinishers($event->getConsent(), 'isConsentApproved()');
+        $event->setResponse($response);
+    }
 
+    public function onConsentDismiss(DismissConsentEvent $event): void
+    {
+        $response = $this->invokeFinishers($event->getConsent(), 'isConsentDismissed()');
+        $event->setResponse($response);
+    }
+
+    private function invokeFinishers(Consent $consent, string $condition): ?ResponseInterface
+    {
         // Early return if original request is missing
         // or no finisher variants are configured
         if (
             empty($consent->getOriginalRequestParameters())
             || 0 === $consent->getOriginalContentElementUid()
-            || !$this->arePostApprovalVariantsConfigured($consent->getFormPersistenceIdentifier())
+            || !$this->areFinisherVariantsConfigured($consent->getFormPersistenceIdentifier(), $condition)
         ) {
-            return;
+            return null;
         }
 
         // Re-render form to invoke finishers
         $request = $this->createRequestFromOriginalRequestParameters($consent->getOriginalRequestParameters());
-        $response = $this->dispatchFormReRendering($consent, $request);
-        $event->setResponse($response);
+
+        return $this->dispatchFormReRendering($consent, $request);
     }
 
     private function dispatchFormReRendering(Consent $consent, ServerRequestInterface $serverRequest): ?ResponseInterface
@@ -157,12 +168,12 @@ final class InvokeFinishersOnConsentApprovalListener
             ->withParsedBody($originalRequestParameters->toArray());
     }
 
-    private function arePostApprovalVariantsConfigured(string $formPersistenceIdentifier): bool
+    private function areFinisherVariantsConfigured(string $formPersistenceIdentifier, string $condition): bool
     {
         $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier);
 
         foreach ($formConfiguration['variants'] ?? [] as $variant) {
-            if (str_contains($variant['condition'] ?? '', 'isConsentApproved()') && isset($variant['finishers'])) {
+            if (str_contains($variant['condition'] ?? '', $condition) && isset($variant['finishers'])) {
                 return true;
             }
         }

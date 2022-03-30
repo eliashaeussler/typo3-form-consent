@@ -25,13 +25,10 @@ namespace EliasHaeussler\Typo3FormConsent\DependencyInjection;
 
 use EliasHaeussler\Typo3FormConsent\Configuration\Icon;
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Widget\ApprovedConsentsWidget;
 use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
-use TYPO3\CMS\Core\Database\Connection;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 
 /**
  * DashboardServicesConfigurator
@@ -44,7 +41,7 @@ final class DashboardServicesConfigurator
 {
     private const APPROVED_CONSENTS_WIDGET = 'dashboard.widget.approved_consents_widget';
     private const APPROVED_CONSENTS_DATA_PROVIDER = 'form_consent.widget.approved_consents.data_provider';
-    private const CONSENT_CONNECTION = 'form_consent.connection.consent';
+    private const CONSENT_CONNECTION = 'connection.tx_formconsent_domain_model_consent';
 
     private ServicesConfigurator $services;
 
@@ -56,7 +53,6 @@ final class DashboardServicesConfigurator
     public function configureServices(): void
     {
         $this->configureWidgets();
-        $this->configureAdditionalServices();
     }
 
     private function configureWidgets(): void
@@ -80,13 +76,5 @@ final class DashboardServicesConfigurator
         $this->services->set(self::APPROVED_CONSENTS_DATA_PROVIDER)
             ->class(ConsentChartDataProvider::class)
             ->arg('$connection', new Reference(self::CONSENT_CONNECTION));
-    }
-
-    private function configureAdditionalServices(): void
-    {
-        $this->services->set(self::CONSENT_CONNECTION)
-            ->class(Connection::class)
-            ->factory([new Reference(ConnectionPool::class), 'getConnectionForTable'])
-            ->arg('$tableName', Consent::TABLE_NAME);
     }
 }
