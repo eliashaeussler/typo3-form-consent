@@ -1,8 +1,8 @@
 
 renderingOptions:
   submitButtonLabel: Submit
-identifier: contact-confirmation-variant
-label: 'contact confirmation variant'
+identifier: contact-email-approve-variant
+label: 'contact email approve variant'
 type: Form
 prototypeName: standard
 variants:
@@ -12,9 +12,18 @@ variants:
     finishers:
       -
         options:
-          message: 'Thanks for your consent.'
-          contentElementUid: ''
-        identifier: Confirmation
+          subject: 'Consent approved'
+          recipients:
+            admin@example.com: ''
+          senderAddress: info@example.com
+          senderName: ''
+          addHtmlPart: true
+          attachUploads: true
+          translation:
+            language: Default
+          useFluidEmail: true
+          title: ''
+        identifier: EmailToReceiver
 finishers:
   -
     options:

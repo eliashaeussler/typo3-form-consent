@@ -1,8 +1,8 @@
 
 renderingOptions:
   submitButtonLabel: Submit
-identifier: contact-redirect-variant
-label: 'contact redirect variant'
+identifier: contact-confirmation-approve-variant
+label: 'contact confirmation approve variant'
 type: Form
 prototypeName: standard
 variants:
@@ -12,9 +12,9 @@ variants:
     finishers:
       -
         options:
-          pageUid: '1'
-          additionalParameters: ''
-        identifier: Redirect
+          message: 'Thanks for your consent.'
+          contentElementUid: ''
+        identifier: Confirmation
 finishers:
   -
     options:

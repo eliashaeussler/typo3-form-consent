@@ -49,7 +49,7 @@ final class ConsentFinisherCest
         $I->seeInDatabase(
             Consent::TABLE_NAME,
             [
-                'data' => '{"email-1":"user@example.com","fileupload-1":7}',
+                'data' => '{"email-1":"user@example.com","fileupload-1":9}',
                 'email' => 'user@example.com',
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
