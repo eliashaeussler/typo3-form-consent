@@ -30,6 +30,7 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Install\Updates\ChattyInterface;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
@@ -262,36 +263,15 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     {
         $queryBuilder = $this->connection->createQueryBuilder()->from(Consent::TABLE_NAME);
         $queryBuilder->getRestrictions()->removeAll();
-        $expr = $queryBuilder->expr();
 
         foreach ($legacyColumns as $legacyColumn) {
             switch ($legacyColumn) {
                 case 'approved':
-                    $queryBuilder->orWhere(
-                        $expr->orX(
-                            /* @phpstan-ignore-next-line */
-                            $expr->andX(
-                                $expr->eq('approved', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
-                                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentStateType::NEW, Connection::PARAM_INT))
-                            ),
-                            /* @phpstan-ignore-next-line */
-                            $expr->andX(
-                                $expr->eq('approved', $queryBuilder->createNamedParameter(false, Connection::PARAM_BOOL)),
-                                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentStateType::NEW, Connection::PARAM_INT)),
-                                $expr->eq('deleted', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
-                                $expr->isNull('data')
-                            )
-                        )
-                    );
+                    $queryBuilder->orWhere($this->getConstraintsForLegacyApprovedColumn($queryBuilder));
                     break;
 
                 case 'approval_date':
-                    $queryBuilder->orWhere(
-                        $expr->andX(
-                            $expr->neq('approval_date', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
-                            $expr->isNull('update_date')
-                        )
-                    );
+                    $queryBuilder->orWhere($this->getConstraintsForLegacyApprovalDateColumn($queryBuilder));
                     break;
 
                 default:
@@ -301,5 +281,35 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         }
 
         return $queryBuilder;
+    }
+
+    private function getConstraintsForLegacyApprovedColumn(QueryBuilder $queryBuilder): CompositeExpression
+    {
+        $expr = $queryBuilder->expr();
+
+        return $expr->orX(
+            /* @phpstan-ignore-next-line */
+            $expr->andX(
+                $expr->eq('approved', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
+                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentStateType::NEW, Connection::PARAM_INT))
+            ),
+            /* @phpstan-ignore-next-line */
+            $expr->andX(
+                $expr->eq('approved', $queryBuilder->createNamedParameter(false, Connection::PARAM_BOOL)),
+                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentStateType::NEW, Connection::PARAM_INT)),
+                $expr->eq('deleted', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
+                $expr->isNull('data')
+            )
+        );
+    }
+
+    private function getConstraintsForLegacyApprovalDateColumn(QueryBuilder $queryBuilder): CompositeExpression
+    {
+        $expr = $queryBuilder->expr();
+
+        return $expr->andX(
+            $expr->neq('approval_date', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
+            $expr->isNull('update_date')
+        );
     }
 }
