@@ -38,14 +38,23 @@
 			<trans-unit id="tx_formconsent_domain_model_consent.original_content_element_uid">
 				<source>Content element</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.approved">
+			<trans-unit id="tx_formconsent_domain_model_consent.state">
+				<source>State</source>
+			</trans-unit>
+			<trans-unit id="tx_formconsent_domain_model_consent.state.new">
+				<source>New</source>
+			</trans-unit>
+			<trans-unit id="tx_formconsent_domain_model_consent.state.approved">
 				<source>Approved</source>
+			</trans-unit>
+			<trans-unit id="tx_formconsent_domain_model_consent.state.dismissed">
+				<source>Dismissed</source>
+			</trans-unit>
+			<trans-unit id="tx_formconsent_domain_model_consent.update_date">
+				<source>Date of last state change</source>
 			</trans-unit>
 			<trans-unit id="tx_formconsent_domain_model_consent.valid_until">
 				<source>Valid until</source>
-			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.approval_date">
-				<source>Date of approval</source>
 			</trans-unit>
 			<trans-unit id="tx_formconsent_domain_model_consent.validation_hash">
 				<source>Validation hash</source>

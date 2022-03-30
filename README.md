@@ -170,6 +170,26 @@ given and a redirect to the configured confirmation page would take place.
 
 ## :construction: Migration
 
+### 0.3.x → 0.4.0
+
+#### Generic consent state
+
+The current state of form consents is now represented in a more generic way.
+
+* Database field `tx_formconsent_domain_model_consent.approved` was renamed to
+  `tx_formconsent_domain_model_consent.state`.
+  - Upgrade wizard [`formConsentMigrateConsentState`][5] needs to be executed.
+* Database field `tx_formconsent_domain_model_consent.approval_date` was renamed to
+  `tx_formconsent_domain_model_consent.update_date`.
+    - Upgrade wizard [`formConsentMigrateConsentState`][5] needs to be executed.
+    - Note: The database column is now nullable.
+* [`$consent->setApproved()`][1] does no longer accept any parameters.
+  - Use `$consent->setState()` instead.
+* [`$consent->getApprovalDate()`][1] was removed.
+  - Use `$consent->getUpdateDate()` instead.
+* [`$consent->setApprovalDate()`][1] was removed.
+  - Use `$consent->setUpdateDate()` instead.
+
 ### 0.2.x → 0.3.0
 
 #### Post-consent approval finishers
@@ -222,3 +242,4 @@ This project is licensed under [GNU General Public License 2.0 (or later)](LICEN
 [2]: Classes/Type/JsonType.php
 [3]: https://github.com/eliashaeussler/typo3-form-consent/issues
 [4]: https://extensions.typo3.org/extension/form_consent
+[5]: Classes/Updates/MigrateConsentStateUpgradeWizard.php
