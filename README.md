@@ -190,6 +190,18 @@ The current state of form consents is now represented in a more generic way.
 * [`$consent->setApprovalDate()`][1] was removed.
   - Use `$consent->setUpdateDate()` instead.
 
+#### Post-consent dismissal finishers
+
+Custom finishers can now be executed after consent was dismissed.
+
+* Event listener was renamed.
+  - Change references to [`EliasHaeussler\Typo3FormConsent\Event\Listener\InvokeFinishersListener`][6].
+  - Adapt your service configuration, if needed.
+* Listener method was renamed.
+  - Use `onConsentApprove($event)` instead of `__invoke($event)`.
+* Event listener identifier `formConsentInvokeFinishersOnApproveListener` changed.
+  - Change references to `formConsentInvokeFinishersOnConsentApproveListener`.
+
 ### 0.2.x → 0.3.0
 
 #### Post-consent approval finishers
@@ -243,3 +255,4 @@ This project is licensed under [GNU General Public License 2.0 (or later)](LICEN
 [3]: https://github.com/eliashaeussler/typo3-form-consent/issues
 [4]: https://extensions.typo3.org/extension/form_consent
 [5]: Classes/Updates/MigrateConsentStateUpgradeWizard.php
+[6]: Classes/Event/Listener/InvokeFinishersListener.php
