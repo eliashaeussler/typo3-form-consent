@@ -108,6 +108,7 @@ final class ConsentController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws ImmediateResponseException
      * @throws UnknownObjectException
      */
     public function dismissAction(string $hash, string $email): ResponseInterface
@@ -147,7 +148,7 @@ final class ConsentController extends ActionController
         $this->consentRepository->remove($consent);
         $this->persistenceManager->persistAll();
 
-        return $this->createResponse();
+        return $this->createHtmlResponse($event->getResponse());
     }
 
     /**
