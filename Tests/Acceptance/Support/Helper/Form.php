@@ -36,11 +36,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class Form extends Module
 {
     public const DEFAULT = 'contact-1';
-    public const CONFIRMATION_AFTER_APPROVE = 'contact-confirmation-variant-2';
-    public const EMAIL_AFTER_APPROVE = 'contact-email-variant-3';
-    public const REDIRECT_AFTER_APPROVE = 'contact-redirect-variant-4';
+    public const CONFIRMATION_AFTER_APPROVE = 'contact-confirmation-approve-variant-2';
+    public const EMAIL_AFTER_APPROVE = 'contact-email-approve-variant-3';
+    public const REDIRECT_AFTER_APPROVE = 'contact-redirect-approve-variant-4';
     public const V2 = 'contact-v2-5';
     public const INVALID = 'contact-invalid-6';
+    public const CONFIRMATION_AFTER_DISMISS = 'contact-confirmation-dismiss-variant-7';
+    public const REDIRECT_AFTER_DISMISS = 'contact-redirect-dismiss-variant-8';
 
     public function fillAndSubmitForm(string $form = self::DEFAULT, bool $attachFile = false): void
     {

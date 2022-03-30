@@ -1,29 +1,20 @@
 
 renderingOptions:
   submitButtonLabel: Submit
-identifier: contact-email-variant
-label: 'contact email variant'
+identifier: contact-confirmation-dismiss-variant
+label: 'contact confirmation dismiss variant'
 type: Form
 prototypeName: standard
 variants:
   -
     identifier: variant-1
-    condition: isConsentApproved()
+    condition: isConsentDismissed()
     finishers:
       -
         options:
-          subject: 'Consent approved'
-          recipients:
-            admin@example.com: ''
-          senderAddress: info@example.com
-          senderName: ''
-          addHtmlPart: true
-          attachUploads: true
-          translation:
-            language: Default
-          useFluidEmail: true
-          title: ''
-        identifier: EmailToReceiver
+          message: 'Your consent was dismissed.'
+          contentElementUid: ''
+        identifier: Confirmation
 finishers:
   -
     options:

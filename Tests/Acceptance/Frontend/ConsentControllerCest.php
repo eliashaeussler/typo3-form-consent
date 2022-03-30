@@ -122,6 +122,24 @@ final class ConsentControllerCest
         $I->seeCurrentUrlEquals('/');
     }
 
+    public function canDismissConsentAndInvokeConfirmationFinisher(AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Form::CONFIRMATION_AFTER_DISMISS);
+
+        $I->amOnPage($this->dismissUrl);
+
+        $I->see('Your consent was dismissed.');
+    }
+
+    public function canDismissConsentAndInvokeRedirectFinisher(AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Form::REDIRECT_AFTER_DISMISS);
+
+        $I->amOnPage($this->dismissUrl);
+
+        $I->seeCurrentUrlEquals('/');
+    }
+
     public function cannotApproveOrDismissAlreadyDismissedConsent(AcceptanceTester $I): void
     {
         $I->amOnPage($this->dismissUrl);
