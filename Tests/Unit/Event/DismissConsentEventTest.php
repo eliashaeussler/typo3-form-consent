@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
+use TYPO3\CMS\Core\Http\Response;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -53,5 +54,17 @@ final class DismissConsentEventTest extends UnitTestCase
     {
         $expected = $this->consent;
         self::assertSame($expected, $this->subject->getConsent());
+    }
+
+    /**
+     * @test
+     */
+    public function getResponseReturnsResponse(): void
+    {
+        self::assertNull($this->subject->getResponse());
+
+        $response = new Response();
+
+        self::assertSame($response, $this->subject->setResponse($response)->getResponse());
     }
 }

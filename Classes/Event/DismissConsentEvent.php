@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Event;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * DismissConsentEvent
@@ -34,6 +35,7 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 final class DismissConsentEvent
 {
     private Consent $consent;
+    private ?ResponseInterface $response = null;
 
     public function __construct(Consent $consent)
     {
@@ -43,5 +45,16 @@ final class DismissConsentEvent
     public function getConsent(): Consent
     {
         return $this->consent;
+    }
+
+    public function getResponse(): ?ResponseInterface
+    {
+        return $this->response;
+    }
+
+    public function setResponse(?ResponseInterface $response): self
+    {
+        $this->response = $response;
+        return $this;
     }
 }
