@@ -36,6 +36,11 @@ final class ConsentDataElementCest
 {
     public function canSeeConsentInBackendListModule(AcceptanceTester $I, Backend $backend): void
     {
+        // @todo Remove once https://github.com/symfony/symfony/pull/45925 is released
+        if (version_compare(PHP_VERSION, '8.1.0', '>=')) {
+            $I->markTestSkipped('Skipped until https://github.com/symfony/symfony/pull/45925 is released.');
+        }
+
         $I->amOnPage('/');
         $I->fillAndSubmitForm();
 
