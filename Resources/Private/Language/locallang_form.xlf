@@ -1,112 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.0">
-	<file source-language="en">
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:form_consent/Resources/Private/Language/locallang_form.xlf" date="2022-04-21T20:43:12Z" product-name="form_consent">
 		<header/>
 		<body>
-			<trans-unit id="formEditor.elements.Form.editor.finishers.Consent.label">
+			<trans-unit id="formEditor.elements.Form.editor.finishers.Consent.label" resname="formEditor.elements.Form.editor.finishers.Consent.label">
 				<source>Consent</source>
 			</trans-unit>
 
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.default.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.default.label" resname="formEditor.elements.Form.finishers.Consent.editor.default.label">
 				<source>Consent</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.subject.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.subject.label" resname="formEditor.elements.Form.finishers.Consent.editor.subject.label">
 				<source>Subject</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientAddress.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientAddress.label" resname="formEditor.elements.Form.finishers.Consent.editor.recipientAddress.label">
 				<source>Recipient e-mail address</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientName.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.recipientName.label" resname="formEditor.elements.Form.finishers.Consent.editor.recipientName.label">
 				<source>Recipient name</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderAddress.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderAddress.label" resname="formEditor.elements.Form.finishers.Consent.editor.senderAddress.label">
 				<source>Sender e-mail address</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderName.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderName.label" resname="formEditor.elements.Form.finishers.Consent.editor.senderName.label">
 				<source>Sender name</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label" resname="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label">
 				<source>Approval period</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.fieldExplanationText">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.fieldExplanationText" resname="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.fieldExplanationText">
 				<source>Time period in seconds where consent can be given. Set this value to "0" to allow unlimited approval.</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.label" resname="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.label">
 				<source>Show dismiss link</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.fieldExplanationText">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.fieldExplanationText" resname="formEditor.elements.Form.finishers.Consent.editor.showDismissLink.fieldExplanationText">
 				<source>Enable this checkbox if users should be able to dismiss their consent.</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.label" resname="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.label">
 				<source>Confirmation page</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.buttonLabel">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.buttonLabel" resname="formEditor.elements.Form.finishers.Consent.editor.confirmationPid.buttonLabel">
 				<source>Page</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.label">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.label" resname="formEditor.elements.Form.finishers.Consent.editor.storagePid.label">
 				<source>Storage page</source>
 			</trans-unit>
-			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel">
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel" resname="formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel">
 				<source>Page</source>
 			</trans-unit>
 
-			<trans-unit id="formEditor.elements.Form.finisher.Consent.editor.header.label">
+			<trans-unit id="formEditor.elements.Form.finisher.Consent.editor.header.label" resname="formEditor.elements.Form.finisher.Consent.editor.header.label">
 				<source>Consent</source>
 			</trans-unit>
 
-			<trans-unit id="tt_content.finishersDefinition.Consent.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.label" resname="tt_content.finishersDefinition.Consent.label">
 				<source>Consent</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.subject.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.subject.label" resname="tt_content.finishersDefinition.Consent.subject.label">
 				<source>Subject</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.recipientAddress.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.recipientAddress.label" resname="tt_content.finishersDefinition.Consent.recipientAddress.label">
 				<source>Recipient e-mail address</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.recipientName.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.recipientName.label" resname="tt_content.finishersDefinition.Consent.recipientName.label">
 				<source>Recipient name</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.senderAddress.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.senderAddress.label" resname="tt_content.finishersDefinition.Consent.senderAddress.label">
 				<source>Sender e-mail address</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.senderName.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.senderName.label" resname="tt_content.finishersDefinition.Consent.senderName.label">
 				<source>Sender name</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.approvalPeriod.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.approvalPeriod.label" resname="tt_content.finishersDefinition.Consent.approvalPeriod.label">
 				<source>Approval period</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.showDismissLink.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.showDismissLink.label" resname="tt_content.finishersDefinition.Consent.showDismissLink.label">
 				<source>Show dismiss link</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.confirmationPid.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.confirmationPid.label" resname="tt_content.finishersDefinition.Consent.confirmationPid.label">
 				<source>Confirmation page</source>
 			</trans-unit>
-			<trans-unit id="tt_content.finishersDefinition.Consent.storagePid.label">
+			<trans-unit id="tt_content.finishersDefinition.Consent.storagePid.label" resname="tt_content.finishersDefinition.Consent.storagePid.label">
 				<source>Storage page</source>
 			</trans-unit>
 
-			<trans-unit id="validation.recipientAddress.empty">
+			<trans-unit id="validation.recipientAddress.empty" resname="validation.recipientAddress.empty">
 				<source>The finisher option "recipientAddress" must be set.</source>
 			</trans-unit>
-			<trans-unit id="validation.recipientAddress.invalid">
+			<trans-unit id="validation.recipientAddress.invalid" resname="validation.recipientAddress.invalid">
 				<source>The finisher option "recipientAddress" must contain a valid e-mail address.</source>
 			</trans-unit>
-			<trans-unit id="validation.senderAddress.invalid">
+			<trans-unit id="validation.senderAddress.invalid" resname="validation.senderAddress.invalid">
 				<source>The finisher option "senderAddress" must contain a valid e-mail address.</source>
 			</trans-unit>
-			<trans-unit id="validation.approvalPeriod.invalid">
+			<trans-unit id="validation.approvalPeriod.invalid" resname="validation.approvalPeriod.invalid">
 				<source>The finisher option "approvalPeriod" must be zero or more seconds.</source>
 			</trans-unit>
-			<trans-unit id="validation.confirmationPid.empty">
+			<trans-unit id="validation.confirmationPid.empty" resname="validation.confirmationPid.empty">
 				<source>The finisher option "confirmationPid" must be set.</source>
 			</trans-unit>
-			<trans-unit id="validation.confirmationPid.invalid">
+			<trans-unit id="validation.confirmationPid.invalid" resname="validation.confirmationPid.invalid">
 				<source>The finisher option "confirmationPid" must be set to a valid page.</source>
 			</trans-unit>
-			<trans-unit id="validation.storagePid.empty">
+			<trans-unit id="validation.storagePid.empty" resname="validation.storagePid.empty">
 				<source>The finisher option "storagePid" must be set.</source>
 			</trans-unit>
-			<trans-unit id="validation.storagePid.invalid">
+			<trans-unit id="validation.storagePid.invalid" resname="validation.storagePid.invalid">
 				<source>The finisher option "storagePid" must be set to a valid page.</source>
 			</trans-unit>
 		</body>
