@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.0">
-	<file source-language="en">
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:form_consent/Resources/Private/Language/locallang_db.xlf" date="2022-04-21T20:43:12Z" product-name="form_consent">
 		<header/>
 		<body>
-			<trans-unit id="tabs.consent">
+			<trans-unit id="tabs.consent" resname="tabs.consent">
 				<source>Consent</source>
 			</trans-unit>
 
-			<trans-unit id="plugins.consent">
+			<trans-unit id="plugins.consent" resname="plugins.consent">
 				<source>Form consent</source>
 			</trans-unit>
-			<trans-unit id="plugins.consent.header">
+			<trans-unit id="plugins.consent.header" resname="plugins.consent.header">
 				<source>Form consent</source>
 			</trans-unit>
-			<trans-unit id="plugins.consent.body">
+			<trans-unit id="plugins.consent.body" resname="plugins.consent.body">
 				<source>Inserts a plugin which allows approval and dismiss of form consents.</source>
 			</trans-unit>
 
-			<trans-unit id="tx_formconsent_domain_model_consent">
+			<trans-unit id="tx_formconsent_domain_model_consent" resname="tx_formconsent_domain_model_consent">
 				<source>Consent</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.email">
+			<trans-unit id="tx_formconsent_domain_model_consent.email" resname="tx_formconsent_domain_model_consent.email">
 				<source>E-mail address</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.date">
+			<trans-unit id="tx_formconsent_domain_model_consent.date" resname="tx_formconsent_domain_model_consent.date">
 				<source>Submit date</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.data">
+			<trans-unit id="tx_formconsent_domain_model_consent.data" resname="tx_formconsent_domain_model_consent.data">
 				<source>Form data</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.form_persistence_identifier">
+			<trans-unit id="tx_formconsent_domain_model_consent.form_persistence_identifier" resname="tx_formconsent_domain_model_consent.form_persistence_identifier">
 				<source>Form location</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.original_request_parameters">
+			<trans-unit id="tx_formconsent_domain_model_consent.original_request_parameters" resname="tx_formconsent_domain_model_consent.original_request_parameters">
 				<source>Original request parameters</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.original_content_element_uid">
+			<trans-unit id="tx_formconsent_domain_model_consent.original_content_element_uid" resname="tx_formconsent_domain_model_consent.original_content_element_uid">
 				<source>Content element</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.state">
+			<trans-unit id="tx_formconsent_domain_model_consent.state" resname="tx_formconsent_domain_model_consent.state">
 				<source>State</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.state.new">
+			<trans-unit id="tx_formconsent_domain_model_consent.state.new" resname="tx_formconsent_domain_model_consent.state.new">
 				<source>New</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.state.approved">
+			<trans-unit id="tx_formconsent_domain_model_consent.state.approved" resname="tx_formconsent_domain_model_consent.state.approved">
 				<source>Approved</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.state.dismissed">
+			<trans-unit id="tx_formconsent_domain_model_consent.state.dismissed" resname="tx_formconsent_domain_model_consent.state.dismissed">
 				<source>Dismissed</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.update_date">
+			<trans-unit id="tx_formconsent_domain_model_consent.update_date" resname="tx_formconsent_domain_model_consent.update_date">
 				<source>Date of last state change</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.valid_until">
+			<trans-unit id="tx_formconsent_domain_model_consent.valid_until" resname="tx_formconsent_domain_model_consent.valid_until">
 				<source>Valid until</source>
 			</trans-unit>
-			<trans-unit id="tx_formconsent_domain_model_consent.validation_hash">
+			<trans-unit id="tx_formconsent_domain_model_consent.validation_hash" resname="tx_formconsent_domain_model_consent.validation_hash">
 				<source>Validation hash</source>
 			</trans-unit>
 		</body>
