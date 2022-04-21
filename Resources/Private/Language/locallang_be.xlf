@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.0">
-	<file source-language="en">
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:form_consent/Resources/Private/Language/locallang_be.xlf" date="2022-04-21T20:43:12Z" product-name="form_consent">
 		<header/>
 		<body>
-			<trans-unit id="form.message.newRecord">
+			<trans-unit id="form.message.newRecord" resname="form.message.newRecord">
 				<source>No data submitted yet.</source>
 			</trans-unit>
-			<trans-unit id="form.message.noDataAvailable">
+			<trans-unit id="form.message.noDataAvailable" resname="form.message.noDataAvailable">
 				<source>No form data was submitted.</source>
 			</trans-unit>
 
-			<trans-unit id="form.data.header">
+			<trans-unit id="form.data.header" resname="form.data.header">
 				<source>Submitted form data</source>
 			</trans-unit>
 
-			<trans-unit id="widgets.approvedConsents.header">
+			<trans-unit id="widgets.approvedConsents.header" resname="widgets.approvedConsents.header">
 				<source>Form consent</source>
 			</trans-unit>
-			<trans-unit id="widgets.approvedConsents.body">
+			<trans-unit id="widgets.approvedConsents.body" resname="widgets.approvedConsents.body">
 				<source>An overview about all approved consents</source>
 			</trans-unit>
 
-			<trans-unit id="charts.approved">
+			<trans-unit id="charts.approved" resname="charts.approved">
 				<source>approved</source>
 			</trans-unit>
-			<trans-unit id="charts.nonApproved">
+			<trans-unit id="charts.nonApproved" resname="charts.nonApproved">
 				<source>non-approved</source>
 			</trans-unit>
-			<trans-unit id="charts.dismissed">
+			<trans-unit id="charts.dismissed" resname="charts.dismissed">
 				<source>dismissed</source>
 			</trans-unit>
 		</body>
