@@ -40,6 +40,12 @@
 			<trans-unit id="consent.approve.error.alreadyApproved.body" resname="consent.approve.error.alreadyApproved.body">
 				<source>The link you clicked has already been clicked. This means that consent has already been given and the link is no longer valid.</source>
 			</trans-unit>
+			<trans-unit id="consent.approve.error.unexpectedError.title" resname="consent.approve.error.unexpectedError.title">
+				<source>Unexpected error</source>
+			</trans-unit>
+			<trans-unit id="consent.approve.error.unexpectedError.body" resname="consent.approve.error.unexpectedError.body">
+				<source>An unexpected error occurred while processing the consent. Please try again or contact the webmaster of this website with the following error code: %s</source>
+			</trans-unit>
 			<trans-unit id="consent.approve.error.unknown.title" resname="consent.approve.error.unknown.title">
 				<source>Unknown error</source>
 			</trans-unit>
@@ -64,6 +70,12 @@
 			</trans-unit>
 			<trans-unit id="consent.dismiss.error.invalidEmail.body" resname="consent.dismiss.error.invalidEmail.body">
 				<source>The email address sent with the link is not valid. Please fill out the form again.</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.error.unexpectedError.title" resname="consent.dismiss.error.unexpectedError.title">
+				<source>Unexpected error</source>
+			</trans-unit>
+			<trans-unit id="consent.dismiss.error.unexpectedError.body" resname="consent.dismiss.error.unexpectedError.body">
+				<source>An unexpected error occurred while processing the consent. Please try again or contact the webmaster of this website with the following error code: %s</source>
 			</trans-unit>
 			<trans-unit id="consent.dismiss.error.unknown.title" resname="consent.dismiss.error.unknown.title">
 				<source>Unknown error</source>

@@ -93,8 +93,12 @@ final class ConsentController extends ActionController
         $consent->setValidUntil(null);
 
         // Dispatch approve event
-        $event = new ApproveConsentEvent($consent);
-        $this->eventDispatcher->dispatch($event);
+        try {
+            $event = new ApproveConsentEvent($consent);
+            $this->eventDispatcher->dispatch($event);
+        } catch (\Exception $exception) {
+            return $this->createErrorResponse('unexpectedError', $exception);
+        }
 
         // Obfuscate original request
         $consent->setOriginalRequestParameters(null);
@@ -136,8 +140,12 @@ final class ConsentController extends ActionController
         $consent->setValidUntil(null);
 
         // Dispatch dismiss event
-        $event = new DismissConsentEvent($consent);
-        $this->eventDispatcher->dispatch($event);
+        try {
+            $event = new DismissConsentEvent($consent);
+            $this->eventDispatcher->dispatch($event);
+        } catch (\Exception $exception) {
+            return $this->createErrorResponse('unexpectedError', $exception);
+        }
 
         // Obfuscate submitted data
         $consent->setData(null);
@@ -154,10 +162,11 @@ final class ConsentController extends ActionController
     /**
      * @throws ImmediateResponseException
      */
-    private function createErrorResponse(string $reason): ResponseInterface
+    private function createErrorResponse(string $reason, \Throwable $exception = null): ResponseInterface
     {
         $this->view->assign('error', true);
         $this->view->assign('reason', $reason);
+        $this->view->assign('exception', $exception);
 
         return $this->createHtmlResponse();
     }

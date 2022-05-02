@@ -25,6 +25,14 @@
                     messageKey: 'consent.approve.error.alreadyApproved.body'
                 }" />
             </f:case>
+            <f:case value="unexpectedError">
+                <f:render partial="Message" arguments="{
+                    severity: 'danger',
+                    titleKey: 'consent.approve.error.unexpectedError.title',
+                    messageKey: 'consent.approve.error.unexpectedError.body',
+                    arguments: {0: exception.code}
+                }" />
+            </f:case>
             <f:defaultCase>
                 <f:render partial="Message" arguments="{
                     severity: 'danger',

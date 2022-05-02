@@ -42,6 +42,8 @@ final class ConsentFinisherCest
 
     public function canSubmitForm(AcceptanceTester $I): void
     {
+        $numberOfFormFixtures = $this->getNumberOfFormFixtures($I);
+
         $I->fillAndSubmitForm(Form::DEFAULT, true);
 
         $I->waitForText('Please approve your consent.', 5);
@@ -49,7 +51,7 @@ final class ConsentFinisherCest
         $I->seeInDatabase(
             Consent::TABLE_NAME,
             [
-                'data' => '{"email-1":"user@example.com","fileupload-1":9}',
+                'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
                 'email' => 'user@example.com',
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
@@ -119,5 +121,21 @@ final class ConsentFinisherCest
         $I->fillAndSubmitForm(Form::INVALID);
 
         $I->waitForText('The finisher option "recipientAddress" must be set.', 5);
+    }
+
+    private function getNumberOfFormFixtures(AcceptanceTester $I): int
+    {
+        $fixtureFiles = glob(\dirname(__DIR__) . '/Data/Fileadmin/form_definitions/*.form.yaml');
+
+        if (false === $fixtureFiles) {
+            $I->fail('Unable to determine number of form fixtures.');
+
+            // Actually, this is superfluous as $I->fail() exists and will never
+            // reach this return. However, since PHPStan does not (yet) understand
+            // Codeception's internal logic, we must teach it ourselves.
+            return 0;
+        }
+
+        return \count($fixtureFiles);
     }
 }
