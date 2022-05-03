@@ -102,7 +102,7 @@ you're trying to solve.
 
 All described code quality tools are automatically executed on each pull request
 for all currently supported PHP versions and TYPO3 versions. Take a look at the
-appropriate [workflows][2] to get a detailed overview.
+appropriate [workflows][3] to get a detailed overview.
 
 [1]: https://ddev.readthedocs.io/en/stable/
 [2]: .ddev/config.yaml
