@@ -98,24 +98,22 @@
 	},
 	"scripts": {
 		"post-autoload-dump": [
-			"@environment:prepare",
+			"@prepare-environment",
 			"codecept build"
 		],
-		"environment:prepare": [
-			"@environment:prepare:extension",
-			"@environment:prepare:sites-config",
-			"@environment:prepare:additional-config"
+		"import-fixtures": [
+			"@import-fixtures:files",
+			"@import-fixtures:db"
 		],
-		"environment:prepare:additional-config": [
-			"[ -L .Build/web/typo3conf/AdditionalConfiguration.php ] || ln -snvf ../../../Tests/Build/AdditionalConfiguration.php .Build/web/typo3conf/AdditionalConfiguration.php"
+		"import-fixtures:db": [
+			"mysql -Nse 'show tables' db | while read table; do mysql -e \"truncate table $table\" db; done",
+			"typo3cms install:setup --no-interaction --force",
+			"for file in Tests/Acceptance/Data/Fixtures/*.sql; do mysql db < $file; done"
 		],
-		"environment:prepare:extension": [
-			"mkdir -p .Build/web/typo3conf/ext/",
-			"[ -L .Build/web/typo3conf/ext/form_consent ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/form_consent"
-		],
-		"environment:prepare:sites-config": [
-			"mkdir -p config/sites/main",
-			"[ -L config/sites/main/config.yaml ] || ln -snvf ../../../Tests/Build/sites-config.yaml config/sites/main/config.yaml"
+		"import-fixtures:files": [
+			"mkdir -p .Build/web",
+			"rm -rf .Build/web/fileadmin",
+			"cp -r Tests/Acceptance/Data/Fileadmin .Build/web/fileadmin"
 		],
 		"lint": [
 			"@lint:composer",
@@ -127,6 +125,19 @@
 		"lint:editorconfig": "ec --fix -e .Build",
 		"lint:php": "php-cs-fixer fix",
 		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
+		"prepare-environment": [
+			"@prepare-environment:extension",
+			"@prepare-environment:config"
+		],
+		"prepare-environment:config": [
+			"mkdir -p config/sites/main",
+			"[ -L config/sites/main/config.yaml ] || ln -snvf ../../../Tests/Build/sites-config.yaml config/sites/main/config.yaml",
+			"[ -L .Build/web/typo3conf/AdditionalConfiguration.php ] || ln -snvf ../../../Tests/Build/AdditionalConfiguration.php .Build/web/typo3conf/AdditionalConfiguration.php"
+		],
+		"prepare-environment:extension": [
+			"mkdir -p .Build/web/typo3conf/ext/",
+			"[ -L .Build/web/typo3conf/ext/form_consent ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/form_consent"
+		],
 		"sca": [
 			"@sca:php"
 		],
@@ -140,10 +151,7 @@
 			"@test:acceptance:prepare",
 			"@test:acceptance:run"
 		],
-		"test:acceptance:prepare": [
-			"mysql -Nse 'show tables' db | while read table; do mysql -e \"truncate table $table\" db; done",
-			"typo3cms install:setup --no-interaction --force"
-		],
+		"test:acceptance:prepare": "@import-fixtures",
 		"test:acceptance:run": "codecept run",
 		"test:ci": [
 			"@test:ci:acceptance",

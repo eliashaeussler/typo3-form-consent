@@ -24,7 +24,10 @@ jobs:
 
       # Install dependencies
       - name: Install Composer dependencies
-        run: composer require --no-progress --no-plugins typo3/cms-dashboard:"~10.4.11 || ~11.5.1" typo3/cms-scheduler:"~10.4.11 || ~11.5.1"
+        run: |
+          composer require --no-progress --no-plugins \
+            typo3/cms-dashboard:"~10.4.11 || ~11.5.1" \
+            typo3/cms-scheduler:"~10.4.11 || ~11.5.1"
 
       # Check Composer dependencies
       - name: Check dependencies

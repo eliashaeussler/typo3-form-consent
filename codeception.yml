@@ -18,13 +18,6 @@ suites:
             dsn: 'mysql:host=db;dbname=db'
             user: 'root'
             password: 'root'
-            dump:
-              - Tests/Acceptance/Data/Fixtures/be_users.sql
-              - Tests/Acceptance/Data/Fixtures/pages.sql
-              - Tests/Acceptance/Data/Fixtures/sys_file.sql
-              - Tests/Acceptance/Data/Fixtures/sys_template.sql
-              - Tests/Acceptance/Data/Fixtures/tt_content.sql
-              - Tests/Acceptance/Data/Fixtures/tx_formconsent_domain_model_consent.sql
             populate: true
             waitlock: 5
         - MailHog:
