@@ -176,6 +176,22 @@ final class ConsentControllerCest
         $I->see('The link you clicked has already been clicked. This means that consent has already been given and the link is no longer valid.');
     }
 
+    public function seeErrorOnFinisherExceptionDuringConsentApproval(AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Form::INVALID_CLOSURE_AFTER_APPROVE);
+
+        $I->amOnPage($this->approveUrl);
+        $I->see('An unexpected error occurred while processing the consent. Please try again or contact the webmaster of this website with the following error code: 1332155239');
+    }
+
+    public function seeErrorOnFinisherExceptionDuringConsentDismissal(AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Form::INVALID_CLOSURE_AFTER_DISMISS);
+
+        $I->amOnPage($this->dismissUrl);
+        $I->see('An unexpected error occurred while processing the consent. Please try again or contact the webmaster of this website with the following error code: 1332155239');
+    }
+
     private function submitFormAndExtractUrls(AcceptanceTester $I, string $form = Form::DEFAULT): void
     {
         $I->amOnPage('/');

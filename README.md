@@ -243,6 +243,10 @@ Form values are now represented as an instance of [`JsonType`][2].
   - If you still need to extend or override them, consider refactoring
     your code or [submit an issue][3].
 
+## :technologist: Contributing
+
+Please have a look at [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 ## :gem: Credits
 
 Icons made by [Google](https://www.flaticon.com/authors/google) from
