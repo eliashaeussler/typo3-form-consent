@@ -102,6 +102,7 @@ TYPO3:
               1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
           finishersDefinition:
             Consent:
+              implementationClassName: 'EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher'
               formEditor:
                 iconIdentifier: 'form-finisher'
                 label: 'formEditor.elements.Form.finisher.Consent.editor.header.label'

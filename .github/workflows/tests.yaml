@@ -19,7 +19,7 @@ jobs:
             php-version: "8.1"
             coverage: true
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -65,7 +65,7 @@ jobs:
             ${{ github.workspace }}/.Build/log/coverage/clover.xml:clover
         if: ${{ matrix.coverage }}
       - name: codecov report
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           directory: .Build/log/coverage
           fail_ci_if_error: true
@@ -95,7 +95,7 @@ jobs:
           - typo3-version: "11.5"
             php-version: "8.1"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
