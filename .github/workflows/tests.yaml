@@ -1,10 +1,17 @@
 name: Tests
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
   tests:
     name: PHP ${{ matrix.php-version }} & TYPO3 ${{ matrix.typo3-version }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -81,7 +88,7 @@ jobs:
 
   tests-lowest:
     name: '[test-lowest] PHP ${{ matrix.php-version }} & TYPO3 ${{ matrix.typo3-version }}'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
