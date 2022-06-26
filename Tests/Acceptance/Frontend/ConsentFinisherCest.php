@@ -59,6 +59,35 @@ final class ConsentFinisherCest
         );
     }
 
+    public function canUseLastInsertedConsentFromFinisherVariableProvider(AcceptanceTester $I): void
+    {
+        $numberOfFormFixtures = $this->getNumberOfFormFixtures($I);
+
+        $I->fillAndSubmitForm(Form::DEFAULT, true);
+
+        $I->waitForText('Please approve your consent.', 5);
+
+        $uid = $I->grabFromDatabase(
+            Consent::TABLE_NAME,
+            'uid',
+            [
+                'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
+                'email' => 'user@example.com',
+                'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
+                'original_content_element_uid' => 1,
+            ]
+        );
+
+        $I->seeInDatabase(
+            'fe_users',
+            [
+                'username' => 'consent ' . $uid,
+                'email' => 'user@example.com',
+                'image' => $numberOfFormFixtures + 1,
+            ]
+        );
+    }
+
     public function receiveConsentMail(AcceptanceTester $I): void
     {
         $I->fillAndSubmitForm();

@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentMailEvent;
 use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Mail\FluidEmail;
+use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -40,13 +41,15 @@ final class ModifyConsentMailEventTest extends UnitTestCase
 
     protected ModifyConsentMailEvent $subject;
     protected FluidEmail $mail;
+    protected FormRuntime $formRuntime;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->mail = $this->prophesize(FluidEmail::class)->reveal();
-        $this->subject = new ModifyConsentMailEvent($this->mail);
+        $this->formRuntime = $this->prophesize(FormRuntime::class)->reveal();
+        $this->subject = new ModifyConsentMailEvent($this->mail, $this->formRuntime);
     }
 
     /**
@@ -56,5 +59,14 @@ final class ModifyConsentMailEventTest extends UnitTestCase
     {
         $expected = $this->mail;
         self::assertSame($expected, $this->subject->getMail());
+    }
+
+    /**
+     * @test
+     */
+    public function getFormRuntimeReturnsInitialFormRuntime(): void
+    {
+        $expected = $this->formRuntime;
+        self::assertSame($expected, $this->subject->getFormRuntime());
     }
 }

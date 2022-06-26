@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Event;
 
 use TYPO3\CMS\Core\Mail\FluidEmail;
+use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 
 /**
  * ModifyConsentMailEvent
@@ -34,14 +35,21 @@ use TYPO3\CMS\Core\Mail\FluidEmail;
 final class ModifyConsentMailEvent
 {
     private FluidEmail $mail;
+    private FormRuntime $formRuntime;
 
-    public function __construct(FluidEmail $mail)
+    public function __construct(FluidEmail $mail, FormRuntime $formRuntime)
     {
         $this->mail = $mail;
+        $this->formRuntime = $formRuntime;
     }
 
     public function getMail(): FluidEmail
     {
         return $this->mail;
+    }
+
+    public function getFormRuntime(): FormRuntime
+    {
+        return $this->formRuntime;
     }
 }
