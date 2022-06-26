@@ -51,9 +51,31 @@ Alternatively, you can download the extension via the
 
 ## :zap: Usage
 
+### Finisher
+
 A new finisher `Consent` is available in the backend form editor.
 It saves all submitted form data in the database and sends a
 corresponding mail to either approve or dismiss a given consent.
+
+The last inserted consent is populated with the finisher variable
+provider. It can be accessed as `{Consent.lastInsertedConsent}` in
+the `.form.yaml` configuration.
+
+Example:
+
+```yaml
+finishers:
+  -
+    options:
+      table: tx_myextension_domain_model_mymodel
+      mode: insert
+      databaseColumnMappings:
+        consent:
+          value: '{Consent.lastInsertedConsent.uid}'
+    identifier: SaveToDatabase
+```
+
+### Plugin
 
 A plugin is required for approval or dismiss of the consent. The
 associated page containing the plugin must then be specified in the

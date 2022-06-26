@@ -114,6 +114,13 @@ final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInter
         $this->persistenceManager->add($consent);
         $this->persistenceManager->persistAll();
 
+        // Add consent to finisher context
+        $this->finisherContext->getFinisherVariableProvider()->add(
+            $this->shortFinisherIdentifier,
+            'lastInsertedConsent',
+            $consent
+        );
+
         // Build mail
         $mail = $this->initializeMail($finisherOptions);
         $mail->assign('consent', $consent);
