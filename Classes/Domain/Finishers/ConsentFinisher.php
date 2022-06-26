@@ -137,7 +137,7 @@ final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInter
             ->add(RenderRenderableViewHelper::class, 'formRuntime', $formRuntime);
 
         // Dispatch ModifyConsentMail event
-        $this->eventDispatcher->dispatch(new ModifyConsentMailEvent($mail));
+        $this->eventDispatcher->dispatch(new ModifyConsentMailEvent($mail, $formRuntime));
 
         // Send mail
         try {

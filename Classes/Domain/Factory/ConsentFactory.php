@@ -91,7 +91,7 @@ final class ConsentFactory
         $consent->setValidationHash($this->hashService->generate($consent));
 
         // Dispatch ModifyConsent event
-        $this->eventDispatcher->dispatch(new ModifyConsentEvent($consent));
+        $this->eventDispatcher->dispatch(new ModifyConsentEvent($consent, $formRuntime));
 
         // Re-generate validation hash if consent has changed in the meantime
         if (!$this->hashService->isValid($consent)) {
