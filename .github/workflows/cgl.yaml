@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - '**'
@@ -11,8 +10,6 @@ on:
 jobs:
   cgl:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
       - uses: actions/checkout@v3
         with:
