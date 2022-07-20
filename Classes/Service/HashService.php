@@ -48,10 +48,10 @@ final class HashService
         $hashComponents = [
             $consent->getDate()->getTimestamp(),
         ];
-        if (null !== $consent->getData()) {
+        if ($consent->getData() !== null) {
             $hashComponents[] = (string)$consent->getData();
         }
-        if (null !== $consent->getValidUntil()) {
+        if ($consent->getValidUntil() !== null) {
             $hashComponents[] = $consent->getValidUntil()->getTimestamp();
         }
 

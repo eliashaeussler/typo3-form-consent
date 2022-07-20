@@ -51,7 +51,7 @@ final class Icon
         $pluginName = trim($pluginName);
         $pluginName = str_replace('_', '-', GeneralUtility::camelCaseToLowerCaseUnderscored($pluginName));
 
-        if ('' === $pluginName) {
+        if ($pluginName === '') {
             throw new \InvalidArgumentException(
                 'Plugin name must not be empty when generating icon plugin identifier.',
                 1587655457
@@ -79,7 +79,7 @@ final class Icon
         $widgetName = trim($widgetName);
         $widgetName = str_replace('_', '-', GeneralUtility::camelCaseToLowerCaseUnderscored($widgetName));
 
-        if ('' === $widgetName) {
+        if ($widgetName === '') {
             throw new \InvalidArgumentException(
                 'Widget name must not be empty when generating icon widget identifier.',
                 1632850400
@@ -102,7 +102,7 @@ final class Icon
         $fileName = trim($fileName);
         $type = trim($type) ?: 'svg';
 
-        if ('' === $fileName) {
+        if ($fileName === '') {
             throw new \InvalidArgumentException('No icon filename given.', 1580308459);
         }
 

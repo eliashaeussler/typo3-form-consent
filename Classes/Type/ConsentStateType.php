@@ -76,17 +76,17 @@ final class ConsentStateType implements TypeInterface
 
     public function isNew(): bool
     {
-        return self::NEW === $this->state;
+        return $this->state === self::NEW;
     }
 
     public function isApproved(): bool
     {
-        return self::APPROVED === $this->state;
+        return $this->state === self::APPROVED;
     }
 
     public function isDismissed(): bool
     {
-        return self::DISMISSED === $this->state;
+        return $this->state === self::DISMISSED;
     }
 
     public function __toString(): string

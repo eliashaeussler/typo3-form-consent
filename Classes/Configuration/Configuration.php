@@ -61,7 +61,7 @@ final class Configuration
      */
     private static function get(string $path)
     {
-        if (null === self::$configuration) {
+        if (self::$configuration === null) {
             try {
                 self::$configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(Extension::KEY);
             } catch (Exception $e) {

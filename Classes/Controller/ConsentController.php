@@ -71,7 +71,7 @@ final class ConsentController extends ActionController
         $this->view->assign('consent', $consent);
 
         // Early return if consent could not be found
-        if (null === $consent) {
+        if ($consent === null) {
             return $this->createErrorResponse('invalidConsent');
         }
 
@@ -176,7 +176,7 @@ final class ConsentController extends ActionController
      */
     private function createHtmlResponse(ResponseInterface $previous = null): ResponseInterface
     {
-        if (null === $previous) {
+        if ($previous === null) {
             return $this->createResponse();
         }
 
@@ -187,7 +187,7 @@ final class ConsentController extends ActionController
 
         $content = (string)$previous->getBody();
 
-        if ('' !== trim($content)) {
+        if (trim($content) !== '') {
             return $this->createResponse($content);
         }
 

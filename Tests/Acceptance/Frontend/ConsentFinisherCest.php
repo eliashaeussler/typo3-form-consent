@@ -156,7 +156,7 @@ final class ConsentFinisherCest
     {
         $fixtureFiles = glob(\dirname(__DIR__) . '/Data/Fileadmin/form_definitions/*.form.yaml');
 
-        if (false === $fixtureFiles) {
+        if ($fixtureFiles === false) {
             $I->fail('Unable to determine number of form fixtures.');
 
             // Actually, this is superfluous as $I->fail() exists and will never

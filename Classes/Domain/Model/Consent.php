@@ -173,7 +173,7 @@ class Consent extends AbstractEntity
 
     public function isApproved(): bool
     {
-        return null !== $this->state && $this->state->isApproved();
+        return $this->state !== null && $this->state->isApproved();
     }
 
     public function setApproved(): self
@@ -186,7 +186,7 @@ class Consent extends AbstractEntity
 
     public function isDismissed(): bool
     {
-        return null !== $this->state && $this->state->isDismissed();
+        return $this->state !== null && $this->state->isDismissed();
     }
 
     public function setDismissed(): self

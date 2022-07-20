@@ -123,7 +123,7 @@ final class FinisherOptions implements \ArrayAccess
         if (!\is_string($recipientAddress)) {
             $this->throwException('recipientAddress.invalid', 1640186663);
         }
-        if ('' === trim($recipientAddress)) {
+        if (trim($recipientAddress) === '') {
             $this->throwException('recipientAddress.empty', 1576947638);
         }
         if (!GeneralUtility::validEmail($recipientAddress)) {
@@ -150,7 +150,7 @@ final class FinisherOptions implements \ArrayAccess
         if (!\is_string($senderAddress)) {
             $this->throwException('senderAddress.invalid', 1640186811);
         }
-        if ('' !== trim($senderAddress) && !GeneralUtility::validEmail($senderAddress)) {
+        if (trim($senderAddress) !== '' && !GeneralUtility::validEmail($senderAddress)) {
             $this->throwException('senderAddress.invalid', 1587842752);
         }
 
@@ -266,7 +266,7 @@ final class FinisherOptions implements \ArrayAccess
 
     private function getPageRepository(): PageRepository
     {
-        if (null === self::$pageRepository) {
+        if (self::$pageRepository === null) {
             self::$pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         }
 
