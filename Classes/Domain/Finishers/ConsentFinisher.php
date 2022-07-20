@@ -163,7 +163,7 @@ final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInter
 
         // Set the PSR-7 request object if available
         $serverRequest = $this->getServerRequest();
-        if (null !== $serverRequest) {
+        if ($serverRequest !== null) {
             $mail->setRequest($serverRequest);
         }
 

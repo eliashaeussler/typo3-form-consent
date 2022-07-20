@@ -70,7 +70,7 @@ final class Form extends Module
 
     private function getFormElementIdentifier(string $form, string $element = null): string
     {
-        return $form . (null !== $element ? '-' . $element : '');
+        return $form . ($element !== null ? '-' . $element : '');
     }
 
     private function getFormElementName(string $form, string $element = null): string
@@ -79,7 +79,7 @@ final class Form extends Module
             $form => [],
         ];
 
-        if (null !== $element) {
+        if ($element !== null) {
             $nameParts[$form][$element] = null;
         }
 

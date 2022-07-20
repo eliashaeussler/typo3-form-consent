@@ -53,7 +53,7 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
      */
     public function transform(FormRuntime $formRuntime = null): JsonType
     {
-        if (null === $formRuntime) {
+        if ($formRuntime === null) {
             throw new \InvalidArgumentException('Expected a valid FormRuntime object, NULL given.', 1646044629);
         }
 

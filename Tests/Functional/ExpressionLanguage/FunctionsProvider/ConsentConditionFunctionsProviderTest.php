@@ -121,7 +121,7 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
     {
         $variables = [];
 
-        if (null !== $formRuntime) {
+        if ($formRuntime !== null) {
             $variables['formRuntime'] = $formRuntime;
         }
 

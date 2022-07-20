@@ -143,7 +143,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
             );
         }
 
-        return 1 === $this->connection->update(Consent::TABLE_NAME, $record, ['uid' => $uid]);
+        return $this->connection->update(Consent::TABLE_NAME, $record, ['uid' => $uid]) === 1;
     }
 
     /**
@@ -152,7 +152,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     private function migrateState(array &$record): bool
     {
         // Early return if state was already migrated
-        if (ConsentStateType::NEW !== (int)$record['state']) {
+        if ((int)$record['state'] !== ConsentStateType::NEW) {
             return false;
         }
 
@@ -169,7 +169,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         }
 
         // Dismissed consent
-        if ($record['deleted'] && null === $record['data']) {
+        if ($record['deleted'] && $record['data'] === null) {
             $record['state'] = ConsentStateType::DISMISSED;
 
             return true;

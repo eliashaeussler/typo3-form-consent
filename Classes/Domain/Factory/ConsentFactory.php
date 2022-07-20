@@ -122,7 +122,7 @@ final class ConsentFactory
     {
         $contentObjectRenderer = $this->configurationManager->getContentObject();
 
-        if (null !== $contentObjectRenderer) {
+        if ($contentObjectRenderer !== null) {
             return (int)($contentObjectRenderer->data['uid'] ?? 0);
         }
 

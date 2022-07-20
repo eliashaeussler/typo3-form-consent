@@ -43,13 +43,13 @@ final class FormValuesTypeTransformer implements TypeTransformerInterface
      */
     public function transform(FormRuntime $formRuntime = null): JsonType
     {
-        if (null === $formRuntime) {
+        if ($formRuntime === null) {
             throw new \InvalidArgumentException('Expected a valid FormRuntime object, NULL given.', 1646044591);
         }
 
         // Early return if form state is not available
         $formState = $formRuntime->getFormState();
-        if (null === $formState) {
+        if ($formState === null) {
             return JsonType::fromArray([]);
         }
 
@@ -80,7 +80,7 @@ final class FormValuesTypeTransformer implements TypeTransformerInterface
         $excludedElements = Configuration::getExcludedElementsFromPersistence();
         $element = $formRuntime->getFormDefinition()->getElementByIdentifier($elementIdentifier);
 
-        return null !== $element && \in_array($element->getType(), $excludedElements, true);
+        return $element !== null && \in_array($element->getType(), $excludedElements, true);
     }
 
     public static function getName(): string

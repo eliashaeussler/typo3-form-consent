@@ -65,7 +65,7 @@ final class Email extends Module
 
         $urls = $this->extractUrlsFromEmailBody();
 
-        if (null !== $count) {
+        if ($count !== null) {
             $I->assertCount($count, $urls);
         } else {
             $I->assertNotEmpty($urls);

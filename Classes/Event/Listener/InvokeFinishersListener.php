@@ -73,7 +73,7 @@ final class InvokeFinishersListener
         // or no finisher variants are configured
         if (
             empty($consent->getOriginalRequestParameters())
-            || 0 === $consent->getOriginalContentElementUid()
+            || $consent->getOriginalContentElementUid() === 0
             || !$this->areFinisherVariantsConfigured($consent->getFormPersistenceIdentifier(), $condition)
         ) {
             return null;
@@ -143,7 +143,7 @@ final class InvokeFinishersListener
     private function fetchOriginalContentElementRecord(int $contentElementUid): ?array
     {
         // Early return if content element UID cannot be  determined
-        if (0 === $contentElementUid) {
+        if ($contentElementUid === 0) {
             return null;
         }
 
