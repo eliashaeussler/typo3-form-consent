@@ -22,6 +22,17 @@
 
 </div>
 
+---
+
+> **Note**
+>
+> Installation with **TYPO3 11.5.13** is currently **not possible**.
+>
+> Read more at https://github.com/eliashaeussler/typo3-form-consent/pull/69
+> and consider downgrading to TYPO3 11.5.12.
+
+---
+
 An extension for TYPO3 CMS that adds double opt-in functionality to
 EXT:form. It allows the dynamic adaptation of the entire double opt-in
 process using various events. In addition, the extension integrates
