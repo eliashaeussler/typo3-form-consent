@@ -10,6 +10,7 @@
 /captainhook.json          export-ignore
 /codeception.yml           export-ignore
 /codecov.yml               export-ignore
+/CODEOWNERS                export-ignore
 /dependency-checker.json   export-ignore
 /packaging_exclude.php     export-ignore
 /phpstan.neon              export-ignore
