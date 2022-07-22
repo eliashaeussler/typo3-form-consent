@@ -40,6 +40,7 @@ return [
         'captainhook.json',
         'codeception.yml',
         'codecov.yml',
+        'CODEOWNERS',
         'composer.lock',
         'crowdin.yaml',
         'dependency-checker.json',
