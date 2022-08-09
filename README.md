@@ -27,7 +27,7 @@
 
 > **Note**
 >
-> Installation with **TYPO3 11.5.13** is currently **not possible**.
+> Installation with **TYPO3 11.5.13 and 11.5.14** is currently **not possible**.
 >
 > Read more at https://github.com/eliashaeussler/typo3-form-consent/pull/69
 > and consider downgrading to TYPO3 11.5.12.
