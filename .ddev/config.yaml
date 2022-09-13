@@ -17,7 +17,7 @@ hooks:
   post-start:
   - composer: prepare-environment
   - composer: import-fixtures
-omit_containers: [dba]
+omit_containers: [dba, ddev-ssh-agent]
 use_dns_when_possible: true
 composer_version: "2"
 disable_settings_management: true
