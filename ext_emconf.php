@@ -27,7 +27,6 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Elias Häußler',
     'author_email' => 'elias@haeussler.dev',
     'state' => 'beta',
-    'clearCacheOnLoad' => false,
     'version' => '0.6.3',
     'constraints' => [
         'depends' => [
