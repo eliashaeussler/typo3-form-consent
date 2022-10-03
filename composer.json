@@ -54,6 +54,7 @@
 		"phpunit/phpcov": "^8.2",
 		"phpunit/phpunit": "^9.3",
 		"saschaegerer/phpstan-typo3": "^1.0",
+		"ssch/typo3-rector": "^1.0@dev",
 		"symfony/process": "^4.4.30 || ^5.3.7",
 		"typo3/cms-dashboard": "~10.4.11 || ~11.5.1",
 		"typo3/cms-filelist": "~10.4.11 || ~11.5.1",
@@ -128,6 +129,10 @@
 		"lint:editorconfig": "ec --fix -e .Build",
 		"lint:php": "php-cs-fixer fix",
 		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
+		"migration": [
+			"@migration:rector"
+		],
+		"migration:rector": "rector process -c rector.php",
 		"prepare-environment": [
 			"@prepare-environment:extension",
 			"@prepare-environment:config"
