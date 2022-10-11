@@ -12,8 +12,8 @@
 [![License](http://poser.pugx.org/eliashaeussler/typo3-form-consent/license)](LICENSE.md)\
 [![Version](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/version/shields)](https://extensions.typo3.org/extension/form_consent)
 [![Downloads](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/downloads/shields)](https://extensions.typo3.org/extension/form_consent)
+[![Supported TYPO3 versions](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/typo3/shields)](https://extensions.typo3.org/extension/form_consent)
 [![Extension stability](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/stability/shields)](https://extensions.typo3.org/extension/form_consent)
-[![TYPO3 badge](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/typo3/shields)](https://typo3.org/)
 [![Slack](https://img.shields.io/badge/slack-%23ext--form--consent-4a154b?logo=slack)](https://typo3.slack.com/archives/C03719PJJJD)
 
 :package:&nbsp;[Packagist](https://packagist.org/packages/eliashaeussler/typo3-form-consent) |
