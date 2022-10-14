@@ -264,6 +264,11 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         $queryBuilder = $this->connection->createQueryBuilder()->from(Consent::TABLE_NAME);
         $queryBuilder->getRestrictions()->removeAll();
 
+        // Early return if no legacy columns are given
+        if ($legacyColumns === []) {
+            return $queryBuilder->andWhere('0=1');
+        }
+
         foreach ($legacyColumns as $legacyColumn) {
             switch ($legacyColumn) {
                 case 'approved':
