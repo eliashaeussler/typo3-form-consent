@@ -14,7 +14,7 @@
 [![Downloads](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/downloads/shields)](https://extensions.typo3.org/extension/form_consent)
 [![Supported TYPO3 versions](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/typo3/shields)](https://extensions.typo3.org/extension/form_consent)
 [![Extension stability](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/stability/shields)](https://extensions.typo3.org/extension/form_consent)
-[![Slack](https://img.shields.io/badge/slack-%23ext--form--consent-4a154b?logo=slack)](https://typo3.slack.com/archives/C03719PJJJD)
+[![Slack](https://img.shields.io/badge/slack-%23ext--form__consent-4a154b?logo=slack)](https://typo3.slack.com/archives/C03719PJJJD)
 
 :package:&nbsp;[Packagist](https://packagist.org/packages/eliashaeussler/typo3-form-consent) |
 :hatched_chick:&nbsp;[TYPO3 extension repository](https://extensions.typo3.org/extension/form_consent) |
