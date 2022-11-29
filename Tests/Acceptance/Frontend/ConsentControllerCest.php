@@ -46,7 +46,8 @@ final class ConsentControllerCest
 
     public function canApproveConsentViaMail(AcceptanceTester $I): void
     {
-        ['tx_formconsent_consent' => ['hash' => $hash]] = $I->extractQueryParametersFromUrl($this->approveUrl);
+        $queryParams = $I->extractQueryParametersFromUrl($this->approveUrl);
+        $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
 
         $I->amOnPage($this->approveUrl);
 
@@ -69,7 +70,8 @@ final class ConsentControllerCest
 
     public function canDismissConsentViaMail(AcceptanceTester $I): void
     {
-        ['tx_formconsent_consent' => ['hash' => $hash]] = $I->extractQueryParametersFromUrl($this->dismissUrl);
+        $queryParams = $I->extractQueryParametersFromUrl($this->dismissUrl);
+        $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
 
         $I->amOnPage($this->dismissUrl);
 
@@ -153,7 +155,8 @@ final class ConsentControllerCest
 
     public function cannotApproveOrDismissConsentIfEmailAddressIsInvalid(AcceptanceTester $I): void
     {
-        ['tx_formconsent_consent' => ['hash' => $hash]] = $I->extractQueryParametersFromUrl($this->dismissUrl);
+        $queryParams = $I->extractQueryParametersFromUrl($this->dismissUrl);
+        $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
 
         $I->updateInDatabase(
             Consent::TABLE_NAME,

@@ -36,7 +36,7 @@ use TYPO3\CMS\Core\Utility\Exception\MissingArrayPathException;
 final class Url extends Module
 {
     /**
-     * @return array<string, mixed>
+     * @return array<int|string, mixed>
      */
     public function extractQueryParametersFromUrl(string $url): array
     {
