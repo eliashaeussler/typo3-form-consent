@@ -100,9 +100,6 @@ final class ConsentController extends ActionController
             return $this->createErrorResponse('unexpectedError', $exception);
         }
 
-        // Obfuscate original request
-        $consent->setOriginalRequestParameters(null);
-
         // Update approved consent
         $this->consentRepository->update($consent);
         $this->persistenceManager->persistAll();

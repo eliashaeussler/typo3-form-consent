@@ -61,7 +61,7 @@ final class ConsentControllerCest
                 'state' => ConsentStateType::APPROVED,
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
-                'original_request_parameters' => null,
+                'original_request_parameters !=' => null,
                 'validation_hash' => $hash,
                 'valid_until' => null,
             ]
@@ -136,6 +136,19 @@ final class ConsentControllerCest
     public function canDismissConsentAndInvokeRedirectFinisher(AcceptanceTester $I): void
     {
         $this->submitFormAndExtractUrls($I, Form::REDIRECT_AFTER_DISMISS);
+
+        $I->amOnPage($this->dismissUrl);
+
+        $I->seeCurrentUrlEquals('/');
+    }
+
+    public function canDismissConsentAfterApprovalAndInvokeRedirectFinisher(AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Form::REDIRECT_AFTER_APPROVE_AND_DISMISS);
+
+        $I->amOnPage($this->approveUrl);
+
+        $I->seeCurrentUrlEquals('/');
 
         $I->amOnPage($this->dismissUrl);
 

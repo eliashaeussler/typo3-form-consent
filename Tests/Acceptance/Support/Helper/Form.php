@@ -45,6 +45,7 @@ final class Form extends Module
     public const REDIRECT_AFTER_DISMISS = 'contact-redirect-dismiss-variant-8';
     public const INVALID_CLOSURE_AFTER_APPROVE = 'contact-invalid-closure-approve-variant-9';
     public const INVALID_CLOSURE_AFTER_DISMISS = 'contact-invalid-closure-dismiss-variant-10';
+    public const REDIRECT_AFTER_APPROVE_AND_DISMISS = 'contact-redirect-approve-dismiss-variant-11';
 
     public function fillAndSubmitForm(string $form = self::DEFAULT, bool $attachFile = false): void
     {
