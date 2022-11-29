@@ -103,6 +103,19 @@ TYPO3:
           finishersDefinition:
             Consent:
               implementationClassName: 'EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher'
+              options:
+                subject: ''
+                recipientAddress: ''
+                recipientName: ''
+                senderAddress: ''
+                senderName: ''
+                approvalPeriod: ''
+                showDismissLink: false
+                confirmationPid: ''
+                storagePid: ''
+                templateRootPaths: { }
+                partialRootPaths: { }
+                layoutRootPaths: { }
               formEditor:
                 iconIdentifier: 'form-finisher'
                 label: 'formEditor.elements.Form.finisher.Consent.editor.header.label'

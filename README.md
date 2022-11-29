@@ -199,6 +199,16 @@ condition `isConsentDismissed()` must then be used instead.
 
 ## :construction: Migration
 
+### 0.6.x → 0.7.0
+
+#### Global form settings
+
+Form settings for Frontend requests (`plugin.tx_form`) are no longer included
+globally.
+
+* Make sure to add the static TypoScript setup at `EXT:form_consent/Configuration/TypoScript`
+  to your root template.
+
 ### 0.3.x → 0.4.0
 
 #### Generic consent state

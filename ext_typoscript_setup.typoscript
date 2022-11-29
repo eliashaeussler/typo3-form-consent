@@ -1,11 +1,3 @@
-plugin.tx_form {
-  settings {
-    yamlConfigurations {
-      1576524005 = EXT:form_consent/Configuration/Yaml/FinisherSetup.yaml
-    }
-  }
-}
-
 module.tx_form {
   settings {
     yamlConfigurations {
