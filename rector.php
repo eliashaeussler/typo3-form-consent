@@ -43,6 +43,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->importShortClasses(false);
+    $rectorConfig->importNames(false);
 
     // Define your target version which you want to support
     $rectorConfig->phpVersion(PhpVersion::PHP_74);
