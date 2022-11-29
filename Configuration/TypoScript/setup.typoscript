@@ -20,3 +20,11 @@ plugin.tx_formconsent {
     storagePid = {$plugin.tx_formconsent.persistence.storagePid}
   }
 }
+
+plugin.tx_form {
+  settings {
+    yamlConfigurations {
+      1576524005 = EXT:form_consent/Configuration/Yaml/FormSetup.yaml
+    }
+  }
+}

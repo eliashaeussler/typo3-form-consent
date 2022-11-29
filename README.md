@@ -52,6 +52,9 @@ composer require eliashaeussler/typo3-form-consent
 Alternatively, you can download the extension via the
 [TYPO3 extension repository (TER)][4].
 
+Once installed, make sure to include the TypoScript setup at
+`EXT:form_consent/Configuration/TypoScript` in your root template.
+
 ## :zap: Usage
 
 ### Finisher
@@ -85,10 +88,6 @@ associated page containing the plugin must then be specified in the
 finisher settings.
 
 ## :open_file_folder: Configuration
-
-The TypoScript setup under `EXT:form_consent/Configuration/TypoScript`
-needs to be included and the required database changes need to be made.
-Additionally, an extension configuration is provided.
 
 ### TypoScript
 
@@ -198,6 +197,16 @@ The same behavior can be achieved in case the user revokes his consent. The
 condition `isConsentDismissed()` must then be used instead.
 
 ## :construction: Migration
+
+### 0.6.x → 0.7.0
+
+#### Global form settings
+
+Form settings for Frontend requests (`plugin.tx_form`) are no longer included
+globally.
+
+* Make sure to add the static TypoScript setup at `EXT:form_consent/Configuration/TypoScript`
+  to your root template.
 
 ### 0.3.x → 0.4.0
 

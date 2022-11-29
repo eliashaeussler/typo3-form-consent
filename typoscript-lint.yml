@@ -12,8 +12,9 @@ sniffs:
   - class: DeadCode
   - class: OperatorWhitespace
   - class: RepeatingRValue
+    disabled: true
   - class: DuplicateAssignment
   - class: EmptySection
   - class: NestingConsistency
     parameters:
-      commonPathPrefixThreshold: 1
+      commonPathPrefixThreshold: 2
