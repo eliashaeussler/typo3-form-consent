@@ -290,8 +290,6 @@ Icons made by [Google](https://www.flaticon.com/authors/google) from
 
 This project is licensed under [GNU General Public License 2.0 (or later)](LICENSE.md).
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Feliashaeussler%2Ftypo3-form-consent.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Feliashaeussler%2Ftypo3-form-consent?ref=badge_large)
-
 [1]: Classes/Domain/Model/Consent.php
 [2]: Classes/Type/JsonType.php
 [3]: https://github.com/eliashaeussler/typo3-form-consent/issues
