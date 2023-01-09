@@ -35,7 +35,6 @@
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.5",
-		"captainhook/plugin-composer": "^5.3",
 		"codeception/c3": "^2.6",
 		"codeception/codeception": "^4.1.11",
 		"codeception/module-asserts": "^2.0",
@@ -84,7 +83,6 @@
 	},
 	"config": {
 		"allow-plugins": {
-			"captainhook/plugin-composer": true,
 			"codeception/c3": true,
 			"ergebnis/composer-normalize": true,
 			"typo3/class-alias-loader": true,
