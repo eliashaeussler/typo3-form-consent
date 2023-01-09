@@ -37,7 +37,6 @@ return [
     'files' => [
         'DS_Store',
         'c3.php',
-        'captainhook.json',
         'CODE_OF_CONDUCT.md',
         'codeception.yml',
         'codecov.yml',
