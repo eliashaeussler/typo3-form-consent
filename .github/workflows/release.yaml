@@ -64,6 +64,7 @@ jobs:
           php-version: 8.0
           extensions: intl, mbstring, json, zip, curl
           tools: composer:v2
+          coverage: none
 
       # Install tailor
       - name: Install tailor
