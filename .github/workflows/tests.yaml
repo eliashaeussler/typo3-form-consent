@@ -37,7 +37,7 @@ jobs:
 
       # Setup DDEV
       - name: Setup DDEV
-        uses: jonaseberle/github-action-setup-ddev@v1
+        uses: ddev/github-action-setup-ddev@v1
         with:
           autostart: false
       - name: Configure and start DDEV
@@ -81,7 +81,7 @@ jobs:
 
       # Setup DDEV
       - name: Setup DDEV
-        uses: jonaseberle/github-action-setup-ddev@v1
+        uses: ddev/github-action-setup-ddev@v1
         with:
           autostart: false
       - name: Configure and start DDEV
