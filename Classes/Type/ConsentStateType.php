@@ -32,25 +32,21 @@ use TYPO3\CMS\Core\Type\TypeInterface;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentStateType implements TypeInterface
+final class ConsentStateType implements TypeInterface, \Stringable
 {
     public const NEW = 0;
     public const APPROVED = 1;
     public const DISMISSED = 2;
 
-    private int $state;
+    private readonly int $state;
 
     /**
-     * @param string|int $state
      * @throws InvalidStateException
      */
-    public function __construct($state = ConsentStateType::NEW)
+    public function __construct(string|int $state = ConsentStateType::NEW)
     {
         if (\is_string($state)) {
             $state = (int)$state;
-        }
-        if (!\is_int($state)) {
-            throw InvalidStateException::forTypeMismatch($state);
         }
         if (!$this->isValid($state)) {
             throw InvalidStateException::create($state);

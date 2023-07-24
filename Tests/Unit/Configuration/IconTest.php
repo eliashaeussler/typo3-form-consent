@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Configuration\Icon;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -34,10 +36,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 final class IconTest extends UnitTestCase
 {
-    /**
-     * @test
-     * @dataProvider invalidIdentifierDataProvider
-     */
+    #[Test]
+    #[DataProvider('invalidIdentifierDataProvider')]
     public function forTableThrowsExceptionIfNoTableNameIsGiven(string $tableName): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -46,10 +46,8 @@ final class IconTest extends UnitTestCase
         Icon::forTable($tableName);
     }
 
-    /**
-     * @test
-     * @dataProvider forTableReturnsCorrectFileNameDataProvider
-     */
+    #[Test]
+    #[DataProvider('forTableReturnsCorrectFileNameDataProvider')]
     public function forTableReturnsCorrectFileName(?string $type, string $expected): void
     {
         if ($type !== null) {
@@ -59,10 +57,8 @@ final class IconTest extends UnitTestCase
         }
     }
 
-    /**
-     * @test
-     * @dataProvider forPluginReturnsCorrectFileNameDataProvider
-     */
+    #[Test]
+    #[DataProvider('forPluginReturnsCorrectFileNameDataProvider')]
     public function forPluginReturnsCorrectFileName(?string $type, string $expected): void
     {
         if ($type !== null) {
@@ -72,10 +68,8 @@ final class IconTest extends UnitTestCase
         }
     }
 
-    /**
-     * @test
-     * @dataProvider invalidIdentifierDataProvider
-     */
+    #[Test]
+    #[DataProvider('invalidIdentifierDataProvider')]
     public function forPluginIdentifierThrowsExceptionIfPluginIdentifierIsInvalid(string $pluginName): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -84,19 +78,15 @@ final class IconTest extends UnitTestCase
         Icon::forPluginIdentifier($pluginName);
     }
 
-    /**
-     * @test
-     * @dataProvider forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider
-     */
+    #[Test]
+    #[DataProvider('forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider')]
     public function forPluginIdentifierReturnsCorrectPluginIdentifier(string $pluginName, string $expected): void
     {
         self::assertSame($expected, Icon::forPluginIdentifier($pluginName));
     }
 
-    /**
-     * @test
-     * @dataProvider forWidgetReturnsCorrectFileNameDataProvider
-     */
+    #[Test]
+    #[DataProvider('forWidgetReturnsCorrectFileNameDataProvider')]
     public function forWidgetReturnsCorrectFileName(?string $type, string $expected): void
     {
         if ($type !== null) {
@@ -106,10 +96,8 @@ final class IconTest extends UnitTestCase
         }
     }
 
-    /**
-     * @test
-     * @dataProvider invalidIdentifierDataProvider
-     */
+    #[Test]
+    #[DataProvider('invalidIdentifierDataProvider')]
     public function forWidgetIdentifierThrowsExceptionIfWidgetIdentifierIsInvalid(string $widgetName): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -118,10 +106,8 @@ final class IconTest extends UnitTestCase
         Icon::forWidgetIdentifier($widgetName);
     }
 
-    /**
-     * @test
-     * @dataProvider forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider
-     */
+    #[Test]
+    #[DataProvider('forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider')]
     public function forWidgetIdentifierReturnsCorrectWidgetIdentifier(string $widgetName, string $expected): void
     {
         self::assertSame($expected, Icon::forWidgetIdentifier($widgetName));
@@ -130,7 +116,7 @@ final class IconTest extends UnitTestCase
     /**
      * @return \Generator<string, array{string}>
      */
-    public function invalidIdentifierDataProvider(): \Generator
+    public static function invalidIdentifierDataProvider(): \Generator
     {
         yield 'empty string' => [''];
         yield 'whitespaces' => ['    '];
@@ -140,7 +126,7 @@ final class IconTest extends UnitTestCase
     /**
      * @return \Generator<string, array{string|null, string}>
      */
-    public function forTableReturnsCorrectFileNameDataProvider(): \Generator
+    public static function forTableReturnsCorrectFileNameDataProvider(): \Generator
     {
         yield 'no type' => [null, 'EXT:form_consent/Resources/Public/Icons/dummy.svg'];
         yield 'custom type' => ['jpg', 'EXT:form_consent/Resources/Public/Icons/dummy.jpg'];
@@ -151,7 +137,7 @@ final class IconTest extends UnitTestCase
     /**
      * @return \Generator<string, array{string|null, string}>
      */
-    public function forPluginReturnsCorrectFileNameDataProvider(): \Generator
+    public static function forPluginReturnsCorrectFileNameDataProvider(): \Generator
     {
         yield 'no type' => [null, 'EXT:form_consent/Resources/Public/Icons/plugin.dummy.svg'];
         yield 'custom type' => ['jpg', 'EXT:form_consent/Resources/Public/Icons/plugin.dummy.jpg'];
@@ -162,7 +148,7 @@ final class IconTest extends UnitTestCase
     /**
      * @return \Generator<string, array{string, string}>
      */
-    public function forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider(): \Generator
+    public static function forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider(): \Generator
     {
         yield 'valid plugin name' => ['foo', 'content-plugin-foo'];
         yield 'plugin name with whitespaces' => [' foo   ', 'content-plugin-foo'];
@@ -172,7 +158,7 @@ final class IconTest extends UnitTestCase
     /**
      * @return \Generator<string, array{string|null, string}>
      */
-    public function forWidgetReturnsCorrectFileNameDataProvider(): \Generator
+    public static function forWidgetReturnsCorrectFileNameDataProvider(): \Generator
     {
         yield 'no type' => [null, 'EXT:form_consent/Resources/Public/Icons/widget.dummy.svg'];
         yield 'custom type' => ['jpg', 'EXT:form_consent/Resources/Public/Icons/widget.dummy.jpg'];
@@ -183,7 +169,7 @@ final class IconTest extends UnitTestCase
     /**
      * @return \Generator<string, array{string, string}>
      */
-    public function forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider(): \Generator
+    public static function forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider(): \Generator
     {
         yield 'valid widget name' => ['foo', 'content-widget-foo'];
         yield 'widget name with whitespaces' => [' foo   ', 'content-widget-foo'];

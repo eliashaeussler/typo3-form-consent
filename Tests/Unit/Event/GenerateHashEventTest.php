@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\GenerateHashEvent;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -52,18 +53,14 @@ final class GenerateHashEventTest extends UnitTestCase
         $this->subject = new GenerateHashEvent($this->components, new Consent());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getComponentsReturnsInitialComponents(): void
     {
         $expected = $this->components;
         self::assertSame($expected, $this->subject->getComponents());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setComponentsAppliesComponentsCorrectly(): void
     {
         $components = ['dummy'];
@@ -71,26 +68,20 @@ final class GenerateHashEventTest extends UnitTestCase
         self::assertSame($components, $this->subject->getComponents());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getConsentReturnsConsent(): void
     {
         $expected = new Consent();
         self::assertEquals($expected, $this->subject->getConsent());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getHashReturnsNullOnInitialState(): void
     {
         self::assertNull($this->subject->getHash());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setHashAppliesHashCorrectly(): void
     {
         $hash = 'foo';

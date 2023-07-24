@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -45,46 +46,36 @@ final class JsonTypeTest extends UnitTestCase
         $this->subject = new JsonType('{"foo":"baz"}');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function fromArrayReturnsObjectWithJsonEncodedData(): void
     {
         self::assertEquals($this->subject, JsonType::fromArray(['foo' => 'baz']));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function objectIsJsonSerializable(): void
     {
         self::assertSame('{"foo":"baz"}', json_encode($this->subject, JSON_THROW_ON_ERROR));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function stringRepresentationEqualsJsonRepresentation(): void
     {
         self::assertSame('{"foo":"baz"}', (string)$this->subject);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function toArrayReturnsArrayRepresentation(): void
     {
         self::assertSame(['foo' => 'baz'], $this->subject->toArray());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function objectCanBeAccessedAsArray(): void
     {
         // offsetExists()
-        self::assertTrue(isset($this->subject['foo']));
-        self::assertFalse(isset($this->subject['baz']));
+        self::assertArrayHasKey('foo', $this->subject);
+        self::assertArrayNotHasKey('baz', $this->subject);
 
         // offsetGet()
         self::assertSame('baz', $this->subject['foo']);

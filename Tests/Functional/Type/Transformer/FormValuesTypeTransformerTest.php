@@ -25,8 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -38,35 +37,28 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class FormValuesTypeTransformerTest extends FunctionalTestCase
 {
-    use ProphecyTrait;
-
-    protected $coreExtensionsToLoad = [
+    protected array $coreExtensionsToLoad = [
         'form',
     ];
 
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/form_consent',
+    protected array $testExtensionsToLoad = [
+        'form_consent',
     ];
 
-    protected FormValuesTypeTransformer $subject;
+    protected bool $initializeDatabase = false;
 
-    /**
-     * @var FormRuntime|ObjectProphecy
-     */
-    protected $formRuntimeProphecy;
+    protected FormValuesTypeTransformer $subject;
+    protected FormRuntime $formRuntime;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->subject = new FormValuesTypeTransformer();
-        // @todo Replace with $this->getContainer()->get(FormRuntime::class) once v10 support is dropped
-        $this->formRuntimeProphecy = $this->prophesize(FormRuntime::class);
+        $this->formRuntime = $this->get(FormRuntime::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function transformThrowsExceptionIfFormRuntimeIsNotGiven(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -76,13 +68,9 @@ final class FormValuesTypeTransformerTest extends FunctionalTestCase
         $this->subject->transform();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function transformReturnsJsonTypeWithEmptyArrayIfFormIsUninitialized(): void
     {
-        $this->formRuntimeProphecy->getFormState()->willReturn(null);
-
-        self::assertEquals(JsonType::fromArray([]), $this->subject->transform($this->formRuntimeProphecy->reveal()));
+        self::assertEquals(JsonType::fromArray([]), $this->subject->transform($this->formRuntime));
     }
 }

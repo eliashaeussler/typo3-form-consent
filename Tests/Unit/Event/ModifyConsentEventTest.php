@@ -25,7 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentEvent;
-use Prophecy\PhpUnit\ProphecyTrait;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -37,36 +37,30 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 final class ModifyConsentEventTest extends UnitTestCase
 {
-    use ProphecyTrait;
-
     protected ModifyConsentEvent $subject;
     protected Consent $consent;
-    protected FormRuntime $formRuntime;
+    protected FormRuntime $formRuntimeMock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->consent = new Consent();
-        $this->formRuntime = $this->prophesize(FormRuntime::class)->reveal();
-        $this->subject = new ModifyConsentEvent($this->consent, $this->formRuntime);
+        $this->formRuntimeMock = $this->createMock(FormRuntime::class);
+        $this->subject = new ModifyConsentEvent($this->consent, $this->formRuntimeMock);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getConsentReturnsInitialConsent(): void
     {
         $expected = $this->consent;
         self::assertSame($expected, $this->subject->getConsent());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFormRuntimeReturnsInitialFormRuntime(): void
     {
-        $expected = $this->formRuntime;
+        $expected = $this->formRuntimeMock;
         self::assertSame($expected, $this->subject->getFormRuntime());
     }
 }

@@ -41,7 +41,6 @@ abstract class ApplicationEntrypointModifier extends Extension
         Events::SUITE_BEFORE => 'beforeSuite',
     ];
 
-    protected string $targetDirectory;
     protected string $buildDirectory;
     protected string $mainEntrypoint;
     protected string $appEntrypoint;
@@ -51,11 +50,10 @@ abstract class ApplicationEntrypointModifier extends Extension
      * @param array<string, mixed> $config
      * @param array<string, mixed> $options
      */
-    public function __construct($config, $options, string $targetDirectory, string $entrypointFile)
+    public function __construct($config, $options, protected string $targetDirectory, string $entrypointFile)
     {
         parent::__construct($config, $options);
 
-        $this->targetDirectory = $targetDirectory;
         $this->buildDirectory = \dirname(__DIR__, 3) . '/Build';
         $this->mainEntrypoint = $this->targetDirectory . '/index.php';
         $this->appEntrypoint = $this->targetDirectory . '/app.php';

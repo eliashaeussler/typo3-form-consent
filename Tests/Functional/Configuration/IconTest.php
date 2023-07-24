@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Configuration\Icon;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -36,6 +37,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class IconTest extends FunctionalTestCase
 {
+    protected bool $initializeDatabase = false;
+
     protected IconRegistry $iconRegistry;
 
     protected function setUp(): void
@@ -44,9 +47,7 @@ final class IconTest extends FunctionalTestCase
         $this->iconRegistry = $this->getContainer()->get(IconRegistry::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function registerForPluginIdentifierRegistersIconCorrectly(): void
     {
         Icon::registerForPluginIdentifier('Consent');
@@ -62,9 +63,7 @@ final class IconTest extends FunctionalTestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function registerForWidgetIdentifierRegistersIconCorrectly(): void
     {
         Icon::registerForWidgetIdentifier('approvedConsents');

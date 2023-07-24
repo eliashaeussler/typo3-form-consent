@@ -25,6 +25,8 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type;
 
 use EliasHaeussler\Typo3FormConsent\Exception\InvalidStateException;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -44,22 +46,7 @@ final class ConsentStateTypeTest extends UnitTestCase
         $this->subject = new ConsentStateType();
     }
 
-    /**
-     * @test
-     * @dataProvider constructorThrowsExceptionOnTypeMismatchDataProvider
-     * @param mixed $state
-     */
-    public function constructorThrowsExceptionOnTypeMismatch($state): void
-    {
-        $this->expectException(InvalidStateException::class);
-        $this->expectExceptionCode(1648199565);
-
-        new ConsentStateType($state);
-    }
-
-    /**
-     * @test
-     */
+    #[Test]
     public function constructorThrowsExceptionOnInvalidState(): void
     {
         $this->expectException(InvalidStateException::class);
@@ -68,9 +55,7 @@ final class ConsentStateTypeTest extends UnitTestCase
         new ConsentStateType(99);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructorAcceptsNumericStringsForConsentState(): void
     {
         $actual = new ConsentStateType('1');
@@ -79,9 +64,7 @@ final class ConsentStateTypeTest extends UnitTestCase
         self::assertTrue($actual->isApproved());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createNewReturnsNewObject(): void
     {
         $actual = ConsentStateType::createNew();
@@ -92,9 +75,7 @@ final class ConsentStateTypeTest extends UnitTestCase
         self::assertFalse($actual->isDismissed());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createApprovedReturnsApprovedObject(): void
     {
         $actual = ConsentStateType::createApproved();
@@ -105,9 +86,7 @@ final class ConsentStateTypeTest extends UnitTestCase
         self::assertFalse($actual->isDismissed());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createDismissedReturnsApprovedObject(): void
     {
         $actual = ConsentStateType::createDismissed();
@@ -118,10 +97,8 @@ final class ConsentStateTypeTest extends UnitTestCase
         self::assertTrue($actual->isDismissed());
     }
 
-    /**
-     * @test
-     * @dataProvider isNewReturnsConsentCreationStateDataProvider
-     */
+    #[Test]
+    #[DataProvider('isNewReturnsConsentCreationStateDataProvider')]
     public function isNewReturnsConsentCreationState(int $state, bool $expected): void
     {
         $subject = new ConsentStateType($state);
@@ -129,10 +106,8 @@ final class ConsentStateTypeTest extends UnitTestCase
         self::assertSame($expected, $subject->isNew());
     }
 
-    /**
-     * @test
-     * @dataProvider isApprovedReturnsConsentApprovalStateDataProvider
-     */
+    #[Test]
+    #[DataProvider('isApprovedReturnsConsentApprovalStateDataProvider')]
     public function isApprovedReturnsConsentApprovalState(int $state, bool $expected): void
     {
         $subject = new ConsentStateType($state);
@@ -140,10 +115,8 @@ final class ConsentStateTypeTest extends UnitTestCase
         self::assertSame($expected, $subject->isApproved());
     }
 
-    /**
-     * @test
-     * @dataProvider isDismissedReturnsConsentDismissalStateDataProvider
-     */
+    #[Test]
+    #[DataProvider('isDismissedReturnsConsentDismissalStateDataProvider')]
     public function isDismissedReturnsConsentDismissalState(int $state, bool $expected): void
     {
         $subject = new ConsentStateType($state);
@@ -151,28 +124,16 @@ final class ConsentStateTypeTest extends UnitTestCase
         self::assertSame($expected, $subject->isDismissed());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function objectIsStringable(): void
     {
         self::assertSame('0', (string)$this->subject);
     }
 
     /**
-     * @return \Generator<string, array{mixed}>
-     */
-    public function constructorThrowsExceptionOnTypeMismatchDataProvider(): \Generator
-    {
-        yield 'null' => [null];
-        yield 'bool' => [false];
-        yield 'object' => [new \stdClass()];
-    }
-
-    /**
      * @return \Generator<string, array{int, bool}>
      */
-    public function isNewReturnsConsentCreationStateDataProvider(): \Generator
+    public static function isNewReturnsConsentCreationStateDataProvider(): \Generator
     {
         yield 'new consent' => [ConsentStateType::NEW, true];
         yield 'consent approved' => [ConsentStateType::APPROVED, false];
@@ -182,7 +143,7 @@ final class ConsentStateTypeTest extends UnitTestCase
     /**
      * @return \Generator<string, array{int, bool}>
      */
-    public function isApprovedReturnsConsentApprovalStateDataProvider(): \Generator
+    public static function isApprovedReturnsConsentApprovalStateDataProvider(): \Generator
     {
         yield 'new consent' => [ConsentStateType::NEW, false];
         yield 'consent approved' => [ConsentStateType::APPROVED, true];
@@ -192,7 +153,7 @@ final class ConsentStateTypeTest extends UnitTestCase
     /**
      * @return \Generator<string, array{int, bool}>
      */
-    public function isDismissedReturnsConsentDismissalStateDataProvider(): \Generator
+    public static function isDismissedReturnsConsentDismissalStateDataProvider(): \Generator
     {
         yield 'new consent' => [ConsentStateType::NEW, false];
         yield 'consent approved' => [ConsentStateType::APPROVED, false];

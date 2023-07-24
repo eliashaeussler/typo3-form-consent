@@ -36,13 +36,10 @@ final class Backend
     private const USERNAME = 'admin';
     private const PASSWORD = 'password';
 
-    private AcceptanceTester $tester;
-    private ModalDialog $dialog;
-
-    public function __construct(AcceptanceTester $tester, ModalDialog $dialog)
-    {
-        $this->tester = $tester;
-        $this->dialog = $dialog;
+    public function __construct(
+        private readonly AcceptanceTester $tester,
+        private readonly ModalDialog $dialog,
+    ) {
     }
 
     public function login(): void
@@ -59,7 +56,7 @@ final class Backend
 
         try {
             $this->dialog->clickButtonInDialog('[name=ok]');
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // If dialog is not present, that's fine...
         }
     }

@@ -25,8 +25,8 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Configuration\Configuration;
 use EliasHaeussler\Typo3FormConsent\Configuration\Extension;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -38,6 +38,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class ConfigurationTest extends FunctionalTestCase
 {
+    protected bool $initializeDatabase = false;
+
     protected ExtensionConfiguration $extensionConfiguration;
 
     protected function setUp(): void
@@ -46,32 +48,26 @@ final class ConfigurationTest extends FunctionalTestCase
         $this->extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getExcludedElementsFromPersistenceReturnsEmptyArrayIfConfigurationOptionDoesNotExist(): void
     {
-        $this->setExtensionConfiguration([]);
+        $this->extensionConfiguration->set(Extension::KEY, []);
 
         self::assertSame([], Configuration::getExcludedElementsFromPersistence());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getExcludedElementsFromPersistenceReturnsEmptyArrayIfExtensionConfigurationIsMissing(): void
     {
-        $this->setExtensionConfiguration(null);
+        $this->extensionConfiguration->set(Extension::KEY);
 
         self::assertSame([], Configuration::getExcludedElementsFromPersistence());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getExcludedElementsFromPersistenceReturnsExcludedElementsFromPersistence(): void
     {
-        $this->setExtensionConfiguration([
+        $this->extensionConfiguration->set(Extension::KEY, [
             'persistence' => [
                 'excludedElements' => 'Honeypot, StaticText, , ContentElement',
             ],
@@ -94,24 +90,5 @@ final class ConfigurationTest extends FunctionalTestCase
         $reflectionProperty = $reflectionClass->getProperty('configuration');
         $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue(null);
-    }
-
-    /**
-     * @param array<string, mixed>|null $configuration
-     */
-    private function setExtensionConfiguration(?array $configuration): void
-    {
-        // @todo Remove condition once v10 support is dropped
-        if ($this->getMajorTypo3Version() >= 11) {
-            $this->extensionConfiguration->set(Extension::KEY, $configuration);
-        } else {
-            /* @phpstan-ignore-next-line */
-            $this->extensionConfiguration->set(Extension::KEY, '', $configuration);
-        }
-    }
-
-    private function getMajorTypo3Version(): int
-    {
-        return (new Typo3Version())->getMajorVersion();
     }
 }

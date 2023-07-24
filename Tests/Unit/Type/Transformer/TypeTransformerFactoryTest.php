@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type\Transformer;
 use EliasHaeussler\Typo3FormConsent\Exception\UnsupportedTypeException;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerFactory;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -47,18 +48,12 @@ final class TypeTransformerFactoryTest extends UnitTestCase
 
         $this->formRequestTypeTransformer = new FormRequestTypeTransformer(new HashService());
         $this->subject = new TypeTransformerFactory(new ServiceLocator([
-            FormRequestTypeTransformer::getName() => function (): FormRequestTypeTransformer {
-                return $this->formRequestTypeTransformer;
-            },
-            'invalid' => function (): self {
-                return $this;
-            },
+            FormRequestTypeTransformer::getName() => fn (): FormRequestTypeTransformer => $this->formRequestTypeTransformer,
+            'invalid' => fn (): self => $this,
         ]));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getThrowsExceptionIfRequestedTypeTransformerIsNotAvailable(): void
     {
         $this->expectException(UnsupportedTypeException::class);
@@ -68,9 +63,7 @@ final class TypeTransformerFactoryTest extends UnitTestCase
         $this->subject->get('foo');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getThrowsExceptionIfRequestedTypeTransformerIsInvalid(): void
     {
         $this->expectException(UnsupportedTypeException::class);
@@ -80,9 +73,7 @@ final class TypeTransformerFactoryTest extends UnitTestCase
         $this->subject->get('invalid');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReturnsRequestedTypeTransformer(): void
     {
         self::assertSame($this->formRequestTypeTransformer, $this->subject->get(FormRequestTypeTransformer::getName()));

@@ -26,8 +26,9 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Constraint\IsType;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -41,20 +42,16 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class LocalizationTest extends FunctionalTestCase
 {
-    use ProphecyTrait;
+    protected bool $initializeDatabase = false;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forTableReturnsLocalizationKeyForGivenTable(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:dummy';
         self::assertSame($expected, Localization::forTable('dummy'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forFieldReturnsLocalizationKeyForGivenTableField(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:dummy.foo';
@@ -63,9 +60,7 @@ final class LocalizationTest extends FunctionalTestCase
         self::assertSame($expected, Localization::forField('foo', 'dummy', 'baz'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forTabReturnsLocalizationKeyForGivenTab(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tabs.foo';
@@ -74,18 +69,14 @@ final class LocalizationTest extends FunctionalTestCase
         self::assertSame($expected, Localization::forTab('foo', true));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forPluginReturnsLocalizationKeyForGivenPlugin(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:plugins.fooBaz';
         self::assertSame($expected, Localization::forPlugin('FooBaz'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forFinisherOptionReturnsLocalizationKeyForGivenFinisherOption(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_form.xlf:finishers.foo.label';
@@ -94,27 +85,21 @@ final class LocalizationTest extends FunctionalTestCase
         self::assertSame($expected, Localization::forFinisherOption('foo', 'fieldExplanationText'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forFormValidationReturnsLocalizationKeyForGivenValidation(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_form.xlf:validation.foo';
         self::assertSame($expected, Localization::forFormValidation('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forBackendFormReturnsLocalizationKeyForGivenValidation(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:form.foo';
         self::assertSame($expected, Localization::forBackendForm('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forWidgetReturnsLocalizationKeyForGivenWidget(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:widgets.foo.title';
@@ -123,27 +108,21 @@ final class LocalizationTest extends FunctionalTestCase
         self::assertSame($expected, Localization::forWidget('foo', 'description'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forChartReturnsLocalizationKeyForGivenChart(): void
     {
         $expected = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:charts.foo';
         self::assertSame($expected, Localization::forChart('foo'));
     }
 
-    /**
-     * @test
-     * @dataProvider forKeyReturnsLocalizationKeyDataProvider
-     */
+    #[Test]
+    #[DataProvider('forKeyReturnsLocalizationKeyDataProvider')]
     public function forKeyReturnsLocalizationKey(string $key, ?string $type, string $expected): void
     {
         self::assertSame($expected, Localization::forKey($key, $type));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function translateReturnsTranslationFromTsfeIfEnvironmentIsInFrontendModeAndRequestIsAvailable(): void
     {
         $this->simulateFrontendEnvironment();
@@ -158,9 +137,7 @@ final class LocalizationTest extends FunctionalTestCase
         unset($GLOBALS['TYPO3_REQUEST']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function translateReturnsTranslationFromTsfeIfEnvironmentIsInFrontendModeAndRequestIsNotAvailable(): void
     {
         $this->simulateFrontendEnvironment();
@@ -170,9 +147,7 @@ final class LocalizationTest extends FunctionalTestCase
         self::assertSame($expected, Localization::translate($localizationKey));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function translateReturnsLocalizationKeyIfLanguageServiceIsNotAvailable(): void
     {
         $GLOBALS['LANG'] = null;
@@ -180,9 +155,7 @@ final class LocalizationTest extends FunctionalTestCase
         self::assertSame($localizationKey, Localization::translate($localizationKey));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function translateReturnsTranslationIfLanguageServiceIsAvailable(): void
     {
         $this->simulateFrontendEnvironment();
@@ -192,9 +165,7 @@ final class LocalizationTest extends FunctionalTestCase
         self::assertSame($expected, Localization::translate($localizationKey));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function translateReturnsEmptyStringIfTranslationIsNotAvailable(): void
     {
         $this->simulateFrontendEnvironment(null);
@@ -204,17 +175,17 @@ final class LocalizationTest extends FunctionalTestCase
         self::assertSame($expected, Localization::translate($localizationKey));
     }
 
-    protected function simulateFrontendEnvironment(?string $expectedReturnValue = 'baz'): void
+    private function simulateFrontendEnvironment(?string $expectedReturnValue = 'baz'): void
     {
-        $typoScriptFrontendControllerProphecy = $this->prophesize(TypoScriptFrontendController::class);
-        $typoScriptFrontendControllerProphecy->sL(Argument::type('string'))->willReturn($expectedReturnValue);
-        $GLOBALS['TSFE'] = $typoScriptFrontendControllerProphecy->reveal();
+        $tsfeMock = $this->createMock(TypoScriptFrontendController::class);
+        $tsfeMock->method('sL')->with(new IsType('string'))->willReturn($expectedReturnValue);
+        $GLOBALS['TSFE'] = $tsfeMock;
     }
 
     /**
      * @return \Generator<string, array{string, string|null, string}>
      */
-    public function forKeyReturnsLocalizationKeyDataProvider(): \Generator
+    public static function forKeyReturnsLocalizationKeyDataProvider(): \Generator
     {
         yield 'default type' => [
             'foo',

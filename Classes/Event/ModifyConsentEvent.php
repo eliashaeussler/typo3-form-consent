@@ -34,13 +34,10 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  */
 final class ModifyConsentEvent
 {
-    private Consent $consent;
-    private FormRuntime $formRuntime;
-
-    public function __construct(Consent $consent, FormRuntime $formRuntime)
-    {
-        $this->consent = $consent;
-        $this->formRuntime = $formRuntime;
+    public function __construct(
+        private readonly Consent $consent,
+        private readonly FormRuntime $formRuntime,
+    ) {
     }
 
     public function getConsent(): Consent

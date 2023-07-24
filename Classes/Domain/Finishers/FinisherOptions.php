@@ -275,9 +275,8 @@ final class FinisherOptions implements \ArrayAccess
 
     /**
      * @throws FinisherException
-     * @return never-returns
      */
-    private function throwException(string $message, int $code = 0): void
+    private function throwException(string $message, int $code = 0): never
     {
         throw new FinisherException(Localization::forFormValidation($message, true), $code);
     }

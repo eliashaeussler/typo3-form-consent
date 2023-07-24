@@ -92,6 +92,7 @@ final class ConsentDataElement extends AbstractFormElement
 
     private function renderAlert(string $localizationKey): string
     {
+        $html = [];
         $html[] = '<div class="alert alert-info alert-message" role="alert">';
         $html[] =   Localization::forBackendForm('message.' . $localizationKey, true);
         $html[] = '</div>';

@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Exception;
 
 use EliasHaeussler\Typo3FormConsent\Exception\UnsupportedTypeException;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -34,9 +35,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 final class UnsupportedTypeExceptionTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function createReturnsUnsupportedTypeExceptionForGivenType(): void
     {
         $actual = UnsupportedTypeException::create('foo');

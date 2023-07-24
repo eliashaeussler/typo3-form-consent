@@ -26,11 +26,9 @@ namespace EliasHaeussler\Typo3FormConsent\Controller;
 use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
 use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
 use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
-use EliasHaeussler\Typo3FormConsent\Http\StringableResponseFactory;
 use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Http\ImmediateResponseException;
-use TYPO3\CMS\Core\Http\Stream;
+use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -44,23 +42,15 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
  */
 final class ConsentController extends ActionController
 {
-    private ConsentRepository $consentRepository;
-    private PersistenceManagerInterface $persistenceManager;
-    private StringableResponseFactory $stringableResponseFactory;
-
     public function __construct(
-        ConsentRepository $consentRepository,
-        PersistenceManagerInterface $persistenceManager,
-        StringableResponseFactory $stringableResponseFactory
+        private readonly ConsentRepository $consentRepository,
+        private readonly PersistenceManagerInterface $persistenceManager,
     ) {
-        $this->consentRepository = $consentRepository;
-        $this->persistenceManager = $persistenceManager;
-        $this->stringableResponseFactory = $stringableResponseFactory;
     }
 
     /**
      * @throws IllegalObjectTypeException
-     * @throws ImmediateResponseException
+     * @throws PropagateResponseException
      * @throws UnknownObjectException
      */
     public function approveAction(string $hash, string $email): ResponseInterface
@@ -109,7 +99,7 @@ final class ConsentController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
-     * @throws ImmediateResponseException
+     * @throws PropagateResponseException
      * @throws UnknownObjectException
      */
     public function dismissAction(string $hash, string $email): ResponseInterface
@@ -157,7 +147,7 @@ final class ConsentController extends ActionController
     }
 
     /**
-     * @throws ImmediateResponseException
+     * @throws PropagateResponseException
      */
     private function createErrorResponse(string $reason, \Throwable $exception = null): ResponseInterface
     {
@@ -169,42 +159,24 @@ final class ConsentController extends ActionController
     }
 
     /**
-     * @throws ImmediateResponseException
+     * @throws PropagateResponseException
      */
     private function createHtmlResponse(ResponseInterface $previous = null): ResponseInterface
     {
         if ($previous === null) {
-            return $this->createResponse();
+            return $this->htmlResponse();
         }
 
         if ($previous->getStatusCode() >= 300) {
-            // @todo Use PropagateResponseException once v10 support is dropped
-            throw new ImmediateResponseException($previous, 1645646663);
+            throw new PropagateResponseException($previous, 1645646663);
         }
 
         $content = (string)$previous->getBody();
 
         if (trim($content) !== '') {
-            return $this->createResponse($content);
+            return $this->htmlResponse($content);
         }
 
-        return $this->createResponse();
-    }
-
-    private function createResponse(string $html = null): ResponseInterface
-    {
-        // TYPO3 v11+
-        if (method_exists($this, 'htmlResponse')) {
-            return $this->htmlResponse($html);
-        }
-
-        // @todo Remove once v10 support is dropped
-        $body = new Stream('php://temp', 'r+');
-        $body->write($html ?? $this->view->render());
-
-        // TYPO3 v10
-        return $this->stringableResponseFactory->createResponse()
-            ->withHeader('Content-Type', 'text/html; charset=utf-8')
-            ->withBody($body);
+        return $this->htmlResponse();
     }
 }

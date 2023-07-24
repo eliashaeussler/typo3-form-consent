@@ -27,6 +27,7 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\GenerateHashEvent;
 use EliasHaeussler\Typo3FormConsent\Service\HashService;
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use PHPUnit\Framework\Attributes\Test;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\DependencyInjection\Container;
 use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
@@ -40,6 +41,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class HashServiceTest extends FunctionalTestCase
 {
+    protected bool $initializeDatabase = false;
+
     protected Consent $consent;
     protected ListenerProvider $listenerProvider;
     protected HashService $subject;
@@ -58,9 +61,7 @@ final class HashServiceTest extends FunctionalTestCase
         $this->subject = new HashService($this->getContainer()->get(EventDispatcherInterface::class));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function generateRespectsValidUntilDate(): void
     {
         $validUntil = $this->consent->getValidUntil();
@@ -73,9 +74,7 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertNotSame($hashWithValidUntil, $hashWithoutValidUntil);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function generateRespectsComponentsModifiedThroughEvent(): void
     {
         $hashWithDefaultComponents = $this->subject->generate($this->consent);
@@ -96,9 +95,7 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertNotSame($hashWithNoComponents, $hashWithDefaultComponents);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function generateReturnsCustomHashGeneratedThroughEvent(): void
     {
         $defaultHashGeneration = $this->subject->generate($this->consent);
@@ -120,18 +117,14 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertSame('foo', $customHashGeneration);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isValidReturnsTrueIfGeneratedHashEqualsConsentValidationHash(): void
     {
         $this->consent->setValidationHash($this->subject->generate($this->consent));
         self::assertTrue($this->subject->isValid($this->consent));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isValidReturnsFalseIfConsentHasChangedInTheMeantime(): void
     {
         $this->subject->generate($this->consent);
@@ -139,9 +132,7 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertFalse($this->subject->isValid($this->consent));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isValidReturnsCorrectStateForGivenHashAndConsent(): void
     {
         $this->subject->generate($this->consent);
@@ -152,9 +143,7 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertTrue($this->subject->isValid($this->consent, $hash));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isValidRespectsInitialHashModificationThroughEvent(): void
     {
         $this->addEventListener(

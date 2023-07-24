@@ -25,8 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\ExpressionLanguage\Fu
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\ExpressionLanguage\Resolver;
 use TYPO3\CMS\Form\Domain\Model\FormDefinition;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
@@ -40,19 +39,17 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
 {
-    use ProphecyTrait;
-
-    protected $coreExtensionsToLoad = [
+    protected array $coreExtensionsToLoad = [
         'form',
     ];
 
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/form_consent',
+    protected array $testExtensionsToLoad = [
+        'form_consent',
     ];
-    /**
-     * @var FormRuntime|ObjectProphecy
-     */
-    protected $formRuntimeProphecy;
+
+    protected bool $initializeDatabase = false;
+
+    protected FormRuntime $formRuntime;
 
     protected function setUp(): void
     {
@@ -60,14 +57,11 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
 
         $formDefinition = new FormDefinition('foo', [], 'Form', 'foo');
 
-        // @todo Replace with $this->getContainer()->get(FormRuntime::class) once v10 support is dropped
-        $this->formRuntimeProphecy = $this->prophesize(FormRuntime::class);
-        $this->formRuntimeProphecy->getFormDefinition()->willReturn($formDefinition);
+        $this->formRuntime = $this->get(FormRuntime::class);
+        $this->formRuntime->setFormDefinition($formDefinition);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isConsentApprovedReturnsFalseIfFormRuntimeIsNotDefined(): void
     {
         $resolver = $this->createResolver();
@@ -75,12 +69,10 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
         self::assertFalse($resolver->evaluate('isConsentApproved()'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isConsentApprovedFunctionReturnsTrueIfConsentIsRegisteredAndApproved(): void
     {
-        $resolver = $this->createResolver($this->formRuntimeProphecy->reveal());
+        $resolver = $this->createResolver($this->formRuntime);
 
         $consent = new Consent();
         $consent->setApproved();
@@ -91,9 +83,7 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
         self::assertTrue($resolver->evaluate('isConsentApproved()'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isConsentDismissedReturnsFalseIfFormRuntimeIsNotDefined(): void
     {
         $resolver = $this->createResolver();
@@ -101,12 +91,10 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
         self::assertFalse($resolver->evaluate('isConsentDismissed()'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isConsentDismissedFunctionReturnsTrueIfConsentIsRegisteredAndDismissed(): void
     {
-        $resolver = $this->createResolver($this->formRuntimeProphecy->reveal());
+        $resolver = $this->createResolver($this->formRuntime);
 
         $consent = new Consent();
         $consent->setDismissed();

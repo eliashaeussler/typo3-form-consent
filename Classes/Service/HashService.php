@@ -36,11 +36,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class HashService
 {
-    private EventDispatcherInterface $eventDispatcher;
-
-    public function __construct(EventDispatcherInterface $eventDispatcher)
-    {
-        $this->eventDispatcher = $eventDispatcher;
+    public function __construct(
+        private readonly EventDispatcherInterface $eventDispatcher,
+    ) {
     }
 
     public function generate(Consent $consent): string
@@ -67,7 +65,7 @@ final class HashService
 
     public function isValid(Consent $consent, string $hash = null): bool
     {
-        $hash = $hash ?? $consent->getValidationHash();
+        $hash ??= $consent->getValidationHash();
         $newHash = $this->generate($consent);
 
         return $hash === $newHash;

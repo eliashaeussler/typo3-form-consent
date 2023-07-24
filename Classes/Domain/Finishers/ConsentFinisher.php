@@ -28,8 +28,6 @@ use EliasHaeussler\Typo3FormConsent\Domain\Factory\ConsentFactory;
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentMailEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\FluidEmail;
@@ -48,40 +46,14 @@ use TYPO3\CMS\Form\ViewHelpers\RenderRenderableViewHelper;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInterface
+final class ConsentFinisher extends AbstractFinisher
 {
-    use LoggerAwareTrait;
-
-    private ConsentFactory $consentFactory;
-    private EventDispatcherInterface $eventDispatcher;
-    private Mailer $mailer;
-    private PersistenceManagerInterface $persistenceManager;
-
-    // @todo Move to constructor once v10 support is dropped
-    public function injectEventDispatcher(EventDispatcherInterface $eventDispatcher): void
-    {
-        $this->eventDispatcher = $eventDispatcher;
-    }
-
-    // @todo Move to constructor once v10 support is dropped
-    public function injectMailer(Mailer $mailer): void
-    {
-        $this->mailer = $mailer;
-    }
-
-    // @todo Move to constructor once v10 support is dropped
-    public function injectPersistenceManager(PersistenceManagerInterface $persistenceManager): void
-    {
-        $this->persistenceManager = $persistenceManager;
-    }
-
-    public function __construct(string $finisherIdentifier = '')
-    {
-        /* @phpstan-ignore-next-line */
-        parent::__construct($finisherIdentifier);
-
-        // @todo Use dependency injection once v10 support is dropped
-        $this->consentFactory = GeneralUtility::makeInstance(ConsentFactory::class);
+    public function __construct(
+        private readonly ConsentFactory $consentFactory,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly Mailer $mailer,
+        private readonly PersistenceManagerInterface $persistenceManager,
+    ) {
     }
 
     /**
@@ -142,7 +114,7 @@ final class ConsentFinisher extends AbstractFinisher implements LoggerAwareInter
         // Send mail
         try {
             $this->mailer->send($mail);
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportExceptionInterface) {
             throw new FinisherException(
                 Localization::forKey('consentMail.error', null, true),
                 1577109483

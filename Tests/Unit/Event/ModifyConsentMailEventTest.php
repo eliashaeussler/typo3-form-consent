@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentMailEvent;
-use Prophecy\PhpUnit\ProphecyTrait;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -37,36 +37,30 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 final class ModifyConsentMailEventTest extends UnitTestCase
 {
-    use ProphecyTrait;
-
     protected ModifyConsentMailEvent $subject;
-    protected FluidEmail $mail;
-    protected FormRuntime $formRuntime;
+    protected FluidEmail $mailMock;
+    protected FormRuntime $formRuntimeMock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->mail = $this->prophesize(FluidEmail::class)->reveal();
-        $this->formRuntime = $this->prophesize(FormRuntime::class)->reveal();
-        $this->subject = new ModifyConsentMailEvent($this->mail, $this->formRuntime);
+        $this->mailMock = $this->createMock(FluidEmail::class);
+        $this->formRuntimeMock = $this->createMock(FormRuntime::class);
+        $this->subject = new ModifyConsentMailEvent($this->mailMock, $this->formRuntimeMock);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMailReturnsInitialMail(): void
     {
-        $expected = $this->mail;
+        $expected = $this->mailMock;
         self::assertSame($expected, $this->subject->getMail());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFormRuntimeReturnsInitialFormRuntime(): void
     {
-        $expected = $this->formRuntime;
+        $expected = $this->formRuntimeMock;
         self::assertSame($expected, $this->subject->getFormRuntime());
     }
 }

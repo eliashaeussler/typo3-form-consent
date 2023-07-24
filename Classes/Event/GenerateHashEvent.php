@@ -33,20 +33,15 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
  */
 final class GenerateHashEvent
 {
-    /**
-     * @var list<mixed>
-     */
-    private array $components;
-    private Consent $consent;
     private ?string $hash = null;
 
     /**
      * @param list<mixed> $components
      */
-    public function __construct(array $components, Consent $consent)
-    {
-        $this->components = $components;
-        $this->consent = $consent;
+    public function __construct(
+        private array $components,
+        private readonly Consent $consent,
+    ) {
     }
 
     /**

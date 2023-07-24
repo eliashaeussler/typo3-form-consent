@@ -39,13 +39,11 @@ use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-class ConsentChartDataProvider implements ChartDataProviderInterface
+final class ConsentChartDataProvider implements ChartDataProviderInterface
 {
-    protected Connection $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
+    public function __construct(
+        private readonly Connection $connection,
+    ) {
     }
 
     /**
@@ -68,22 +66,22 @@ class ConsentChartDataProvider implements ChartDataProviderInterface
         ];
     }
 
-    protected function countApproved(): int
+    private function countApproved(): int
     {
         return $this->count(ConsentStateType::APPROVED);
     }
 
-    protected function countNonApproved(): int
+    private function countNonApproved(): int
     {
         return $this->count(ConsentStateType::NEW);
     }
 
-    protected function countDismissed(): int
+    private function countDismissed(): int
     {
         return $this->count(ConsentStateType::DISMISSED, true);
     }
 
-    protected function count(int $state, bool $includeDeleted = false): int
+    private function count(int $state, bool $includeDeleted = false): int
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();

@@ -24,8 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
@@ -40,11 +38,9 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  */
 final class FormRequestTypeTransformer implements TypeTransformerInterface
 {
-    private HashService $hashService;
-
-    public function __construct(HashService $hashService)
-    {
-        $this->hashService = $hashService;
+    public function __construct(
+        private readonly HashService $hashService,
+    ) {
     }
 
     /**
@@ -57,8 +53,7 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
             throw new \InvalidArgumentException('Expected a valid FormRuntime object, NULL given.', 1646044629);
         }
 
-        // @todo Replace with $formRuntime->getRequest() once v10 support is dropped
-        $request = $this->getServerRequest();
+        $request = $formRuntime->getRequest();
 
         // Handle submitted form values
         $requestParameters = [];
@@ -98,11 +93,6 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
                 'resourcePointer' => $this->hashService->appendHmac('file:' . $file->getUid()),
             ],
         ];
-    }
-
-    private function getServerRequest(): ServerRequestInterface
-    {
-        return $GLOBALS['TYPO3_REQUEST'] ?? ServerRequestFactory::fromGlobals();
     }
 
     public static function getName(): string

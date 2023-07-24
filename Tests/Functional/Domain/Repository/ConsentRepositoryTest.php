@@ -25,6 +25,8 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Repository;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -35,12 +37,12 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class ConsentRepositoryTest extends FunctionalTestCase
 {
-    protected $coreExtensionsToLoad = [
+    protected array $coreExtensionsToLoad = [
         'form',
     ];
 
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/form_consent',
+    protected array $testExtensionsToLoad = [
+        'form_consent',
     ];
 
     protected ConsentRepository $subject;
@@ -56,10 +58,8 @@ final class ConsentRepositoryTest extends FunctionalTestCase
         $this->importDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.xml');
     }
 
-    /**
-     * @test
-     * @dataProvider findByValidationHashReturnsValidConsentDataProvider
-     */
+    #[Test]
+    #[DataProvider('findByValidationHashReturnsValidConsentDataProvider')]
     public function findByValidationHashReturnsValidConsent(string $hash, int $expectedUid): void
     {
         /** @var Consent $consent */
@@ -69,27 +69,21 @@ final class ConsentRepositoryTest extends FunctionalTestCase
         self::assertEquals($expectedUid, $consent->getUid());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function findByValidationHashDoesNotReturnDeletedConsent(): void
     {
         $queryResult = $this->subject->findOneByValidationHash('blub');
         self::assertNull($queryResult);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function findByValidationHashDoesNotReturnExpiredConsent(): void
     {
         $queryResult = $this->subject->findOneByValidationHash('dummy');
         self::assertNull($queryResult);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function findByValidationHashReturnsEmptyQueryResultIfConsentDoesNotExist(): void
     {
         $queryResult = $this->subject->findOneByValidationHash('some-invalid-hash');
@@ -99,7 +93,7 @@ final class ConsentRepositoryTest extends FunctionalTestCase
     /**
      * @return \Generator<string, array{string, int}>
      */
-    public function findByValidationHashReturnsValidConsentDataProvider(): \Generator
+    public static function findByValidationHashReturnsValidConsentDataProvider(): \Generator
     {
         yield 'no expiry date' => ['foo', 1];
         yield 'valid until 2038' => ['baz', 2];

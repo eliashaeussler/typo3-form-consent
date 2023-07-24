@@ -36,7 +36,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Consent extends AbstractEntity
 {
-    public const TABLE_NAME = 'tx_formconsent_domain_model_consent';
+    final public const TABLE_NAME = 'tx_formconsent_domain_model_consent';
 
     /**
      * @var string

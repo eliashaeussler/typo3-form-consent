@@ -51,13 +51,11 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         'approved',
         'approval_date',
     ];
-
-    private Connection $connection;
     private OutputInterface $output;
 
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
+    public function __construct(
+        private readonly Connection $connection,
+    ) {
     }
 
     public function getIdentifier(): string
@@ -270,19 +268,11 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         }
 
         foreach ($legacyColumns as $legacyColumn) {
-            switch ($legacyColumn) {
-                case 'approved':
-                    $queryBuilder->orWhere($this->getConstraintsForLegacyApprovedColumn($queryBuilder));
-                    break;
-
-                case 'approval_date':
-                    $queryBuilder->orWhere($this->getConstraintsForLegacyApprovalDateColumn($queryBuilder));
-                    break;
-
-                default:
-                    $queryBuilder->andWhere('0=1');
-                    break;
-            }
+            match ($legacyColumn) {
+                'approved' => $queryBuilder->orWhere($this->getConstraintsForLegacyApprovedColumn($queryBuilder)),
+                'approval_date' => $queryBuilder->orWhere($this->getConstraintsForLegacyApprovalDateColumn($queryBuilder)),
+                default => $queryBuilder->andWhere('0=1'),
+            };
         }
 
         return $queryBuilder;
