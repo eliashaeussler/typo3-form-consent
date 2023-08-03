@@ -35,13 +35,12 @@
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.5",
-		"codeception/c3": "^2.8",
-		"codeception/codeception": "^5.0",
 		"codeception/module-asserts": "^3.0",
 		"codeception/module-db": "^3.1",
 		"codeception/module-webdriver": "^4.0",
 		"eliashaeussler/phpstan-config": "^2.1",
 		"eliashaeussler/rector-config": "^1.7",
+		"eliashaeussler/typo3-codeception-helper": "^1.0",
 		"ergebnis/composer-normalize": "^2.15",
 		"helhum/config-loader": "^0.12.5",
 		"helhum/typo3-console": "^6.7.6 || ^7.1.4",
@@ -159,7 +158,7 @@
 			"@test:acceptance:run"
 		],
 		"test:acceptance:prepare": "@import-fixtures",
-		"test:acceptance:run": "codecept run",
+		"test:acceptance:run": "codecept run --steps",
 		"test:ci": [
 			"@test:ci:acceptance",
 			"@test:ci:functional",

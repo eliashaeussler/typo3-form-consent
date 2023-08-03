@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
 
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Backend;
 
 /**
  * FormEditorCest
@@ -34,10 +33,10 @@ use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Backend;
  */
 final class FormEditorCest
 {
-    public function canOpenFormWithConsentFinisherInPreviewMode(AcceptanceTester $I, Backend $backend): void
+    public function canOpenFormWithConsentFinisherInPreviewMode(AcceptanceTester $I): void
     {
-        $backend->login();
-        $backend->openModule('#web_FormFormbuilder');
+        $I->loginAs('admin');
+        $I->openModule('#web_FormFormbuilder');
 
         $I->waitForText('contact');
         $I->click('contact', '#forms');

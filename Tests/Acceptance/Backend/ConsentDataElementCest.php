@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
 
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Backend;
 
 /**
  * ConsentDataElementCest
@@ -34,13 +33,13 @@ use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Backend;
  */
 final class ConsentDataElementCest
 {
-    public function canSeeConsentInBackendListModule(AcceptanceTester $I, Backend $backend): void
+    public function canSeeConsentInBackendListModule(AcceptanceTester $I): void
     {
         $I->amOnPage('/');
         $I->fillAndSubmitForm();
 
-        $backend->login();
-        $backend->openModule('#web_list');
+        $I->loginAs('admin');
+        $I->openModule('#web_list');
 
         $I->seeElement('#t3-table-tx_formconsent_domain_model_consent');
         $I->click('tr[data-table="tx_formconsent_domain_model_consent"]:first-child td.col-title a');
