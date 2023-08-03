@@ -25,11 +25,9 @@ services:
     tags:
       - name: event.listener
         identifier: 'formConsentInvokeFinishersOnConsentApproveListener'
-        event: EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent
         method: 'onConsentApprove'
       - name: event.listener
         identifier: 'formConsentInvokeFinishersOnConsentDismissListener'
-        event: EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent
         method: 'onConsentDismiss'
 
   connection.tx_formconsent_domain_model_consent:
