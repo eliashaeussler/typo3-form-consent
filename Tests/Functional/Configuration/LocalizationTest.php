@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection TranslationMissingInspection */
-
 declare(strict_types=1);
 
 /*
@@ -168,14 +166,14 @@ final class LocalizationTest extends FunctionalTestCase
     #[Test]
     public function translateReturnsEmptyStringIfTranslationIsNotAvailable(): void
     {
-        $this->simulateFrontendEnvironment(null);
+        $this->simulateFrontendEnvironment('');
 
         $localizationKey = Localization::forKey('foo');
         $expected = '';
         self::assertSame($expected, Localization::translate($localizationKey));
     }
 
-    private function simulateFrontendEnvironment(?string $expectedReturnValue = 'baz'): void
+    private function simulateFrontendEnvironment(string $expectedReturnValue = 'baz'): void
     {
         $tsfeMock = $this->createMock(TypoScriptFrontendController::class);
         $tsfeMock->method('sL')->with(new IsType('string'))->willReturn($expectedReturnValue);
