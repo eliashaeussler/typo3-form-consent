@@ -10,10 +10,12 @@ suites:
             url: https://%TESTING_DOMAIN%/
             browser: chrome
             wait: 5
-            host: selenium
+            host: selenium-chrome
             port: 4444
             capabilities:
               acceptInsecureCerts: true
+              chromeOptions:
+                args: ['--disable-dev-shm-usage']
         - Db:
             dsn: 'mysql:host=db;dbname=db'
             user: 'root'
@@ -25,6 +27,9 @@ suites:
             port: 8025
             deleteEmailsAfterScenario: true
         - Asserts
+        - EliasHaeussler\Typo3CodeceptionHelper\Codeception\Module\Backend:
+            userCredentials:
+              admin: password
         - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Email
         - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Form
         - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Url
@@ -35,8 +40,10 @@ extensions:
     - Codeception\Extension\RunFailed
     - Codeception\Extension\Recorder:
         delete_successful: true
-    - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Extension\BackendEntrypointModifier
-    - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Extension\FrontendEntrypointModifier
+    - EliasHaeussler\Typo3CodeceptionHelper\Codeception\Extension\ApplicationEntrypointModifier:
+        entrypoints:
+          - web-dir: .Build/web
+          - web-dir: .Build/web/typo3
 
 coverage:
   enabled: true
