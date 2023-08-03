@@ -7,8 +7,8 @@
 >
     <coverage>
         <report>
-            <php outputFile=".Build/log/coverage/php/unit.cov"/>
-            <html outputDirectory=".Build/log/coverage/html/unit/"/>
+            <php outputFile=".Build/coverage/php/unit.cov"/>
+            <html outputDirectory=".Build/coverage/html/unit/"/>
             <text outputFile="php://stdout" showUncoveredFiles="true"/>
         </report>
     </coverage>
@@ -18,7 +18,7 @@
         </testsuite>
     </testsuites>
     <logging>
-        <junit outputFile=".Build/log/coverage/junit/unit.xml"/>
+        <junit outputFile=".Build/coverage/junit/unit.xml"/>
     </logging>
     <source>
         <include>

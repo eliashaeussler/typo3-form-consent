@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# bashsupport disable=BP2001
+# shellcheck disable=SC2086
+set -e
+
+## Description: Initialize TYPO3 installation
+## Usage: init-typo3
+## Example: ddev init-typo3
+
+readonly dbHost="db"
+readonly dbUser="db"
+readonly dbPassword="db"
+readonly dbName="db"
+readonly dbCredentials="-h${dbHost} -u${dbUser} -p${dbPassword}"
+readonly adminUsername="admin"
+readonly adminPassword="Passw0rd!"
+readonly fileadminWebPath="/var/www/html/.Build/web/fileadmin"
+readonly fileadminFixturePath="/var/www/html/Tests/Acceptance/Data/Fileadmin"
+readonly fixturePath="/var/www/html/Tests/Acceptance/Data/Fixtures"
+readonly installationStepsPath="/var/www/html/Tests/Build/Installation/install-steps.yaml"
+
+typo3Binary="/var/www/html/.Build/bin/typo3"
+typo3Version="$($typo3Binary --version | awk '{print $3}')"
+typo3Version="${typo3Version%%.*}"
+
+# Use different console binary on TYPO3 v11
+if [ "$typo3Version" -eq 11 ]; then
+    typo3Binary="/var/www/html/.Build/bin/typo3cms"
+fi
+
+function _progress() {
+    printf "%s... " "$1"
+}
+
+function _done() {
+    printf "\e[32mDone\e[39m\n"
+}
+
+function _setup_v11() {
+    export TYPO3_INSTALL_DB_USER="$dbUser"
+    export TYPO3_INSTALL_DB_PASSWORD="$dbPassword"
+    export TYPO3_INSTALL_DB_HOST="$dbHost"
+    export TYPO3_INSTALL_DB_USE_EXISTING=0
+    export TYPO3_INSTALL_DB_DBNAME="$dbName"
+    export TYPO3_INSTALL_ADMIN_USER="$adminUsername"
+    export TYPO3_INSTALL_ADMIN_PASSWORD="$adminPassword"
+
+    _progress "Setting up TYPO3 installation"
+    "$typo3Binary" install:setup --no-interaction --force --quiet
+    _done
+}
+
+function _setup_v12() {
+    export TYPO3_DB_DRIVER=mysqli
+    export TYPO3_DB_USERNAME="$dbUser"
+    export TYPO3_DB_PASSWORD="$dbPassword"
+    export TYPO3_DB_PORT=3306
+    export TYPO3_DB_HOST="$dbHost"
+    export TYPO3_DB_DBNAME="$dbName"
+    export TYPO3_SETUP_ADMIN_EMAIL=admin@example.com
+    export TYPO3_SETUP_ADMIN_USERNAME="$adminUsername"
+    export TYPO3_SETUP_ADMIN_PASSWORD="$adminPassword"
+    export TYPO3_PROJECT_NAME="EXT:form_consent"
+
+    _progress "Setting up TYPO3 installation"
+    "$typo3Binary" setup --no-interaction --force --quiet
+    _done
+}
+
+# Create empty database
+_progress "Creating empty database"
+mysql -Nse "SHOW TABLES" $dbCredentials "$dbName" | while read -r table; do
+    mysql -e "DROP TABLE ${table}" $dbCredentials "$dbName"
+done
+_done
+
+# Set up environment
+if [ "$typo3Version" -eq 11 ]; then
+    _setup_v11
+else
+    _setup_v12
+fi
+
+# Import DB fixtures
+for file in "$fixturePath"/*.sql; do
+    _progress "Importing DB fixture \"$(basename "$file")\""
+    mysql $dbCredentials "$dbName" < "$file"
+    _done
+done
+
+# Create fileadmin
+if [ -d "$fileadminWebPath" ]; then
+    rm -rf "$fileadminWebPath"
+fi
+cp -r "$fileadminFixturePath" "$fileadminWebPath"
+
+# Initialize filesystem
+_progress "Initializing filesystem"
+"$typo3Binary" install:setup --no-interaction --force --quiet --install-steps-config "$installationStepsPath"
+_done

@@ -21,8 +21,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
-          # @todo switch back to composer-unused 0.8 once https://github.com/composer-unused/composer-unused/issues/444 is resolved
-          tools: composer:v2, composer-require-checker, composer-unused:0.7
+          tools: composer:v2, composer-require-checker, composer-unused
           coverage: none
 
       # Validation
@@ -45,13 +44,13 @@ jobs:
 
       # Linting
       - name: Lint composer.json
-        run: composer lint:composer -- --dry-run
+        run: composer lint:composer
       - name: Lint Editorconfig
-        run: .Build/bin/ec -e .Build
+        run: composer lint:editorconfig
       - name: Lint PHP
-        run: composer lint:php -- --dry-run
+        run: composer lint:php
       - name: Lint TypoScript
-        run: composer lint:typoscript -- --fail-on-warnings
+        run: composer lint:typoscript
 
       # SCA
       - name: SCA PHP

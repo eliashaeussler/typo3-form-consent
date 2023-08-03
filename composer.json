@@ -100,50 +100,41 @@
 	},
 	"scripts": {
 		"post-autoload-dump": [
-			"@prepare-environment",
+			"@environment:prepare"
+		],
+		"environment:prepare": [
+			"@environment:prepare:extension"
+		],
+		"environment:prepare:extension": [
+			"mkdir -p .Build/web/typo3conf",
+			"[ -L config ] || ln -snvf Tests/Build/Configuration config",
+			"[ -L .Build/web/typo3conf/AdditionalConfiguration.php ] || ln -snvf ../../../Tests/Build/Configuration/system/additional.php .Build/web/typo3conf/AdditionalConfiguration.php",
 			"codecept build"
 		],
-		"import-fixtures": [
-			"@import-fixtures:files",
-			"@import-fixtures:db"
+		"fix": [
+			"@fix:composer",
+			"@fix:editorconfig",
+			"@fix:php",
+			"@fix:typoscript"
 		],
-		"import-fixtures:db": [
-			"mysql -Nse 'show tables' db | while read table; do mysql -e \"truncate table $table\" db; done",
-			"typo3cms install:setup --no-interaction --force",
-			"for file in Tests/Acceptance/Data/Fixtures/*.sql; do mysql db < $file; done"
-		],
-		"import-fixtures:files": [
-			"mkdir -p .Build/web",
-			"rm -rf .Build/web/fileadmin",
-			"cp -r Tests/Acceptance/Data/Fileadmin .Build/web/fileadmin"
-		],
+		"fix:composer": "@composer normalize",
+		"fix:editorconfig": "@lint:editorconfig --fix",
+		"fix:php": "php-cs-fixer fix",
+		"fix:typoscript": "@lint:typoscript",
 		"lint": [
 			"@lint:composer",
 			"@lint:editorconfig",
 			"@lint:php",
 			"@lint:typoscript"
 		],
-		"lint:composer": "@composer normalize --no-check-lock --no-update-lock",
-		"lint:editorconfig": "ec --fix -e .Build",
-		"lint:php": "php-cs-fixer fix",
-		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml",
+		"lint:composer": "@fix:composer --dry-run",
+		"lint:editorconfig": "ec",
+		"lint:php": "@fix:php --dry-run",
+		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml --fail-on-warnings",
 		"migration": [
 			"@migration:rector"
 		],
 		"migration:rector": "rector process -c rector.php",
-		"prepare-environment": [
-			"@prepare-environment:extension",
-			"@prepare-environment:config"
-		],
-		"prepare-environment:config": [
-			"mkdir -p config/sites/main",
-			"[ -L config/sites/main/config.yaml ] || ln -snvf ../../../Tests/Build/sites-config.yaml config/sites/main/config.yaml",
-			"[ -L .Build/web/typo3conf/AdditionalConfiguration.php ] || ln -snvf ../../../Tests/Build/AdditionalConfiguration.php .Build/web/typo3conf/AdditionalConfiguration.php"
-		],
-		"prepare-environment:extension": [
-			"mkdir -p .Build/web/typo3conf/ext/",
-			"[ -L .Build/web/typo3conf/ext/form_consent ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/form_consent"
-		],
 		"sca": [
 			"@sca:php"
 		],
@@ -154,30 +145,24 @@
 			"@test:unit"
 		],
 		"test:acceptance": [
-			"@test:acceptance:prepare",
-			"@test:acceptance:run"
+			".ddev/commands/web/init-typo3",
+			"codecept run --steps"
 		],
-		"test:acceptance:prepare": "@import-fixtures",
-		"test:acceptance:run": "codecept run --steps",
-		"test:ci": [
-			"@test:ci:acceptance",
-			"@test:ci:functional",
-			"@test:ci:unit"
+		"test:coverage": [
+			"@test:coverage:acceptance",
+			"@test:coverage:functional",
+			"@test:coverage:unit",
+			"@test:coverage:merge"
 		],
-		"test:ci:acceptance": [
-			"@test:ci:acceptance:prepare",
-			"@test:ci:acceptance:run"
+		"test:coverage:acceptance": [
+			"@test:acceptance --coverage --coverage-html",
+			"mkdir -p .Build/coverage/php",
+			"cp .Build/log/acceptance-reports/coverage.serialized .Build/coverage/php/acceptance.cov"
 		],
-		"test:ci:acceptance:prepare": "@test:acceptance:prepare",
-		"test:ci:acceptance:run": [
-			"@test:acceptance:run --coverage --coverage-html --debug",
-			"mkdir -p .Build/log/coverage/php",
-			"cp .Build/log/acceptance-reports/coverage.serialized .Build/log/coverage/php/acceptance.cov"
-		],
-		"test:ci:functional": "phpunit -c phpunit.functional.xml",
-		"test:ci:merge": "phpcov merge --html .Build/log/coverage/html/_merged --clover .Build/log/coverage/clover.xml --text php://stdout .Build/log/coverage/php",
-		"test:ci:unit": "phpunit -c phpunit.unit.xml",
-		"test:functional": "@test:ci:functional --no-coverage",
-		"test:unit": "@test:ci:unit --no-coverage"
+		"test:coverage:functional": "phpunit -c phpunit.functional.xml",
+		"test:coverage:merge": "phpcov merge --html .Build/coverage/html/_merged --clover .Build/coverage/clover.xml --text php://stdout .Build/coverage/php",
+		"test:coverage:unit": "phpunit -c phpunit.unit.xml",
+		"test:functional": "@test:coverage:functional --no-coverage",
+		"test:unit": "@test:coverage:unit --no-coverage"
 	}
 }
