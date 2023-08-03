@@ -40,7 +40,6 @@ final class UnsupportedTypeExceptionTest extends UnitTestCase
     {
         $actual = UnsupportedTypeException::create('foo');
 
-        self::assertInstanceOf(UnsupportedTypeException::class, $actual);
         self::assertSame('The type "foo" is not supported.', $actual->getMessage());
         self::assertSame(1645774926, $actual->getCode());
     }

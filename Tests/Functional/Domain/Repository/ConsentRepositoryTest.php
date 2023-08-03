@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Repository;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
+use Generator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -55,15 +56,15 @@ final class ConsentRepositoryTest extends FunctionalTestCase
         $this->subject = $this->getContainer()->get(ConsentRepository::class);
 
         // Import data
-        $this->importDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.xml');
+        $this->importCSVDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.csv');
     }
 
     #[Test]
     #[DataProvider('findByValidationHashReturnsValidConsentDataProvider')]
     public function findByValidationHashReturnsValidConsent(string $hash, int $expectedUid): void
     {
-        /** @var Consent $consent */
         $consent = $this->subject->findOneByValidationHash($hash);
+
         self::assertInstanceOf(Consent::class, $consent);
         self::assertEquals($hash, $consent->getValidationHash());
         self::assertEquals($expectedUid, $consent->getUid());
@@ -91,9 +92,9 @@ final class ConsentRepositoryTest extends FunctionalTestCase
     }
 
     /**
-     * @return \Generator<string, array{string, int}>
+     * @return Generator<string, array{string, int}>
      */
-    public static function findByValidationHashReturnsValidConsentDataProvider(): \Generator
+    public static function findByValidationHashReturnsValidConsentDataProvider(): Generator
     {
         yield 'no expiry date' => ['foo', 1];
         yield 'valid until 2038' => ['baz', 2];

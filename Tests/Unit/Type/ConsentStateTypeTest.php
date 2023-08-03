@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type;
 
 use EliasHaeussler\Typo3FormConsent\Exception\InvalidStateException;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
+use Generator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -69,7 +70,6 @@ final class ConsentStateTypeTest extends UnitTestCase
     {
         $actual = ConsentStateType::createNew();
 
-        self::assertInstanceOf(ConsentStateType::class, $actual);
         self::assertTrue($actual->isNew());
         self::assertFalse($actual->isApproved());
         self::assertFalse($actual->isDismissed());
@@ -80,7 +80,6 @@ final class ConsentStateTypeTest extends UnitTestCase
     {
         $actual = ConsentStateType::createApproved();
 
-        self::assertInstanceOf(ConsentStateType::class, $actual);
         self::assertFalse($actual->isNew());
         self::assertTrue($actual->isApproved());
         self::assertFalse($actual->isDismissed());
@@ -91,7 +90,6 @@ final class ConsentStateTypeTest extends UnitTestCase
     {
         $actual = ConsentStateType::createDismissed();
 
-        self::assertInstanceOf(ConsentStateType::class, $actual);
         self::assertFalse($actual->isNew());
         self::assertFalse($actual->isApproved());
         self::assertTrue($actual->isDismissed());
@@ -131,9 +129,9 @@ final class ConsentStateTypeTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array{int, bool}>
+     * @return Generator<string, array{int, bool}>
      */
-    public static function isNewReturnsConsentCreationStateDataProvider(): \Generator
+    public static function isNewReturnsConsentCreationStateDataProvider(): Generator
     {
         yield 'new consent' => [ConsentStateType::NEW, true];
         yield 'consent approved' => [ConsentStateType::APPROVED, false];
@@ -141,9 +139,9 @@ final class ConsentStateTypeTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array{int, bool}>
+     * @return Generator<string, array{int, bool}>
      */
-    public static function isApprovedReturnsConsentApprovalStateDataProvider(): \Generator
+    public static function isApprovedReturnsConsentApprovalStateDataProvider(): Generator
     {
         yield 'new consent' => [ConsentStateType::NEW, false];
         yield 'consent approved' => [ConsentStateType::APPROVED, true];
@@ -151,9 +149,9 @@ final class ConsentStateTypeTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array{int, bool}>
+     * @return Generator<string, array{int, bool}>
      */
-    public static function isDismissedReturnsConsentDismissalStateDataProvider(): \Generator
+    public static function isDismissedReturnsConsentDismissalStateDataProvider(): Generator
     {
         yield 'new consent' => [ConsentStateType::NEW, false];
         yield 'consent approved' => [ConsentStateType::APPROVED, false];

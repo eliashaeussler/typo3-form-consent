@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Configuration;
 
+use InvalidArgumentException;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -52,7 +53,7 @@ final class Icon
         $pluginName = str_replace('_', '-', GeneralUtility::camelCaseToLowerCaseUnderscored($pluginName));
 
         if ($pluginName === '') {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Plugin name must not be empty when generating icon plugin identifier.',
                 1587655457
             );
@@ -80,7 +81,7 @@ final class Icon
         $widgetName = str_replace('_', '-', GeneralUtility::camelCaseToLowerCaseUnderscored($widgetName));
 
         if ($widgetName === '') {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Widget name must not be empty when generating icon widget identifier.',
                 1632850400
             );
@@ -100,10 +101,14 @@ final class Icon
     private static function buildIconPath(string $fileName, string $type = 'svg'): string
     {
         $fileName = trim($fileName);
-        $type = trim($type) ?: 'svg';
+        $type = trim($type);
+
+        if ($type === '') {
+            $type = 'svg';
+        }
 
         if ($fileName === '') {
-            throw new \InvalidArgumentException('No icon filename given.', 1580308459);
+            throw new InvalidArgumentException('No icon filename given.', 1580308459);
         }
 
         return 'EXT:' . Extension::KEY . '/Resources/Public/Icons/' . $fileName . '.' . $type;

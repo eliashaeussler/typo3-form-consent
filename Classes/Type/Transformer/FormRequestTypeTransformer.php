@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use InvalidArgumentException;
+use JsonException;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
@@ -45,12 +47,12 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
 
     /**
      * @return JsonType<string, array<string, array<string, mixed>>>
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function transform(FormRuntime $formRuntime = null): JsonType
     {
         if ($formRuntime === null) {
-            throw new \InvalidArgumentException('Expected a valid FormRuntime object, NULL given.', 1646044629);
+            throw new InvalidArgumentException('Expected a valid FormRuntime object, NULL given.', 1646044629);
         }
 
         $request = $formRuntime->getRequest();
@@ -76,17 +78,15 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
     }
 
     /**
-     * @param CoreFileReference|ExtbaseFileReference $file
      * @return array{submittedFile: array{resourcePointer: string}}
      */
-    private function transformUploadedFile($file): array
+    private function transformUploadedFile(CoreFileReference|ExtbaseFileReference $file): array
     {
         if ($file instanceof ExtbaseFileReference) {
             $file = $file->getOriginalResource();
         }
-        if ($file instanceof CoreFileReference) {
-            $file = $file->getOriginalFile();
-        }
+
+        $file = $file->getOriginalFile();
 
         return [
             'submittedFile' => [

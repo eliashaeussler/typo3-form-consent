@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 
+use ArrayAccess;
 use EliasHaeussler\Typo3FormConsent\Configuration\Extension;
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
 use EliasHaeussler\Typo3FormConsent\Exception\NotAllowedException;
@@ -38,9 +39,9 @@ use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  *
- * @implements \ArrayAccess<string, string|int|bool|TemplatePaths>
+ * @implements ArrayAccess<string, string|int|bool|TemplatePaths>
  */
-final class FinisherOptions implements \ArrayAccess
+final class FinisherOptions implements ArrayAccess
 {
     private static ?PageRepository $pageRepository = null;
 
@@ -239,16 +240,17 @@ final class FinisherOptions implements \ArrayAccess
         return false;
     }
 
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (!\is_string($offset)) {
             return null;
         }
 
         $getterMethodName = 'get' . ucfirst($offset);
-        if (method_exists($this, $getterMethodName)) {
-            return $this->{$getterMethodName}();
+        $callable = [$this, $getterMethodName];
+
+        if (\is_callable($callable)) {
+            return \call_user_func($callable);
         }
 
         return null;
