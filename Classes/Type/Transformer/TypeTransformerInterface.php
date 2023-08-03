@@ -33,7 +33,6 @@ use EliasHaeussler\Typo3FormConsent\Type\JsonType;
  */
 interface TypeTransformerInterface
 {
-    /* @phpstan-ignore-next-line */
     public function transform(): JsonType;
 
     public static function getName(): string;
