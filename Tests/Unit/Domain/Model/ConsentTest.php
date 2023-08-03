@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Domain\Model;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -35,6 +36,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(Consent::class)]
 final class ConsentTest extends UnitTestCase
 {
     protected Consent $subject;

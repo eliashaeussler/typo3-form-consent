@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type;
 use EliasHaeussler\Typo3FormConsent\Exception\InvalidStateException;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -36,6 +37,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(ConsentStateType::class)]
 final class ConsentStateTypeTest extends UnitTestCase
 {
     protected ConsentStateType $subject;

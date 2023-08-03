@@ -24,7 +24,9 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\ExpressionLanguage\FunctionsProvider;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use EliasHaeussler\Typo3FormConsent\ExpressionLanguage\FunctionsProvider\ConsentConditionFunctionsProvider;
 use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\ExpressionLanguage\Resolver;
 use TYPO3\CMS\Form\Domain\Model\FormDefinition;
@@ -37,6 +39,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(ConsentConditionFunctionsProvider::class)]
 final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [

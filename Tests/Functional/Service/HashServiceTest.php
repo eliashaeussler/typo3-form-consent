@@ -27,6 +27,7 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\GenerateHashEvent;
 use EliasHaeussler\Typo3FormConsent\Service\HashService;
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -39,6 +40,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(HashService::class)]
 final class HashServiceTest extends FunctionalTestCase
 {
     protected bool $initializeDatabase = false;

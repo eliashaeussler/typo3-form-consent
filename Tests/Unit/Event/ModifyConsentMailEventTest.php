@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentMailEvent;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
@@ -35,6 +36,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(ModifyConsentMailEvent::class)]
 final class ModifyConsentMailEventTest extends UnitTestCase
 {
     protected ModifyConsentMailEvent $subject;

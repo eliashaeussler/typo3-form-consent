@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Constraint\IsType;
@@ -38,6 +39,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(Localization::class)]
 final class LocalizationTest extends FunctionalTestCase
 {
     protected bool $initializeDatabase = false;

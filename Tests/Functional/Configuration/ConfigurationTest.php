@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Configuration\Configuration;
 use EliasHaeussler\Typo3FormConsent\Configuration\Extension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -36,6 +37,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(Configuration::class)]
 final class ConfigurationTest extends FunctionalTestCase
 {
     protected bool $initializeDatabase = false;
