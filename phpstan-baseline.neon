@@ -1,7 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^EliasHaeussler\\\\Typo3FormConsent\\\\Domain\\\\Finishers\\\\ConsentFinisher\\:\\:__construct\\(\\) does not call parent constructor from TYPO3\\\\CMS\\\\Form\\\\Domain\\\\Finishers\\\\AbstractFinisher\\.$#"
+			message: """
+				#^Call to deprecated method getContentObject\\(\\) of class TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\ConfigurationManagerInterface\\:
+				since v12\\. Remove in v13\\.$#
+			"""
+			count: 1
+			path: Classes/Domain/Factory/ConsentFactory.php
+
+		-
+			message: """
+				#^Fetching deprecated class constant ERROR of class TYPO3\\\\CMS\\\\Core\\\\Messaging\\\\AbstractMessage\\:
+				Use \\\\TYPO3\\\\CMS\\\\Core\\\\Type\\\\ContextualFeedbackSeverity\\:\\:ERROR instead$#
+			"""
 			count: 1
 			path: Classes/Domain/Finishers/ConsentFinisher.php
 
@@ -11,17 +22,25 @@ parameters:
 			path: Classes/Domain/Finishers/FinisherOptions.php
 
 		-
-			message: "#^PHPDoc type array\\<int, class\\-string\\<Symfony\\\\Component\\\\ExpressionLanguage\\\\ExpressionFunctionProviderInterface\\>\\> of property EliasHaeussler\\\\Typo3FormConsent\\\\ExpressionLanguage\\\\ConsentConditionProvider\\:\\:\\$expressionLanguageProviders is not the same as PHPDoc type array of overridden property TYPO3\\\\CMS\\\\Core\\\\ExpressionLanguage\\\\AbstractProvider\\:\\:\\$expressionLanguageProviders\\.$#"
-			count: 1
-			path: Classes/ExpressionLanguage/ConsentConditionProvider.php
-
-		-
 			message: "#^Method EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\Transformer\\\\TypeTransformerInterface\\:\\:transform\\(\\) return type with generic class EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\JsonType does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: Classes/Type/Transformer/TypeTransformerInterface.php
 
 		-
-			message: "#^Property TYPO3\\\\TestingFramework\\\\Core\\\\Acceptance\\\\Helper\\\\AbstractModalDialog\\:\\:\\$tester \\(TYPO3\\\\TestingFramework\\\\Core\\\\Acceptance\\\\Helper\\\\AcceptanceTester\\) does not accept EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\AcceptanceTester\\.$#"
+			message: """
+				#^Call to deprecated method getSchemaManager\\(\\) of class Doctrine\\\\DBAL\\\\Connection\\:
+				Use \\{@see createSchemaManager\\(\\)\\} instead\\.$#
+			"""
+			count: 1
+			path: Classes/Updates/MigrateConsentStateUpgradeWizard.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with TYPO3\\\\CMS\\\\Core\\\\Database\\\\Connection and 'createSchemaManager' will always evaluate to true\\.$#"
+			count: 1
+			path: Classes/Updates/MigrateConsentStateUpgradeWizard.php
+
+		-
+			message: "#^PHPDoc type EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\AcceptanceTester of property EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\Helper\\\\ModalDialog\\:\\:\\$tester is not the same as PHPDoc type TYPO3\\\\CMS\\\\Core\\\\Tests\\\\Acceptance\\\\Support\\\\ApplicationTester of overridden property TYPO3\\\\TestingFramework\\\\Core\\\\Acceptance\\\\Helper\\\\AbstractModalDialog\\:\\:\\$tester\\.$#"
 			count: 1
 			path: Tests/Acceptance/Support/Helper/ModalDialog.php
 

@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
 
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
+use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
  * FormEditorCest
@@ -35,8 +36,17 @@ final class FormEditorCest
 {
     public function canOpenFormWithConsentFinisherInPreviewMode(AcceptanceTester $I): void
     {
+        $typo3Version = new Typo3Version();
+
+        if ($typo3Version->getMajorVersion() >= 12) {
+            $moduleIdentifier = '[data-modulemenu-identifier="web_FormFormbuilder"]';
+        } else {
+            // @todo Remove once support for TYPO3 v11 is dropped
+            $moduleIdentifier = '#web_FormFormbuilder';
+        }
+
         $I->loginAs('admin');
-        $I->openModule('#web_FormFormbuilder');
+        $I->openModule($moduleIdentifier);
 
         $I->waitForText('contact');
         $I->click('contact', '#forms');

@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Widget\Provider;
 
-use Doctrine\DBAL\DBALException;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -51,9 +50,6 @@ final class ConsentChartDataProviderTest extends FunctionalTestCase
 
     protected ConsentChartDataProvider $subject;
 
-    /**
-     * @throws DBALException
-     */
     protected function setUp(): void
     {
         parent::setUp();

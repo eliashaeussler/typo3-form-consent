@@ -34,6 +34,9 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 final class TypeTransformerFactory
 {
+    /**
+     * @param ServiceLocator<TypeTransformerInterface> $typeTransformers
+     */
     public function __construct(
         private readonly ServiceLocator $typeTransformers,
     ) {
@@ -48,12 +51,6 @@ final class TypeTransformerFactory
             throw UnsupportedTypeException::create($type);
         }
 
-        $transformer = $this->typeTransformers->get($type);
-
-        if (!($transformer instanceof TypeTransformerInterface)) {
-            throw UnsupportedTypeException::create($type);
-        }
-
-        return $transformer;
+        return $this->typeTransformers->get($type);
     }
 }

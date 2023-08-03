@@ -84,7 +84,7 @@ final class HashServiceTest extends FunctionalTestCase
         $this->addEventListener(
             GenerateHashEvent::class,
             __METHOD__,
-            new class() {
+            new class () {
                 public function __invoke(GenerateHashEvent $event): void
                 {
                     $event->setComponents([]);
@@ -105,7 +105,7 @@ final class HashServiceTest extends FunctionalTestCase
         $this->addEventListener(
             GenerateHashEvent::class,
             __METHOD__,
-            new class() {
+            new class () {
                 public function __invoke(GenerateHashEvent $event): void
                 {
                     $event->setHash('foo');
@@ -151,7 +151,7 @@ final class HashServiceTest extends FunctionalTestCase
         $this->addEventListener(
             GenerateHashEvent::class,
             __METHOD__,
-            new class() {
+            new class () {
                 public function __invoke(GenerateHashEvent $event): void
                 {
                     $event->setComponents([]);

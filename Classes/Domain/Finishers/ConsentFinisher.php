@@ -27,12 +27,12 @@ use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
 use EliasHaeussler\Typo3FormConsent\Domain\Factory\ConsentFactory;
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentMailEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
@@ -124,40 +124,35 @@ final class ConsentFinisher extends AbstractFinisher
 
     private function initializeMail(FinisherOptions $finisherOptions): FluidEmail
     {
-        // Initialize mail
-        $mail = GeneralUtility::makeInstance(FluidEmail::class, $finisherOptions->getTemplatePaths())
+        return GeneralUtility::makeInstance(FluidEmail::class, $finisherOptions->getTemplatePaths())
             ->to(new Address($finisherOptions->getRecipientAddress(), $finisherOptions->getRecipientName()))
             ->subject($finisherOptions->getSubject())
             ->setTemplate('ConsentMail')
             ->assign('formRuntime', $this->finisherContext->getFormRuntime())
             ->assign('showDismissLink', $finisherOptions->getShowDismissLink())
-            ->assign('confirmationPid', $finisherOptions->getConfirmationPid());
-
-        // Set the PSR-7 request object if available
-        $serverRequest = $this->getServerRequest();
-        if ($serverRequest !== null) {
-            $mail->setRequest($serverRequest);
-        }
-
-        return $mail;
+            ->assign('confirmationPid', $finisherOptions->getConfirmationPid())
+            ->setRequest($this->finisherContext->getRequest())
+        ;
     }
 
     private function addFlashMessage(\Exception $exception): void
     {
+        if (class_exists(ContextualFeedbackSeverity::class)) {
+            $severity = ContextualFeedbackSeverity::ERROR;
+        } else {
+            // @todo Remove once support for TYPO3 v11 is dropped
+            $severity = AbstractMessage::ERROR;
+        }
+
         $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
         $flashMessageFinisher = $formDefinition->createFinisher('FlashMessage', [
             'messageBody' => $exception->getMessage(),
             'messageCode' => $exception->getCode(),
-            'severity' => AbstractMessage::ERROR,
+            'severity' => $severity,
         ]);
         $flashMessageFinisher->execute($this->finisherContext);
 
         // Cancel execution
         $this->finisherContext->cancel();
-    }
-
-    private function getServerRequest(): ?ServerRequestInterface
-    {
-        return $GLOBALS['TYPO3_REQUEST'] ?? null;
     }
 }

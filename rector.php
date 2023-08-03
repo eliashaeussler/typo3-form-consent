@@ -25,8 +25,10 @@ use EliasHaeussler\RectorConfig\Config\Config;
 use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
+use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector;
 
 return static function (RectorConfig $rectorConfig): void {
     Config::create($rectorConfig, PhpVersion::PHP_81)
@@ -50,6 +52,10 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/Classes/Configuration/Extension.php',
             __DIR__ . '/Classes/Updates/MigrateConsentStateUpgradeWizard.php',
         ])
+        ->skip(ClassPropertyAssignToConstructorPromotionRector::class, [
+            // We cannot use CPP for properties that are declared in abstract classes
+            __DIR__ . '/Tests/Acceptance/Support/Helper/ModalDialog.php',
+        ])
         ->skip(FinalizeClassesWithoutChildrenRector::class, [
             // Domain models and repositories should stay extendable
             __DIR__ . '/Classes/Domain/Model/*',
@@ -60,6 +66,7 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/Tests/Functional/*',
             __DIR__ . '/Tests/Unit/*',
         ])
+        ->skip(QueryLogicalOrAndLogicalAndToArrayParameterRector::class)
         ->apply()
     ;
 

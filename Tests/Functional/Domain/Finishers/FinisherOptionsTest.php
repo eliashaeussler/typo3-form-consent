@@ -62,8 +62,10 @@ final class FinisherOptionsTest extends FunctionalTestCase
 
         $this->subject = new FinisherOptions($this->fetchOption(...));
 
+        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/be_users.csv');
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.csv');
 
+        $this->setUpBackendUser(1);
         Bootstrap::initializeLanguageObject();
     }
 

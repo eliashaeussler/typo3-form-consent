@@ -51,7 +51,6 @@ final class TypeTransformerFactoryTest extends UnitTestCase
         $this->formRequestTypeTransformer = new FormRequestTypeTransformer(new HashService());
         $this->subject = new TypeTransformerFactory(new ServiceLocator([
             FormRequestTypeTransformer::getName() => fn (): FormRequestTypeTransformer => $this->formRequestTypeTransformer,
-            'invalid' => fn (): self => $this,
         ]));
     }
 
@@ -63,16 +62,6 @@ final class TypeTransformerFactoryTest extends UnitTestCase
         $this->expectExceptionMessage('The type "foo" is not supported.');
 
         $this->subject->get('foo');
-    }
-
-    #[Test]
-    public function getThrowsExceptionIfRequestedTypeTransformerIsInvalid(): void
-    {
-        $this->expectException(UnsupportedTypeException::class);
-        $this->expectExceptionCode(1645774926);
-        $this->expectExceptionMessage('The type "invalid" is not supported.');
-
-        $this->subject->get('invalid');
     }
 
     #[Test]

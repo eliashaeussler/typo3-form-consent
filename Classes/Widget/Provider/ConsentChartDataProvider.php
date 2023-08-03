@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Widget\Provider;
 
-use Doctrine\DBAL\Result;
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
@@ -90,7 +89,6 @@ final class ConsentChartDataProvider implements ChartDataProviderInterface
             $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
         }
 
-        /** @var Result $result */
         $result = $queryBuilder->count('*')
             ->from(Consent::TABLE_NAME)
             ->where(
@@ -99,7 +97,7 @@ final class ConsentChartDataProvider implements ChartDataProviderInterface
                     $queryBuilder->createNamedParameter($state, Connection::PARAM_INT)
                 )
             )
-            ->execute();
+            ->executeQuery();
 
         return (int)$result->fetchOne();
     }
