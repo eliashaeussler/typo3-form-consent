@@ -87,7 +87,7 @@ final class Email extends Module
         $body = quoted_printable_decode($I->grabBodyFromEmail('text/plain'));
         $urlPattern = sprintf('~%s(?P<url>\S+)~', preg_quote($this->getCurrentBaseUrl(), '~'));
 
-        if (!preg_match_all($urlPattern, $body, $matches)) {
+        if (preg_match_all($urlPattern, $body, $matches) <= 0) {
             $this->fail('No urls found in email.');
         }
 

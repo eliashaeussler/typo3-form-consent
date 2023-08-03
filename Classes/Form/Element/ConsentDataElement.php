@@ -55,10 +55,10 @@ final class ConsentDataElement extends AbstractFormElement
     {
         $row = $this->data['databaseRow'] ?? [];
         $formData = (string)$row['data'];
-        $formData = json_decode($formData, true) ?: [];
+        $formData = json_decode($formData, true) ?? [];
         $title = Localization::forBackendForm('data.header', true);
 
-        if ($formData === []) {
+        if (!\is_array($formData) || $formData === []) {
             return $this->renderAlert('noDataAvailable');
         }
 

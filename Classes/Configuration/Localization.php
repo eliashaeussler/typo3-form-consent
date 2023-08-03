@@ -117,30 +117,28 @@ final class Localization
     public static function translate(string $localizationKey): string
     {
         if (self::isEnvironmentInFrontendMode()) {
-            return (string)self::getTypoScriptFrontendController()->sL($localizationKey);
+            return self::getTypoScriptFrontendController()->sL($localizationKey);
         }
         if (self::getLanguageService() instanceof LanguageService) {
-            return (string)self::getLanguageService()->sL($localizationKey);
+            return self::getLanguageService()->sL($localizationKey);
         }
 
         return $localizationKey;
     }
 
-    private static function buildLocalizationString(
-        string $type = self::TYPE_DEFAULT,
-        string $localizationKey = null,
-        string $language = null
-    ): string {
+    private static function buildLocalizationString(string $type, string $localizationKey): string
+    {
         $fileName = self::FILES[$type] ?? self::FILES[self::TYPE_DEFAULT];
-        $language = $language ? ($language . '.') : '';
-        $localizationKey = $localizationKey ? (':' . $localizationKey) : '';
-        $extensionKey = self::isCoreType($type) ? 'core' : Extension::KEY;
 
-        /** @noinspection TranslationMissingInspection */
+        if (self::isCoreType($type)) {
+            $extensionKey = 'core';
+        } else {
+            $extensionKey = Extension::KEY;
+        }
+
         return sprintf(
-            'LLL:EXT:%s/Resources/Private/Language/%s%s.xlf%s',
+            'LLL:EXT:%s/Resources/Private/Language/%s.xlf:%s',
             $extensionKey,
-            $language,
             $fileName,
             $localizationKey
         );
@@ -150,7 +148,7 @@ final class Localization
     {
         return \in_array($type, [
             self::TYPE_CORE_TABS,
-        ]);
+        ], true);
     }
 
     private static function isEnvironmentInFrontendMode(): bool

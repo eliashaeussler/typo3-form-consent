@@ -21,26 +21,19 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Exception;
+use EliasHaeussler\PHPStanConfig;
 
-use EliasHaeussler\Typo3FormConsent\Exception\NotAllowedException;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
-
-/**
- * NotAllowedExceptionTest
- *
- * @author Elias Häußler <elias@haeussler.dev>
- * @license GPL-2.0-or-later
- */
-final class NotAllowedExceptionTest extends UnitTestCase
-{
-    #[Test]
-    public function forMethodReturnsNotAllowedExceptionForGivenMethod(): void
-    {
-        $actual = NotAllowedException::forMethod('foo');
-
-        self::assertSame('Calling the method "foo" is not allowed.', $actual->getMessage());
-        self::assertSame(1645781267, $actual->getCode());
-    }
-}
+return PHPStanConfig\Config\Config::create(__DIR__)
+    ->in(
+        'Classes',
+        'Configuration',
+        'Tests',
+    )
+    ->not(
+        'Tests/Acceptance/Support/_generated/*',
+    )
+    ->withBaseline()
+    ->withBleedingEdge()
+    ->level(8)
+    ->toArray()
+;

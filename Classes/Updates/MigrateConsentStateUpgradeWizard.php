@@ -23,9 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Updates;
 
-use Doctrine\DBAL\FetchMode;
-use Doctrine\DBAL\ForwardCompatibility\Result;
-use Doctrine\DBAL\Statement;
+use Doctrine\DBAL\Result;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -78,7 +76,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         $result = true;
         $legacyColumns = $this->getOutdatedColumns();
 
-        foreach ($this->selectAffectedRows($legacyColumns)->fetchAll(FetchMode::ASSOCIATIVE) as $record) {
+        foreach ($this->selectAffectedRows($legacyColumns)->fetchAllAssociative() as $record) {
             if ($this->migrateRecord($record)) {
                 $this->output->writeln('<info>Done</info>');
             } else {
@@ -130,7 +128,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         }
 
         // Migrate update date
-        if ($dateSource = $this->migrateUpdateDate($record)) {
+        if (\is_string($dateSource = $this->migrateUpdateDate($record))) {
             $this->output->writeln(
                 sprintf(
                     '  - Migrate <comment>"%s:%s"</comment> to <comment>"update_date:%s"</comment>.',
@@ -145,7 +143,12 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     }
 
     /**
-     * @param array<string, mixed> $record
+     * @param array{
+     *     approved?: int,
+     *     data: string|null,
+     *     deleted: int,
+     *     state: int|numeric-string,
+     * } $record
      */
     private function migrateState(array &$record): bool
     {
@@ -160,14 +163,14 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         }
 
         // Approved consent
-        if ($record['approved']) {
+        if ((bool)$record['approved'] === true) {
             $record['state'] = ConsentStateType::APPROVED;
 
             return true;
         }
 
         // Dismissed consent
-        if ($record['deleted'] && $record['data'] === null) {
+        if ((bool)$record['deleted'] === true && $record['data'] === null) {
             $record['state'] = ConsentStateType::DISMISSED;
 
             return true;
@@ -177,7 +180,12 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     }
 
     /**
-     * @param array<string, mixed> $record
+     * @param array{
+     *     approval_date?: int,
+     *     deleted: int,
+     *     tstamp: int,
+     *     update_date: int|null,
+     * } $record
      */
     private function migrateUpdateDate(array &$record): ?string
     {
@@ -192,15 +200,15 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         }
 
         // Approved consent
-        if (\is_int($record['approval_date']) && $record['approval_date'] > 0 && !$record['deleted']) {
+        if ($record['approval_date'] > 0 && (bool)$record['deleted'] === false) {
             $record['update_date'] = $record['approval_date'];
 
             return 'approval_date';
         }
 
         // Dismissed consent
-        if ($record['deleted']) {
-            $record['update_date'] = (int)$record['tstamp'];
+        if ((bool)$record['deleted'] === true) {
+            $record['update_date'] = $record['tstamp'];
 
             return 'tstamp';
         }
@@ -229,16 +237,13 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
 
     /**
      * @param list<string> $legacyColumns
-     * @return Result<string, mixed>|Statement
      */
-    private function selectAffectedRows(array $legacyColumns)
+    private function selectAffectedRows(array $legacyColumns): Result
     {
-        $result = $this->getPreparedQueryBuilder($legacyColumns)
+        return $this->getPreparedQueryBuilder($legacyColumns)
             ->select('*')
-            ->execute();
-        \assert($result instanceof Result || $result instanceof Statement);
-
-        return $result;
+            ->executeQuery()
+        ;
     }
 
     /**
@@ -248,10 +253,9 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     {
         $result = $this->getPreparedQueryBuilder($legacyColumns)
             ->count('uid')
-            ->execute();
-        \assert($result instanceof Result || $result instanceof Statement);
+            ->executeQuery();
 
-        return (int)$result->fetch(FetchMode::COLUMN);
+        return (int)$result->fetchOne();
     }
 
     /**

@@ -60,7 +60,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
 
         $this->subject = new FinisherOptions($this->fetchOption(...));
 
-        $this->importDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.xml');
+        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.csv');
 
         Bootstrap::initializeLanguageObject();
     }

@@ -63,7 +63,7 @@ final class ConsentChartDataProviderTest extends FunctionalTestCase
         $this->subject = new ConsentChartDataProvider($connection);
 
         // Import data
-        $this->importDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.xml');
+        $this->importCSVDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.csv');
     }
 
     #[Test]

@@ -70,7 +70,7 @@ final class InvokeFinishersListener
         // Early return if original request is missing
         // or no finisher variants are configured
         if (
-            empty($consent->getOriginalRequestParameters())
+            $consent->getOriginalRequestParameters() === null
             || $consent->getOriginalContentElementUid() === 0
             || !$this->areFinisherVariantsConfigured($consent->getFormPersistenceIdentifier(), $condition)
         ) {
