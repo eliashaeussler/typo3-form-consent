@@ -24,6 +24,7 @@ declare(strict_types=1);
 use EliasHaeussler\RectorConfig\Config\Config;
 use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
+use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
 
@@ -45,6 +46,10 @@ return static function (RectorConfig $rectorConfig): void {
         ->withPHPUnit()
         ->withSymfony()
         ->withTYPO3()
+        ->skip(AnnotationToAttributeRector::class, [
+            __DIR__ . '/Classes/Configuration/Extension.php',
+            __DIR__ . '/Classes/Updates/MigrateConsentStateUpgradeWizard.php',
+        ])
         ->skip(FinalizeClassesWithoutChildrenRector::class, [
             // Domain models and repositories should stay extendable
             __DIR__ . '/Classes/Domain/Model/*',

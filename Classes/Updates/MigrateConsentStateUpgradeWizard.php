@@ -35,9 +35,6 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Install\Updates\ChattyInterface;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
-use function assert;
-use function in_array;
-use function is_int;
 
 /**
  * MigrateConsentStateUpgradeWizard
@@ -185,7 +182,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     private function migrateUpdateDate(array &$record): ?string
     {
         // Early return if update date was already migrated
-        if (is_int($record['update_date']) && $record['update_date'] > 0) {
+        if (\is_int($record['update_date']) && $record['update_date'] > 0) {
             return null;
         }
 
@@ -195,7 +192,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         }
 
         // Approved consent
-        if (is_int($record['approval_date']) && $record['approval_date'] > 0 && !$record['deleted']) {
+        if (\is_int($record['approval_date']) && $record['approval_date'] > 0 && !$record['deleted']) {
             $record['update_date'] = $record['approval_date'];
 
             return 'approval_date';
@@ -222,7 +219,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         foreach ($schemaManager->listTableColumns(Consent::TABLE_NAME) as $column) {
             $columnName = $column->getName();
 
-            if (in_array($columnName, self::LEGACY_COLUMNS, true)) {
+            if (\in_array($columnName, self::LEGACY_COLUMNS, true)) {
                 $legacyColumns[] = $columnName;
             }
         }
@@ -239,7 +236,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         $result = $this->getPreparedQueryBuilder($legacyColumns)
             ->select('*')
             ->execute();
-        assert($result instanceof Result || $result instanceof Statement);
+        \assert($result instanceof Result || $result instanceof Statement);
 
         return $result;
     }
@@ -252,7 +249,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         $result = $this->getPreparedQueryBuilder($legacyColumns)
             ->count('uid')
             ->execute();
-        assert($result instanceof Result || $result instanceof Statement);
+        \assert($result instanceof Result || $result instanceof Statement);
 
         return (int)$result->fetch(FetchMode::COLUMN);
     }
