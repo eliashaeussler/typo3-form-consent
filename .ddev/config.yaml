@@ -10,34 +10,24 @@ additional_hostnames: []
 additional_fqdns: []
 database:
     type: mariadb
-    version: "10.3"
+    version: "10.4"
 performance_mode: none
 hooks:
     post-start:
-        - composer: prepare-environment
-        - composer: import-fixtures
+        - composer: install
+        - exec-host: ddev init-typo3
 omit_containers: [ddev-ssh-agent]
 use_dns_when_possible: true
 composer_version: "2"
 disable_settings_management: true
 web_environment:
+    - TESTING_DOMAIN=$DDEV_HOSTNAME
     - XDEBUG_MODE=coverage
-    - TYPO3_CONTEXT=Development/Ddev
-    # DB configuration for functional tests
+    - TYPO3_CONTEXT=Development/DDEV
     - typo3DatabaseHost=db
     - typo3DatabaseUsername=root
     - typo3DatabasePassword=root
     - typo3DatabaseName=db
-    # Domain configuration
-    - TESTING_DOMAIN=$DDEV_HOSTNAME
-    # Environment variables for TYPO3 installation
-    - TYPO3_INSTALL_DB_USER=db
-    - TYPO3_INSTALL_DB_PASSWORD=db
-    - TYPO3_INSTALL_DB_HOST=db
-    - TYPO3_INSTALL_DB_USE_EXISTING=0
-    - TYPO3_INSTALL_DB_DBNAME=db
-    - TYPO3_INSTALL_ADMIN_USER=admin
-    - TYPO3_INSTALL_ADMIN_PASSWORD=password
 nodejs_version: "16"
 
 # Key features of ddev's config.yaml:

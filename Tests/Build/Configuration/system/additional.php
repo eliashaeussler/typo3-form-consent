@@ -23,15 +23,15 @@ $GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive(
     $GLOBALS['TYPO3_CONF_VARS'],
     [
         'BE' => [
-            // password
-            'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$aVkwaW5iVHR4M0U3TWdaMw$TJQun8VfSLBmGrEuTxpl6B9axxxwfKw1IARSmoImRNo',
+            // password = password
+            'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$VEZPRGVuQ2kuNjZQNUJVSA$d84veaTY5pZUsg6d4rxXB/2QCmRhNOaleBhx2joQIa0',
         ],
         'DB' => [
             'Connections' => [
                 'Default' => [
                     'charset' => 'utf8mb4',
                     'dbname' => 'db',
-                    'driver' => 'pdo_mysql',
+                    'driver' => 'mysqli',
                     'host' => 'db',
                     'password' => 'db',
                     'port' => 3306,
@@ -49,6 +49,21 @@ $GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive(
             'processor_path' => '/usr/bin/',
             'processor_path_lzw' => '/usr/bin/',
         ],
+        'LOG' => [
+            'TYPO3' => [
+                'CMS' => [
+                    'deprecations' => [
+                        'writerConfiguration' => [
+                            'notice' => [
+                                \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+                                    'disabled' => false,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
         // This mail configuration sends all emails to mailhog
         'MAIL' => [
             'transport' => 'smtp',
@@ -56,9 +71,10 @@ $GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive(
             'transport_smtp_server' => 'localhost:1025',
         ],
         'SYS' => [
-            'trustedHostsPattern' => '.*.*',
             'devIPmask' => '*',
             'displayErrors' => 1,
+            'encryptionKey' => '22be11b3acb2d0a7427e9f23c6c1d8d2c19b05312d4961c025b9a8b74bd7f4087ad38eca173788364b3cccf7398ed682',
+            'trustedHostsPattern' => '.*.*',
         ],
-    ]
+    ],
 );

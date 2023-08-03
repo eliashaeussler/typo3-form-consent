@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3-version: ["11.5"]
         php-version: ["8.1", "8.2"]
+        typo3-version: ["11.5"]
         dependencies: ["highest", "lowest"]
     steps:
       - uses: actions/checkout@v3
@@ -49,13 +49,23 @@ jobs:
           composer-options: --with=typo3/cms-core:"^${{ matrix.typo3-version }}"
 
       # Run tests
-      - name: Run tests
-        run: ddev composer test
+      - name: Run acceptance tests
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 2
+          retry_on: error
+          timeout_minutes: 10
+          command: ddev composer test:acceptance
+          new_command_on_retry: ddev composer test:acceptance -- -g failed
+      - name: Run functional and unit tests
+        run: |
+          ddev composer test:functional
+          ddev composer test:unit
 
       # Save acceptance reports
       - uses: actions/upload-artifact@v3
         with:
-          name: acceptance-reports-${{ matrix.php-version }}-${{ matrix.typo3-version }}
+          name: acceptance-reports-${{ matrix.php-version }}-${{ matrix.typo3-version }}-${{ matrix.dependencies }}
           path: .Build/log/acceptance-reports
         if: failure()
 
@@ -71,7 +81,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
           tools: composer:v2
           coverage: none
 
@@ -82,35 +92,35 @@ jobs:
           autostart: false
       - name: Configure and start DDEV
         run: |
-          ddev config --project-type=typo3 --php-version=8.1 --xdebug-enabled=true
+          ddev config --project-type=typo3 --php-version=8.2 --xdebug-enabled=true
           ddev start
-
-      # Install dependencies
-      - name: Install Composer dependencies
-        uses: ramsey/composer-install@v2
 
       # Run tests
       - name: Run tests
-        run: |
-          ddev composer test:ci
-          ddev composer test:ci:merge
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 2
+          retry_on: error
+          timeout_minutes: 10
+          command: ddev composer test:coverage
 
       # Report coverage
       - name: Fix coverage path
-        working-directory: .Build/log/coverage
+        working-directory: .Build/coverage
         run: sed -i 's#/var/www/html#${{ github.workspace }}#g' clover.xml
       - name: CodeClimate report
         uses: paambaati/codeclimate-action@v5.0.0
+        if: env.CC_TEST_REPORTER_ID
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageLocations: |
-            ${{ github.workspace }}/.Build/log/coverage/clover.xml:clover
+            ${{ github.workspace }}/.Build/coverage/clover.xml:clover
       - name: codecov report
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: .Build/log/coverage
+          directory: .Build/coverage
           fail_ci_if_error: true
           verbose: true
 
