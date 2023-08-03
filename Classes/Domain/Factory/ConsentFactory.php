@@ -45,24 +45,13 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  */
 final class ConsentFactory
 {
-    private ConfigurationManagerInterface $configurationManager;
-    private Context $context;
-    private EventDispatcherInterface $eventDispatcher;
-    private HashService $hashService;
-    private TypeTransformerFactory $typeTransformerFactory;
-
     public function __construct(
-        ConfigurationManagerInterface $configurationManager,
-        Context $context,
-        EventDispatcherInterface $eventDispatcher,
-        HashService $hashService,
-        TypeTransformerFactory $typeTransformerFactory
+        private readonly ConfigurationManagerInterface $configurationManager,
+        private readonly Context $context,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly HashService $hashService,
+        private readonly TypeTransformerFactory $typeTransformerFactory,
     ) {
-        $this->configurationManager = $configurationManager;
-        $this->context = $context;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->hashService = $hashService;
-        $this->typeTransformerFactory = $typeTransformerFactory;
     }
 
     public function createFromForm(FinisherOptions $finisherOptions, FormRuntime $formRuntime): Consent

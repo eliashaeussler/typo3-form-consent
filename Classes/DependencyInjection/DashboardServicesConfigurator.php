@@ -43,11 +43,9 @@ final class DashboardServicesConfigurator
     private const APPROVED_CONSENTS_DATA_PROVIDER = 'form_consent.widget.approved_consents.data_provider';
     private const CONSENT_CONNECTION = 'connection.tx_formconsent_domain_model_consent';
 
-    private ServicesConfigurator $services;
-
-    public function __construct(ServicesConfigurator $services)
-    {
-        $this->services = $services;
+    public function __construct(
+        private readonly ServicesConfigurator $services,
+    ) {
     }
 
     public function configureServices(): void

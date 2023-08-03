@@ -64,14 +64,14 @@ final class Configuration
         if (self::$configuration === null) {
             try {
                 self::$configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(Extension::KEY);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 self::$configuration = [];
             }
         }
 
         try {
             return ArrayUtility::getValueByPath(self::$configuration, $path);
-        } catch (MissingArrayPathException $exception) {
+        } catch (MissingArrayPathException) {
             return null;
         }
     }

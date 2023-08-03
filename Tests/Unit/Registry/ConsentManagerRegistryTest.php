@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Registry;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -46,9 +47,7 @@ final class ConsentManagerRegistryTest extends UnitTestCase
         $this->consent->setApproved();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function registerConsentGloballyRegistersConsent(): void
     {
         self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
@@ -58,9 +57,7 @@ final class ConsentManagerRegistryTest extends UnitTestCase
         self::assertTrue(ConsentManagerRegistry::isConsentApproved('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function unregisterConsentGloballyUnregistersConsent(): void
     {
         ConsentManagerRegistry::registerConsent($this->consent);
@@ -72,17 +69,13 @@ final class ConsentManagerRegistryTest extends UnitTestCase
         self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isConsentApprovedReturnsFalseIfConsentIsNotRegistered(): void
     {
         self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isConsentApprovedReturnsStateOfApprovalOfRegisteredConsent(): void
     {
         ConsentManagerRegistry::registerConsent($this->consent);
@@ -94,17 +87,13 @@ final class ConsentManagerRegistryTest extends UnitTestCase
         self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isConsentDismissedReturnsFalseIfConsentIsNotRegistered(): void
     {
         self::assertFalse(ConsentManagerRegistry::isConsentDismissed('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isConsentDismissedReturnsStateOfDismissalOfRegisteredConsent(): void
     {
         ConsentManagerRegistry::registerConsent($this->consent);

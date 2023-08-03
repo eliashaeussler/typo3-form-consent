@@ -34,13 +34,10 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  */
 final class ModifyConsentMailEvent
 {
-    private FluidEmail $mail;
-    private FormRuntime $formRuntime;
-
-    public function __construct(FluidEmail $mail, FormRuntime $formRuntime)
-    {
-        $this->mail = $mail;
-        $this->formRuntime = $formRuntime;
+    public function __construct(
+        private readonly FluidEmail $mail,
+        private readonly FormRuntime $formRuntime,
+    ) {
     }
 
     public function getMail(): FluidEmail

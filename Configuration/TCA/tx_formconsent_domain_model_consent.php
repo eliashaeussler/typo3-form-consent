@@ -87,7 +87,6 @@ return [
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('original_content_element_uid', $tableName),
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tt_content',
                 'foreign_table' => 'tt_content',
                 'size' => 1,

@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -47,18 +48,14 @@ final class ApproveConsentEventTest extends UnitTestCase
         $this->subject = new ApproveConsentEvent($this->consent);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getConsentReturnsInitialConsent(): void
     {
         $expected = $this->consent;
         self::assertSame($expected, $this->subject->getConsent());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getResponseReturnsResponse(): void
     {
         self::assertNull($this->subject->getResponse());

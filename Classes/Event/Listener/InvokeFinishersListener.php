@@ -31,6 +31,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
+use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -46,13 +47,10 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 final class InvokeFinishersListener
 {
-    private FormPersistenceManagerInterface $formPersistenceManager;
-    private PageRepository $pageRepository;
-
-    public function __construct(FormPersistenceManagerInterface $formPersistenceManager, PageRepository $pageRepository)
-    {
-        $this->formPersistenceManager = $formPersistenceManager;
-        $this->pageRepository = $pageRepository;
+    public function __construct(
+        private readonly FormPersistenceManagerInterface $formPersistenceManager,
+        private readonly PageRepository $pageRepository,
+    ) {
     }
 
     public function onConsentApprove(ApproveConsentEvent $event): void
@@ -95,25 +93,12 @@ final class InvokeFinishersListener
             return null;
         }
 
-        // Backup original server request object
-        // @todo Remove once v10 support is dropped
-        $originalRequest = $GLOBALS['TYPO3_REQUEST'];
-        $GLOBALS['TYPO3_REQUEST'] = $serverRequest;
-
         // Build extbase bootstrap object
         $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        // @todo Enable third parameter once v10 support is dropped
-        $contentObjectRenderer->start($contentElementRecord, 'tt_content'/**, $serverRequest */);
+        $contentObjectRenderer->start($contentElementRecord, 'tt_content', $serverRequest);
         $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
         $bootstrap = GeneralUtility::makeInstance(Bootstrap::class);
-
-        if (method_exists($bootstrap, 'setContentObjectRenderer')) {
-            $bootstrap->setContentObjectRenderer($contentObjectRenderer);
-        } else {
-            // @todo Remove once v10 support is dropped
-            /* @phpstan-ignore-next-line */
-            $bootstrap->cObj = $contentObjectRenderer;
-        }
+        $bootstrap->setContentObjectRenderer($contentObjectRenderer);
 
         $configuration = [
             'extensionName' => 'Form',
@@ -122,18 +107,14 @@ final class InvokeFinishersListener
 
         try {
             // Dispatch extbase request
-            // @todo Enable third parameter once v10 support is dropped
-            $content = $bootstrap->run('', $configuration/**, $serverRequest */);
+            $content = $bootstrap->run('', $configuration, $serverRequest);
             $response = new Response();
             $response->getBody()->write($content);
 
             return $response;
-        } catch (ImmediateResponseException $exception) {
+        } catch (ImmediateResponseException|PropagateResponseException $exception) {
             // If any immediate response is thrown, use this for further processing
             return $exception->getResponse();
-        } finally {
-            // Restore original server request object
-            $GLOBALS['TYPO3_REQUEST'] = $originalRequest;
         }
     }
 

@@ -53,15 +53,4 @@ final class InvalidStateException extends \Exception
             1648199643
         );
     }
-
-    /**
-     * @param mixed $state
-     */
-    public static function forTypeMismatch($state): self
-    {
-        return new self(
-            sprintf('Expected a valid state, provided as integer or numeric string, %s given.', get_debug_type($state)),
-            1648199565
-        );
-    }
 }

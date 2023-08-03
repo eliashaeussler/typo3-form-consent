@@ -36,7 +36,6 @@ final class ModalDialog extends AbstractModalDialog
 {
     public function __construct(AcceptanceTester $tester)
     {
-        /* @phpstan-ignore-next-line */
         $this->tester = $tester;
     }
 }

@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -35,6 +36,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class FormRequestTypeTransformerTest extends FunctionalTestCase
 {
+    protected bool $initializeDatabase = false;
+
     protected FormRequestTypeTransformer $subject;
 
     protected function setUp(): void
@@ -44,9 +47,7 @@ final class FormRequestTypeTransformerTest extends FunctionalTestCase
         $this->subject = new FormRequestTypeTransformer($this->getContainer()->get(HashService::class));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function transformThrowsExceptionIfFormRuntimeIsNotGiven(): void
     {
         $this->expectException(\InvalidArgumentException::class);

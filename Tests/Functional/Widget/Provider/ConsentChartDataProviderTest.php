@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Widget\Provider;
 use Doctrine\DBAL\DBALException;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Exception;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -37,12 +38,12 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class ConsentChartDataProviderTest extends FunctionalTestCase
 {
-    protected $coreExtensionsToLoad = [
+    protected array $coreExtensionsToLoad = [
         'form',
     ];
 
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/form_consent',
+    protected array $testExtensionsToLoad = [
+        'form_consent',
     ];
 
     private static string $languagePrefix = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:';
@@ -65,9 +66,7 @@ final class ConsentChartDataProviderTest extends FunctionalTestCase
         $this->importDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.xml');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getChartDataReturnsCorrectChartData(): void
     {
         $expectedApprovedCount = 1;

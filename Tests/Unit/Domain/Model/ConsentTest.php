@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Domain\Model;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -44,9 +45,7 @@ final class ConsentTest extends UnitTestCase
         $this->subject = new Consent();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setEmailStoresEmailCorrectly(): void
     {
         $this->subject->setEmail('foo@baz.com');
@@ -54,9 +53,7 @@ final class ConsentTest extends UnitTestCase
         self::assertSame($expected, $this->subject->getEmail());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setDateStoresCreationDateCorrectly(): void
     {
         $date = new \DateTime();
@@ -64,9 +61,7 @@ final class ConsentTest extends UnitTestCase
         self::assertSame($date, $this->subject->getDate());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setDataStoresUserDataCorrectly(): void
     {
         $data = JsonType::fromArray(['foo' => 'baz']);
@@ -74,26 +69,20 @@ final class ConsentTest extends UnitTestCase
         self::assertSame($data, $this->subject->getData());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFormPersistenceIdentifierStoresFormPersistenceIdentifierCorrectly(): void
     {
         $this->subject->setFormPersistenceIdentifier('foo');
         self::assertSame('foo', $this->subject->getFormPersistenceIdentifier());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getOriginalRequestParametersReturnsNullOnInitialObject(): void
     {
         self::assertNull($this->subject->getValidUntil());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setOriginalRequestParametersStoresOriginalRequestParametersCorrectly(): void
     {
         $originalRequestParameters = JsonType::fromArray(['foo' => 'baz']);
@@ -103,17 +92,13 @@ final class ConsentTest extends UnitTestCase
         self::assertSame($originalRequestParameters, $this->subject->getOriginalRequestParameters());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getOriginalContentElementUidReturnsZeroOnInitialState(): void
     {
         self::assertSame(0, $this->subject->getOriginalContentElementUid());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setOriginalContentElementUidStoresOriginalContentElementUidCorrectly(): void
     {
         $this->subject->setOriginalContentElementUid(123);
@@ -121,25 +106,19 @@ final class ConsentTest extends UnitTestCase
         self::assertSame(123, $this->subject->getOriginalContentElementUid());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStateReturnsNullOnInitialState(): void
     {
         self::assertNull($this->subject->getState());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isApprovedReturnsFalseOnInitialState(): void
     {
         self::assertFalse($this->subject->isApproved());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setApprovedStoresApprovalCorrectly(): void
     {
         $this->subject->setApproved();
@@ -147,17 +126,13 @@ final class ConsentTest extends UnitTestCase
         self::assertTrue($this->subject->isApproved());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isDismissedReturnsFalseOnInitialState(): void
     {
         self::assertFalse($this->subject->isDismissed());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setDismissedStoresDismissalCorrectly(): void
     {
         $this->subject->setDismissed();
@@ -165,9 +140,7 @@ final class ConsentTest extends UnitTestCase
         self::assertTrue($this->subject->isDismissed());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setStateStoresConsentStateCorrectly(): void
     {
         $state = ConsentStateType::createNew();
@@ -177,17 +150,13 @@ final class ConsentTest extends UnitTestCase
         self::assertSame($state, $this->subject->getState());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getUpdateDateReturnsNullOnInitialState(): void
     {
         self::assertNull($this->subject->getUpdateDate());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setUpdateDateStoresUpdateDateCorrectly(): void
     {
         $date = new \DateTime();
@@ -197,17 +166,13 @@ final class ConsentTest extends UnitTestCase
         self::assertSame($date, $this->subject->getUpdateDate());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getValidUntilReturnsNullOnInitialObject(): void
     {
         self::assertNull($this->subject->getValidUntil());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setValidUntilStoresLastPossibleApprovalDateCorrectly(): void
     {
         $date = \DateTime::createFromFormat('U', (string)(time() + 86400));
@@ -216,9 +181,7 @@ final class ConsentTest extends UnitTestCase
         self::assertSame($date, $this->subject->getValidUntil());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setValidationHashStoresValidationHashCorrectly(): void
     {
         $this->subject->setValidationHash('dummy');

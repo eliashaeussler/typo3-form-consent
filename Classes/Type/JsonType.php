@@ -35,7 +35,7 @@ use TYPO3\CMS\Core\Type\TypeInterface;
  * @template TValue
  * @implements \ArrayAccess<TKey, TValue>
  */
-final class JsonType implements TypeInterface, \ArrayAccess, \JsonSerializable
+final class JsonType implements TypeInterface, \ArrayAccess, \JsonSerializable, \Stringable
 {
     /**
      * @var array<TKey, TValue>
@@ -90,8 +90,7 @@ final class JsonType implements TypeInterface, \ArrayAccess, \JsonSerializable
      * @param TKey $offset
      * @return TValue|null
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->data[$offset] ?? null;
     }
