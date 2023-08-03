@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -34,6 +35,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(FormRequestTypeTransformer::class)]
 final class FormRequestTypeTransformerTest extends FunctionalTestCase
 {
     protected bool $initializeDatabase = false;

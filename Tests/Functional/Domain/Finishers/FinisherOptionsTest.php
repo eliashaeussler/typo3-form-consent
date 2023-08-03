@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Finishers;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Finishers\FinisherOptions;
 use EliasHaeussler\Typo3FormConsent\Exception\NotAllowedException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Fluid\View\TemplatePaths;
@@ -37,6 +38,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(FinisherOptions::class)]
 final class FinisherOptionsTest extends FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [

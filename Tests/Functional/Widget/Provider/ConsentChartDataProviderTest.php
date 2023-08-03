@@ -26,8 +26,8 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Widget\Provider;
 use Doctrine\DBAL\DBALException;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Exception;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -36,6 +36,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(ConsentChartDataProvider::class)]
 final class ConsentChartDataProviderTest extends FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
@@ -52,7 +53,6 @@ final class ConsentChartDataProviderTest extends FunctionalTestCase
 
     /**
      * @throws DBALException
-     * @throws Exception
      */
     protected function setUp(): void
     {

@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -35,6 +36,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(FormValuesTypeTransformer::class)]
 final class FormValuesTypeTransformerTest extends FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [

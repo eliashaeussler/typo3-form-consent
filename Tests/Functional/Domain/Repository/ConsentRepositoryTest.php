@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Repository;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -36,6 +37,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(ConsentRepository::class)]
 final class ConsentRepositoryTest extends FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [

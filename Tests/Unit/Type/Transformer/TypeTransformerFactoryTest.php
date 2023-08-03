@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type\Transformer;
 use EliasHaeussler\Typo3FormConsent\Exception\UnsupportedTypeException;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
@@ -37,6 +38,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+#[CoversClass(TypeTransformerFactory::class)]
 final class TypeTransformerFactoryTest extends UnitTestCase
 {
     protected FormRequestTypeTransformer $formRequestTypeTransformer;
