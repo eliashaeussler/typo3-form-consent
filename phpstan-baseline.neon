@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) with 'approvalPeriod' and EliasHaeussler\\\\Typo3FormConsent\\\\Domain\\\\Finishers\\\\FinisherOptions will always evaluate to false\\.$#"
+			count: 1
+			path: Tests/Functional/Domain/Finishers/FinisherOptionsTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) with 'foo' and EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\JsonType\\<string, string\\> will always evaluate to false\\.$#"
+			count: 1
+			path: Tests/Unit/Type/JsonTypeTest.php
