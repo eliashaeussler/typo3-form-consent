@@ -37,6 +37,11 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  */
 final class FormValuesTypeTransformer implements TypeTransformerInterface
 {
+    public function __construct(
+        private readonly Configuration $configuration,
+    ) {
+    }
+
     /**
      * @return JsonType<string, mixed>
      * @throws \JsonException
@@ -77,7 +82,7 @@ final class FormValuesTypeTransformer implements TypeTransformerInterface
 
     private function isElementExcluded(string $elementIdentifier, FormRuntime $formRuntime): bool
     {
-        $excludedElements = Configuration::getExcludedElementsFromPersistence();
+        $excludedElements = $this->configuration->getExcludedElementsFromPersistence();
         $element = $formRuntime->getFormDefinition()->getElementByIdentifier($elementIdentifier);
 
         return $element !== null && \in_array($element->getType(), $excludedElements, true);

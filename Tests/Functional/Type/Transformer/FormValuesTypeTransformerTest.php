@@ -56,7 +56,7 @@ final class FormValuesTypeTransformerTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->subject = new FormValuesTypeTransformer();
+        $this->subject = $this->get(FormValuesTypeTransformer::class);
         $this->formRuntime = $this->get(FormRuntime::class);
     }
 
