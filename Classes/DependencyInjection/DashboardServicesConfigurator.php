@@ -57,6 +57,7 @@ final class DashboardServicesConfigurator
     {
         // Widget "approved consents"
         $this->services->set(self::APPROVED_CONSENTS_WIDGET)
+            ->autowire()
             ->class(ApprovedConsentsWidget::class)
             ->arg('$view', new Reference('dashboard.views.widget'))
             ->arg('$dataProvider', new Reference(self::APPROVED_CONSENTS_DATA_PROVIDER))
