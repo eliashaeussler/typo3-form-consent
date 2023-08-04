@@ -26,8 +26,6 @@ namespace EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Extension;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Exception;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\Exception\MissingArrayPathException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -38,42 +36,26 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class Configuration
 {
-    /**
-     * @var array<string, mixed>|null
-     */
-    private static ?array $configuration = null;
+    public function __construct(
+        private readonly ExtensionConfiguration $configuration,
+    ) {
+    }
 
     /**
      * @return list<string>
      */
-    public static function getExcludedElementsFromPersistence(): array
+    public function getExcludedElementsFromPersistence(): array
     {
-        $configurationValue = self::get('persistence/excludedElements');
-
-        if (!\is_string($configurationValue)) {
-            return [];
-        }
-
-        return GeneralUtility::trimExplode(',', $configurationValue, true);
-    }
-
-    /**
-     * @return mixed|null
-     */
-    private static function get(string $path)
-    {
-        if (self::$configuration === null) {
-            try {
-                self::$configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(Extension::KEY);
-            } catch (Exception) {
-                self::$configuration = [];
-            }
-        }
-
         try {
-            return ArrayUtility::getValueByPath(self::$configuration, $path);
-        } catch (MissingArrayPathException) {
-            return null;
+            $configurationValue = $this->configuration->get(Extension::KEY, 'persistence/excludedElements');
+
+            if (!\is_string($configurationValue)) {
+                return [];
+            }
+
+            return GeneralUtility::trimExplode(',', $configurationValue, true);
+        } catch (Exception) {
+            return [];
         }
     }
 }

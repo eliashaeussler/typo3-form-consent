@@ -28,7 +28,6 @@ use EliasHaeussler\Typo3FormConsent\Extension;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -43,11 +42,14 @@ final class ConfigurationTest extends FunctionalTestCase
     protected bool $initializeDatabase = false;
 
     protected ExtensionConfiguration $extensionConfiguration;
+    protected Configuration $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+
+        $this->extensionConfiguration = $this->get(ExtensionConfiguration::class);
+        $this->subject = new Configuration($this->extensionConfiguration);
     }
 
     #[Test]
@@ -55,7 +57,7 @@ final class ConfigurationTest extends FunctionalTestCase
     {
         $this->extensionConfiguration->set(Extension::KEY, []);
 
-        self::assertSame([], Configuration::getExcludedElementsFromPersistence());
+        self::assertSame([], $this->subject->getExcludedElementsFromPersistence());
     }
 
     #[Test]
@@ -63,7 +65,7 @@ final class ConfigurationTest extends FunctionalTestCase
     {
         $this->extensionConfiguration->set(Extension::KEY);
 
-        self::assertSame([], Configuration::getExcludedElementsFromPersistence());
+        self::assertSame([], $this->subject->getExcludedElementsFromPersistence());
     }
 
     #[Test]
@@ -81,16 +83,6 @@ final class ConfigurationTest extends FunctionalTestCase
             'ContentElement',
         ];
 
-        self::assertSame($expected, Configuration::getExcludedElementsFromPersistence());
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        $reflectionClass = new \ReflectionClass(Configuration::class);
-        $reflectionProperty = $reflectionClass->getProperty('configuration');
-        $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue(null);
+        self::assertSame($expected, $this->subject->getExcludedElementsFromPersistence());
     }
 }
