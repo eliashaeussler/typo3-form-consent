@@ -20,8 +20,15 @@
  */
 
 $tableName = \EliasHaeussler\Typo3FormConsent\Domain\Model\Consent::TABLE_NAME;
+$typo3Version = (new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion();
 
-/** @noinspection MissingRenderTypeInspection */
+// @todo Remove once support for TYPO3 v11 is dropped
+$evalRequired = fn (string $eval = '') => $typo3Version < 12 ? $eval : ltrim($eval . ',required', ',');
+$item = fn (string $label, int $value, string $icon) => $typo3Version < 12
+    ? [$label, $value, $icon]
+    : ['label' => $label, 'value' => $value, 'icon' => $icon]
+;
+
 return [
     'ctrl' => [
         'label' => 'email',
@@ -40,9 +47,10 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required',
+                'eval' => $evalRequired('trim'),
                 'softref' => 'email[subst]',
                 'readOnly' => true,
+                'required' => true,
             ],
         ],
         'date' => [
@@ -51,9 +59,10 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int,required',
+                'eval' => $evalRequired('datetime,int'),
                 'default' => 0,
                 'readOnly' => true,
+                'required' => true,
             ],
         ],
         'data' => [
@@ -70,9 +79,10 @@ return [
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('form_persistence_identifier', $tableName),
             'config' => [
                 'type' => 'input',
-                'eval' => 'required',
+                'eval' => $evalRequired(),
                 'softref' => 'formPersistenceIdentifier',
                 'readOnly' => true,
+                'required' => true,
             ],
         ],
         'original_request_parameters' => [
@@ -102,21 +112,21 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [
+                    $item(
                         \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'new'),
                         \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
                         'overlay-scheduled',
-                    ],
-                    [
+                    ),
+                    $item(
                         \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'approved'),
                         \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::APPROVED,
                         'overlay-approved',
-                    ],
-                    [
+                    ),
+                    $item(
                         \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'dismissed'),
                         \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::DISMISSED,
                         'overlay-readonly',
-                    ],
+                    ),
                 ],
                 'default' => \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
                 'readOnly' => true,

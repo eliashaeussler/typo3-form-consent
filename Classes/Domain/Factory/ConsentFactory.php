@@ -35,6 +35,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 
 /**
@@ -68,7 +69,7 @@ final class ConsentFactory
             ->setData($formValuesTransformer->transform($formRuntime))
             ->setFormPersistenceIdentifier($formRuntime->getFormDefinition()->getPersistenceIdentifier())
             ->setOriginalRequestParameters($formRequestTransformer->transform($formRuntime))
-            ->setOriginalContentElementUid($this->getCurrentContentElementUid())
+            ->setOriginalContentElementUid($this->getCurrentContentElementUid($formRuntime->getRequest()))
             ->setState(ConsentStateType::createNew())
             ->setValidUntil($this->calculateExpiryDate($approvalPeriod, $submitDate))
         ;
@@ -107,9 +108,14 @@ final class ConsentFactory
         return new \DateTime('@' . $target);
     }
 
-    private function getCurrentContentElementUid(): int
+    private function getCurrentContentElementUid(RequestInterface $request): int
     {
-        $contentObjectRenderer = $this->configurationManager->getContentObject();
+        $contentObjectRenderer = $request->getAttribute('currentContentObject');
+
+        // @todo Remove if support for TYPO3 v11 is dropped
+        if ($contentObjectRenderer === null) {
+            $contentObjectRenderer = $this->configurationManager->getContentObject();
+        }
 
         if ($contentObjectRenderer !== null) {
             return (int)($contentObjectRenderer->data['uid'] ?? 0);

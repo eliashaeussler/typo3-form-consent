@@ -100,6 +100,9 @@ final class InvokeFinishersListener
         $bootstrap = GeneralUtility::makeInstance(Bootstrap::class);
         $bootstrap->setContentObjectRenderer($contentObjectRenderer);
 
+        // Inject content object renderer (TYPO3 >= 12)
+        $serverRequest = $serverRequest->withAttribute('currentContentObject', $contentObjectRenderer);
+
         $configuration = [
             'extensionName' => 'Form',
             'pluginName' => 'Formframework',

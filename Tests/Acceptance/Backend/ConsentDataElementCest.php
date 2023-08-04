@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
 
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
+use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
  * ConsentDataElementCest
@@ -35,11 +36,20 @@ final class ConsentDataElementCest
 {
     public function canSeeConsentInBackendListModule(AcceptanceTester $I): void
     {
+        $typo3Version = new Typo3Version();
+
+        if ($typo3Version->getMajorVersion() >= 12) {
+            $moduleIdentifier = '[data-modulemenu-identifier="web_list"]';
+        } else {
+            // @todo Remove once support for TYPO3 v11 is dropped
+            $moduleIdentifier = '#web_list';
+        }
+
         $I->amOnPage('/');
         $I->fillAndSubmitForm();
 
         $I->loginAs('admin');
-        $I->openModule('#web_list');
+        $I->openModule($moduleIdentifier);
 
         $I->seeElement('#t3-table-tx_formconsent_domain_model_consent');
         $I->click('tr[data-table="tx_formconsent_domain_model_consent"]:first-child td.col-title a');

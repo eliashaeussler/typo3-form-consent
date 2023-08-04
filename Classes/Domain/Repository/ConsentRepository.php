@@ -48,14 +48,15 @@ class ConsentRepository extends Repository
     public function findOneByValidationHash(string $validationHash): ?Consent
     {
         $query = $this->createQuery();
-        $constraints = [
-            $query->equals('validation_hash', $validationHash),
-            $query->logicalOr([
-                $query->equals('valid_until', null),
-                $query->greaterThanOrEqual('valid_until', time()),
-            ]),
-        ];
-        $query->matching($query->logicalAnd($constraints));
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('validation_hash', $validationHash),
+                $query->logicalOr(
+                    $query->equals('valid_until', null),
+                    $query->greaterThanOrEqual('valid_until', time()),
+                ),
+            ),
+        );
         /** @var Consent|null $consent */
         $consent = $query->execute()->getFirst();
 

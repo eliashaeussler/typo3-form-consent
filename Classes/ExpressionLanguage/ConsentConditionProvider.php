@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\ExpressionLanguage;
 
 use EliasHaeussler\Typo3FormConsent\ExpressionLanguage\FunctionsProvider\ConsentConditionFunctionsProvider;
-use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 use TYPO3\CMS\Core\ExpressionLanguage\AbstractProvider;
 
 /**
@@ -35,10 +34,11 @@ use TYPO3\CMS\Core\ExpressionLanguage\AbstractProvider;
  */
 final class ConsentConditionProvider extends AbstractProvider
 {
-    /**
-     * @var list<class-string<ExpressionFunctionProviderInterface>>
-     */
-    protected $expressionLanguageProviders = [
-        ConsentConditionFunctionsProvider::class,
-    ];
+    public function __construct()
+    {
+        // @todo Move to property once support for TYPO3 v11 is dropped
+        $this->expressionLanguageProviders = [
+            ConsentConditionFunctionsProvider::class,
+        ];
+    }
 }
