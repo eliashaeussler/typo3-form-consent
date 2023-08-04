@@ -25,7 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Widget\Provider;
 
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
+use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -67,20 +67,20 @@ final class ConsentChartDataProvider implements ChartDataProviderInterface
 
     private function countApproved(): int
     {
-        return $this->count(ConsentStateType::APPROVED);
+        return $this->count(ConsentState::Approved);
     }
 
     private function countNonApproved(): int
     {
-        return $this->count(ConsentStateType::NEW);
+        return $this->count(ConsentState::New);
     }
 
     private function countDismissed(): int
     {
-        return $this->count(ConsentStateType::DISMISSED, true);
+        return $this->count(ConsentState::Dismissed, true);
     }
 
-    private function count(int $state, bool $includeDeleted = false): int
+    private function count(ConsentState $state, bool $includeDeleted = false): int
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
@@ -94,7 +94,7 @@ final class ConsentChartDataProvider implements ChartDataProviderInterface
             ->where(
                 $queryBuilder->expr()->eq(
                     'state',
-                    $queryBuilder->createNamedParameter($state, Connection::PARAM_INT)
+                    $queryBuilder->createNamedParameter($state->value, Connection::PARAM_INT)
                 )
             )
             ->executeQuery();

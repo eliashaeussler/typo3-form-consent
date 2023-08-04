@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type;
 
-use EliasHaeussler\Typo3FormConsent\Exception\InvalidStateException;
+use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -47,15 +47,6 @@ final class ConsentStateTypeTest extends UnitTestCase
         parent::setUp();
 
         $this->subject = new ConsentStateType();
-    }
-
-    #[Test]
-    public function constructorThrowsExceptionOnInvalidState(): void
-    {
-        $this->expectException(InvalidStateException::class);
-        $this->expectExceptionCode(1648199643);
-
-        new ConsentStateType(99);
     }
 
     #[Test]
@@ -99,7 +90,7 @@ final class ConsentStateTypeTest extends UnitTestCase
 
     #[Test]
     #[DataProvider('isNewReturnsConsentCreationStateDataProvider')]
-    public function isNewReturnsConsentCreationState(int $state, bool $expected): void
+    public function isNewReturnsConsentCreationState(ConsentState $state, bool $expected): void
     {
         $subject = new ConsentStateType($state);
 
@@ -108,7 +99,7 @@ final class ConsentStateTypeTest extends UnitTestCase
 
     #[Test]
     #[DataProvider('isApprovedReturnsConsentApprovalStateDataProvider')]
-    public function isApprovedReturnsConsentApprovalState(int $state, bool $expected): void
+    public function isApprovedReturnsConsentApprovalState(ConsentState $state, bool $expected): void
     {
         $subject = new ConsentStateType($state);
 
@@ -117,7 +108,7 @@ final class ConsentStateTypeTest extends UnitTestCase
 
     #[Test]
     #[DataProvider('isDismissedReturnsConsentDismissalStateDataProvider')]
-    public function isDismissedReturnsConsentDismissalState(int $state, bool $expected): void
+    public function isDismissedReturnsConsentDismissalState(ConsentState $state, bool $expected): void
     {
         $subject = new ConsentStateType($state);
 
@@ -131,32 +122,32 @@ final class ConsentStateTypeTest extends UnitTestCase
     }
 
     /**
-     * @return Generator<string, array{int, bool}>
+     * @return Generator<string, array{ConsentState, bool}>
      */
     public static function isNewReturnsConsentCreationStateDataProvider(): Generator
     {
-        yield 'new consent' => [ConsentStateType::NEW, true];
-        yield 'consent approved' => [ConsentStateType::APPROVED, false];
-        yield 'consent dismissed' => [ConsentStateType::DISMISSED, false];
+        yield 'new consent' => [ConsentState::New, true];
+        yield 'consent approved' => [ConsentState::Approved, false];
+        yield 'consent dismissed' => [ConsentState::Dismissed, false];
     }
 
     /**
-     * @return Generator<string, array{int, bool}>
+     * @return Generator<string, array{ConsentState, bool}>
      */
     public static function isApprovedReturnsConsentApprovalStateDataProvider(): Generator
     {
-        yield 'new consent' => [ConsentStateType::NEW, false];
-        yield 'consent approved' => [ConsentStateType::APPROVED, true];
-        yield 'consent dismissed' => [ConsentStateType::DISMISSED, false];
+        yield 'new consent' => [ConsentState::New, false];
+        yield 'consent approved' => [ConsentState::Approved, true];
+        yield 'consent dismissed' => [ConsentState::Dismissed, false];
     }
 
     /**
-     * @return Generator<string, array{int, bool}>
+     * @return Generator<string, array{ConsentState, bool}>
      */
     public static function isDismissedReturnsConsentDismissalStateDataProvider(): Generator
     {
-        yield 'new consent' => [ConsentStateType::NEW, false];
-        yield 'consent approved' => [ConsentStateType::APPROVED, false];
-        yield 'consent dismissed' => [ConsentStateType::DISMISSED, true];
+        yield 'new consent' => [ConsentState::New, false];
+        yield 'consent approved' => [ConsentState::Approved, false];
+        yield 'consent dismissed' => [ConsentState::Dismissed, true];
     }
 }

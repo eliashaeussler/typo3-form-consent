@@ -25,7 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Updates;
 
 use Doctrine\DBAL\Result;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
+use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
@@ -153,7 +153,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     private function migrateState(array &$record): bool
     {
         // Early return if state was already migrated
-        if ((int)$record['state'] !== ConsentStateType::NEW) {
+        if ((int)$record['state'] !== ConsentState::New->value) {
             return false;
         }
 
@@ -164,14 +164,14 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
 
         // Approved consent
         if ((bool)$record['approved'] === true) {
-            $record['state'] = ConsentStateType::APPROVED;
+            $record['state'] = ConsentState::Approved->value;
 
             return true;
         }
 
         // Dismissed consent
         if ((bool)$record['deleted'] === true && $record['data'] === null) {
-            $record['state'] = ConsentStateType::DISMISSED;
+            $record['state'] = ConsentState::Dismissed->value;
 
             return true;
         }
@@ -295,11 +295,11 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         return $expr->or(
             $expr->and(
                 $expr->eq('approved', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
-                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentStateType::NEW, Connection::PARAM_INT))
+                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentState::New->value, Connection::PARAM_INT))
             ),
             $expr->and(
                 $expr->eq('approved', $queryBuilder->createNamedParameter(false, Connection::PARAM_BOOL)),
-                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentStateType::NEW, Connection::PARAM_INT)),
+                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentState::New->value, Connection::PARAM_INT)),
                 $expr->eq('deleted', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
                 $expr->isNull('data')
             )

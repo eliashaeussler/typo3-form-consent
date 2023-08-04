@@ -21,36 +21,17 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Exception;
-
-use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
+namespace EliasHaeussler\Typo3FormConsent\Enums;
 
 /**
- * InvalidStateException
+ * ConsentState
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class InvalidStateException extends \Exception
+enum ConsentState: int
 {
-    /**
-     * @param list<int>|null $supportedStates
-     */
-    public static function create(int $state, array $supportedStates = null): self
-    {
-        $supportedStates ??= [
-            ConsentStateType::NEW,
-            ConsentStateType::APPROVED,
-            ConsentStateType::DISMISSED,
-        ];
-
-        return new self(
-            sprintf(
-                'The given state "%d" is invalid. Only states "%s" are supported.',
-                $state,
-                implode('", "', $supportedStates)
-            ),
-            1648199643
-        );
-    }
+    case New = 0;
+    case Approved = 1;
+    case Dismissed = 2;
 }

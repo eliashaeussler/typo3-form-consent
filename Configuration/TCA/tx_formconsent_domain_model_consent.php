@@ -24,10 +24,23 @@ $typo3Version = (new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersio
 
 // @todo Remove once support for TYPO3 v11 is dropped
 $evalRequired = fn (string $eval = '') => $typo3Version < 12 ? $eval : ltrim($eval . ',required', ',');
-$item = fn (string $label, int $value, string $icon) => $typo3Version < 12
-    ? [$label, $value, $icon]
-    : ['label' => $label, 'value' => $value, 'icon' => $icon]
-;
+$stateItem = function (
+    string $item,
+    \EliasHaeussler\Typo3FormConsent\Enums\ConsentState $state,
+    string $icon,
+) use ($tableName, $typo3Version) {
+    $label = \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, $item);
+
+    if ($typo3Version < 12) {
+        return [$label, $state->value, $icon];
+    }
+
+    return [
+        'label' => $label,
+        'value' => $state->value,
+        'icon' => $icon,
+    ];
+};
 
 return [
     'ctrl' => [
@@ -112,29 +125,29 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    $item(
-                        \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'new'),
-                        \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
+                    $stateItem(
+                        'new',
+                        \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New,
                         'overlay-scheduled',
                     ),
-                    $item(
-                        \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'approved'),
-                        \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::APPROVED,
+                    $stateItem(
+                        'approved',
+                        \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Approved,
                         'overlay-approved',
                     ),
-                    $item(
-                        \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'dismissed'),
-                        \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::DISMISSED,
+                    $stateItem(
+                        'dismissed',
+                        \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Dismissed,
                         'overlay-readonly',
                     ),
                 ],
-                'default' => \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
+                'default' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
                 'readOnly' => true,
             ],
         ],
         'update_date' => [
             'exclude' => true,
-            'displayCond' => 'FIELD:state:>:' . \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
+            'displayCond' => 'FIELD:state:>:' . \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('update_date', $tableName),
             'config' => [
                 'type' => 'input',
@@ -146,7 +159,7 @@ return [
         ],
         'valid_until' => [
             'exclude' => true,
-            'displayCond' => 'FIELD:state:=:' . \EliasHaeussler\Typo3FormConsent\Type\ConsentStateType::NEW,
+            'displayCond' => 'FIELD:state:=:' . \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('valid_until', $tableName),
             'config' => [
                 'type' => 'input',
