@@ -49,7 +49,7 @@ return static function (RectorConfig $rectorConfig): void {
         ->withSymfony()
         ->withTYPO3()
         ->skip(AnnotationToAttributeRector::class, [
-            __DIR__ . '/Classes/Configuration/Extension.php',
+            __DIR__ . '/Classes/Extension.php',
             __DIR__ . '/Classes/Updates/MigrateConsentStateUpgradeWizard.php',
         ])
         ->skip(ClassPropertyAssignToConstructorPromotionRector::class, [

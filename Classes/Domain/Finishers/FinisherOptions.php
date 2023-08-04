@@ -24,9 +24,9 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 
 use ArrayAccess;
-use EliasHaeussler\Typo3FormConsent\Configuration\Extension;
 use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
 use EliasHaeussler\Typo3FormConsent\Exception\NotAllowedException;
+use EliasHaeussler\Typo3FormConsent\Extension;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;

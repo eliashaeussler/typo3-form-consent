@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Configuration;
 
+use EliasHaeussler\Typo3FormConsent\Extension;
 use InvalidArgumentException;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
