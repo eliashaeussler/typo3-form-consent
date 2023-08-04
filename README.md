@@ -4,26 +4,14 @@
 
 # TYPO3 extension `form_consent`
 
-[![Coverage](https://codecov.io/gh/eliashaeussler/typo3-form-consent/branch/main/graph/badge.svg?token=PQ0101QE3S)](https://codecov.io/gh/eliashaeussler/typo3-form-consent)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c88c6c0bbc31c02153ef/maintainability)](https://codeclimate.com/github/eliashaeussler/typo3-form-consent/maintainability)
-[![Tests](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml/badge.svg)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml)
-[![CGL](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml/badge.svg)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml)
-[![Release](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/release.yaml/badge.svg)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/release.yaml)
-[![License](http://poser.pugx.org/eliashaeussler/typo3-form-consent/license)](LICENSE.md)\
-[![Version](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/version/shields)](https://extensions.typo3.org/extension/form_consent)
-[![Downloads](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/downloads/shields)](https://extensions.typo3.org/extension/form_consent)
+[![Coverage](https://img.shields.io/codecov/c/github/eliashaeussler/typo3-form-consent?logo=codecov&token=PQ0101QE3S)](https://codecov.io/gh/eliashaeussler/typo3-form-consent)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-form-consent?logo=codeclimate)](https://codeclimate.com/github/eliashaeussler/typo3-form-consent/maintainability)
+[![CGL](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/cgl.yaml?label=cgl&logo=github)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/tests.yaml?label=tests&logo=github)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml)
 [![Supported TYPO3 versions](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/typo3/shields)](https://extensions.typo3.org/extension/form_consent)
-[![Extension stability](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/form_consent/stability/shields)](https://extensions.typo3.org/extension/form_consent)
 [![Slack](https://img.shields.io/badge/slack-%23ext--form__consent-4a154b?logo=slack)](https://typo3.slack.com/archives/C03719PJJJD)
 
-:package:&nbsp;[Packagist](https://packagist.org/packages/eliashaeussler/typo3-form-consent) |
-:hatched_chick:&nbsp;[TYPO3 extension repository](https://extensions.typo3.org/extension/form_consent) |
-:floppy_disk:&nbsp;[Repository](https://github.com/eliashaeussler/typo3-form-consent) |
-:bug:&nbsp;[Issue tracker](https://github.com/eliashaeussler/typo3-form-consent/issues)
-
 </div>
-
----
 
 An extension for TYPO3 CMS that adds double opt-in functionality to
 EXT:form. It allows the dynamic adaptation of the entire double opt-in
@@ -31,7 +19,7 @@ process using various events. In addition, the extension integrates
 seamlessly into TYPO3, for example to delete expired consents in
 compliance with the GDPR.
 
-## :rocket: Features
+## 🚀 Features
 
 * Custom `Consent` form finisher for EXT:form
 * Stores all submitted form data as JSON in database
@@ -43,19 +31,29 @@ compliance with the GDPR.
 * Dashboard widget for approved, non-approved and dismissed consents
 * Compatible with TYPO3 11.5 LTS and 12.4 LTS
 
-## :fire: Installation
+## 🔥 Installation
+
+### Composer
+
+[![Packagist](https://img.shields.io/packagist/v/eliashaeussler/typo3-form-consent?label=version&logo=packagist)](https://packagist.org/packages/eliashaeussler/typo3-form-consent)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/eliashaeussler/typo3-form-consent?color=brightgreen)](https://packagist.org/packages/eliashaeussler/typo3-form-consent)
 
 ```bash
 composer require eliashaeussler/typo3-form-consent
 ```
 
-Alternatively, you can download the extension via the
+### TER
+
+[![TER version](https://typo3-badges.dev/badge/form_consent/version/shields.svg)](https://extensions.typo3.org/extension/form_consent)
+[![TER downloads](https://typo3-badges.dev/badge/form_consent/downloads/shields.svg)](https://extensions.typo3.org/extension/form_consent)
+
+Download the zip file from
 [TYPO3 extension repository (TER)][4].
+
+## ⚡ Usage
 
 Once installed, make sure to include the TypoScript setup at
 `EXT:form_consent/Configuration/TypoScript` in your root template.
-
-## :zap: Usage
 
 ### Finisher
 
@@ -87,39 +85,39 @@ A plugin is required for approval or dismiss of the consent. The
 associated page containing the plugin must then be specified in the
 finisher settings.
 
-## :open_file_folder: Configuration
+## 📂 Configuration
 
 ### TypoScript
 
 The following TypoScript constants are available:
 
-| TypoScript constant | Description | Required | Default |
-|---------------------|-------------|----------|---------|
-| **`plugin.tx_formconsent.persistence.storagePid`** | Default storage PID for new consents | – | `0` |
-| **`plugin.tx_formconsent.view.templateRootPath`** | Path to template root for consent mail and validation plugin | – | – |
-| **`plugin.tx_formconsent.view.partialRootPath`** | Path to template partials for consent mail and validation plugin | – | – |
-| **`plugin.tx_formconsent.view.layoutRootPath`** | Path to template layouts for consent mail and validation plugin | – | – |
+| TypoScript constant                                | Description                                                      | Required | Default |
+|----------------------------------------------------|------------------------------------------------------------------|----------|---------|
+| **`plugin.tx_formconsent.persistence.storagePid`** | Default storage PID for new consents                             | –        | `0`     |
+| **`plugin.tx_formconsent.view.templateRootPath`**  | Path to template root for consent mail and validation plugin     | –        | –       |
+| **`plugin.tx_formconsent.view.partialRootPath`**   | Path to template partials for consent mail and validation plugin | –        | –       |
+| **`plugin.tx_formconsent.view.layoutRootPath`**    | Path to template layouts for consent mail and validation plugin  | –        | –       |
 
 ### Finisher options
 
 The following options are available to the `Consent` finisher:
 
-| Finisher option | Description | Required | Default |
-|-----------------|-------------|----------|---------|
-| **`subject`**   | Mail subject | – | `Approve your consent` |
-| **`recipientAddress`** | Recipient e-mail address | :white_check_mark: | – |
-| **`recipientName`** | Recipient name | – | – |
-| **`senderAddress`** | Sender e-mail address | – | _System default sender e-mail address_ |
-| **`senderName`** | Sender name | – | _System default sender name_ |
-| **`approvalPeriod`** | Approval period | :white_check_mark: | `86400` (1 day), `0` = unlimited |
-| **`showDismissLink`** | Show dismiss link in consent mail | – | `false` |
-| **`confirmationPid`** | Confirmation page (contains plugin) | :white_check_mark: | – |
-| **`storagePid`** | Storage page | – | `plugin.tx_formconsent.persistence.storagePid` |
-| **`templateRootPaths`** | Additional paths to template root | – | – |
-| **`partialRootPaths`** | Additional paths to template partials | – | – |
-| **`layoutRootPaths`** | Additional paths to template layouts | – | – |
+| Finisher option         | Description                           | Required | Default                                        |
+|-------------------------|---------------------------------------|----------|------------------------------------------------|
+| **`subject`**           | Mail subject                          | –        | `Approve your consent`                         |
+| **`recipientAddress`**  | Recipient e-mail address              | ✅        | –                                              |
+| **`recipientName`**     | Recipient name                        | –        | –                                              |
+| **`senderAddress`**     | Sender e-mail address                 | –        | _System default sender e-mail address_         |
+| **`senderName`**        | Sender name                           | –        | _System default sender name_                   |
+| **`approvalPeriod`**    | Approval period                       | ✅        | `86400` (1 day), `0` = unlimited               |
+| **`showDismissLink`**   | Show dismiss link in consent mail     | –        | `false`                                        |
+| **`confirmationPid`**   | Confirmation page (contains plugin)   | ✅        | –                                              |
+| **`storagePid`**        | Storage page                          | –        | `plugin.tx_formconsent.persistence.storagePid` |
+| **`templateRootPaths`** | Additional paths to template root     | –        | –                                              |
+| **`partialRootPaths`**  | Additional paths to template partials | –        | –                                              |
+| **`layoutRootPaths`**   | Additional paths to template layouts  | –        | –                                              |
 
-:bulb: **Note:** Template paths that are configured via form finisher
+💡 **Note:** Template paths that are configured via form finisher
 options are only applied to the appropriate form. They are merged
 with the default template paths configured via TypoScript.
 
@@ -127,11 +125,11 @@ with the default template paths configured via TypoScript.
 
 The following extension configuration options are available:
 
-| Configuration key | Description | Required | Default |
-|-------------------|-------------|----------|---------|
-| **`persistence.excludedElements`** | Form element types to be excluded from persistence (comma-separated list) | – | `Honeypot` |
+| Configuration key                  | Description                                                               | Required | Default    |
+|------------------------------------|---------------------------------------------------------------------------|----------|------------|
+| **`persistence.excludedElements`** | Form element types to be excluded from persistence (comma-separated list) | –        | `Honeypot` |
 
-## :writing_hand: Customization
+## ✍️ Customization
 
 The lifecycle of the entire consent process can be influenced in several
 ways. This leads to high flexibility in customization while maintaining
@@ -196,7 +194,7 @@ given and a redirect to the configured confirmation page would take place.
 The same behavior can be achieved in case the user revokes his consent. The
 condition `isConsentDismissed()` must then be used instead.
 
-## :construction: Migration
+## 🚧 Migration
 
 ### 0.6.x → 0.7.0
 
@@ -277,16 +275,16 @@ Form values are now represented as an instance of [`JsonType`][2].
   - If you still need to extend or override them, consider refactoring
     your code or [submit an issue][3].
 
-## :technologist: Contributing
+## 🧑‍💻 Contributing
 
 Please have a look at [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-## :gem: Credits
+## 💎 Credits
 
 Icons made by [Google](https://www.flaticon.com/authors/google) from
 [www.flaticon.com](https://www.flaticon.com/).
 
-## :star: License
+## ⭐ License
 
 This project is licensed under [GNU General Public License 2.0 (or later)](LICENSE.md).
 
