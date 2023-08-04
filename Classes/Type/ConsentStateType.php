@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Type;
 
-use EliasHaeussler\Typo3FormConsent\Exception\InvalidStateException;
+use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
 use TYPO3\CMS\Core\Type\TypeInterface;
 
 /**
@@ -34,22 +34,15 @@ use TYPO3\CMS\Core\Type\TypeInterface;
  */
 final class ConsentStateType implements TypeInterface, \Stringable
 {
-    public const NEW = 0;
-    public const APPROVED = 1;
-    public const DISMISSED = 2;
+    private readonly ConsentState $state;
 
-    private readonly int $state;
-
-    /**
-     * @throws InvalidStateException
-     */
-    public function __construct(string|int $state = ConsentStateType::NEW)
+    public function __construct(string|int|ConsentState $state = ConsentState::New)
     {
         if (\is_string($state)) {
             $state = (int)$state;
         }
-        if (!$this->isValid($state)) {
-            throw InvalidStateException::create($state);
+        if (\is_int($state)) {
+            $state = ConsentState::from($state);
         }
 
         $this->state = $state;
@@ -57,45 +50,36 @@ final class ConsentStateType implements TypeInterface, \Stringable
 
     public static function createNew(): self
     {
-        return new self(self::NEW);
+        return new self(ConsentState::New);
     }
 
     public static function createApproved(): self
     {
-        return new self(self::APPROVED);
+        return new self(ConsentState::Approved);
     }
 
     public static function createDismissed(): self
     {
-        return new self(self::DISMISSED);
+        return new self(ConsentState::Dismissed);
     }
 
     public function isNew(): bool
     {
-        return $this->state === self::NEW;
+        return $this->state === ConsentState::New;
     }
 
     public function isApproved(): bool
     {
-        return $this->state === self::APPROVED;
+        return $this->state === ConsentState::Approved;
     }
 
     public function isDismissed(): bool
     {
-        return $this->state === self::DISMISSED;
+        return $this->state === ConsentState::Dismissed;
     }
 
     public function __toString(): string
     {
-        return (string)$this->state;
-    }
-
-    private function isValid(int $state): bool
-    {
-        return \in_array($state, [
-            self::NEW,
-            self::APPROVED,
-            self::DISMISSED,
-        ], true);
+        return (string)$this->state->value;
     }
 }

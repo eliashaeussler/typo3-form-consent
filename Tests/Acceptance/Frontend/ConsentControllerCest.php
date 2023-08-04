@@ -24,9 +24,9 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Frontend;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Form;
-use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 
 /**
  * ConsentControllerCest
@@ -58,7 +58,7 @@ final class ConsentControllerCest
             [
                 'data' => '{"email-1":"user@example.com","fileupload-1":null}',
                 'email' => 'user@example.com',
-                'state' => ConsentStateType::APPROVED,
+                'state' => ConsentState::Approved->value,
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
                 'original_request_parameters !=' => null,
@@ -83,7 +83,7 @@ final class ConsentControllerCest
                 'deleted' => '1',
                 'data' => null,
                 'email' => 'user@example.com',
-                'state' => ConsentStateType::DISMISSED,
+                'state' => ConsentState::Dismissed->value,
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
                 'original_request_parameters' => null,
