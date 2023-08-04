@@ -20,7 +20,7 @@
  */
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    \EliasHaeussler\Typo3FormConsent\Configuration\Extension::NAME,
+    \EliasHaeussler\Typo3FormConsent\Extension::NAME,
     'Consent',
     \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forPlugin('Consent')
 );

@@ -19,9 +19,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerFormEngineNode();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPageTsConfig();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerPlugin();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerIcons();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerGarbageCollectionTask();
-\EliasHaeussler\Typo3FormConsent\Configuration\Extension::registerUpgradeWizards();
+\EliasHaeussler\Typo3FormConsent\Extension::registerFormEngineNode();
+\EliasHaeussler\Typo3FormConsent\Extension::registerPageTsConfig();
+\EliasHaeussler\Typo3FormConsent\Extension::registerPlugin();
+\EliasHaeussler\Typo3FormConsent\Extension::registerIcons();
+\EliasHaeussler\Typo3FormConsent\Extension::registerGarbageCollectionTask();
+\EliasHaeussler\Typo3FormConsent\Extension::registerUpgradeWizards();

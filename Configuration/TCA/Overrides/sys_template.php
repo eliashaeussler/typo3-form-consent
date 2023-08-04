@@ -20,7 +20,7 @@
  */
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    \EliasHaeussler\Typo3FormConsent\Configuration\Extension::KEY,
+    \EliasHaeussler\Typo3FormConsent\Extension::KEY,
     'Configuration/TypoScript',
     'Basic TypoScript for EXT:form_consent'
 );

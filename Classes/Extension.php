@@ -21,12 +21,8 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Configuration;
+namespace EliasHaeussler\Typo3FormConsent;
 
-use EliasHaeussler\Typo3FormConsent\Controller\ConsentController;
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Form\Element\ConsentDataElement;
-use EliasHaeussler\Typo3FormConsent\Updates\MigrateConsentStateUpgradeWizard;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
@@ -53,7 +49,7 @@ final class Extension
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1576527415] = [
             'nodeName' => 'consentData',
             'priority' => 40,
-            'class' => ConsentDataElement::class,
+            'class' => Form\Element\ConsentDataElement::class,
         ];
     }
 
@@ -80,10 +76,10 @@ final class Extension
             self::NAME,
             'Consent',
             [
-                ConsentController::class => 'approve, dismiss',
+                Controller\ConsentController::class => 'approve, dismiss',
             ],
             [
-                ConsentController::class => 'approve, dismiss',
+                Controller\ConsentController::class => 'approve, dismiss',
             ]
         );
     }
@@ -95,8 +91,8 @@ final class Extension
      */
     public static function registerIcons(): void
     {
-        Icon::registerForPluginIdentifier('Consent');
-        Icon::registerForWidgetIdentifier('approvedConsents');
+        Configuration\Icon::registerForPluginIdentifier('Consent');
+        Configuration\Icon::registerForWidgetIdentifier('approvedConsents');
     }
 
     /**
@@ -110,7 +106,7 @@ final class Extension
             return;
         }
 
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][TableGarbageCollectionTask::class]['options']['tables'][Consent::TABLE_NAME] = [
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][TableGarbageCollectionTask::class]['options']['tables'][Domain\Model\Consent::TABLE_NAME] = [
             'expireField' => 'valid_until',
         ];
     }
@@ -122,7 +118,7 @@ final class Extension
      */
     public static function registerUpgradeWizards(): void
     {
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][MigrateConsentStateUpgradeWizard::IDENTIFIER]
-            = MigrateConsentStateUpgradeWizard::class;
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][Updates\MigrateConsentStateUpgradeWizard::IDENTIFIER]
+            = Updates\MigrateConsentStateUpgradeWizard::class;
     }
 }
