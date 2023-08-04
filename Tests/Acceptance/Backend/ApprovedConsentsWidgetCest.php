@@ -21,10 +21,11 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Acceptance\Backend;
+namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
 
-use EliasHaeussler\Typo3CodeceptionHelper\Enums\Selectors;
+use EliasHaeussler\Typo3CodeceptionHelper\Enums\Selectors as CodeceptionHelperSelectors;
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
+use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Enums\Selectors;
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\ModalDialog;
 use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
 use TYPO3\CMS\Core\Information\Typo3Version;
@@ -61,18 +62,18 @@ final class ApprovedConsentsWidgetCest
         $this->logInToBackend($I);
         $this->addWidget($I, $dialog);
 
-        $I->waitForElementVisible('.widget-identifier-approvedConsentsWidget canvas');
+        $canvasSelector = Selectors::DashboardWidgetCanvas->value;
 
-        $data = $I->executeJS(
-            <<<JS
+        $I->waitForElementVisible($canvasSelector);
+
+        $data = $I->executeJS(<<<JS
 return await import('@typo3/dashboard/contrib/chartjs.js').then((chartjs) => {
-    const node = document.querySelector('.widget-identifier-approvedConsentsWidget canvas');
+    const node = document.querySelector('$canvasSelector');
     const chart = chartjs.Chart.getChart(node);
 
     return chart.config.data.datasets[0].data;
 });
-JS
-        );
+JS);
 
         /* @see ConsentChartDataProvider::getChartData() */
         $expected = [
@@ -86,14 +87,14 @@ JS
 
     private function addWidget(AcceptanceTester $I, ModalDialog $dialog): void
     {
-        $I->click('.js-dashboard-addWidget');
+        $I->click(Selectors::DashboardAddWidgetButton->value);
 
         $dialog->canSeeDialog();
 
-        $I->see('Form consent', '.dashboard-modal-item-title');
+        $I->see('Form consent', Selectors::DashboardModalItemTitle->value);
         $I->click('Form consent');
-        $I->switchToIFrame(Selectors::BackendContentFrame->value);
-        $I->waitForElementVisible('.widget-identifier-approvedConsentsWidget');
+        $I->switchToIFrame(CodeceptionHelperSelectors::BackendContentFrame->value);
+        $I->waitForElementVisible(Selectors::DashboardWidget->value);
     }
 
     private function createConsents(AcceptanceTester $I): void
@@ -136,10 +137,10 @@ JS
     private function logInToBackend(AcceptanceTester $I): void
     {
         if ($this->typo3Version->getMajorVersion() >= 12) {
-            $moduleIdentifier = '[data-modulemenu-identifier="dashboard"]';
+            $moduleIdentifier = Selectors::DashboardModule->value;
         } else {
             // @todo Remove once support for TYPO3 v11 is dropped
-            $moduleIdentifier = '#dashboard';
+            $moduleIdentifier = Selectors::DashboardModuleV11->value;
         }
 
         $I->loginAs('admin');
