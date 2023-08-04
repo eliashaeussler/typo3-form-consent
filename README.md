@@ -196,6 +196,15 @@ condition `isConsentDismissed()` must then be used instead.
 
 ## 🚧 Migration
 
+### 0.7.x → 1.0.0
+
+#### Consent state enum
+
+Different consent states moved from [`ConsentStateType`][7] to a new
+[`ConsentState`][8] enum.
+
+* Use enum cases instead of the old class constants.
+
 ### 0.6.x → 0.7.0
 
 #### Global form settings
@@ -294,3 +303,5 @@ This project is licensed under [GNU General Public License 2.0 (or later)](LICEN
 [4]: https://extensions.typo3.org/extension/form_consent
 [5]: Classes/Updates/MigrateConsentStateUpgradeWizard.php
 [6]: Classes/Event/Listener/InvokeFinishersListener.php
+[7]: Classes/Type/ConsentStateType.php
+[8]: Classes/Enums/ConsentState.php
