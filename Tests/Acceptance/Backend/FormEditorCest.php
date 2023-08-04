@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
 
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
+use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Enums\Selectors;
 use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
@@ -39,21 +40,21 @@ final class FormEditorCest
         $typo3Version = new Typo3Version();
 
         if ($typo3Version->getMajorVersion() >= 12) {
-            $moduleIdentifier = '[data-modulemenu-identifier="web_FormFormbuilder"]';
+            $moduleIdentifier = Selectors::FormModule->value;
         } else {
             // @todo Remove once support for TYPO3 v11 is dropped
-            $moduleIdentifier = '#web_FormFormbuilder';
+            $moduleIdentifier = Selectors::FormModuleV11->value;
         }
 
         $I->loginAs('admin');
         $I->openModule($moduleIdentifier);
 
         $I->waitForText('contact');
-        $I->click('contact', '#forms');
+        $I->click('contact', Selectors::FormList->value);
 
-        $I->waitForText('contact', 5, '#t3-form-form-definition-label');
-        $I->seeElement('[title="Preview mode"]');
-        $I->click('[title="Preview mode"]');
-        $I->waitForElement('form#contact');
+        $I->waitForText('contact', 5, Selectors::FormDefinition->value);
+        $I->seeElement(Selectors::FormPreviewMode->value);
+        $I->click(Selectors::FormPreviewMode->value);
+        $I->waitForElement(Selectors::ContactForm->value);
     }
 }

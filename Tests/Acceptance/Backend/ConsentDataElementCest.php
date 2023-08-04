@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
 
 use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
+use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Enums\Selectors;
 use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
@@ -39,10 +40,10 @@ final class ConsentDataElementCest
         $typo3Version = new Typo3Version();
 
         if ($typo3Version->getMajorVersion() >= 12) {
-            $moduleIdentifier = '[data-modulemenu-identifier="web_list"]';
+            $moduleIdentifier = Selectors::ListModule->value;
         } else {
             // @todo Remove once support for TYPO3 v11 is dropped
-            $moduleIdentifier = '#web_list';
+            $moduleIdentifier = Selectors::ListModuleV11->value;
         }
 
         $I->amOnPage('/');
@@ -51,8 +52,8 @@ final class ConsentDataElementCest
         $I->loginAs('admin');
         $I->openModule($moduleIdentifier);
 
-        $I->seeElement('#t3-table-tx_formconsent_domain_model_consent');
-        $I->click('tr[data-table="tx_formconsent_domain_model_consent"]:first-child td.col-title a');
+        $I->seeElement(Selectors::ConsentListCollapsible->value);
+        $I->click(Selectors::ConsentListItemTitle->value);
         $I->waitForText('Submitted form data', 5);
     }
 }
