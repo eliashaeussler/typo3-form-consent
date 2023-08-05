@@ -52,8 +52,6 @@ return [
         'php-cs-fixer.php',
         'phpstan.php',
         'phpstan-baseline.neon',
-        'phpunit.ci.functional.xml',
-        'phpunit.ci.unit.xml',
         'phpunit.functional.xml',
         'phpunit.unit.xml',
         'rector.php',
