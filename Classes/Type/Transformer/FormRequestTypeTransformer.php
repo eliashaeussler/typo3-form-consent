@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use InvalidArgumentException;
 use JsonException;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
@@ -49,12 +48,8 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
      * @return JsonType<string, array<string, array<string, mixed>>>
      * @throws JsonException
      */
-    public function transform(FormRuntime $formRuntime = null): JsonType
+    public function transform(FormRuntime $formRuntime): JsonType
     {
-        if ($formRuntime === null) {
-            throw new InvalidArgumentException('Expected a valid FormRuntime object, NULL given.', 1646044629);
-        }
-
         $request = $formRuntime->getRequest();
 
         // Handle submitted form values
