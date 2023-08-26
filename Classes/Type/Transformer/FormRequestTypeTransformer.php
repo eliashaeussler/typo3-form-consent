@@ -94,9 +94,4 @@ final class FormRequestTypeTransformer implements TypeTransformerInterface
             ],
         ];
     }
-
-    public static function getName(): string
-    {
-        return 'formRequest';
-    }
 }
