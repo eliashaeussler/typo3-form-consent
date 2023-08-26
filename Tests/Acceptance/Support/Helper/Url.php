@@ -24,8 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper;
 
 use Codeception\Module;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\Exception\MissingArrayPathException;
+use TYPO3\CMS\Core;
 
 /**
  * Url
@@ -75,10 +74,10 @@ final class Url extends Module
 
         try {
             $queryParams = $this->extractQueryParametersFromUrl($url);
-            $actual = ArrayUtility::getValueByPath($queryParams, $path);
+            $actual = Core\Utility\ArrayUtility::getValueByPath($queryParams, $path);
 
             $I->assertEquals($expected, $actual);
-        } catch (MissingArrayPathException $exception) {
+        } catch (Core\Utility\Exception\MissingArrayPathException $exception) {
             $this->fail(
                 sprintf('Query parameter "%s" was not found in URL: %s', $path, $exception->getMessage())
             );

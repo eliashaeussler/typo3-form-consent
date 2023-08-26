@@ -23,12 +23,12 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
-use EliasHaeussler\Typo3FormConsent\Configuration\Configuration;
-use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use EliasHaeussler\Typo3FormConsent\Configuration;
+use EliasHaeussler\Typo3FormConsent\Type;
 use JsonException;
-use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Form;
 
 /**
  * FormValuesTypeTransformer
@@ -39,20 +39,20 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 final class FormValuesTypeTransformer implements TypeTransformer
 {
     public function __construct(
-        private readonly Configuration $configuration,
+        private readonly Configuration\Configuration $configuration,
     ) {
     }
 
     /**
-     * @return JsonType<string, mixed>
+     * @return Type\JsonType<string, mixed>
      * @throws JsonException
      */
-    public function transform(FormRuntime $formRuntime): JsonType
+    public function transform(Form\Domain\Runtime\FormRuntime $formRuntime): Type\JsonType
     {
         // Early return if form state is not available
         $formState = $formRuntime->getFormState();
         if ($formState === null) {
-            return JsonType::fromArray([]);
+            return Type\JsonType::fromArray([]);
         }
 
         // Get all form values
@@ -66,18 +66,18 @@ final class FormValuesTypeTransformer implements TypeTransformer
             }
 
             // Resolve file references
-            if ($value instanceof ExtbaseFileReference) {
+            if ($value instanceof Extbase\Domain\Model\FileReference) {
                 $value = $value->getOriginalResource();
             }
-            if ($value instanceof CoreFileReference) {
+            if ($value instanceof Core\Resource\FileReference) {
                 $formValues[$elementIdentifier] = $value->getOriginalFile()->getUid();
             }
         }
 
-        return JsonType::fromArray($formValues);
+        return Type\JsonType::fromArray($formValues);
     }
 
-    private function isElementExcluded(string $elementIdentifier, FormRuntime $formRuntime): bool
+    private function isElementExcluded(string $elementIdentifier, Form\Domain\Runtime\FormRuntime $formRuntime): bool
     {
         $excludedElements = $this->configuration->getExcludedElementsFromPersistence();
         $element = $formRuntime->getFormDefinition()->getElementByIdentifier($elementIdentifier);

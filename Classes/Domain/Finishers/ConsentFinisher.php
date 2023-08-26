@@ -23,22 +23,16 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 
-use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
-use EliasHaeussler\Typo3FormConsent\Domain\Factory\ConsentFactory;
-use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentMailEvent;
-use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mime\Address;
-use TYPO3\CMS\Core\Mail\FluidEmail;
-use TYPO3\CMS\Core\Mail\Mailer;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
-use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
-use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
-use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
-use TYPO3\CMS\Form\ViewHelpers\RenderRenderableViewHelper;
+use EliasHaeussler\Typo3FormConsent\Configuration;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use EliasHaeussler\Typo3FormConsent\Event;
+use Exception;
+use Psr\EventDispatcher;
+use Symfony\Component\Mailer;
+use Symfony\Component\Mime;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Form;
 
 /**
  * ConsentFinisher
@@ -46,24 +40,24 @@ use TYPO3\CMS\Form\ViewHelpers\RenderRenderableViewHelper;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentFinisher extends AbstractFinisher
+final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
 {
     public function __construct(
-        private readonly ConsentFactory $consentFactory,
-        private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly Mailer $mailer,
-        private readonly PersistenceManagerInterface $persistenceManager,
+        private readonly Domain\Factory\ConsentFactory $consentFactory,
+        private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
+        private readonly Core\Mail\Mailer $mailer,
+        private readonly Extbase\Persistence\PersistenceManagerInterface $persistenceManager,
     ) {
     }
 
     /**
-     * @throws IllegalObjectTypeException
+     * @throws Extbase\Persistence\Exception\IllegalObjectTypeException
      */
     protected function executeInternal(): ?string
     {
         try {
             $this->executeConsent();
-        } catch (FinisherException $exception) {
+        } catch (Form\Domain\Finishers\Exception\FinisherException $exception) {
             $this->addFlashMessage($exception);
         }
 
@@ -71,8 +65,8 @@ final class ConsentFinisher extends AbstractFinisher
     }
 
     /**
-     * @throws FinisherException
-     * @throws \Exception
+     * @throws Form\Domain\Finishers\Exception\FinisherException
+     * @throws Exception
      */
     private function executeConsent(): void
     {
@@ -98,7 +92,7 @@ final class ConsentFinisher extends AbstractFinisher
         $mail->assign('consent', $consent);
 
         if ('' !== ($senderAddress = $finisherOptions->getSenderAddress())) {
-            $mail->from(new Address($senderAddress, $finisherOptions->getSenderName()));
+            $mail->from(new Mime\Address($senderAddress, $finisherOptions->getSenderName()));
         }
 
         // Provide form runtime as view helper variable to allow usage of
@@ -106,26 +100,26 @@ final class ConsentFinisher extends AbstractFinisher
         // submitted form values using the <formvh:renderAllFormValues>
         // view helper.
         $mail->getViewHelperVariableContainer()
-            ->add(RenderRenderableViewHelper::class, 'formRuntime', $formRuntime);
+            ->add(Form\ViewHelpers\RenderRenderableViewHelper::class, 'formRuntime', $formRuntime);
 
         // Dispatch ModifyConsentMail event
-        $this->eventDispatcher->dispatch(new ModifyConsentMailEvent($mail, $formRuntime));
+        $this->eventDispatcher->dispatch(new Event\ModifyConsentMailEvent($mail, $formRuntime));
 
         // Send mail
         try {
             $this->mailer->send($mail);
-        } catch (TransportExceptionInterface) {
-            throw new FinisherException(
-                Localization::forKey('consentMail.error', null, true),
+        } catch (Mailer\Exception\TransportExceptionInterface) {
+            throw new Form\Domain\Finishers\Exception\FinisherException(
+                Configuration\Localization::forKey('consentMail.error', null, true),
                 1577109483
             );
         }
     }
 
-    private function initializeMail(FinisherOptions $finisherOptions): FluidEmail
+    private function initializeMail(FinisherOptions $finisherOptions): Core\Mail\FluidEmail
     {
-        return GeneralUtility::makeInstance(FluidEmail::class, $finisherOptions->getTemplatePaths())
-            ->to(new Address($finisherOptions->getRecipientAddress(), $finisherOptions->getRecipientName()))
+        return Core\Utility\GeneralUtility::makeInstance(Core\Mail\FluidEmail::class, $finisherOptions->getTemplatePaths())
+            ->to(new Mime\Address($finisherOptions->getRecipientAddress(), $finisherOptions->getRecipientName()))
             ->subject($finisherOptions->getSubject())
             ->setTemplate('ConsentMail')
             ->assign('formRuntime', $this->finisherContext->getFormRuntime())
@@ -135,13 +129,13 @@ final class ConsentFinisher extends AbstractFinisher
         ;
     }
 
-    private function addFlashMessage(\Exception $exception): void
+    private function addFlashMessage(Exception $exception): void
     {
-        if (class_exists(ContextualFeedbackSeverity::class)) {
-            $severity = ContextualFeedbackSeverity::ERROR;
+        if (class_exists(Core\Type\ContextualFeedbackSeverity::class)) {
+            $severity = Core\Type\ContextualFeedbackSeverity::ERROR;
         } else {
             // @todo Remove once support for TYPO3 v11 is dropped
-            $severity = AbstractMessage::ERROR;
+            $severity = Core\Messaging\AbstractMessage::ERROR;
         }
 
         $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();

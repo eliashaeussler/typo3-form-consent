@@ -23,12 +23,10 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
-use EliasHaeussler\Typo3FormConsent\Configuration\Configuration;
-use EliasHaeussler\Typo3FormConsent\Extension;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\CMS\Core;
+use TYPO3\TestingFramework;
 
 /**
  * ConfigurationTest
@@ -36,42 +34,42 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(Configuration::class)]
-final class ConfigurationTest extends FunctionalTestCase
+#[Framework\Attributes\CoversClass(Src\Configuration\Configuration::class)]
+final class ConfigurationTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected bool $initializeDatabase = false;
 
-    protected ExtensionConfiguration $extensionConfiguration;
-    protected Configuration $subject;
+    protected Core\Configuration\ExtensionConfiguration $extensionConfiguration;
+    protected Src\Configuration\Configuration $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->extensionConfiguration = $this->get(ExtensionConfiguration::class);
-        $this->subject = new Configuration($this->extensionConfiguration);
+        $this->extensionConfiguration = $this->get(Core\Configuration\ExtensionConfiguration::class);
+        $this->subject = new Src\Configuration\Configuration($this->extensionConfiguration);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getExcludedElementsFromPersistenceReturnsEmptyArrayIfConfigurationOptionDoesNotExist(): void
     {
-        $this->extensionConfiguration->set(Extension::KEY, []);
+        $this->extensionConfiguration->set(Src\Extension::KEY, []);
 
         self::assertSame([], $this->subject->getExcludedElementsFromPersistence());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getExcludedElementsFromPersistenceReturnsEmptyArrayIfExtensionConfigurationIsMissing(): void
     {
-        $this->extensionConfiguration->set(Extension::KEY);
+        $this->extensionConfiguration->set(Src\Extension::KEY);
 
         self::assertSame([], $this->subject->getExcludedElementsFromPersistence());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getExcludedElementsFromPersistenceReturnsExcludedElementsFromPersistence(): void
     {
-        $this->extensionConfiguration->set(Extension::KEY, [
+        $this->extensionConfiguration->set(Src\Extension::KEY, [
             'persistence' => [
                 'excludedElements' => 'Honeypot, StaticText, , ContentElement',
             ],

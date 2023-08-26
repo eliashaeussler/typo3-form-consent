@@ -25,8 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Extension;
 use InvalidArgumentException;
-use TYPO3\CMS\Core\Imaging\IconRegistry;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core;
 
 /**
  * Icon
@@ -36,7 +35,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class Icon
 {
-    private static ?IconRegistry $iconRegistry = null;
+    private static ?Core\Imaging\IconRegistry $iconRegistry = null;
 
     public static function forTable(string $tableName, string $type = 'svg'): string
     {
@@ -51,7 +50,7 @@ final class Icon
     public static function forPluginIdentifier(string $pluginName): string
     {
         $pluginName = trim($pluginName);
-        $pluginName = str_replace('_', '-', GeneralUtility::camelCaseToLowerCaseUnderscored($pluginName));
+        $pluginName = str_replace('_', '-', Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($pluginName));
 
         if ($pluginName === '') {
             throw new InvalidArgumentException(
@@ -79,7 +78,7 @@ final class Icon
     public static function forWidgetIdentifier(string $widgetName): string
     {
         $widgetName = trim($widgetName);
-        $widgetName = str_replace('_', '-', GeneralUtility::camelCaseToLowerCaseUnderscored($widgetName));
+        $widgetName = str_replace('_', '-', Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($widgetName));
 
         if ($widgetName === '') {
             throw new InvalidArgumentException(
@@ -118,7 +117,7 @@ final class Icon
     private static function register(string $filename, string $identifier): void
     {
         if (self::$iconRegistry === null) {
-            self::$iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
+            self::$iconRegistry = Core\Utility\GeneralUtility::makeInstance(Core\Imaging\IconRegistry::class);
         }
 
         $iconProviderClass = self::$iconRegistry->detectIconProvider($filename);

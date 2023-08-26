@@ -23,9 +23,8 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
 
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Enums\Selectors;
-use TYPO3\CMS\Core\Information\Typo3Version;
+use EliasHaeussler\Typo3FormConsent\Tests;
+use TYPO3\CMS\Core;
 
 /**
  * FormEditorCest
@@ -35,26 +34,26 @@ use TYPO3\CMS\Core\Information\Typo3Version;
  */
 final class FormEditorCest
 {
-    public function canOpenFormWithConsentFinisherInPreviewMode(AcceptanceTester $I): void
+    public function canOpenFormWithConsentFinisherInPreviewMode(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
-        $typo3Version = new Typo3Version();
+        $typo3Version = new Core\Information\Typo3Version();
 
         if ($typo3Version->getMajorVersion() >= 12) {
-            $moduleIdentifier = Selectors::FormModule->value;
+            $moduleIdentifier = Tests\Acceptance\Support\Enums\Selectors::FormModule->value;
         } else {
             // @todo Remove once support for TYPO3 v11 is dropped
-            $moduleIdentifier = Selectors::FormModuleV11->value;
+            $moduleIdentifier = Tests\Acceptance\Support\Enums\Selectors::FormModuleV11->value;
         }
 
         $I->loginAs('admin');
         $I->openModule($moduleIdentifier);
 
         $I->waitForText('contact');
-        $I->click('contact', Selectors::FormList->value);
+        $I->click('contact', Tests\Acceptance\Support\Enums\Selectors::FormList->value);
 
-        $I->waitForText('contact', 5, Selectors::FormDefinition->value);
-        $I->seeElement(Selectors::FormPreviewMode->value);
-        $I->click(Selectors::FormPreviewMode->value);
-        $I->waitForElement(Selectors::ContactForm->value);
+        $I->waitForText('contact', 5, Tests\Acceptance\Support\Enums\Selectors::FormDefinition->value);
+        $I->seeElement(Tests\Acceptance\Support\Enums\Selectors::FormPreviewMode->value);
+        $I->click(Tests\Acceptance\Support\Enums\Selectors::FormPreviewMode->value);
+        $I->waitForElement(Tests\Acceptance\Support\Enums\Selectors::ContactForm->value);
     }
 }

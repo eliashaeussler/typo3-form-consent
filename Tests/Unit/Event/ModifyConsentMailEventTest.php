@@ -23,12 +23,11 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
-use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentMailEvent;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Mail\FluidEmail;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Form;
+use TYPO3\TestingFramework;
 
 /**
  * ModifyConsentMailEventTest
@@ -36,30 +35,30 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(ModifyConsentMailEvent::class)]
-final class ModifyConsentMailEventTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Event\ModifyConsentMailEvent::class)]
+final class ModifyConsentMailEventTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    protected ModifyConsentMailEvent $subject;
-    protected FluidEmail $mailMock;
-    protected FormRuntime $formRuntimeMock;
+    protected Src\Event\ModifyConsentMailEvent $subject;
+    protected Core\Mail\FluidEmail $mailMock;
+    protected Form\Domain\Runtime\FormRuntime $formRuntimeMock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->mailMock = $this->createMock(FluidEmail::class);
-        $this->formRuntimeMock = $this->createMock(FormRuntime::class);
-        $this->subject = new ModifyConsentMailEvent($this->mailMock, $this->formRuntimeMock);
+        $this->mailMock = $this->createMock(Core\Mail\FluidEmail::class);
+        $this->formRuntimeMock = $this->createMock(Form\Domain\Runtime\FormRuntime::class);
+        $this->subject = new Src\Event\ModifyConsentMailEvent($this->mailMock, $this->formRuntimeMock);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getMailReturnsInitialMail(): void
     {
         $expected = $this->mailMock;
         self::assertSame($expected, $this->subject->getMail());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getFormRuntimeReturnsInitialFormRuntime(): void
     {
         $expected = $this->formRuntimeMock;

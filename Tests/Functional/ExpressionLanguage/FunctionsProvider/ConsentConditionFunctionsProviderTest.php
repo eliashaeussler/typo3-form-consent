@@ -23,15 +23,11 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\ExpressionLanguage\FunctionsProvider;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\ExpressionLanguage\FunctionsProvider\ConsentConditionFunctionsProvider;
-use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\ExpressionLanguage\Resolver;
-use TYPO3\CMS\Form\Domain\Model\FormDefinition;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Form;
+use TYPO3\TestingFramework;
 
 /**
  * ConsentConditionFunctionsProviderTest
@@ -39,8 +35,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(ConsentConditionFunctionsProvider::class)]
-final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
+#[Framework\Attributes\CoversClass(Src\ExpressionLanguage\FunctionsProvider\ConsentConditionFunctionsProvider::class)]
+final class ConsentConditionFunctionsProviderTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
         'form',
@@ -52,19 +48,19 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
 
     protected bool $initializeDatabase = false;
 
-    protected FormRuntime $formRuntime;
+    protected Form\Domain\Runtime\FormRuntime $formRuntime;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $formDefinition = new FormDefinition('foo', [], 'Form', 'foo');
+        $formDefinition = new Form\Domain\Model\FormDefinition('foo', [], 'Form', 'foo');
 
-        $this->formRuntime = $this->get(FormRuntime::class);
+        $this->formRuntime = $this->get(Form\Domain\Runtime\FormRuntime::class);
         $this->formRuntime->setFormDefinition($formDefinition);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isConsentApprovedReturnsFalseIfFormRuntimeIsNotDefined(): void
     {
         $resolver = $this->createResolver();
@@ -72,21 +68,21 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
         self::assertFalse($resolver->evaluate('isConsentApproved()'));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isConsentApprovedFunctionReturnsTrueIfConsentIsRegisteredAndApproved(): void
     {
         $resolver = $this->createResolver($this->formRuntime);
 
-        $consent = new Consent();
+        $consent = new Src\Domain\Model\Consent();
         $consent->setApproved();
         $consent->setFormPersistenceIdentifier('foo');
 
-        ConsentManagerRegistry::registerConsent($consent);
+        Src\Registry\ConsentManagerRegistry::registerConsent($consent);
 
         self::assertTrue($resolver->evaluate('isConsentApproved()'));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isConsentDismissedReturnsFalseIfFormRuntimeIsNotDefined(): void
     {
         $resolver = $this->createResolver();
@@ -94,21 +90,21 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
         self::assertFalse($resolver->evaluate('isConsentDismissed()'));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isConsentDismissedFunctionReturnsTrueIfConsentIsRegisteredAndDismissed(): void
     {
         $resolver = $this->createResolver($this->formRuntime);
 
-        $consent = new Consent();
+        $consent = new Src\Domain\Model\Consent();
         $consent->setDismissed();
         $consent->setFormPersistenceIdentifier('foo');
 
-        ConsentManagerRegistry::registerConsent($consent);
+        Src\Registry\ConsentManagerRegistry::registerConsent($consent);
 
         self::assertTrue($resolver->evaluate('isConsentDismissed()'));
     }
 
-    private function createResolver(FormRuntime $formRuntime = null): Resolver
+    private function createResolver(Form\Domain\Runtime\FormRuntime $formRuntime = null): Core\ExpressionLanguage\Resolver
     {
         $variables = [];
 
@@ -116,6 +112,6 @@ final class ConsentConditionFunctionsProviderTest extends FunctionalTestCase
             $variables['formRuntime'] = $formRuntime;
         }
 
-        return new Resolver('form', $variables);
+        return new Core\ExpressionLanguage\Resolver('form', $variables);
     }
 }

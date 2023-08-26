@@ -23,12 +23,10 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Type\Transformer;
 
-use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\CMS\Form;
+use TYPO3\TestingFramework;
 
 /**
  * FormValuesTypeTransformerTest
@@ -36,8 +34,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(FormValuesTypeTransformer::class)]
-final class FormValuesTypeTransformerTest extends FunctionalTestCase
+#[Framework\Attributes\CoversClass(Src\Type\Transformer\FormValuesTypeTransformer::class)]
+final class FormValuesTypeTransformerTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
         'form',
@@ -49,20 +47,20 @@ final class FormValuesTypeTransformerTest extends FunctionalTestCase
 
     protected bool $initializeDatabase = false;
 
-    protected FormValuesTypeTransformer $subject;
-    protected FormRuntime $formRuntime;
+    protected Src\Type\Transformer\FormValuesTypeTransformer $subject;
+    protected Form\Domain\Runtime\FormRuntime $formRuntime;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->subject = $this->get(FormValuesTypeTransformer::class);
-        $this->formRuntime = $this->get(FormRuntime::class);
+        $this->subject = $this->get(Src\Type\Transformer\FormValuesTypeTransformer::class);
+        $this->formRuntime = $this->get(Form\Domain\Runtime\FormRuntime::class);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function transformReturnsJsonTypeWithEmptyArrayIfFormIsUninitialized(): void
     {
-        self::assertEquals(JsonType::fromArray([]), $this->subject->transform($this->formRuntime));
+        self::assertEquals(Src\Type\JsonType::fromArray([]), $this->subject->transform($this->formRuntime));
     }
 }

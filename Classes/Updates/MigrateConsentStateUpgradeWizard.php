@@ -23,16 +23,12 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Updates;
 
-use Doctrine\DBAL\Result;
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
-use Symfony\Component\Console\Output\OutputInterface;
-use TYPO3\CMS\Core\Database\Connection;
-use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Install\Updates\ChattyInterface;
-use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
+use Doctrine\DBAL;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use EliasHaeussler\Typo3FormConsent\Enums;
+use Symfony\Component\Console;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Install;
 
 /**
  * MigrateConsentStateUpgradeWizard
@@ -41,7 +37,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  * @license GPL-2.0-or-later
  * @codeCoverageIgnore
  */
-final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, ChattyInterface
+final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeWizardInterface, Install\Updates\ChattyInterface
 {
     public const IDENTIFIER = 'formConsentMigrateConsentState';
 
@@ -49,10 +45,10 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         'approved',
         'approval_date',
     ];
-    private OutputInterface $output;
+    private Console\Output\OutputInterface $output;
 
     public function __construct(
-        private readonly Connection $connection,
+        private readonly Core\Database\Connection $connection,
     ) {
     }
 
@@ -96,11 +92,11 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class,
+            Install\Updates\DatabaseUpdatedPrerequisite::class,
         ];
     }
 
-    public function setOutput(OutputInterface $output): void
+    public function setOutput(Console\Output\OutputInterface $output): void
     {
         $this->output = $output;
     }
@@ -113,7 +109,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         $uid = $record['uid'];
 
         $this->output->writeln(
-            sprintf('Starting migration of record <comment>"%s.%d"</comment>...', Consent::TABLE_NAME, $uid)
+            sprintf('Starting migration of record <comment>"%s.%d"</comment>...', Domain\Model\Consent::TABLE_NAME, $uid)
         );
 
         // Migrate consent state
@@ -139,7 +135,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
             );
         }
 
-        return $this->connection->update(Consent::TABLE_NAME, $record, ['uid' => $uid]) === 1;
+        return $this->connection->update(Domain\Model\Consent::TABLE_NAME, $record, ['uid' => $uid]) === 1;
     }
 
     /**
@@ -153,7 +149,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     private function migrateState(array &$record): bool
     {
         // Early return if state was already migrated
-        if ((int)$record['state'] !== ConsentState::New->value) {
+        if ((int)$record['state'] !== Enums\ConsentState::New->value) {
             return false;
         }
 
@@ -164,14 +160,14 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
 
         // Approved consent
         if ((bool)$record['approved'] === true) {
-            $record['state'] = ConsentState::Approved->value;
+            $record['state'] = Enums\ConsentState::Approved->value;
 
             return true;
         }
 
         // Dismissed consent
         if ((bool)$record['deleted'] === true && $record['data'] === null) {
-            $record['state'] = ConsentState::Dismissed->value;
+            $record['state'] = Enums\ConsentState::Dismissed->value;
 
             return true;
         }
@@ -230,7 +226,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
             $schemaManager = $this->connection->getSchemaManager();
         }
 
-        foreach ($schemaManager->listTableColumns(Consent::TABLE_NAME) as $column) {
+        foreach ($schemaManager->listTableColumns(Domain\Model\Consent::TABLE_NAME) as $column) {
             $columnName = $column->getName();
 
             if (\in_array($columnName, self::LEGACY_COLUMNS, true)) {
@@ -244,7 +240,7 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     /**
      * @param list<string> $legacyColumns
      */
-    private function selectAffectedRows(array $legacyColumns): Result
+    private function selectAffectedRows(array $legacyColumns): DBAL\Result
     {
         return $this->getPreparedQueryBuilder($legacyColumns)
             ->select('*')
@@ -267,9 +263,9 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
     /**
      * @param list<string> $legacyColumns
      */
-    private function getPreparedQueryBuilder(array $legacyColumns): QueryBuilder
+    private function getPreparedQueryBuilder(array $legacyColumns): Core\Database\Query\QueryBuilder
     {
-        $queryBuilder = $this->connection->createQueryBuilder()->from(Consent::TABLE_NAME);
+        $queryBuilder = $this->connection->createQueryBuilder()->from(Domain\Model\Consent::TABLE_NAME);
         $queryBuilder->getRestrictions()->removeAll();
 
         // Early return if no legacy columns are given
@@ -288,30 +284,30 @@ final class MigrateConsentStateUpgradeWizard implements UpgradeWizardInterface, 
         return $queryBuilder;
     }
 
-    private function getConstraintsForLegacyApprovedColumn(QueryBuilder $queryBuilder): CompositeExpression
+    private function getConstraintsForLegacyApprovedColumn(Core\Database\Query\QueryBuilder $queryBuilder): Core\Database\Query\Expression\CompositeExpression
     {
         $expr = $queryBuilder->expr();
 
         return $expr->or(
             $expr->and(
-                $expr->eq('approved', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
-                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentState::New->value, Connection::PARAM_INT))
+                $expr->eq('approved', $queryBuilder->createNamedParameter(true, Core\Database\Connection::PARAM_BOOL)),
+                $expr->eq('state', $queryBuilder->createNamedParameter(Enums\ConsentState::New->value, Core\Database\Connection::PARAM_INT))
             ),
             $expr->and(
-                $expr->eq('approved', $queryBuilder->createNamedParameter(false, Connection::PARAM_BOOL)),
-                $expr->eq('state', $queryBuilder->createNamedParameter(ConsentState::New->value, Connection::PARAM_INT)),
-                $expr->eq('deleted', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
+                $expr->eq('approved', $queryBuilder->createNamedParameter(false, Core\Database\Connection::PARAM_BOOL)),
+                $expr->eq('state', $queryBuilder->createNamedParameter(Enums\ConsentState::New->value, Core\Database\Connection::PARAM_INT)),
+                $expr->eq('deleted', $queryBuilder->createNamedParameter(true, Core\Database\Connection::PARAM_BOOL)),
                 $expr->isNull('data')
             )
         );
     }
 
-    private function getConstraintsForLegacyApprovalDateColumn(QueryBuilder $queryBuilder): CompositeExpression
+    private function getConstraintsForLegacyApprovalDateColumn(Core\Database\Query\QueryBuilder $queryBuilder): Core\Database\Query\Expression\CompositeExpression
     {
         $expr = $queryBuilder->expr();
 
         return $expr->and(
-            $expr->neq('approval_date', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
+            $expr->neq('approval_date', $queryBuilder->createNamedParameter(0, Core\Database\Connection::PARAM_INT)),
             $expr->isNull('update_date')
         );
     }

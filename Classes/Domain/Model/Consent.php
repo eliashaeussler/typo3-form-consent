@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Model;
 
-use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
-use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use DateTime;
+use EliasHaeussler\Typo3FormConsent\Type;
+use TYPO3\CMS\Extbase;
 
 /**
  * Consent
@@ -34,7 +34,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * @license GPL-2.0-or-later
  * @final
  */
-class Consent extends AbstractEntity
+class Consent extends Extbase\DomainObject\AbstractEntity
 {
     final public const TABLE_NAME = 'tx_formconsent_domain_model_consent';
 
@@ -44,12 +44,12 @@ class Consent extends AbstractEntity
     protected $email = '';
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $date;
 
     /**
-     * @var JsonType<string, mixed>|null
+     * @var Type\JsonType<string, mixed>|null
      */
     protected $data;
 
@@ -59,7 +59,7 @@ class Consent extends AbstractEntity
     protected $formPersistenceIdentifier = '';
 
     /**
-     * @var JsonType<string, array<string, array<string, mixed>>>|null
+     * @var Type\JsonType<string, array<string, array<string, mixed>>>|null
      */
     protected $originalRequestParameters;
 
@@ -69,17 +69,17 @@ class Consent extends AbstractEntity
     protected $originalContentElementUid = 0;
 
     /**
-     * @var ConsentStateType|null
+     * @var Type\ConsentStateType|null
      */
     protected $state;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      */
     protected $updateDate;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      */
     protected $validUntil;
 
@@ -99,29 +99,29 @@ class Consent extends AbstractEntity
         return $this;
     }
 
-    public function getDate(): \DateTime
+    public function getDate(): DateTime
     {
         return $this->date;
     }
 
-    public function setDate(\DateTime $date): self
+    public function setDate(DateTime $date): self
     {
         $this->date = $date;
         return $this;
     }
 
     /**
-     * @return JsonType<string, mixed>|null
+     * @return Type\JsonType<string, mixed>|null
      */
-    public function getData(): ?JsonType
+    public function getData(): ?Type\JsonType
     {
         return $this->data;
     }
 
     /**
-     * @param JsonType<string, mixed>|null $data
+     * @param Type\JsonType<string, mixed>|null $data
      */
-    public function setData(?JsonType $data): self
+    public function setData(?Type\JsonType $data): self
     {
         $this->data = $data;
         return $this;
@@ -139,17 +139,17 @@ class Consent extends AbstractEntity
     }
 
     /**
-     * @return JsonType<string, array<string, array<string, mixed>>>|null
+     * @return Type\JsonType<string, array<string, array<string, mixed>>>|null
      */
-    public function getOriginalRequestParameters(): ?JsonType
+    public function getOriginalRequestParameters(): ?Type\JsonType
     {
         return $this->originalRequestParameters;
     }
 
     /**
-     * @param JsonType<string, array<string, array<string, mixed>>>|null $originalRequestParameters
+     * @param Type\JsonType<string, array<string, array<string, mixed>>>|null $originalRequestParameters
      */
-    public function setOriginalRequestParameters(?JsonType $originalRequestParameters): self
+    public function setOriginalRequestParameters(?Type\JsonType $originalRequestParameters): self
     {
         $this->originalRequestParameters = $originalRequestParameters;
         return $this;
@@ -166,7 +166,7 @@ class Consent extends AbstractEntity
         return $this;
     }
 
-    public function getState(): ?ConsentStateType
+    public function getState(): ?Type\ConsentStateType
     {
         return $this->state;
     }
@@ -178,8 +178,8 @@ class Consent extends AbstractEntity
 
     public function setApproved(): self
     {
-        $this->setState(ConsentStateType::createApproved());
-        $this->setUpdateDate(new \DateTime());
+        $this->setState(Type\ConsentStateType::createApproved());
+        $this->setUpdateDate(new DateTime());
 
         return $this;
     }
@@ -191,35 +191,35 @@ class Consent extends AbstractEntity
 
     public function setDismissed(): self
     {
-        $this->setState(ConsentStateType::createDismissed());
-        $this->setUpdateDate(new \DateTime());
+        $this->setState(Type\ConsentStateType::createDismissed());
+        $this->setUpdateDate(new DateTime());
 
         return $this;
     }
 
-    public function setState(?ConsentStateType $state): self
+    public function setState(?Type\ConsentStateType $state): self
     {
         $this->state = $state;
         return $this;
     }
 
-    public function getUpdateDate(): ?\DateTime
+    public function getUpdateDate(): ?DateTime
     {
         return $this->updateDate;
     }
 
-    public function setUpdateDate(?\DateTime $updateDate): self
+    public function setUpdateDate(?DateTime $updateDate): self
     {
         $this->updateDate = $updateDate;
         return $this;
     }
 
-    public function getValidUntil(): ?\DateTime
+    public function getValidUntil(): ?DateTime
     {
         return $this->validUntil;
     }
 
-    public function setValidUntil(?\DateTime $validUntil): self
+    public function setValidUntil(?DateTime $validUntil): self
     {
         $this->validUntil = $validUntil;
         return $this;

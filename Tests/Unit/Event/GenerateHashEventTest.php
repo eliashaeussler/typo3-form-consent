@@ -23,11 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\GenerateHashEvent;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * GenerateHashEventTest
@@ -35,10 +33,10 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(GenerateHashEvent::class)]
-final class GenerateHashEventTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Event\GenerateHashEvent::class)]
+final class GenerateHashEventTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    protected GenerateHashEvent $subject;
+    protected Src\Event\GenerateHashEvent $subject;
 
     /**
      * @var list<string>
@@ -52,17 +50,17 @@ final class GenerateHashEventTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->subject = new GenerateHashEvent($this->components, new Consent());
+        $this->subject = new Src\Event\GenerateHashEvent($this->components, new Src\Domain\Model\Consent());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getComponentsReturnsInitialComponents(): void
     {
         $expected = $this->components;
         self::assertSame($expected, $this->subject->getComponents());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function setComponentsAppliesComponentsCorrectly(): void
     {
         $components = ['dummy'];
@@ -70,20 +68,20 @@ final class GenerateHashEventTest extends UnitTestCase
         self::assertSame($components, $this->subject->getComponents());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getConsentReturnsConsent(): void
     {
-        $expected = new Consent();
+        $expected = new Src\Domain\Model\Consent();
         self::assertEquals($expected, $this->subject->getConsent());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getHashReturnsNullOnInitialState(): void
     {
         self::assertNull($this->subject->getHash());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function setHashAppliesHashCorrectly(): void
     {
         $hash = 'foo';

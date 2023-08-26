@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Event;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use TYPO3\CMS\Form;
 
 /**
  * ModifyConsentEvent
@@ -35,17 +35,17 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 final class ModifyConsentEvent
 {
     public function __construct(
-        private readonly Consent $consent,
-        private readonly FormRuntime $formRuntime,
+        private readonly Domain\Model\Consent $consent,
+        private readonly Form\Domain\Runtime\FormRuntime $formRuntime,
     ) {
     }
 
-    public function getConsent(): Consent
+    public function getConsent(): Domain\Model\Consent
     {
         return $this->consent;
     }
 
-    public function getFormRuntime(): FormRuntime
+    public function getFormRuntime(): Form\Domain\Runtime\FormRuntime
     {
         return $this->formRuntime;
     }

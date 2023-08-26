@@ -23,12 +23,10 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Http\Response;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\CMS\Core;
+use TYPO3\TestingFramework;
 
 /**
  * DismissConsentEventTest
@@ -36,33 +34,33 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(DismissConsentEvent::class)]
-final class DismissConsentEventTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Event\DismissConsentEvent::class)]
+final class DismissConsentEventTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    protected DismissConsentEvent $subject;
-    protected Consent $consent;
+    protected Src\Event\DismissConsentEvent $subject;
+    protected Src\Domain\Model\Consent $consent;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->consent = new Consent();
-        $this->subject = new DismissConsentEvent($this->consent);
+        $this->consent = new Src\Domain\Model\Consent();
+        $this->subject = new Src\Event\DismissConsentEvent($this->consent);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getConsentReturnsInitialConsent(): void
     {
         $expected = $this->consent;
         self::assertSame($expected, $this->subject->getConsent());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getResponseReturnsResponse(): void
     {
         self::assertNull($this->subject->getResponse());
 
-        $response = new Response();
+        $response = new Core\Http\Response();
 
         self::assertSame($response, $this->subject->setResponse($response)->getResponse());
     }

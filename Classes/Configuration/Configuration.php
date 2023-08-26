@@ -24,9 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Extension;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Exception;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core;
 
 /**
  * Configuration
@@ -37,7 +35,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class Configuration
 {
     public function __construct(
-        private readonly ExtensionConfiguration $configuration,
+        private readonly Core\Configuration\ExtensionConfiguration $configuration,
     ) {
     }
 
@@ -53,8 +51,8 @@ final class Configuration
                 return [];
             }
 
-            return GeneralUtility::trimExplode(',', $configurationValue, true);
-        } catch (Exception) {
+            return Core\Utility\GeneralUtility::trimExplode(',', $configurationValue, true);
+        } catch (Core\Exception) {
             return [];
         }
     }

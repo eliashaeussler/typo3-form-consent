@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
-use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
+use EliasHaeussler\Typo3FormConsent\Type;
+use TYPO3\CMS\Form;
 
 /**
  * TypeTransformer
@@ -34,5 +34,5 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  */
 interface TypeTransformer
 {
-    public function transform(FormRuntime $formRuntime): JsonType;
+    public function transform(Form\Domain\Runtime\FormRuntime $formRuntime): Type\JsonType;
 }

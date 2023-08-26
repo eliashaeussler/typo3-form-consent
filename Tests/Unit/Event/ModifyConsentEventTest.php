@@ -23,12 +23,10 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Event;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentEvent;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\CMS\Form;
+use TYPO3\TestingFramework;
 
 /**
  * ModifyConsentEventTest
@@ -36,30 +34,30 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(ModifyConsentEvent::class)]
-final class ModifyConsentEventTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Event\ModifyConsentEvent::class)]
+final class ModifyConsentEventTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    protected ModifyConsentEvent $subject;
-    protected Consent $consent;
-    protected FormRuntime $formRuntimeMock;
+    protected Src\Event\ModifyConsentEvent $subject;
+    protected Src\Domain\Model\Consent $consent;
+    protected Form\Domain\Runtime\FormRuntime $formRuntimeMock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->consent = new Consent();
-        $this->formRuntimeMock = $this->createMock(FormRuntime::class);
-        $this->subject = new ModifyConsentEvent($this->consent, $this->formRuntimeMock);
+        $this->consent = new Src\Domain\Model\Consent();
+        $this->formRuntimeMock = $this->createMock(Form\Domain\Runtime\FormRuntime::class);
+        $this->subject = new Src\Event\ModifyConsentEvent($this->consent, $this->formRuntimeMock);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getConsentReturnsInitialConsent(): void
     {
         $expected = $this->consent;
         self::assertSame($expected, $this->subject->getConsent());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getFormRuntimeReturnsInitialFormRuntime(): void
     {
         $expected = $this->formRuntimeMock;

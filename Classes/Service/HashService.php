@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Service;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\GenerateHashEvent;
-use Psr\EventDispatcher\EventDispatcherInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use EliasHaeussler\Typo3FormConsent\Event;
+use Psr\EventDispatcher;
+use TYPO3\CMS\Core;
 
 /**
  * HashService
@@ -37,11 +37,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class HashService
 {
     public function __construct(
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
-    public function generate(Consent $consent): string
+    public function generate(Domain\Model\Consent $consent): string
     {
         $hashComponents = [
             $consent->getDate()->getTimestamp(),
@@ -53,17 +53,17 @@ final class HashService
             $hashComponents[] = $consent->getValidUntil()->getTimestamp();
         }
 
-        /** @var GenerateHashEvent $event */
-        $event = $this->eventDispatcher->dispatch(new GenerateHashEvent($hashComponents, $consent));
+        /** @var Event\GenerateHashEvent $event */
+        $event = $this->eventDispatcher->dispatch(new Event\GenerateHashEvent($hashComponents, $consent));
 
         if (null !== ($hash = $event->getHash())) {
             return $hash;
         }
 
-        return GeneralUtility::hmac(implode('_', $event->getComponents()), $consent->getEmail());
+        return Core\Utility\GeneralUtility::hmac(implode('_', $event->getComponents()), $consent->getEmail());
     }
 
-    public function isValid(Consent $consent, string $hash = null): bool
+    public function isValid(Domain\Model\Consent $consent, string $hash = null): bool
     {
         $hash ??= $consent->getValidationHash();
         $newHash = $this->generate($consent);

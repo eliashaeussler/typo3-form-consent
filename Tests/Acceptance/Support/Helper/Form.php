@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper;
 
 use Codeception\Module;
-use Facebook\WebDriver\WebDriverBy;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Facebook\WebDriver;
+use TYPO3\CMS\Core;
 
 /**
  * Form
@@ -63,9 +63,9 @@ final class Form extends Module
         }
 
         $I->submitForm(
-            WebDriverBy::id($this->getFormElementIdentifier($form)),
+            WebDriver\WebDriverBy::id($this->getFormElementIdentifier($form)),
             $elements,
-            WebDriverBy::name($this->getFormElementName($form, '__currentPage'))
+            WebDriver\WebDriverBy::name($this->getFormElementName($form, '__currentPage'))
         );
     }
 
@@ -84,7 +84,7 @@ final class Form extends Module
             $nameParts[$form][$element] = null;
         }
 
-        return substr(GeneralUtility::implodeArrayForUrl('tx_form_formframework', $nameParts), 1, -1);
+        return substr(Core\Utility\GeneralUtility::implodeArrayForUrl('tx_form_formframework', $nameParts), 1, -1);
     }
 
     private function getWebDriver(): Module\WebDriver

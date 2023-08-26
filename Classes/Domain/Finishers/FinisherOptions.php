@@ -24,14 +24,13 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 
 use ArrayAccess;
-use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
-use EliasHaeussler\Typo3FormConsent\Exception\NotAllowedException;
+use EliasHaeussler\Typo3FormConsent\Configuration;
+use EliasHaeussler\Typo3FormConsent\Exception;
 use EliasHaeussler\Typo3FormConsent\Extension;
-use TYPO3\CMS\Core\Domain\Repository\PageRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Fluid\View\TemplatePaths;
-use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Fluid;
+use TYPO3\CMS\Form;
 
 /**
  * FinisherOptions
@@ -39,11 +38,11 @@ use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  *
- * @implements ArrayAccess<string, string|int|bool|TemplatePaths>
+ * @implements ArrayAccess<string, string|int|bool|Fluid\View\TemplatePaths>
  */
 final class FinisherOptions implements ArrayAccess
 {
-    private static ?PageRepository $pageRepository = null;
+    private static ?Core\Domain\Repository\PageRepository $pageRepository = null;
 
     /**
      * @var callable(string): mixed
@@ -51,7 +50,18 @@ final class FinisherOptions implements ArrayAccess
     private $optionFetcher;
 
     /**
-     * @var array{subject?: string, templatePaths?: TemplatePaths, recipientAddress?: string, recipientName?: string, senderAddress?: string, senderName?: string, approvalPeriod?: int, confirmationPid?: int, storagePid?: int, showDismissLink?: bool}
+     * @var array{
+     *     subject?: string,
+     *     templatePaths?: Fluid\View\TemplatePaths,
+     *     recipientAddress?: string,
+     *     recipientName?: string,
+     *     senderAddress?: string,
+     *     senderName?: string,
+     *     approvalPeriod?: int,
+     *     confirmationPid?: int,
+     *     storagePid?: int,
+     *     showDismissLink?: bool,
+     * }
      */
     private array $parsedOptions = [];
 
@@ -72,24 +82,24 @@ final class FinisherOptions implements ArrayAccess
         $subject = trim((string)($this->optionFetcher)('subject'));
 
         if (str_starts_with($subject, 'LLL:')) {
-            $subject = Localization::translate($subject);
+            $subject = Configuration\Localization::translate($subject);
         }
         if ($subject === '') {
-            $subject = Localization::forKey('consentMail.subject', null, true);
+            $subject = Configuration\Localization::forKey('consentMail.subject', null, true);
         }
 
         return $this->parsedOptions['subject'] = $subject;
     }
 
-    public function getTemplatePaths(): TemplatePaths
+    public function getTemplatePaths(): Fluid\View\TemplatePaths
     {
         if (isset($this->parsedOptions['templatePaths'])) {
             return $this->parsedOptions['templatePaths'];
         }
 
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $configurationManager = Core\Utility\GeneralUtility::makeInstance(Extbase\Configuration\ConfigurationManagerInterface::class);
         $typoScriptConfiguration = $configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             Extension::NAME
         );
         $typoScriptTemplateConfiguration = $typoScriptConfiguration['view'] ?? [];
@@ -107,8 +117,8 @@ final class FinisherOptions implements ArrayAccess
             $finisherTemplateConfiguration
         );
 
-        return $this->parsedOptions['templatePaths'] = GeneralUtility::makeInstance(
-            TemplatePaths::class,
+        return $this->parsedOptions['templatePaths'] = Core\Utility\GeneralUtility::makeInstance(
+            Fluid\View\TemplatePaths::class,
             $mergedTemplateConfiguration
         );
     }
@@ -127,7 +137,7 @@ final class FinisherOptions implements ArrayAccess
         if (trim($recipientAddress) === '') {
             $this->throwException('recipientAddress.empty', 1576947638);
         }
-        if (!GeneralUtility::validEmail($recipientAddress)) {
+        if (!Core\Utility\GeneralUtility::validEmail($recipientAddress)) {
             $this->throwException('recipientAddress.invalid', 1576947682);
         }
 
@@ -151,7 +161,7 @@ final class FinisherOptions implements ArrayAccess
         if (!\is_string($senderAddress)) {
             $this->throwException('senderAddress.invalid', 1640186811);
         }
-        if (trim($senderAddress) !== '' && !GeneralUtility::validEmail($senderAddress)) {
+        if (trim($senderAddress) !== '' && !Core\Utility\GeneralUtility::validEmail($senderAddress)) {
             $this->throwException('senderAddress.invalid', 1587842752);
         }
 
@@ -258,28 +268,31 @@ final class FinisherOptions implements ArrayAccess
 
     public function offsetSet($offset, $value): void
     {
-        throw NotAllowedException::forMethod(__METHOD__);
+        throw Exception\NotAllowedException::forMethod(__METHOD__);
     }
 
     public function offsetUnset($offset): void
     {
-        throw NotAllowedException::forMethod(__METHOD__);
+        throw Exception\NotAllowedException::forMethod(__METHOD__);
     }
 
-    private function getPageRepository(): PageRepository
+    private function getPageRepository(): Core\Domain\Repository\PageRepository
     {
         if (self::$pageRepository === null) {
-            self::$pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+            self::$pageRepository = Core\Utility\GeneralUtility::makeInstance(Core\Domain\Repository\PageRepository::class);
         }
 
         return self::$pageRepository;
     }
 
     /**
-     * @throws FinisherException
+     * @throws Form\Domain\Finishers\Exception\FinisherException
      */
     private function throwException(string $message, int $code = 0): never
     {
-        throw new FinisherException(Localization::forFormValidation($message, true), $code);
+        throw new Form\Domain\Finishers\Exception\FinisherException(
+            Configuration\Localization::forFormValidation($message, true),
+            $code,
+        );
     }
 }

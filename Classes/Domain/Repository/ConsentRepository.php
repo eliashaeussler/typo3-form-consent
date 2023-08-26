@@ -23,10 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Repository;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
-use TYPO3\CMS\Extbase\Persistence\Repository;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
 
 /**
  * ConsentRepository
@@ -34,18 +33,18 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  *
- * @extends Repository<Consent>
+ * @extends Extbase\Persistence\Repository<Domain\Model\Consent>
  */
-class ConsentRepository extends Repository
+class ConsentRepository extends Extbase\Persistence\Repository
 {
     public function initializeObject(): void
     {
-        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
+        $querySettings = Core\Utility\GeneralUtility::makeInstance(Extbase\Persistence\Generic\Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }
 
-    public function findOneByValidationHash(string $validationHash): ?Consent
+    public function findOneByValidationHash(string $validationHash): ?Domain\Model\Consent
     {
         $query = $this->createQuery();
         $query->matching(
@@ -57,7 +56,7 @@ class ConsentRepository extends Repository
                 ),
             ),
         );
-        /** @var Consent|null $consent */
+        /** @var Domain\Model\Consent|null $consent */
         $consent = $query->execute()->getFirst();
 
         return $consent;

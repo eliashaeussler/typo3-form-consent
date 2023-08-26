@@ -23,13 +23,11 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
-use EliasHaeussler\Typo3FormConsent\Type\JsonType;
+use EliasHaeussler\Typo3FormConsent\Type;
 use JsonException;
-use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
-use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Form;
 
 /**
  * FormRequestTypeTransformer
@@ -40,15 +38,15 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 final class FormRequestTypeTransformer implements TypeTransformer
 {
     public function __construct(
-        private readonly HashService $hashService,
+        private readonly Extbase\Security\Cryptography\HashService $hashService,
     ) {
     }
 
     /**
-     * @return JsonType<string, array<string, array<string, mixed>>>
+     * @return Type\JsonType<string, array<string, array<string, mixed>>>
      * @throws JsonException
      */
-    public function transform(FormRuntime $formRuntime): JsonType
+    public function transform(Form\Domain\Runtime\FormRuntime $formRuntime): Type\JsonType
     {
         $request = $formRuntime->getRequest();
 
@@ -62,22 +60,22 @@ final class FormRequestTypeTransformer implements TypeTransformer
         $uploadedFiles = $request->getUploadedFiles();
         array_walk_recursive($uploadedFiles, function (&$value, string $elementIdentifier) use ($formRuntime): void {
             $file = $formRuntime[$elementIdentifier];
-            if ($file instanceof ExtbaseFileReference || $file instanceof CoreFileReference) {
+            if ($file instanceof Extbase\Domain\Model\FileReference || $file instanceof Core\Resource\FileReference) {
                 $value = $this->transformUploadedFile($file);
             }
         });
 
-        ArrayUtility::mergeRecursiveWithOverrule($requestParameters, $uploadedFiles);
+        Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($requestParameters, $uploadedFiles);
 
-        return JsonType::fromArray($requestParameters);
+        return Type\JsonType::fromArray($requestParameters);
     }
 
     /**
      * @return array{submittedFile: array{resourcePointer: string}}
      */
-    private function transformUploadedFile(CoreFileReference|ExtbaseFileReference $file): array
+    private function transformUploadedFile(Core\Resource\FileReference|Extbase\Domain\Model\FileReference $file): array
     {
-        if ($file instanceof ExtbaseFileReference) {
+        if ($file instanceof Extbase\Domain\Model\FileReference) {
             $file = $file->getOriginalResource();
         }
 

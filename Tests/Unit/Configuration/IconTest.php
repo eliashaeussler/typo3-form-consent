@@ -23,11 +23,11 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Configuration;
 
-use EliasHaeussler\Typo3FormConsent\Configuration\Icon;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use Generator;
+use InvalidArgumentException;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * IconTest
@@ -35,90 +35,90 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(Icon::class)]
-final class IconTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Configuration\Icon::class)]
+final class IconTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    #[Test]
-    #[DataProvider('invalidIdentifierDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('invalidIdentifierDataProvider')]
     public function forTableThrowsExceptionIfNoTableNameIsGiven(string $tableName): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionCode(1580308459);
 
-        Icon::forTable($tableName);
+        Src\Configuration\Icon::forTable($tableName);
     }
 
-    #[Test]
-    #[DataProvider('forTableReturnsCorrectFileNameDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('forTableReturnsCorrectFileNameDataProvider')]
     public function forTableReturnsCorrectFileName(?string $type, string $expected): void
     {
         if ($type !== null) {
-            self::assertSame($expected, Icon::forTable('dummy', $type));
+            self::assertSame($expected, Src\Configuration\Icon::forTable('dummy', $type));
         } else {
-            self::assertSame($expected, Icon::forTable('dummy'));
+            self::assertSame($expected, Src\Configuration\Icon::forTable('dummy'));
         }
     }
 
-    #[Test]
-    #[DataProvider('forPluginReturnsCorrectFileNameDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('forPluginReturnsCorrectFileNameDataProvider')]
     public function forPluginReturnsCorrectFileName(?string $type, string $expected): void
     {
         if ($type !== null) {
-            self::assertSame($expected, Icon::forPlugin('dummy', $type));
+            self::assertSame($expected, Src\Configuration\Icon::forPlugin('dummy', $type));
         } else {
-            self::assertSame($expected, Icon::forPlugin('dummy'));
+            self::assertSame($expected, Src\Configuration\Icon::forPlugin('dummy'));
         }
     }
 
-    #[Test]
-    #[DataProvider('invalidIdentifierDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('invalidIdentifierDataProvider')]
     public function forPluginIdentifierThrowsExceptionIfPluginIdentifierIsInvalid(string $pluginName): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionCode(1587655457);
 
-        Icon::forPluginIdentifier($pluginName);
+        Src\Configuration\Icon::forPluginIdentifier($pluginName);
     }
 
-    #[Test]
-    #[DataProvider('forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider')]
     public function forPluginIdentifierReturnsCorrectPluginIdentifier(string $pluginName, string $expected): void
     {
-        self::assertSame($expected, Icon::forPluginIdentifier($pluginName));
+        self::assertSame($expected, Src\Configuration\Icon::forPluginIdentifier($pluginName));
     }
 
-    #[Test]
-    #[DataProvider('forWidgetReturnsCorrectFileNameDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('forWidgetReturnsCorrectFileNameDataProvider')]
     public function forWidgetReturnsCorrectFileName(?string $type, string $expected): void
     {
         if ($type !== null) {
-            self::assertSame($expected, Icon::forWidget('dummy', $type));
+            self::assertSame($expected, Src\Configuration\Icon::forWidget('dummy', $type));
         } else {
-            self::assertSame($expected, Icon::forWidget('dummy'));
+            self::assertSame($expected, Src\Configuration\Icon::forWidget('dummy'));
         }
     }
 
-    #[Test]
-    #[DataProvider('invalidIdentifierDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('invalidIdentifierDataProvider')]
     public function forWidgetIdentifierThrowsExceptionIfWidgetIdentifierIsInvalid(string $widgetName): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionCode(1632850400);
 
-        Icon::forWidgetIdentifier($widgetName);
+        Src\Configuration\Icon::forWidgetIdentifier($widgetName);
     }
 
-    #[Test]
-    #[DataProvider('forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider')]
     public function forWidgetIdentifierReturnsCorrectWidgetIdentifier(string $widgetName, string $expected): void
     {
-        self::assertSame($expected, Icon::forWidgetIdentifier($widgetName));
+        self::assertSame($expected, Src\Configuration\Icon::forWidgetIdentifier($widgetName));
     }
 
     /**
-     * @return \Generator<string, array{string}>
+     * @return Generator<string, array{string}>
      */
-    public static function invalidIdentifierDataProvider(): \Generator
+    public static function invalidIdentifierDataProvider(): Generator
     {
         yield 'empty string' => [''];
         yield 'whitespaces' => ['    '];
@@ -126,9 +126,9 @@ final class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array{string|null, string}>
+     * @return Generator<string, array{string|null, string}>
      */
-    public static function forTableReturnsCorrectFileNameDataProvider(): \Generator
+    public static function forTableReturnsCorrectFileNameDataProvider(): Generator
     {
         yield 'no type' => [null, 'EXT:form_consent/Resources/Public/Icons/dummy.svg'];
         yield 'custom type' => ['jpg', 'EXT:form_consent/Resources/Public/Icons/dummy.jpg'];
@@ -137,9 +137,9 @@ final class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array{string|null, string}>
+     * @return Generator<string, array{string|null, string}>
      */
-    public static function forPluginReturnsCorrectFileNameDataProvider(): \Generator
+    public static function forPluginReturnsCorrectFileNameDataProvider(): Generator
     {
         yield 'no type' => [null, 'EXT:form_consent/Resources/Public/Icons/plugin.dummy.svg'];
         yield 'custom type' => ['jpg', 'EXT:form_consent/Resources/Public/Icons/plugin.dummy.jpg'];
@@ -148,9 +148,9 @@ final class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array{string, string}>
+     * @return Generator<string, array{string, string}>
      */
-    public static function forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider(): \Generator
+    public static function forPluginIdentifierReturnsCorrectPluginIdentifierDataProvider(): Generator
     {
         yield 'valid plugin name' => ['foo', 'content-plugin-foo'];
         yield 'plugin name with whitespaces' => [' foo   ', 'content-plugin-foo'];
@@ -158,9 +158,9 @@ final class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array{string|null, string}>
+     * @return Generator<string, array{string|null, string}>
      */
-    public static function forWidgetReturnsCorrectFileNameDataProvider(): \Generator
+    public static function forWidgetReturnsCorrectFileNameDataProvider(): Generator
     {
         yield 'no type' => [null, 'EXT:form_consent/Resources/Public/Icons/widget.dummy.svg'];
         yield 'custom type' => ['jpg', 'EXT:form_consent/Resources/Public/Icons/widget.dummy.jpg'];
@@ -169,9 +169,9 @@ final class IconTest extends UnitTestCase
     }
 
     /**
-     * @return \Generator<string, array{string, string}>
+     * @return Generator<string, array{string, string}>
      */
-    public static function forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider(): \Generator
+    public static function forWidgetIdentifierReturnsCorrectWidgetIdentifierDataProvider(): Generator
     {
         yield 'valid widget name' => ['foo', 'content-widget-foo'];
         yield 'widget name with whitespaces' => [' foo   ', 'content-widget-foo'];

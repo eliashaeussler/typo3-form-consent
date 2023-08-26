@@ -23,13 +23,10 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Repository;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
+use EliasHaeussler\Typo3FormConsent as Src;
 use Generator;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * ConsentRepositoryTest
@@ -37,8 +34,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(ConsentRepository::class)]
-final class ConsentRepositoryTest extends FunctionalTestCase
+#[Framework\Attributes\CoversClass(Src\Domain\Repository\ConsentRepository::class)]
+final class ConsentRepositoryTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
         'form',
@@ -48,45 +45,45 @@ final class ConsentRepositoryTest extends FunctionalTestCase
         'form_consent',
     ];
 
-    protected ConsentRepository $subject;
+    protected Src\Domain\Repository\ConsentRepository $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         // Build subject
-        $this->subject = $this->getContainer()->get(ConsentRepository::class);
+        $this->subject = $this->getContainer()->get(Src\Domain\Repository\ConsentRepository::class);
 
         // Import data
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.csv');
     }
 
-    #[Test]
-    #[DataProvider('findByValidationHashReturnsValidConsentDataProvider')]
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('findByValidationHashReturnsValidConsentDataProvider')]
     public function findByValidationHashReturnsValidConsent(string $hash, int $expectedUid): void
     {
         $consent = $this->subject->findOneByValidationHash($hash);
 
-        self::assertInstanceOf(Consent::class, $consent);
+        self::assertInstanceOf(Src\Domain\Model\Consent::class, $consent);
         self::assertEquals($hash, $consent->getValidationHash());
         self::assertEquals($expectedUid, $consent->getUid());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function findByValidationHashDoesNotReturnDeletedConsent(): void
     {
         $queryResult = $this->subject->findOneByValidationHash('blub');
         self::assertNull($queryResult);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function findByValidationHashDoesNotReturnExpiredConsent(): void
     {
         $queryResult = $this->subject->findOneByValidationHash('dummy');
         self::assertNull($queryResult);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function findByValidationHashReturnsEmptyQueryResultIfConsentDoesNotExist(): void
     {
         $queryResult = $this->subject->findOneByValidationHash('some-invalid-hash');

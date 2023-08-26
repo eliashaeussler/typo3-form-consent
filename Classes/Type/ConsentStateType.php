@@ -23,8 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Type;
 
-use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
-use TYPO3\CMS\Core\Type\TypeInterface;
+use EliasHaeussler\Typo3FormConsent\Enums;
+use Stringable;
+use TYPO3\CMS\Core;
 
 /**
  * ConsentState
@@ -32,17 +33,17 @@ use TYPO3\CMS\Core\Type\TypeInterface;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentStateType implements TypeInterface, \Stringable
+final class ConsentStateType implements Core\Type\TypeInterface, Stringable
 {
-    private readonly ConsentState $state;
+    private readonly Enums\ConsentState $state;
 
-    public function __construct(string|int|ConsentState $state = ConsentState::New)
+    public function __construct(string|int|Enums\ConsentState $state = Enums\ConsentState::New)
     {
         if (\is_string($state)) {
             $state = (int)$state;
         }
         if (\is_int($state)) {
-            $state = ConsentState::from($state);
+            $state = Enums\ConsentState::from($state);
         }
 
         $this->state = $state;
@@ -50,32 +51,32 @@ final class ConsentStateType implements TypeInterface, \Stringable
 
     public static function createNew(): self
     {
-        return new self(ConsentState::New);
+        return new self(Enums\ConsentState::New);
     }
 
     public static function createApproved(): self
     {
-        return new self(ConsentState::Approved);
+        return new self(Enums\ConsentState::Approved);
     }
 
     public static function createDismissed(): self
     {
-        return new self(ConsentState::Dismissed);
+        return new self(Enums\ConsentState::Dismissed);
     }
 
     public function isNew(): bool
     {
-        return $this->state === ConsentState::New;
+        return $this->state === Enums\ConsentState::New;
     }
 
     public function isApproved(): bool
     {
-        return $this->state === ConsentState::Approved;
+        return $this->state === Enums\ConsentState::Approved;
     }
 
     public function isDismissed(): bool
     {
-        return $this->state === ConsentState::Dismissed;
+        return $this->state === Enums\ConsentState::Dismissed;
     }
 
     public function __toString(): string

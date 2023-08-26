@@ -23,16 +23,13 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Service;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\GenerateHashEvent;
-use EliasHaeussler\Typo3FormConsent\Service\HashService;
-use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\DependencyInjection\Container;
-use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use DateTime;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use Psr\EventDispatcher;
+use Symfony\Component\DependencyInjection;
+use TYPO3\CMS\Core;
+use TYPO3\TestingFramework;
 
 /**
  * HashServiceTest
@@ -40,30 +37,30 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(HashService::class)]
-final class HashServiceTest extends FunctionalTestCase
+#[Framework\Attributes\CoversClass(Src\Service\HashService::class)]
+final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected bool $initializeDatabase = false;
 
-    protected Consent $consent;
-    protected ListenerProvider $listenerProvider;
-    protected HashService $subject;
+    protected Src\Domain\Model\Consent $consent;
+    protected Core\EventDispatcher\ListenerProvider $listenerProvider;
+    protected Src\Service\HashService $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->consent = (new Consent())
+        $this->consent = (new Src\Domain\Model\Consent())
             ->setEmail('dummy@example.com')
-            ->setDate(new \DateTime())
-            ->setData(JsonType::fromArray(['foo' => 'baz']))
-            ->setValidUntil(new \DateTime());
+            ->setDate(new DateTime())
+            ->setData(Src\Type\JsonType::fromArray(['foo' => 'baz']))
+            ->setValidUntil(new DateTime());
 
-        $this->listenerProvider = $this->getContainer()->get(ListenerProvider::class);
-        $this->subject = new HashService($this->getContainer()->get(EventDispatcherInterface::class));
+        $this->listenerProvider = $this->getContainer()->get(Core\EventDispatcher\ListenerProvider::class);
+        $this->subject = new Src\Service\HashService($this->getContainer()->get(EventDispatcher\EventDispatcherInterface::class));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function generateRespectsValidUntilDate(): void
     {
         $validUntil = $this->consent->getValidUntil();
@@ -76,16 +73,16 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertNotSame($hashWithValidUntil, $hashWithoutValidUntil);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function generateRespectsComponentsModifiedThroughEvent(): void
     {
         $hashWithDefaultComponents = $this->subject->generate($this->consent);
 
         $this->addEventListener(
-            GenerateHashEvent::class,
+            Src\Event\GenerateHashEvent::class,
             __METHOD__,
             new class () {
-                public function __invoke(GenerateHashEvent $event): void
+                public function __invoke(Src\Event\GenerateHashEvent $event): void
                 {
                     $event->setComponents([]);
                 }
@@ -97,16 +94,16 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertNotSame($hashWithNoComponents, $hashWithDefaultComponents);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function generateReturnsCustomHashGeneratedThroughEvent(): void
     {
         $defaultHashGeneration = $this->subject->generate($this->consent);
 
         $this->addEventListener(
-            GenerateHashEvent::class,
+            Src\Event\GenerateHashEvent::class,
             __METHOD__,
             new class () {
-                public function __invoke(GenerateHashEvent $event): void
+                public function __invoke(Src\Event\GenerateHashEvent $event): void
                 {
                     $event->setHash('foo');
                 }
@@ -119,14 +116,14 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertSame('foo', $customHashGeneration);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isValidReturnsTrueIfGeneratedHashEqualsConsentValidationHash(): void
     {
         $this->consent->setValidationHash($this->subject->generate($this->consent));
         self::assertTrue($this->subject->isValid($this->consent));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isValidReturnsFalseIfConsentHasChangedInTheMeantime(): void
     {
         $this->subject->generate($this->consent);
@@ -134,7 +131,7 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertFalse($this->subject->isValid($this->consent));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isValidReturnsCorrectStateForGivenHashAndConsent(): void
     {
         $this->subject->generate($this->consent);
@@ -145,14 +142,14 @@ final class HashServiceTest extends FunctionalTestCase
         self::assertTrue($this->subject->isValid($this->consent, $hash));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isValidRespectsInitialHashModificationThroughEvent(): void
     {
         $this->addEventListener(
-            GenerateHashEvent::class,
+            Src\Event\GenerateHashEvent::class,
             __METHOD__,
             new class () {
-                public function __invoke(GenerateHashEvent $event): void
+                public function __invoke(Src\Event\GenerateHashEvent $event): void
                 {
                     $event->setComponents([]);
                 }
@@ -169,7 +166,7 @@ final class HashServiceTest extends FunctionalTestCase
     {
         $container = $this->getContainer();
 
-        self::assertInstanceOf(Container::class, $container);
+        self::assertInstanceOf(DependencyInjection\Container::class, $container);
 
         $container->set($service, $object);
         $this->listenerProvider->addListener($event, $service);

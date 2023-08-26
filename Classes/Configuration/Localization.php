@@ -24,9 +24,8 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Extension;
-use TYPO3\CMS\Core\Http\ApplicationType;
-use TYPO3\CMS\Core\Localization\LanguageService;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Frontend;
 
 /**
  * Localization
@@ -120,7 +119,7 @@ final class Localization
         if (self::isEnvironmentInFrontendMode()) {
             return self::getTypoScriptFrontendController()->sL($localizationKey);
         }
-        if (self::getLanguageService() instanceof LanguageService) {
+        if (self::getLanguageService() instanceof Core\Localization\LanguageService) {
             return self::getLanguageService()->sL($localizationKey);
         }
 
@@ -155,18 +154,18 @@ final class Localization
     private static function isEnvironmentInFrontendMode(): bool
     {
         if (isset($GLOBALS['TYPO3_REQUEST'])) {
-            return ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend();
+            return Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend();
         }
 
-        return isset($GLOBALS['TSFE']) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController;
+        return isset($GLOBALS['TSFE']) && $GLOBALS['TSFE'] instanceof Frontend\Controller\TypoScriptFrontendController;
     }
 
-    private static function getLanguageService(): ?LanguageService
+    private static function getLanguageService(): ?Core\Localization\LanguageService
     {
         return $GLOBALS['LANG'] ?? null;
     }
 
-    private static function getTypoScriptFrontendController(): TypoScriptFrontendController
+    private static function getTypoScriptFrontendController(): Frontend\Controller\TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }

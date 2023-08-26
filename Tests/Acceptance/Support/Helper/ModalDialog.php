@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper;
 
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
-use TYPO3\TestingFramework\Core\Acceptance\Helper\AbstractModalDialog;
+use EliasHaeussler\Typo3FormConsent\Tests;
+use TYPO3\TestingFramework;
 
 /**
  * ModalDialog
@@ -32,14 +32,14 @@ use TYPO3\TestingFramework\Core\Acceptance\Helper\AbstractModalDialog;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ModalDialog extends AbstractModalDialog
+final class ModalDialog extends TestingFramework\Core\Acceptance\Helper\AbstractModalDialog
 {
     /**
-     * @var AcceptanceTester
+     * @var Tests\Acceptance\Support\AcceptanceTester
      */
     protected $tester;
 
-    public function __construct(AcceptanceTester $tester)
+    public function __construct(Tests\Acceptance\Support\AcceptanceTester $tester)
     {
         $this->tester = $tester;
     }
