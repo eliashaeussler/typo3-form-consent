@@ -45,6 +45,7 @@ return [
         'CONTRIBUTING.md',
         'crowdin.yaml',
         'dependency-checker.json',
+        'docker-compose.yml',
         'editorconfig',
         'gitattributes',
         'gitignore',
