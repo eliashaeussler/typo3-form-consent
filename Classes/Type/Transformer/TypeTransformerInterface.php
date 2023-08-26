@@ -34,6 +34,4 @@ use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 interface TypeTransformerInterface
 {
     public function transform(): JsonType;
-
-    public static function getName(): string;
 }
