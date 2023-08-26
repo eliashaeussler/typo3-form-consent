@@ -22,9 +22,9 @@ parameters:
 			path: Classes/Domain/Finishers/FinisherOptions.php
 
 		-
-			message: "#^Method EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\Transformer\\\\TypeTransformerInterface\\:\\:transform\\(\\) return type with generic class EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\JsonType does not specify its types\\: TKey, TValue$#"
+			message: "#^Method EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\Transformer\\\\TypeTransformer\\:\\:transform\\(\\) return type with generic class EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\JsonType does not specify its types\\: TKey, TValue$#"
 			count: 1
-			path: Classes/Type/Transformer/TypeTransformerInterface.php
+			path: Classes/Type/Transformer/TypeTransformer.php
 
 		-
 			message: """

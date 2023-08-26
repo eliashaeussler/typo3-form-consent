@@ -27,12 +27,12 @@ use EliasHaeussler\Typo3FormConsent\Type\JsonType;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 
 /**
- * TypeTransformerInterface
+ * TypeTransformer
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-interface TypeTransformerInterface
+interface TypeTransformer
 {
     public function transform(FormRuntime $formRuntime): JsonType;
 }
