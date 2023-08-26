@@ -36,7 +36,7 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class FormValuesTypeTransformer implements TypeTransformerInterface
+final class FormValuesTypeTransformer implements TypeTransformer
 {
     public function __construct(
         private readonly Configuration $configuration,
