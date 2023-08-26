@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Factory;
 
+use DateTime;
 use EliasHaeussler\Typo3FormConsent\Domain\Finishers\FinisherOptions;
 use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentEvent;
@@ -30,7 +31,6 @@ use EliasHaeussler\Typo3FormConsent\Service\HashService;
 use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
 use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerFactory;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -50,8 +50,9 @@ final class ConsentFactory
         private readonly ConfigurationManagerInterface $configurationManager,
         private readonly Context $context,
         private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly FormRequestTypeTransformer $formRequestTypeTransformer,
+        private readonly FormValuesTypeTransformer $formValuesTypeTransformer,
         private readonly HashService $hashService,
-        private readonly TypeTransformerFactory $typeTransformerFactory,
     ) {
     }
 
@@ -60,15 +61,12 @@ final class ConsentFactory
         $submitDate = $this->getSubmitDate();
         $approvalPeriod = $finisherOptions->getApprovalPeriod();
 
-        $formRequestTransformer = $this->getFormRequestTransformer();
-        $formValuesTransformer = $this->getFormValuesTransformer();
-
         $consent = GeneralUtility::makeInstance(Consent::class)
             ->setEmail($finisherOptions->getRecipientAddress())
             ->setDate($submitDate)
-            ->setData($formValuesTransformer->transform($formRuntime))
+            ->setData($this->formValuesTypeTransformer->transform($formRuntime))
             ->setFormPersistenceIdentifier($formRuntime->getFormDefinition()->getPersistenceIdentifier())
-            ->setOriginalRequestParameters($formRequestTransformer->transform($formRuntime))
+            ->setOriginalRequestParameters($this->formRequestTypeTransformer->transform($formRuntime))
             ->setOriginalContentElementUid($this->getCurrentContentElementUid($formRuntime->getRequest()))
             ->setState(ConsentStateType::createNew())
             ->setValidUntil($this->calculateExpiryDate($approvalPeriod, $submitDate))
@@ -91,12 +89,12 @@ final class ConsentFactory
         return $consent;
     }
 
-    private function getSubmitDate(): \DateTime
+    private function getSubmitDate(): DateTime
     {
-        return new \DateTime('@' . $this->context->getPropertyFromAspect('date', 'timestamp', time()));
+        return new DateTime('@' . $this->context->getPropertyFromAspect('date', 'timestamp', time()));
     }
 
-    private function calculateExpiryDate(int $approvalPeriod, \DateTime $submitDate): ?\DateTime
+    private function calculateExpiryDate(int $approvalPeriod, DateTime $submitDate): ?DateTime
     {
         // Early return if invalid approval period is given
         if ($approvalPeriod <= 0) {
@@ -105,7 +103,7 @@ final class ConsentFactory
 
         $target = $submitDate->getTimestamp() + $approvalPeriod;
 
-        return new \DateTime('@' . $target);
+        return new DateTime('@' . $target);
     }
 
     private function getCurrentContentElementUid(RequestInterface $request): int
@@ -122,23 +120,5 @@ final class ConsentFactory
         }
 
         return 0;
-    }
-
-    private function getFormRequestTransformer(): FormRequestTypeTransformer
-    {
-        $transformer = $this->typeTransformerFactory->get(FormRequestTypeTransformer::getName());
-
-        \assert($transformer instanceof FormRequestTypeTransformer);
-
-        return $transformer;
-    }
-
-    private function getFormValuesTransformer(): FormValuesTypeTransformer
-    {
-        $transformer = $this->typeTransformerFactory->get(FormValuesTypeTransformer::getName());
-
-        \assert($transformer instanceof FormValuesTypeTransformer);
-
-        return $transformer;
     }
 }

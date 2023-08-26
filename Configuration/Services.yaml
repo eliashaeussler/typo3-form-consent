@@ -17,10 +17,6 @@ services:
     arguments:
       $connection: '@connection.tx_formconsent_domain_model_consent'
 
-  EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformerFactory:
-    arguments:
-      $typeTransformers: !tagged_locator { tag: 'form_consent.type_transformer', default_index_method: 'getName' }
-
   EliasHaeussler\Typo3FormConsent\Event\Listener\InvokeFinishersListener:
     tags:
       - name: event.listener
