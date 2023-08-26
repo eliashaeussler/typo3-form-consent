@@ -61,16 +61,6 @@ final class FormValuesTypeTransformerTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function transformThrowsExceptionIfFormRuntimeIsNotGiven(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionCode(1646044591);
-        $this->expectExceptionMessage('Expected a valid FormRuntime object, NULL given.');
-
-        $this->subject->transform();
-    }
-
-    #[Test]
     public function transformReturnsJsonTypeWithEmptyArrayIfFormIsUninitialized(): void
     {
         self::assertEquals(JsonType::fromArray([]), $this->subject->transform($this->formRuntime));
