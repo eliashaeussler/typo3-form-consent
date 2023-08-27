@@ -24,19 +24,14 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Domain\Factory;
 
 use DateTime;
-use EliasHaeussler\Typo3FormConsent\Domain\Finishers\FinisherOptions;
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\ModifyConsentEvent;
-use EliasHaeussler\Typo3FormConsent\Service\HashService;
-use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer;
-use EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer;
-use Psr\EventDispatcher\EventDispatcherInterface;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use EliasHaeussler\Typo3FormConsent\Event;
+use EliasHaeussler\Typo3FormConsent\Service;
+use EliasHaeussler\Typo3FormConsent\Type;
+use Psr\EventDispatcher;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Form;
 
 /**
  * ConsentFactory
@@ -47,28 +42,30 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 final class ConsentFactory
 {
     public function __construct(
-        private readonly ConfigurationManagerInterface $configurationManager,
-        private readonly Context $context,
-        private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly FormRequestTypeTransformer $formRequestTypeTransformer,
-        private readonly FormValuesTypeTransformer $formValuesTypeTransformer,
-        private readonly HashService $hashService,
+        private readonly Extbase\Configuration\ConfigurationManagerInterface $configurationManager,
+        private readonly Core\Context\Context $context,
+        private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
+        private readonly Type\Transformer\FormRequestTypeTransformer $formRequestTypeTransformer,
+        private readonly Type\Transformer\FormValuesTypeTransformer $formValuesTypeTransformer,
+        private readonly Service\HashService $hashService,
     ) {
     }
 
-    public function createFromForm(FinisherOptions $finisherOptions, FormRuntime $formRuntime): Consent
-    {
+    public function createFromForm(
+        Domain\Finishers\FinisherOptions $finisherOptions,
+        Form\Domain\Runtime\FormRuntime $formRuntime,
+    ): Domain\Model\Consent {
         $submitDate = $this->getSubmitDate();
         $approvalPeriod = $finisherOptions->getApprovalPeriod();
 
-        $consent = GeneralUtility::makeInstance(Consent::class)
+        $consent = Core\Utility\GeneralUtility::makeInstance(Domain\Model\Consent::class)
             ->setEmail($finisherOptions->getRecipientAddress())
             ->setDate($submitDate)
             ->setData($this->formValuesTypeTransformer->transform($formRuntime))
             ->setFormPersistenceIdentifier($formRuntime->getFormDefinition()->getPersistenceIdentifier())
             ->setOriginalRequestParameters($this->formRequestTypeTransformer->transform($formRuntime))
             ->setOriginalContentElementUid($this->getCurrentContentElementUid($formRuntime->getRequest()))
-            ->setState(ConsentStateType::createNew())
+            ->setState(Type\ConsentStateType::createNew())
             ->setValidUntil($this->calculateExpiryDate($approvalPeriod, $submitDate))
         ;
 
@@ -79,7 +76,7 @@ final class ConsentFactory
         $consent->setValidationHash($this->hashService->generate($consent));
 
         // Dispatch ModifyConsent event
-        $this->eventDispatcher->dispatch(new ModifyConsentEvent($consent, $formRuntime));
+        $this->eventDispatcher->dispatch(new Event\ModifyConsentEvent($consent, $formRuntime));
 
         // Re-generate validation hash if consent has changed in the meantime
         if (!$this->hashService->isValid($consent)) {
@@ -106,7 +103,7 @@ final class ConsentFactory
         return new DateTime('@' . $target);
     }
 
-    private function getCurrentContentElementUid(RequestInterface $request): int
+    private function getCurrentContentElementUid(Extbase\Mvc\RequestInterface $request): int
     {
         $contentObjectRenderer = $request->getAttribute('currentContentObject');
 

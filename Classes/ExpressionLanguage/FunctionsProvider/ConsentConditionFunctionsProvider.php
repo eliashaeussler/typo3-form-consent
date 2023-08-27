@@ -23,10 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\ExpressionLanguage\FunctionsProvider;
 
-use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
-use Symfony\Component\ExpressionLanguage\ExpressionFunction;
-use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
-use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
+use EliasHaeussler\Typo3FormConsent\Registry;
+use Symfony\Component\ExpressionLanguage;
+use TYPO3\CMS\Form;
 
 /**
  * ConsentConditionFunctionsProvider
@@ -34,10 +33,10 @@ use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentConditionFunctionsProvider implements ExpressionFunctionProviderInterface
+final class ConsentConditionFunctionsProvider implements ExpressionLanguage\ExpressionFunctionProviderInterface
 {
     /**
-     * @return list<ExpressionFunction>
+     * @return list<ExpressionLanguage\ExpressionFunction>
      */
     public function getFunctions(): array
     {
@@ -47,33 +46,33 @@ final class ConsentConditionFunctionsProvider implements ExpressionFunctionProvi
         ];
     }
 
-    private function getIsConsentApprovedFunction(): ExpressionFunction
+    private function getIsConsentApprovedFunction(): ExpressionLanguage\ExpressionFunction
     {
-        return new ExpressionFunction('isConsentApproved', static function (): void {
+        return new ExpressionLanguage\ExpressionFunction('isConsentApproved', static function (): void {
             // Not implemented, we only use the evaluator
         }, static function ($arguments): bool {
             $formRuntime = $arguments['formRuntime'] ?? null;
 
-            if (!($formRuntime instanceof FormRuntime)) {
+            if (!($formRuntime instanceof Form\Domain\Runtime\FormRuntime)) {
                 return false;
             }
 
-            return ConsentManagerRegistry::isConsentApproved($formRuntime->getFormDefinition()->getPersistenceIdentifier());
+            return Registry\ConsentManagerRegistry::isConsentApproved($formRuntime->getFormDefinition()->getPersistenceIdentifier());
         });
     }
 
-    private function getIsConsentDismissedFunction(): ExpressionFunction
+    private function getIsConsentDismissedFunction(): ExpressionLanguage\ExpressionFunction
     {
-        return new ExpressionFunction('isConsentDismissed', static function (): void {
+        return new ExpressionLanguage\ExpressionFunction('isConsentDismissed', static function (): void {
             // Not implemented, we only use the evaluator
         }, static function ($arguments): bool {
             $formRuntime = $arguments['formRuntime'] ?? null;
 
-            if (!($formRuntime instanceof FormRuntime)) {
+            if (!($formRuntime instanceof Form\Domain\Runtime\FormRuntime)) {
                 return false;
             }
 
-            return ConsentManagerRegistry::isConsentDismissed($formRuntime->getFormDefinition()->getPersistenceIdentifier());
+            return Registry\ConsentManagerRegistry::isConsentDismissed($formRuntime->getFormDefinition()->getPersistenceIdentifier());
         });
     }
 }

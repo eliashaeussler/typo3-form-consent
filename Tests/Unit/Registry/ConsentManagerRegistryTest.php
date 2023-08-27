@@ -23,11 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Registry;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * ConsentManagerRegistryTest
@@ -35,83 +33,83 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(ConsentManagerRegistry::class)]
-final class ConsentManagerRegistryTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Registry\ConsentManagerRegistry::class)]
+final class ConsentManagerRegistryTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    protected Consent $consent;
+    protected Src\Domain\Model\Consent $consent;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->consent = new Consent();
+        $this->consent = new Src\Domain\Model\Consent();
         $this->consent->setFormPersistenceIdentifier('foo');
         $this->consent->setApproved();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function registerConsentGloballyRegistersConsent(): void
     {
-        self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
+        self::assertFalse(Src\Registry\ConsentManagerRegistry::isConsentApproved('foo'));
 
-        ConsentManagerRegistry::registerConsent($this->consent);
+        Src\Registry\ConsentManagerRegistry::registerConsent($this->consent);
 
-        self::assertTrue(ConsentManagerRegistry::isConsentApproved('foo'));
+        self::assertTrue(Src\Registry\ConsentManagerRegistry::isConsentApproved('foo'));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function unregisterConsentGloballyUnregistersConsent(): void
     {
-        ConsentManagerRegistry::registerConsent($this->consent);
+        Src\Registry\ConsentManagerRegistry::registerConsent($this->consent);
 
-        self::assertTrue(ConsentManagerRegistry::isConsentApproved('foo'));
+        self::assertTrue(Src\Registry\ConsentManagerRegistry::isConsentApproved('foo'));
 
-        ConsentManagerRegistry::unregisterConsent($this->consent);
+        Src\Registry\ConsentManagerRegistry::unregisterConsent($this->consent);
 
-        self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
+        self::assertFalse(Src\Registry\ConsentManagerRegistry::isConsentApproved('foo'));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isConsentApprovedReturnsFalseIfConsentIsNotRegistered(): void
     {
-        self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
+        self::assertFalse(Src\Registry\ConsentManagerRegistry::isConsentApproved('foo'));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isConsentApprovedReturnsStateOfApprovalOfRegisteredConsent(): void
     {
-        ConsentManagerRegistry::registerConsent($this->consent);
+        Src\Registry\ConsentManagerRegistry::registerConsent($this->consent);
 
-        self::assertTrue(ConsentManagerRegistry::isConsentApproved('foo'));
+        self::assertTrue(Src\Registry\ConsentManagerRegistry::isConsentApproved('foo'));
 
         $this->consent->setDismissed();
 
-        self::assertFalse(ConsentManagerRegistry::isConsentApproved('foo'));
+        self::assertFalse(Src\Registry\ConsentManagerRegistry::isConsentApproved('foo'));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isConsentDismissedReturnsFalseIfConsentIsNotRegistered(): void
     {
-        self::assertFalse(ConsentManagerRegistry::isConsentDismissed('foo'));
+        self::assertFalse(Src\Registry\ConsentManagerRegistry::isConsentDismissed('foo'));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function isConsentDismissedReturnsStateOfDismissalOfRegisteredConsent(): void
     {
-        ConsentManagerRegistry::registerConsent($this->consent);
+        Src\Registry\ConsentManagerRegistry::registerConsent($this->consent);
 
         $this->consent->setDismissed();
 
-        self::assertTrue(ConsentManagerRegistry::isConsentDismissed('foo'));
+        self::assertTrue(Src\Registry\ConsentManagerRegistry::isConsentDismissed('foo'));
 
         $this->consent->setApproved();
 
-        self::assertFalse(ConsentManagerRegistry::isConsentDismissed('foo'));
+        self::assertFalse(Src\Registry\ConsentManagerRegistry::isConsentDismissed('foo'));
     }
 
     protected function tearDown(): void
     {
-        ConsentManagerRegistry::unregisterConsent($this->consent);
+        Src\Registry\ConsentManagerRegistry::unregisterConsent($this->consent);
 
         parent::tearDown();
     }

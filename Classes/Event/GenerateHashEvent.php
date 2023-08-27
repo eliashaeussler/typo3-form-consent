@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Event;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use EliasHaeussler\Typo3FormConsent\Domain;
 
 /**
  * GenerateHashEvent
@@ -40,7 +40,7 @@ final class GenerateHashEvent
      */
     public function __construct(
         private array $components,
-        private readonly Consent $consent,
+        private readonly Domain\Model\Consent $consent,
     ) {
     }
 
@@ -61,7 +61,7 @@ final class GenerateHashEvent
         return $this;
     }
 
-    public function getConsent(): Consent
+    public function getConsent(): Domain\Model\Consent
     {
         return $this->consent;
     }

@@ -21,32 +21,28 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Event;
+namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper;
 
-use EliasHaeussler\Typo3FormConsent\Domain;
-use TYPO3\CMS\Form;
+use Codeception\Module;
 
 /**
- * ModifyConsentEvent
+ * Db
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ModifyConsentEvent
+final class Db extends Module
 {
-    public function __construct(
-        private readonly Domain\Model\Consent $consent,
-        private readonly Form\Domain\Runtime\FormRuntime $formRuntime,
-    ) {
-    }
-
-    public function getConsent(): Domain\Model\Consent
+    public function truncateTable(string $table): void
     {
-        return $this->consent;
-    }
+        if (!$this->hasModule('Db')) {
+            $this->fail('Db module is not enabled.');
+        }
 
-    public function getFormRuntime(): Form\Domain\Runtime\FormRuntime
-    {
-        return $this->formRuntime;
+        /** @var Module\Db $db */
+        $db = $this->getModule('Db');
+        $dbh = $db->_getDriver()->getDbh();
+
+        $dbh->exec('TRUNCATE TABLE `' . $table . '`');
     }
 }

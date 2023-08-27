@@ -23,21 +23,14 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Event\Listener;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
-use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
-use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Domain\Repository\PageRepository;
-use TYPO3\CMS\Core\Http\ImmediateResponseException;
-use TYPO3\CMS\Core\Http\PropagateResponseException;
-use TYPO3\CMS\Core\Http\Response;
-use TYPO3\CMS\Core\Http\ServerRequestFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Core\Bootstrap;
-use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use EliasHaeussler\Typo3FormConsent\Event;
+use EliasHaeussler\Typo3FormConsent\Type;
+use Psr\Http\Message;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Form;
+use TYPO3\CMS\Frontend;
 
 /**
  * InvokeFinishersListener
@@ -48,24 +41,24 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 final class InvokeFinishersListener
 {
     public function __construct(
-        private readonly FormPersistenceManagerInterface $formPersistenceManager,
-        private readonly PageRepository $pageRepository,
+        private readonly Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
+        private readonly Core\Domain\Repository\PageRepository $pageRepository,
     ) {
     }
 
-    public function onConsentApprove(ApproveConsentEvent $event): void
+    public function onConsentApprove(Event\ApproveConsentEvent $event): void
     {
         $response = $this->invokeFinishers($event->getConsent(), 'isConsentApproved()');
         $event->setResponse($response);
     }
 
-    public function onConsentDismiss(DismissConsentEvent $event): void
+    public function onConsentDismiss(Event\DismissConsentEvent $event): void
     {
         $response = $this->invokeFinishers($event->getConsent(), 'isConsentDismissed()');
         $event->setResponse($response);
     }
 
-    private function invokeFinishers(Consent $consent, string $condition): ?ResponseInterface
+    private function invokeFinishers(Domain\Model\Consent $consent, string $condition): ?Message\ResponseInterface
     {
         // Early return if original request is missing
         // or no finisher variants are configured
@@ -83,8 +76,10 @@ final class InvokeFinishersListener
         return $this->dispatchFormReRendering($consent, $request);
     }
 
-    private function dispatchFormReRendering(Consent $consent, ServerRequestInterface $serverRequest): ?ResponseInterface
-    {
+    private function dispatchFormReRendering(
+        Domain\Model\Consent $consent,
+        Message\ServerRequestInterface $serverRequest,
+    ): ?Message\ResponseInterface {
         // Fetch record of original content element
         $contentElementRecord = $this->fetchOriginalContentElementRecord($consent->getOriginalContentElementUid());
 
@@ -94,10 +89,10 @@ final class InvokeFinishersListener
         }
 
         // Build extbase bootstrap object
-        $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $contentObjectRenderer = Core\Utility\GeneralUtility::makeInstance(Frontend\ContentObject\ContentObjectRenderer::class);
         $contentObjectRenderer->start($contentElementRecord, 'tt_content', $serverRequest);
-        $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
-        $bootstrap = GeneralUtility::makeInstance(Bootstrap::class);
+        $contentObjectRenderer->setUserObjectType(Frontend\ContentObject\ContentObjectRenderer::OBJECTTYPE_USER_INT);
+        $bootstrap = Core\Utility\GeneralUtility::makeInstance(Extbase\Core\Bootstrap::class);
         $bootstrap->setContentObjectRenderer($contentObjectRenderer);
 
         // Inject content object renderer (TYPO3 >= 12)
@@ -111,11 +106,11 @@ final class InvokeFinishersListener
         try {
             // Dispatch extbase request
             $content = $bootstrap->run('', $configuration, $serverRequest);
-            $response = new Response();
+            $response = new Core\Http\Response();
             $response->getBody()->write($content);
 
             return $response;
-        } catch (ImmediateResponseException|PropagateResponseException $exception) {
+        } catch (Core\Http\ImmediateResponseException|Core\Http\PropagateResponseException $exception) {
             // If any immediate response is thrown, use this for further processing
             return $exception->getResponse();
         }
@@ -143,9 +138,9 @@ final class InvokeFinishersListener
     }
 
     /**
-     * @param JsonType<string, array<string, array<string, mixed>>> $originalRequestParameters
+     * @param Type\JsonType<string, array<string, array<string, mixed>>> $originalRequestParameters
      */
-    private function createRequestFromOriginalRequestParameters(JsonType $originalRequestParameters): ServerRequestInterface
+    private function createRequestFromOriginalRequestParameters(Type\JsonType $originalRequestParameters): Message\ServerRequestInterface
     {
         return $this->getServerRequest()
             ->withMethod('POST')
@@ -165,8 +160,8 @@ final class InvokeFinishersListener
         return false;
     }
 
-    private function getServerRequest(): ServerRequestInterface
+    private function getServerRequest(): Message\ServerRequestInterface
     {
-        return $GLOBALS['TYPO3_REQUEST'] ?? ServerRequestFactory::fromGlobals();
+        return $GLOBALS['TYPO3_REQUEST'] ?? Core\Http\ServerRequestFactory::fromGlobals();
     }
 }

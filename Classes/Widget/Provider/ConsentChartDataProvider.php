@@ -23,14 +23,11 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Widget\Provider;
 
-use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
-use TYPO3\CMS\Core\Database\Connection;
-use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Dashboard\WidgetApi;
-use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
+use EliasHaeussler\Typo3FormConsent\Configuration;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use EliasHaeussler\Typo3FormConsent\Enums;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Dashboard;
 
 /**
  * ConsentChartDataProvider
@@ -38,10 +35,10 @@ use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentChartDataProvider implements ChartDataProviderInterface
+final class ConsentChartDataProvider implements Dashboard\Widgets\ChartDataProviderInterface
 {
     public function __construct(
-        private readonly Connection $connection,
+        private readonly Core\Database\Connection $connection,
     ) {
     }
 
@@ -52,13 +49,13 @@ final class ConsentChartDataProvider implements ChartDataProviderInterface
     {
         return [
             'labels' => [
-                Localization::forChart('approved', true),
-                Localization::forChart('nonApproved', true),
-                Localization::forChart('dismissed', true),
+                Configuration\Localization::forChart('approved', true),
+                Configuration\Localization::forChart('nonApproved', true),
+                Configuration\Localization::forChart('dismissed', true),
             ],
             'datasets' => [
                 [
-                    'backgroundColor' => WidgetApi::getDefaultChartColors(),
+                    'backgroundColor' => Dashboard\WidgetApi::getDefaultChartColors(),
                     'data' => [$this->countApproved(), $this->countNonApproved(), $this->countDismissed()],
                 ],
             ],
@@ -67,34 +64,34 @@ final class ConsentChartDataProvider implements ChartDataProviderInterface
 
     private function countApproved(): int
     {
-        return $this->count(ConsentState::Approved);
+        return $this->count(Enums\ConsentState::Approved);
     }
 
     private function countNonApproved(): int
     {
-        return $this->count(ConsentState::New);
+        return $this->count(Enums\ConsentState::New);
     }
 
     private function countDismissed(): int
     {
-        return $this->count(ConsentState::Dismissed, true);
+        return $this->count(Enums\ConsentState::Dismissed, true);
     }
 
-    private function count(ConsentState $state, bool $includeDeleted = false): int
+    private function count(Enums\ConsentState $state, bool $includeDeleted = false): int
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
 
         if (!$includeDeleted) {
-            $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            $queryBuilder->getRestrictions()->add(Core\Utility\GeneralUtility::makeInstance(Core\Database\Query\Restriction\DeletedRestriction::class));
         }
 
         $result = $queryBuilder->count('*')
-            ->from(Consent::TABLE_NAME)
+            ->from(Domain\Model\Consent::TABLE_NAME)
             ->where(
                 $queryBuilder->expr()->eq(
                     'state',
-                    $queryBuilder->createNamedParameter($state->value, Connection::PARAM_INT)
+                    $queryBuilder->createNamedParameter($state->value, Core\Database\Connection::PARAM_INT)
                 )
             )
             ->executeQuery();

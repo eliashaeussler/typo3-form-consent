@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent;
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Scheduler;
 
 /**
  * Extension
@@ -60,7 +60,7 @@ final class Extension
      */
     public static function registerPageTsConfig(): void
     {
-        ExtensionManagementUtility::addPageTSConfig('
+        Core\Utility\ExtensionManagementUtility::addPageTSConfig('
             @import "EXT:' . self::KEY . '/Configuration/TSconfig/Page.tsconfig"
         ');
     }
@@ -72,7 +72,7 @@ final class Extension
      */
     public static function registerPlugin(): void
     {
-        ExtensionUtility::configurePlugin(
+        Extbase\Utility\ExtensionUtility::configurePlugin(
             self::NAME,
             'Consent',
             [
@@ -102,11 +102,11 @@ final class Extension
      */
     public static function registerGarbageCollectionTask(): void
     {
-        if (!ExtensionManagementUtility::isLoaded('scheduler')) {
+        if (!Core\Utility\ExtensionManagementUtility::isLoaded('scheduler')) {
             return;
         }
 
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][TableGarbageCollectionTask::class]['options']['tables'][Domain\Model\Consent::TABLE_NAME] = [
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables'][Domain\Model\Consent::TABLE_NAME] = [
             'expireField' => 'valid_until',
         ];
     }

@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Form\Element;
 
-use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
-use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use EliasHaeussler\Typo3FormConsent\Configuration;
+use TYPO3\CMS\Backend;
+use TYPO3\CMS\Extbase;
 
 /**
  * ConsentDataElement
@@ -33,7 +33,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentDataElement extends AbstractFormElement
+final class ConsentDataElement extends Backend\Form\Element\AbstractFormElement
 {
     /**
      * @return array<string, mixed>
@@ -56,13 +56,13 @@ final class ConsentDataElement extends AbstractFormElement
         $row = $this->data['databaseRow'] ?? [];
         $formData = (string)$row['data'];
         $formData = json_decode($formData, true) ?? [];
-        $title = Localization::forBackendForm('data.header', true);
+        $title = Configuration\Localization::forBackendForm('data.header', true);
 
         if (!\is_array($formData) || $formData === []) {
             return $this->renderAlert('noDataAvailable');
         }
 
-        return DebuggerUtility::var_dump($formData, $title, 8, false, false, true);
+        return Extbase\Utility\DebuggerUtility::var_dump($formData, $title, 8, false, false, true);
     }
 
     /**
@@ -94,7 +94,7 @@ final class ConsentDataElement extends AbstractFormElement
     {
         $html = [];
         $html[] = '<div class="alert alert-info alert-message" role="alert">';
-        $html[] =   Localization::forBackendForm('message.' . $localizationKey, true);
+        $html[] =   Configuration\Localization::forBackendForm('message.' . $localizationKey, true);
         $html[] = '</div>';
 
         return implode(PHP_EOL, $html);

@@ -23,7 +23,11 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Type;
 
-use TYPO3\CMS\Core\Type\TypeInterface;
+use ArrayAccess;
+use JsonException;
+use JsonSerializable;
+use Stringable;
+use TYPO3\CMS\Core;
 
 /**
  * JsonType
@@ -33,9 +37,9 @@ use TYPO3\CMS\Core\Type\TypeInterface;
  *
  * @template TKey
  * @template TValue
- * @implements \ArrayAccess<TKey, TValue>
+ * @implements ArrayAccess<TKey, TValue>
  */
-final class JsonType implements TypeInterface, \ArrayAccess, \JsonSerializable, \Stringable
+final class JsonType implements Core\Type\TypeInterface, ArrayAccess, JsonSerializable, Stringable
 {
     /**
      * @var array<TKey, TValue>
@@ -50,7 +54,7 @@ final class JsonType implements TypeInterface, \ArrayAccess, \JsonSerializable, 
     /**
      * @param array<TKey, TValue> $data
      * @return self<TKey, TValue>
-     * @throws \JsonException
+     * @throws JsonException
      */
     public static function fromArray(array $data): self
     {
@@ -73,6 +77,9 @@ final class JsonType implements TypeInterface, \ArrayAccess, \JsonSerializable, 
         return $this->data;
     }
 
+    /**
+     * @throws JsonException
+     */
     public function __toString(): string
     {
         return json_encode($this, JSON_THROW_ON_ERROR);

@@ -23,10 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Exception;
 
-use EliasHaeussler\Typo3FormConsent\Exception\NotAllowedException;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * NotAllowedExceptionTest
@@ -34,13 +33,13 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(NotAllowedException::class)]
-final class NotAllowedExceptionTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Exception\NotAllowedException::class)]
+final class NotAllowedExceptionTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    #[Test]
+    #[Framework\Attributes\Test]
     public function forMethodReturnsNotAllowedExceptionForGivenMethod(): void
     {
-        $actual = NotAllowedException::forMethod('foo');
+        $actual = Src\Exception\NotAllowedException::forMethod('foo');
 
         self::assertSame('Calling the method "foo" is not allowed.', $actual->getMessage());
         self::assertSame(1645781267, $actual->getCode());

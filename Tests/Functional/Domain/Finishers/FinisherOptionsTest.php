@@ -23,14 +23,12 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Finishers;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Finishers\FinisherOptions;
-use EliasHaeussler\Typo3FormConsent\Exception\NotAllowedException;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\CMS\Fluid\View\TemplatePaths;
-use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Fluid;
+use TYPO3\CMS\Form;
+use TYPO3\TestingFramework;
 
 /**
  * FinisherOptionsTest
@@ -38,8 +36,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(FinisherOptions::class)]
-final class FinisherOptionsTest extends FunctionalTestCase
+#[Framework\Attributes\CoversClass(Src\Domain\Finishers\FinisherOptions::class)]
+final class FinisherOptionsTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
         'form',
@@ -49,7 +47,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         'form_consent',
     ];
 
-    protected FinisherOptions $subject;
+    protected Src\Domain\Finishers\FinisherOptions $subject;
 
     /**
      * @var array<string, mixed>
@@ -60,16 +58,16 @@ final class FinisherOptionsTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->subject = new FinisherOptions($this->fetchOption(...));
+        $this->subject = new Src\Domain\Finishers\FinisherOptions($this->fetchOption(...));
 
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/be_users.csv');
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.csv');
 
         $this->setUpBackendUser(1);
-        Bootstrap::initializeLanguageObject();
+        Core\Core\Bootstrap::initializeLanguageObject();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getSubjectReturnsAlreadyParsedSubject(): void
     {
         $this->options['subject'] = 'foo';
@@ -81,7 +79,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame('foo', $this->subject->getSubject());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getSubjectReturnsLocalizedTranslatableSubject(): void
     {
         $this->options['subject'] = 'LLL:EXT:form_consent/Resources/Private/Language/locallang.xlf:consentMail.subject';
@@ -89,7 +87,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame('Approve your consent', $this->subject->getSubject());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getSubjectReturnsDefaultSubjectIfFetchedSubjectIsEmpty(): void
     {
         $this->options['subject'] = '';
@@ -97,7 +95,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame('Approve your consent', $this->subject->getSubject());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getTemplatePathsReturnsTemplatePathsAndStoresTheParsedResult(): void
     {
         $this->options = [
@@ -118,7 +116,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         $templatePathsArray = $this->options;
         $templatePathsArray['format'] = 'both';
 
-        $expected = new TemplatePaths($templatePathsArray);
+        $expected = new Fluid\View\TemplatePaths($templatePathsArray);
 
         self::assertEquals($expected, $this->subject->getTemplatePaths());
 
@@ -127,7 +125,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertEquals($expected, $this->subject->getTemplatePaths());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getRecipientAddressReturnsAlreadyParsedRecipientAddress(): void
     {
         $this->options['recipientAddress'] = 'foo@baz.de';
@@ -139,43 +137,43 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame('foo@baz.de', $this->subject->getRecipientAddress());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getRecipientAddressThrowsExceptionIfFetchedRecipientAddressIsNotAString(): void
     {
         $this->options['recipientAddress'] = null;
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1640186663);
         $this->expectExceptionMessage('The finisher option "recipientAddress" must contain a valid e-mail address.');
 
         $this->subject->getRecipientAddress();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getRecipientAddressThrowsExceptionIfFetchedRecipientAddressIsEmpty(): void
     {
         $this->options['recipientAddress'] = '';
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1576947638);
         $this->expectExceptionMessage('The finisher option "recipientAddress" must be set.');
 
         $this->subject->getRecipientAddress();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getRecipientAddressThrowsExceptionIfFetchedRecipientAddressIsInvalid(): void
     {
         $this->options['recipientAddress'] = 'foo';
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1576947682);
         $this->expectExceptionMessage('The finisher option "recipientAddress" must contain a valid e-mail address.');
 
         $this->subject->getRecipientAddress();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getRecipientNameReturnsRecipientNameAndStoresTheParsedResult(): void
     {
         $this->options['recipientName'] = 'foo';
@@ -187,7 +185,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame('foo', $this->subject->getRecipientName());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getSenderAddressReturnsAlreadyParsedSenderAddress(): void
     {
         $this->options['senderAddress'] = 'foo@baz.de';
@@ -199,31 +197,31 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame('foo@baz.de', $this->subject->getSenderAddress());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getSenderAddressThrowsExceptionIfFetchedSenderAddressIsNotAString(): void
     {
         $this->options['senderAddress'] = null;
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1640186811);
         $this->expectExceptionMessage('The finisher option "senderAddress" must contain a valid e-mail address.');
 
         $this->subject->getSenderAddress();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getSenderAddressThrowsExceptionIfFetchedSenderAddressIsNotEmptyAndInvalid(): void
     {
         $this->options['senderAddress'] = 'foo';
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1587842752);
         $this->expectExceptionMessage('The finisher option "senderAddress" must contain a valid e-mail address.');
 
         $this->subject->getSenderAddress();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getSenderNameReturnsSenderNameAndStoresTheParsedResult(): void
     {
         $this->options['senderName'] = 'foo';
@@ -235,7 +233,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame('foo', $this->subject->getSenderName());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getApprovalPeriodReturnsAlreadyParsedApprovalPeriod(): void
     {
         $this->options['approvalPeriod'] = 86400;
@@ -247,43 +245,43 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame(86400, $this->subject->getApprovalPeriod());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getApprovalPeriodThrowsExceptionIfFetchedApprovalPeriodIsInvalid(): void
     {
         $this->options['approvalPeriod'] = -1;
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1576948900);
         $this->expectExceptionMessage('The finisher option "approvalPeriod" must be zero or more seconds.');
 
         $this->subject->getApprovalPeriod();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getConfirmationPidThrowsExceptionIfFetchedConfirmationPidIsLowerThanZero(): void
     {
         $this->options['confirmationPid'] = -1;
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1576948961);
         $this->expectExceptionMessage('The finisher option "confirmationPid" must be set.');
 
         $this->subject->getConfirmationPid();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getConfirmationPidThrowsExceptionIfFetchedConfirmationPidIsInvalid(): void
     {
         $this->options['confirmationPid'] = 123;
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1576949163);
         $this->expectExceptionMessage('The finisher option "confirmationPid" must be set to a valid page.');
 
         $this->subject->getConfirmationPid();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getConfirmationPidReturnsConfirmationPidAndStoresTheParsedResult(): void
     {
         $this->options['confirmationPid'] = 1;
@@ -295,7 +293,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame(1, $this->subject->getConfirmationPid());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getStoragePidReturnsZeroIfFetchedStoragePidIsZero(): void
     {
         $this->options['storagePid'] = 0;
@@ -303,31 +301,31 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame(0, $this->subject->getStoragePid());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getStoragePidThrowsExceptionIfFetchedStoragePidIsLowerThanZero(): void
     {
         $this->options['storagePid'] = -1;
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1576951495);
         $this->expectExceptionMessage('The finisher option "storagePid" must be set.');
 
         $this->subject->getStoragePid();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getStoragePidThrowsExceptionIfFetchedStoragePidIsInvalid(): void
     {
         $this->options['storagePid'] = 123;
 
-        $this->expectException(FinisherException::class);
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
         $this->expectExceptionCode(1576951499);
         $this->expectExceptionMessage('The finisher option "storagePid" must be set to a valid page.');
 
         $this->subject->getStoragePid();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getStoragePidReturnsStoragePidAndStoresTheParsedResult(): void
     {
         $this->options['storagePid'] = 1;
@@ -339,7 +337,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertSame(1, $this->subject->getStoragePid());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getShowDismissLinkReturnsShowDismissLinkAndStoresTheParsedResult(): void
     {
         $this->options['showDismissLink'] = false;
@@ -351,7 +349,7 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertFalse($this->subject->getShowDismissLink());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function objectCanBeAccessedAsArrayInReadMode(): void
     {
         // offsetExists()
@@ -364,34 +362,31 @@ final class FinisherOptionsTest extends FunctionalTestCase
         self::assertNull($this->subject[null]);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function objectCannotBeAccessedAsArrayInWriteModeViaOffsetSet(): void
     {
-        $this->expectException(NotAllowedException::class);
+        $this->expectException(Src\Exception\NotAllowedException::class);
         $this->expectExceptionCode(1645781267);
         $this->expectExceptionMessage(
-            sprintf('Calling the method "%s" is not allowed.', FinisherOptions::class . '::offsetSet')
+            sprintf('Calling the method "%s" is not allowed.', Src\Domain\Finishers\FinisherOptions::class . '::offsetSet')
         );
 
         $this->subject['approvalPeriod'] = 0;
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function objectCannotBeAccessedAsArrayInWriteModeViaOffsetUnset(): void
     {
-        $this->expectException(NotAllowedException::class);
+        $this->expectException(Src\Exception\NotAllowedException::class);
         $this->expectExceptionCode(1645781267);
         $this->expectExceptionMessage(
-            sprintf('Calling the method "%s" is not allowed.', FinisherOptions::class . '::offsetUnset')
+            sprintf('Calling the method "%s" is not allowed.', Src\Domain\Finishers\FinisherOptions::class . '::offsetUnset')
         );
 
         unset($this->subject['approvalPeriod']);
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function fetchOption(string $optionName)
+    public function fetchOption(string $optionName): mixed
     {
         return $this->options[$optionName] ?? null;
     }

@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Widget;
 
-use TYPO3\CMS\Dashboard\Widgets\DoughnutChartWidget;
+use TYPO3\CMS\Dashboard;
 
 /**
  * ApprovedConsentsWidget
@@ -31,6 +31,6 @@ use TYPO3\CMS\Dashboard\Widgets\DoughnutChartWidget;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ApprovedConsentsWidget extends DoughnutChartWidget
+final class ApprovedConsentsWidget extends Dashboard\Widgets\DoughnutChartWidget
 {
 }

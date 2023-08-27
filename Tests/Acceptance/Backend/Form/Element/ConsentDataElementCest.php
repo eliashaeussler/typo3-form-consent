@@ -21,11 +21,10 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend;
+namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend\Form\Element;
 
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Enums\Selectors;
-use TYPO3\CMS\Core\Information\Typo3Version;
+use EliasHaeussler\Typo3FormConsent\Tests;
+use TYPO3\CMS\Core;
 
 /**
  * ConsentDataElementCest
@@ -35,15 +34,15 @@ use TYPO3\CMS\Core\Information\Typo3Version;
  */
 final class ConsentDataElementCest
 {
-    public function canSeeConsentInBackendListModule(AcceptanceTester $I): void
+    public function canSeeConsentInBackendListModule(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
-        $typo3Version = new Typo3Version();
+        $typo3Version = new Core\Information\Typo3Version();
 
         if ($typo3Version->getMajorVersion() >= 12) {
-            $moduleIdentifier = Selectors::ListModule->value;
+            $moduleIdentifier = Tests\Acceptance\Support\Enums\Selectors::ListModule->value;
         } else {
             // @todo Remove once support for TYPO3 v11 is dropped
-            $moduleIdentifier = Selectors::ListModuleV11->value;
+            $moduleIdentifier = Tests\Acceptance\Support\Enums\Selectors::ListModuleV11->value;
         }
 
         $I->amOnPage('/');
@@ -52,8 +51,8 @@ final class ConsentDataElementCest
         $I->loginAs('admin');
         $I->openModule($moduleIdentifier);
 
-        $I->seeElement(Selectors::ConsentListCollapsible->value);
-        $I->click(Selectors::ConsentListItemTitle->value);
+        $I->seeElement(Tests\Acceptance\Support\Enums\Selectors::ConsentListCollapsible->value);
+        $I->click(Tests\Acceptance\Support\Enums\Selectors::ConsentListItemTitle->value);
         $I->waitForText('Submitted form data', 5);
     }
 }

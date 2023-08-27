@@ -23,12 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\DependencyInjection;
 
-use EliasHaeussler\Typo3FormConsent\Configuration\Icon;
-use EliasHaeussler\Typo3FormConsent\Configuration\Localization;
-use EliasHaeussler\Typo3FormConsent\Widget\ApprovedConsentsWidget;
-use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
-use Symfony\Component\DependencyInjection\Reference;
+use EliasHaeussler\Typo3FormConsent\Configuration;
+use EliasHaeussler\Typo3FormConsent\Widget;
+use Symfony\Component\DependencyInjection;
 
 /**
  * DashboardServicesConfigurator
@@ -44,7 +41,7 @@ final class DashboardServicesConfigurator
     private const CONSENT_CONNECTION = 'connection.tx_formconsent_domain_model_consent';
 
     public function __construct(
-        private readonly ServicesConfigurator $services,
+        private readonly DependencyInjection\Loader\Configurator\ServicesConfigurator $services,
     ) {
     }
 
@@ -58,22 +55,22 @@ final class DashboardServicesConfigurator
         // Widget "approved consents"
         $this->services->set(self::APPROVED_CONSENTS_WIDGET)
             ->autowire()
-            ->class(ApprovedConsentsWidget::class)
-            ->arg('$view', new Reference('dashboard.views.widget'))
-            ->arg('$dataProvider', new Reference(self::APPROVED_CONSENTS_DATA_PROVIDER))
+            ->class(Widget\ApprovedConsentsWidget::class)
+            ->arg('$view', new DependencyInjection\Reference('dashboard.views.widget'))
+            ->arg('$dataProvider', new DependencyInjection\Reference(self::APPROVED_CONSENTS_DATA_PROVIDER))
             ->tag('dashboard.widget', [
                 'identifier' => 'approvedConsentsWidget',
                 'groupNames' => 'general',
-                'title' => Localization::forWidget('approvedConsents', 'header'),
-                'description' => Localization::forWidget('approvedConsents', 'body'),
-                'iconIdentifier' => Icon::forWidgetIdentifier('approvedConsents'),
+                'title' => Configuration\Localization::forWidget('approvedConsents', 'header'),
+                'description' => Configuration\Localization::forWidget('approvedConsents', 'body'),
+                'iconIdentifier' => Configuration\Icon::forWidgetIdentifier('approvedConsents'),
                 'height' => 'medium',
                 'width' => 'small',
             ]);
 
         // Data provider for widget "approved consents"
         $this->services->set(self::APPROVED_CONSENTS_DATA_PROVIDER)
-            ->class(ConsentChartDataProvider::class)
-            ->arg('$connection', new Reference(self::CONSENT_CONNECTION));
+            ->class(Widget\Provider\ConsentChartDataProvider::class)
+            ->arg('$connection', new DependencyInjection\Reference(self::CONSENT_CONNECTION));
     }
 }

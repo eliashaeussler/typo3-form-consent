@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Registry;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
+use EliasHaeussler\Typo3FormConsent\Domain;
 
 /**
  * ConsentManagerRegistry
@@ -35,16 +35,16 @@ use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
 final class ConsentManagerRegistry
 {
     /**
-     * @var array<string, array<int, Consent>>
+     * @var array<string, array<int, Domain\Model\Consent>>
      */
     private static array $states = [];
 
-    public static function registerConsent(Consent $consent): void
+    public static function registerConsent(Domain\Model\Consent $consent): void
     {
         self::$states[$consent->getFormPersistenceIdentifier()][(int)$consent->getUid()] = $consent;
     }
 
-    public static function unregisterConsent(Consent $consent): void
+    public static function unregisterConsent(Domain\Model\Consent $consent): void
     {
         unset(self::$states[$consent->getFormPersistenceIdentifier()][(int)$consent->getUid()]);
     }

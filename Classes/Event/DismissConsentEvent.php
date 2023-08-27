@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Event;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use Psr\Http\Message\ResponseInterface;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use Psr\Http\Message;
 
 /**
  * DismissConsentEvent
@@ -34,24 +34,24 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class DismissConsentEvent
 {
-    private ?ResponseInterface $response = null;
+    private ?Message\ResponseInterface $response = null;
 
     public function __construct(
-        private readonly Consent $consent,
+        private readonly Domain\Model\Consent $consent,
     ) {
     }
 
-    public function getConsent(): Consent
+    public function getConsent(): Domain\Model\Consent
     {
         return $this->consent;
     }
 
-    public function getResponse(): ?ResponseInterface
+    public function getResponse(): ?Message\ResponseInterface
     {
         return $this->response;
     }
 
-    public function setResponse(?ResponseInterface $response): self
+    public function setResponse(?Message\ResponseInterface $response): self
     {
         $this->response = $response;
         return $this;

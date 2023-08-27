@@ -23,10 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type;
 
-use EliasHaeussler\Typo3FormConsent\Type\JsonType;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * JsonTypeTest
@@ -34,45 +33,45 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(JsonType::class)]
-final class JsonTypeTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Type\JsonType::class)]
+final class JsonTypeTest extends TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var JsonType<string, string>
+     * @var Src\Type\JsonType<string, string>
      */
-    protected JsonType $subject;
+    protected Src\Type\JsonType $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = new JsonType('{"foo":"baz"}');
+        $this->subject = new Src\Type\JsonType('{"foo":"baz"}');
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function fromArrayReturnsObjectWithJsonEncodedData(): void
     {
-        self::assertEquals($this->subject, JsonType::fromArray(['foo' => 'baz']));
+        self::assertEquals($this->subject, Src\Type\JsonType::fromArray(['foo' => 'baz']));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function objectIsJsonSerializable(): void
     {
         self::assertSame('{"foo":"baz"}', json_encode($this->subject, JSON_THROW_ON_ERROR));
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function stringRepresentationEqualsJsonRepresentation(): void
     {
         self::assertSame('{"foo":"baz"}', (string)$this->subject);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function toArrayReturnsArrayRepresentation(): void
     {
         self::assertSame(['foo' => 'baz'], $this->subject->toArray());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function objectCanBeAccessedAsArray(): void
     {
         // offsetExists()

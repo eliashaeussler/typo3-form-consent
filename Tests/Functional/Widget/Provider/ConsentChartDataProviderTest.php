@@ -23,11 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Widget\Provider;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Widget\Provider\ConsentChartDataProvider;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * ConsentChartDataProviderTest
@@ -35,8 +33,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(ConsentChartDataProvider::class)]
-final class ConsentChartDataProviderTest extends FunctionalTestCase
+#[Framework\Attributes\CoversClass(Src\Widget\Provider\ConsentChartDataProvider::class)]
+final class ConsentChartDataProviderTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
         'form',
@@ -48,21 +46,21 @@ final class ConsentChartDataProviderTest extends FunctionalTestCase
 
     private static string $languagePrefix = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:';
 
-    protected ConsentChartDataProvider $subject;
+    protected Src\Widget\Provider\ConsentChartDataProvider $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         // Build subject
-        $connection = $this->getConnectionPool()->getConnectionForTable(Consent::TABLE_NAME);
-        $this->subject = new ConsentChartDataProvider($connection);
+        $connection = $this->getConnectionPool()->getConnectionForTable(Src\Domain\Model\Consent::TABLE_NAME);
+        $this->subject = new Src\Widget\Provider\ConsentChartDataProvider($connection);
 
         // Import data
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.csv');
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getChartDataReturnsCorrectChartData(): void
     {
         $expectedApprovedCount = 1;

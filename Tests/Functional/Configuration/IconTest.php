@@ -23,12 +23,11 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
-use EliasHaeussler\Typo3FormConsent\Configuration\Icon;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
-use TYPO3\CMS\Core\Imaging\IconRegistry;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use ReflectionClass;
+use TYPO3\CMS\Core;
+use TYPO3\TestingFramework;
 
 /**
  * IconTest
@@ -36,27 +35,27 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(Icon::class)]
-final class IconTest extends FunctionalTestCase
+#[Framework\Attributes\CoversClass(Src\Configuration\Icon::class)]
+final class IconTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected bool $initializeDatabase = false;
 
-    protected IconRegistry $iconRegistry;
+    protected Core\Imaging\IconRegistry $iconRegistry;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->iconRegistry = $this->getContainer()->get(IconRegistry::class);
+        $this->iconRegistry = $this->getContainer()->get(Core\Imaging\IconRegistry::class);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function registerForPluginIdentifierRegistersIconCorrectly(): void
     {
-        Icon::registerForPluginIdentifier('Consent');
+        Src\Configuration\Icon::registerForPluginIdentifier('Consent');
 
         $actual = $this->iconRegistry->getIconConfigurationByIdentifier('content-plugin-consent');
         $expected = [
-            'provider' => SvgIconProvider::class,
+            'provider' => Core\Imaging\IconProvider\SvgIconProvider::class,
             'options' => [
                 'source' => 'EXT:form_consent/Resources/Public/Icons/plugin.consent.svg',
             ],
@@ -65,14 +64,14 @@ final class IconTest extends FunctionalTestCase
         self::assertSame($expected, $actual);
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function registerForWidgetIdentifierRegistersIconCorrectly(): void
     {
-        Icon::registerForWidgetIdentifier('approvedConsents');
+        Src\Configuration\Icon::registerForWidgetIdentifier('approvedConsents');
 
         $actual = $this->iconRegistry->getIconConfigurationByIdentifier('content-widget-approved-consents');
         $expected = [
-            'provider' => SvgIconProvider::class,
+            'provider' => Core\Imaging\IconProvider\SvgIconProvider::class,
             'options' => [
                 'source' => 'EXT:form_consent/Resources/Public/Icons/widget.approvedConsents.svg',
             ],
@@ -86,7 +85,7 @@ final class IconTest extends FunctionalTestCase
         parent::tearDown();
 
         // Reset icon registry in subject
-        $reflectionClass = new \ReflectionClass(Icon::class);
+        $reflectionClass = new ReflectionClass(Src\Configuration\Icon::class);
         $reflectionProperty = $reflectionClass->getProperty('iconRegistry');
         $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue(null);

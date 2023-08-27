@@ -23,13 +23,10 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type;
 
-use EliasHaeussler\Typo3FormConsent\Enums\ConsentState;
-use EliasHaeussler\Typo3FormConsent\Type\ConsentStateType;
+use EliasHaeussler\Typo3FormConsent as Src;
 use Generator;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * ConsentStateTypeTest
@@ -37,117 +34,117 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(ConsentStateType::class)]
-final class ConsentStateTypeTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Type\ConsentStateType::class)]
+final class ConsentStateTypeTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    protected ConsentStateType $subject;
+    protected Src\Type\ConsentStateType $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->subject = new ConsentStateType();
+        $this->subject = new Src\Type\ConsentStateType();
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function constructorAcceptsNumericStringsForConsentState(): void
     {
-        $actual = new ConsentStateType('1');
+        $actual = new Src\Type\ConsentStateType('1');
 
         self::assertSame('1', (string)$actual);
         self::assertTrue($actual->isApproved());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function createNewReturnsNewObject(): void
     {
-        $actual = ConsentStateType::createNew();
+        $actual = Src\Type\ConsentStateType::createNew();
 
         self::assertTrue($actual->isNew());
         self::assertFalse($actual->isApproved());
         self::assertFalse($actual->isDismissed());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function createApprovedReturnsApprovedObject(): void
     {
-        $actual = ConsentStateType::createApproved();
+        $actual = Src\Type\ConsentStateType::createApproved();
 
         self::assertFalse($actual->isNew());
         self::assertTrue($actual->isApproved());
         self::assertFalse($actual->isDismissed());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function createDismissedReturnsApprovedObject(): void
     {
-        $actual = ConsentStateType::createDismissed();
+        $actual = Src\Type\ConsentStateType::createDismissed();
 
         self::assertFalse($actual->isNew());
         self::assertFalse($actual->isApproved());
         self::assertTrue($actual->isDismissed());
     }
 
-    #[Test]
-    #[DataProvider('isNewReturnsConsentCreationStateDataProvider')]
-    public function isNewReturnsConsentCreationState(ConsentState $state, bool $expected): void
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('isNewReturnsConsentCreationStateDataProvider')]
+    public function isNewReturnsConsentCreationState(Src\Enums\ConsentState $state, bool $expected): void
     {
-        $subject = new ConsentStateType($state);
+        $subject = new Src\Type\ConsentStateType($state);
 
         self::assertSame($expected, $subject->isNew());
     }
 
-    #[Test]
-    #[DataProvider('isApprovedReturnsConsentApprovalStateDataProvider')]
-    public function isApprovedReturnsConsentApprovalState(ConsentState $state, bool $expected): void
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('isApprovedReturnsConsentApprovalStateDataProvider')]
+    public function isApprovedReturnsConsentApprovalState(Src\Enums\ConsentState $state, bool $expected): void
     {
-        $subject = new ConsentStateType($state);
+        $subject = new Src\Type\ConsentStateType($state);
 
         self::assertSame($expected, $subject->isApproved());
     }
 
-    #[Test]
-    #[DataProvider('isDismissedReturnsConsentDismissalStateDataProvider')]
-    public function isDismissedReturnsConsentDismissalState(ConsentState $state, bool $expected): void
+    #[Framework\Attributes\Test]
+    #[Framework\Attributes\DataProvider('isDismissedReturnsConsentDismissalStateDataProvider')]
+    public function isDismissedReturnsConsentDismissalState(Src\Enums\ConsentState $state, bool $expected): void
     {
-        $subject = new ConsentStateType($state);
+        $subject = new Src\Type\ConsentStateType($state);
 
         self::assertSame($expected, $subject->isDismissed());
     }
 
-    #[Test]
+    #[Framework\Attributes\Test]
     public function objectIsStringable(): void
     {
         self::assertSame('0', (string)$this->subject);
     }
 
     /**
-     * @return Generator<string, array{ConsentState, bool}>
+     * @return Generator<string, array{Src\Enums\ConsentState, bool}>
      */
     public static function isNewReturnsConsentCreationStateDataProvider(): Generator
     {
-        yield 'new consent' => [ConsentState::New, true];
-        yield 'consent approved' => [ConsentState::Approved, false];
-        yield 'consent dismissed' => [ConsentState::Dismissed, false];
+        yield 'new consent' => [Src\Enums\ConsentState::New, true];
+        yield 'consent approved' => [Src\Enums\ConsentState::Approved, false];
+        yield 'consent dismissed' => [Src\Enums\ConsentState::Dismissed, false];
     }
 
     /**
-     * @return Generator<string, array{ConsentState, bool}>
+     * @return Generator<string, array{Src\Enums\ConsentState, bool}>
      */
     public static function isApprovedReturnsConsentApprovalStateDataProvider(): Generator
     {
-        yield 'new consent' => [ConsentState::New, false];
-        yield 'consent approved' => [ConsentState::Approved, true];
-        yield 'consent dismissed' => [ConsentState::Dismissed, false];
+        yield 'new consent' => [Src\Enums\ConsentState::New, false];
+        yield 'consent approved' => [Src\Enums\ConsentState::Approved, true];
+        yield 'consent dismissed' => [Src\Enums\ConsentState::Dismissed, false];
     }
 
     /**
-     * @return Generator<string, array{ConsentState, bool}>
+     * @return Generator<string, array{Src\Enums\ConsentState, bool}>
      */
     public static function isDismissedReturnsConsentDismissalStateDataProvider(): Generator
     {
-        yield 'new consent' => [ConsentState::New, false];
-        yield 'consent approved' => [ConsentState::Approved, false];
-        yield 'consent dismissed' => [ConsentState::Dismissed, true];
+        yield 'new consent' => [Src\Enums\ConsentState::New, false];
+        yield 'consent approved' => [Src\Enums\ConsentState::Approved, false];
+        yield 'consent dismissed' => [Src\Enums\ConsentState::Dismissed, true];
     }
 }

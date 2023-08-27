@@ -23,16 +23,14 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Controller;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Repository\ConsentRepository;
-use EliasHaeussler\Typo3FormConsent\Event\ApproveConsentEvent;
-use EliasHaeussler\Typo3FormConsent\Event\DismissConsentEvent;
-use EliasHaeussler\Typo3FormConsent\Registry\ConsentManagerRegistry;
-use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Http\PropagateResponseException;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
-use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
-use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
+use EliasHaeussler\Typo3FormConsent\Domain;
+use EliasHaeussler\Typo3FormConsent\Event;
+use EliasHaeussler\Typo3FormConsent\Registry;
+use Exception;
+use Psr\Http\Message;
+use Throwable;
+use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
 
 /**
  * ConsentController
@@ -40,20 +38,20 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentController extends ActionController
+final class ConsentController extends Extbase\Mvc\Controller\ActionController
 {
     public function __construct(
-        private readonly ConsentRepository $consentRepository,
-        private readonly PersistenceManagerInterface $persistenceManager,
+        private readonly Domain\Repository\ConsentRepository $consentRepository,
+        private readonly Extbase\Persistence\PersistenceManagerInterface $persistenceManager,
     ) {
     }
 
     /**
-     * @throws IllegalObjectTypeException
-     * @throws PropagateResponseException
-     * @throws UnknownObjectException
+     * @throws Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws Core\Http\PropagateResponseException
+     * @throws Extbase\Persistence\Exception\UnknownObjectException
      */
-    public function approveAction(string $hash, string $email): ResponseInterface
+    public function approveAction(string $hash, string $email): Message\ResponseInterface
     {
         $consent = $this->consentRepository->findOneByValidationHash($hash);
 
@@ -76,7 +74,7 @@ final class ConsentController extends ActionController
         }
 
         // Register consent state
-        ConsentManagerRegistry::registerConsent($consent);
+        Registry\ConsentManagerRegistry::registerConsent($consent);
 
         // Approve consent
         $consent->setApproved();
@@ -84,9 +82,9 @@ final class ConsentController extends ActionController
 
         // Dispatch approve event
         try {
-            $event = new ApproveConsentEvent($consent);
+            $event = new Event\ApproveConsentEvent($consent);
             $this->eventDispatcher->dispatch($event);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $this->createErrorResponse('unexpectedError', $exception);
         }
 
@@ -98,11 +96,11 @@ final class ConsentController extends ActionController
     }
 
     /**
-     * @throws IllegalObjectTypeException
-     * @throws PropagateResponseException
-     * @throws UnknownObjectException
+     * @throws Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws Core\Http\PropagateResponseException
+     * @throws Extbase\Persistence\Exception\UnknownObjectException
      */
-    public function dismissAction(string $hash, string $email): ResponseInterface
+    public function dismissAction(string $hash, string $email): Message\ResponseInterface
     {
         $consent = $this->consentRepository->findOneByValidationHash($hash);
 
@@ -120,7 +118,7 @@ final class ConsentController extends ActionController
         }
 
         // Register consent state
-        ConsentManagerRegistry::registerConsent($consent);
+        Registry\ConsentManagerRegistry::registerConsent($consent);
 
         // Un-approve consent
         $consent->setDismissed();
@@ -128,9 +126,9 @@ final class ConsentController extends ActionController
 
         // Dispatch dismiss event
         try {
-            $event = new DismissConsentEvent($consent);
+            $event = new Event\DismissConsentEvent($consent);
             $this->eventDispatcher->dispatch($event);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $this->createErrorResponse('unexpectedError', $exception);
         }
 
@@ -147,9 +145,9 @@ final class ConsentController extends ActionController
     }
 
     /**
-     * @throws PropagateResponseException
+     * @throws Core\Http\PropagateResponseException
      */
-    private function createErrorResponse(string $reason, \Throwable $exception = null): ResponseInterface
+    private function createErrorResponse(string $reason, Throwable $exception = null): Message\ResponseInterface
     {
         $this->view->assign('error', true);
         $this->view->assign('reason', $reason);
@@ -159,16 +157,16 @@ final class ConsentController extends ActionController
     }
 
     /**
-     * @throws PropagateResponseException
+     * @throws Core\Http\PropagateResponseException
      */
-    private function createHtmlResponse(ResponseInterface $previous = null): ResponseInterface
+    private function createHtmlResponse(Message\ResponseInterface $previous = null): Message\ResponseInterface
     {
         if ($previous === null) {
             return $this->htmlResponse();
         }
 
         if ($previous->getStatusCode() >= 300) {
-            throw new PropagateResponseException($previous, 1645646663);
+            throw new Core\Http\PropagateResponseException($previous, 1645646663);
         }
 
         $content = (string)$previous->getBody();

@@ -30,6 +30,7 @@ suites:
         - EliasHaeussler\Typo3CodeceptionHelper\Codeception\Module\Backend:
             userCredentials:
               admin: password
+        - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Db
         - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Email
         - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Form
         - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Url

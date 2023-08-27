@@ -21,11 +21,10 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Frontend;
+namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Frontend\Domain\Finishers;
 
-use EliasHaeussler\Typo3FormConsent\Domain\Model\Consent;
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester;
-use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Form;
+use EliasHaeussler\Typo3FormConsent as Src;
+use EliasHaeussler\Typo3FormConsent\Tests;
 
 /**
  * ConsentFinisherCest
@@ -35,21 +34,21 @@ use EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\Form;
  */
 final class ConsentFinisherCest
 {
-    public function _before(AcceptanceTester $I): void
+    public function _before(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->amOnPage('/');
     }
 
-    public function canSubmitForm(AcceptanceTester $I): void
+    public function canSubmitForm(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $numberOfFormFixtures = $this->getNumberOfFormFixtures($I);
 
-        $I->fillAndSubmitForm(Form::DEFAULT, true);
+        $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::DEFAULT, true);
 
         $I->waitForText('Please approve your consent.', 5);
 
         $I->seeInDatabase(
-            Consent::TABLE_NAME,
+            Src\Domain\Model\Consent::TABLE_NAME,
             [
                 'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
                 'email' => 'user@example.com',
@@ -59,16 +58,16 @@ final class ConsentFinisherCest
         );
     }
 
-    public function canUseLastInsertedConsentFromFinisherVariableProvider(AcceptanceTester $I): void
+    public function canUseLastInsertedConsentFromFinisherVariableProvider(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $numberOfFormFixtures = $this->getNumberOfFormFixtures($I);
 
-        $I->fillAndSubmitForm(Form::DEFAULT, true);
+        $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::DEFAULT, true);
 
         $I->waitForText('Please approve your consent.', 5);
 
         $uid = $I->grabFromDatabase(
-            Consent::TABLE_NAME,
+            Src\Domain\Model\Consent::TABLE_NAME,
             'uid',
             [
                 'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
@@ -88,7 +87,7 @@ final class ConsentFinisherCest
         );
     }
 
-    public function receiveConsentMail(AcceptanceTester $I): void
+    public function receiveConsentMail(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->fillAndSubmitForm();
 
@@ -100,7 +99,7 @@ final class ConsentFinisherCest
         $I->seeInOpenedEmailSubject('Approve your consent');
     }
 
-    public function seeApproveLinkInConsentMail(AcceptanceTester $I): void
+    public function seeApproveLinkInConsentMail(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->fillAndSubmitForm();
 
@@ -117,7 +116,7 @@ final class ConsentFinisherCest
         $I->assertQueryParameterEquals('user@example.com', $approveUrl, 'tx_formconsent_consent/email');
     }
 
-    public function seeDismissLinkInConsentMail(AcceptanceTester $I): void
+    public function seeDismissLinkInConsentMail(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->fillAndSubmitForm();
 
@@ -134,9 +133,9 @@ final class ConsentFinisherCest
         $I->assertQueryParameterEquals('user@example.com', $dismissUrl, 'tx_formconsent_consent/email');
     }
 
-    public function canSubmitFormWithCustomSender(AcceptanceTester $I): void
+    public function canSubmitFormWithCustomSender(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
-        $I->fillAndSubmitForm(Form::V2);
+        $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::V2);
 
         $I->fetchEmails();
         $I->accessInboxFor('user@example.com');
@@ -145,16 +144,16 @@ final class ConsentFinisherCest
         $I->seeInOpenedEmailSender('sender@example.com');
     }
 
-    public function cannotSubmitInvalidForm(AcceptanceTester $I): void
+    public function cannotSubmitInvalidForm(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
-        $I->fillAndSubmitForm(Form::INVALID);
+        $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::INVALID);
 
         $I->waitForText('The finisher option "recipientAddress" must be set.', 5);
     }
 
-    private function getNumberOfFormFixtures(AcceptanceTester $I): int
+    private function getNumberOfFormFixtures(Tests\Acceptance\Support\AcceptanceTester $I): int
     {
-        $fixtureFiles = glob(\dirname(__DIR__) . '/Data/Fileadmin/form_definitions/*.form.yaml');
+        $fixtureFiles = glob(\dirname(__DIR__, 3) . '/Data/Fileadmin/form_definitions/*.form.yaml');
 
         if ($fixtureFiles === false) {
             $I->fail('Unable to determine number of form fixtures.');

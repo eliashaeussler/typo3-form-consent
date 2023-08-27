@@ -23,10 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Exception;
 
-use EliasHaeussler\Typo3FormConsent\Exception\UnsupportedTypeException;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use EliasHaeussler\Typo3FormConsent as Src;
+use PHPUnit\Framework;
+use TYPO3\TestingFramework;
 
 /**
  * UnsupportedTypeExceptionTest
@@ -34,13 +33,13 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-#[CoversClass(UnsupportedTypeException::class)]
-final class UnsupportedTypeExceptionTest extends UnitTestCase
+#[Framework\Attributes\CoversClass(Src\Exception\UnsupportedTypeException::class)]
+final class UnsupportedTypeExceptionTest extends TestingFramework\Core\Unit\UnitTestCase
 {
-    #[Test]
+    #[Framework\Attributes\Test]
     public function createReturnsUnsupportedTypeExceptionForGivenType(): void
     {
-        $actual = UnsupportedTypeException::create('foo');
+        $actual = Src\Exception\UnsupportedTypeException::create('foo');
 
         self::assertSame('The type "foo" is not supported.', $actual->getMessage());
         self::assertSame(1645774926, $actual->getCode());
