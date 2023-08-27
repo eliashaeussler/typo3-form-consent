@@ -60,6 +60,8 @@ final class ApprovedConsentsWidgetCest
             $I->markTestSkipped('Test can be executed on TYPO3 >= 12 only.');
         }
 
+        $I->truncateTable(Src\Domain\Model\Consent::TABLE_NAME);
+
         $this->createConsents($I);
         $this->logInToBackend($I);
         $this->addWidget($I, $dialog);
