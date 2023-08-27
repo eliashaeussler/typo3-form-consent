@@ -3,10 +3,11 @@ on:
   push:
     branches:
       - main
-      - 1.x
+      - 'renovate/**'
   pull_request:
     branches:
       - '**'
+      - '!renovate/**'
 
 jobs:
   cgl:

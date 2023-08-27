@@ -56,6 +56,7 @@ return [
         'phpunit.functional.xml',
         'phpunit.unit.xml',
         'rector.php',
+        'renovate.json',
         'typoscript-lint.yml',
     ],
 ];
