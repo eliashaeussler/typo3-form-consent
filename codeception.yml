@@ -15,7 +15,7 @@ suites:
             capabilities:
               acceptInsecureCerts: true
               chromeOptions:
-                args: ['--disable-dev-shm-usage']
+                args: ['--disable-dev-shm-usage', '--no-sandbox']
         - Db:
             dsn: 'mysql:host=db;dbname=db'
             user: 'root'
