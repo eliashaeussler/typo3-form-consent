@@ -64,7 +64,7 @@ $GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive(
                 ],
             ],
         ],
-        // This mail configuration sends all emails to mailhog
+        // This mail configuration sends all emails to Mailpit
         'MAIL' => [
             'transport' => 'smtp',
             'transport_smtp_encrypt' => false,

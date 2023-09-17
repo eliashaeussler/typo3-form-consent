@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90bf46682c81ae603d819569d37c030a",
+    "content-hash": "d67f2d5f46c11d8d09c2359d888ee016",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -7442,43 +7442,6 @@
             "time": "2022-12-10T14:50:15+00:00"
         },
         {
-            "name": "ericmartel/codeception-email",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ericmartel/codeception-email.git",
-                "reference": "c4fcdd519fb93828938828bb8d956720a8321c64"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ericmartel/codeception-email/zipball/c4fcdd519fb93828938828bb8d956720a8321c64",
-                "reference": "c4fcdd519fb93828938828bb8d956720a8321c64",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Codeception\\Email\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Martel",
-                    "email": "emartel@gmail.com"
-                }
-            ],
-            "description": "Provides test helpers for Codeception when testing email functionality",
-            "support": {
-                "issues": "https://github.com/ericmartel/codeception-email/issues",
-                "source": "https://github.com/ericmartel/codeception-email/tree/1.0.3"
-            },
-            "time": "2020-03-10T16:27:31+00:00"
-        },
-        {
             "name": "friendsofphp/php-cs-fixer",
             "version": "v3.26.1",
             "source": {
@@ -8110,6 +8073,71 @@
             "time": "2022-04-13T08:02:27+00:00"
         },
         {
+            "name": "koehnlein/codeception-email-mailpit",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koehnlein/codeception-email-mailpit.git",
+                "reference": "82bd180066fd4fa1a68409d2c98c7f33c16a5f18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koehnlein/codeception-email-mailpit/zipball/82bd180066fd4fa1a68409d2c98c7f33c16a5f18",
+                "reference": "82bd180066fd4fa1a68409d2c98c7f33c16a5f18",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.1 | ^7.0",
+                "php": "8.1.* | 8.2.*"
+            },
+            "require-dev": {
+                "codeception/codeception": "^5.0",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "http-interop/http-factory-guzzle": "^1.2",
+                "phpunit/phpunit": "^9.5",
+                "roave/security-advisories": "dev-latest"
+            },
+            "suggest": {
+                "ext-iconv": "Will be used as a mime decoder (iconv_mime_decode)",
+                "ext-mbstring": "Will be used as a mime decoder if ext-iconv is not installed (mb_decode_mimeheader)"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Codeception\\Module\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Martel",
+                    "email": "emartel@gmail.com"
+                },
+                {
+                    "name": "Lamoda developers",
+                    "homepage": "https://tech.lamoda.ru/"
+                },
+                {
+                    "name": "Eric Braun",
+                    "email": "eb@oqq.be"
+                },
+                {
+                    "name": "Albrecht Köhnlein",
+                    "email": "ak@koehnlein.eu"
+                }
+            ],
+            "description": "Provides test helpers for Codeception when testing email functionality with Mailpit",
+            "support": {
+                "issues": "https://github.com/koehnlein/codeception-email-mailpit/issues",
+                "source": "https://github.com/koehnlein/codeception-email-mailpit/tree/v0.1.0"
+            },
+            "time": "2023-09-17T18:22:27+00:00"
+        },
+        {
             "name": "localheinz/diff",
             "version": "1.1.1",
             "source": {
@@ -8313,66 +8341,6 @@
                 "source": "https://github.com/nette/utils/tree/v3.2.10"
             },
             "time": "2023-07-30T15:38:18+00:00"
-        },
-        {
-            "name": "oqq/codeception-email-mailhog",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oqq/codeception-email-mailhog.git",
-                "reference": "9871e9f3b9708daf1168e9ae02cc6a49811ba616"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oqq/codeception-email-mailhog/zipball/9871e9f3b9708daf1168e9ae02cc6a49811ba616",
-                "reference": "9871e9f3b9708daf1168e9ae02cc6a49811ba616",
-                "shasum": ""
-            },
-            "require": {
-                "ericmartel/codeception-email": "^1.0.3",
-                "ext-json": "*",
-                "guzzlehttp/guzzle": "^6.1 | ^7.0",
-                "php": "8.1.* | 8.2.*"
-            },
-            "require-dev": {
-                "codeception/codeception": "^5.0",
-                "friendsofphp/php-cs-fixer": "^3.0",
-                "phpunit/phpunit": "^9.5",
-                "roave/security-advisories": "dev-latest"
-            },
-            "suggest": {
-                "ext-iconv": "Will be used as a mime decoder (iconv_mime_decode)",
-                "ext-mbstring": "Will be used as a mime decoder if ext-iconv is not installed (mb_decode_mimeheader)"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Codeception\\Module\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Martel",
-                    "email": "emartel@gmail.com"
-                },
-                {
-                    "name": "Lamoda developers",
-                    "homepage": "https://tech.lamoda.ru/"
-                },
-                {
-                    "name": "Eric Braun",
-                    "email": "eb@oqq.be"
-                }
-            ],
-            "description": "Provides test helpers for Codeception when testing email functionality with MailHog",
-            "support": {
-                "source": "https://github.com/oqq/codeception-email-mailhog/tree/3.1.0"
-            },
-            "time": "2023-02-08T17:16:26+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -12025,5 +11993,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
