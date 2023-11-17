@@ -77,14 +77,14 @@ final class Email extends Module
      */
     private function extractUrlsFromEmailBody(): array
     {
-        if (!$this->hasModule('MailHog')) {
-            $this->fail('MailHog module is not enabled.');
+        if (!$this->hasModule('Mailpit')) {
+            $this->fail('Mailpit module is not enabled.');
         }
 
-        /** @var Module\MailHog $I */
-        $I = $this->getModule('MailHog');
+        /** @var Module\Mailpit $I */
+        $I = $this->getModule('Mailpit');
 
-        $body = quoted_printable_decode($I->grabBodyFromEmail('text/plain'));
+        $body = $I->grabTextBodyFromEmail();
         $urlPattern = sprintf('~%s(?P<url>\S+)~', preg_quote($this->getCurrentBaseUrl(), '~'));
 
         if (preg_match_all($urlPattern, $body, $matches) <= 0) {

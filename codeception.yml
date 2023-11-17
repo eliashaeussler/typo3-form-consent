@@ -22,7 +22,7 @@ suites:
             password: 'root'
             populate: true
             waitlock: 5
-        - MailHog:
+        - Mailpit:
             url: http://%TESTING_DOMAIN%/
             port: 8025
             deleteEmailsAfterScenario: true

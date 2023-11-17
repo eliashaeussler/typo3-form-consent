@@ -37,13 +37,10 @@ final class ConsentControllerCest
     private string $approveUrl;
     private string $dismissUrl;
 
-    public function _before(Tests\Acceptance\Support\AcceptanceTester $I): void
-    {
-        $this->submitFormAndExtractUrls($I);
-    }
-
     public function canApproveConsentViaMail(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
+        $this->submitFormAndExtractUrls($I);
+
         $queryParams = $I->extractQueryParametersFromUrl($this->approveUrl);
         $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
 
@@ -68,6 +65,8 @@ final class ConsentControllerCest
 
     public function canDismissConsentViaMail(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
+        $this->submitFormAndExtractUrls($I);
+
         $queryParams = $I->extractQueryParametersFromUrl($this->dismissUrl);
         $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
 
@@ -155,6 +154,8 @@ final class ConsentControllerCest
 
     public function cannotApproveOrDismissAlreadyDismissedConsent(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
+        $this->submitFormAndExtractUrls($I);
+
         $I->amOnPage($this->dismissUrl);
 
         $I->amOnPage($this->approveUrl);
@@ -166,6 +167,8 @@ final class ConsentControllerCest
 
     public function cannotApproveOrDismissConsentIfEmailAddressIsInvalid(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
+        $this->submitFormAndExtractUrls($I);
+
         $queryParams = $I->extractQueryParametersFromUrl($this->dismissUrl);
         $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
 
@@ -184,6 +187,8 @@ final class ConsentControllerCest
 
     public function cannotApproveAlreadyApprovedConsent(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
+        $this->submitFormAndExtractUrls($I);
+
         $I->amOnPage($this->approveUrl);
 
         $I->amOnPage($this->approveUrl);
