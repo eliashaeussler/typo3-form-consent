@@ -5,9 +5,6 @@ on:
       - main
       - 'renovate/**'
   pull_request:
-    branches:
-      - '**'
-      - '!renovate/**'
 
 jobs:
   cgl:
@@ -22,7 +19,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
-          tools: composer:v2, composer-require-checker, composer-unused
+          tools: composer:v2, composer-require-checker, composer-unused, cs2pr
           coverage: none
 
       # Validation
@@ -39,7 +36,10 @@ jobs:
       # Check Composer dependencies
       - name: Check dependencies
         run: composer-require-checker check --config-file dependency-checker.json
-      - run: composer install --no-progress
+      - name: Reset composer.json
+        run: git checkout composer.json composer.lock
+      - name: Re-install Composer dependencies
+        uses: ramsey/composer-install@v2
       - name: Check for unused dependencies
         run: composer-unused
 
@@ -49,7 +49,7 @@ jobs:
       - name: Lint Editorconfig
         run: composer lint:editorconfig
       - name: Lint PHP
-        run: composer lint:php
+        run: composer lint:php -- --format=checkstyle | cs2pr
       - name: Lint TypoScript
         run: composer lint:typoscript
 
@@ -58,5 +58,5 @@ jobs:
         run: composer sca:php -- --error-format github
 
       # Migration
-      - name: Run Rector migration
+      - name: Rector migration
         run: composer migration:rector -- --dry-run
