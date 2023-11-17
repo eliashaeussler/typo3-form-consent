@@ -38,8 +38,7 @@ final class HashService
 {
     public function __construct(
         private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
-    ) {
-    }
+    ) {}
 
     public function generate(Domain\Model\Consent $consent): string
     {

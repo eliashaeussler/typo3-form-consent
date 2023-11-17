@@ -37,8 +37,7 @@ final class ModifyConsentEvent
     public function __construct(
         private readonly Domain\Model\Consent $consent,
         private readonly Form\Domain\Runtime\FormRuntime $formRuntime,
-    ) {
-    }
+    ) {}
 
     public function getConsent(): Domain\Model\Consent
     {

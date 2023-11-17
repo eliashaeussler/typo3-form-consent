@@ -39,8 +39,7 @@ final class ConsentChartDataProvider implements Dashboard\Widgets\ChartDataProvi
 {
     public function __construct(
         private readonly Core\Database\Connection $connection,
-    ) {
-    }
+    ) {}
 
     /**
      * @return array{labels: list<string>, datasets: array{array{backgroundColor: list<string>, data: list<int>}}}

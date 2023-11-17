@@ -48,8 +48,7 @@ final class ConsentFactory
         private readonly Type\Transformer\FormRequestTypeTransformer $formRequestTypeTransformer,
         private readonly Type\Transformer\FormValuesTypeTransformer $formValuesTypeTransformer,
         private readonly Service\HashService $hashService,
-    ) {
-    }
+    ) {}
 
     public function createFromForm(
         Domain\Finishers\FinisherOptions $finisherOptions,

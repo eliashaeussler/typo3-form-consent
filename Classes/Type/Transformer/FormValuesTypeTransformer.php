@@ -40,8 +40,7 @@ final class FormValuesTypeTransformer implements TypeTransformer
 {
     public function __construct(
         private readonly Configuration\Configuration $configuration,
-    ) {
-    }
+    ) {}
 
     /**
      * @return Type\JsonType<string, mixed>

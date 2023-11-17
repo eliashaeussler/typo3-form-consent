@@ -38,8 +38,7 @@ final class DismissConsentEvent
 
     public function __construct(
         private readonly Domain\Model\Consent $consent,
-    ) {
-    }
+    ) {}
 
     public function getConsent(): Domain\Model\Consent
     {

@@ -36,8 +36,7 @@ final class Configuration
 {
     public function __construct(
         private readonly Core\Configuration\ExtensionConfiguration $configuration,
-    ) {
-    }
+    ) {}
 
     /**
      * @return list<string>
