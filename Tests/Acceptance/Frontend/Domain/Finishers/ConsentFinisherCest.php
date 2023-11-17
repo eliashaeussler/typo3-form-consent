@@ -133,6 +133,31 @@ final class ConsentFinisherCest
         $I->assertQueryParameterEquals('user@example.com', $dismissUrl, 'tx_formconsent_consent/email');
     }
 
+    public function canSubmitFormAndStoreUploadedFiles(Tests\Acceptance\Support\AcceptanceTester $I): void
+    {
+        $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::EMAIL_AFTER_APPROVE, true);
+
+        $I->fetchEmails();
+        $I->accessInboxFor('user@example.com');
+        $I->openNextUnreadEmail();
+
+        $I->seeUrlsInEmailBody(2);
+
+        $approveUrl = $I->grabUrlFromEmailBody(0);
+
+        $I->amOnPage($approveUrl);
+
+        $I->fetchEmails();
+        $I->accessInboxFor('admin@example.com');
+        $I->openNextUnreadEmail();
+
+        $I->haveNumberOfAttachmentsInOpenedEmail(1);
+
+        $I->openNextAttachmentInOpenedEmail();
+
+        $I->seeInFilenameOfOpenedAttachment('dummy.png');
+    }
+
     public function canSubmitFormWithCustomSender(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::V2);
