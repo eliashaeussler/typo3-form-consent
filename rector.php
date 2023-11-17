@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 
 use EliasHaeussler\RectorConfig\Config\Config;
+use EliasHaeussler\RectorConfig\Entity\Version;
 use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
@@ -47,7 +48,7 @@ return static function (RectorConfig $rectorConfig): void {
         )
         ->withPHPUnit()
         ->withSymfony()
-        ->withTYPO3()
+        ->withTYPO3(Version::createMajor(11))
         ->skip(AnnotationToAttributeRector::class, [
             __DIR__ . '/Classes/Extension.php',
             __DIR__ . '/Classes/Updates/MigrateConsentStateUpgradeWizard.php',
