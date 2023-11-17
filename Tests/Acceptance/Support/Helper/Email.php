@@ -84,7 +84,7 @@ final class Email extends Module
         /** @var Module\Mailpit $I */
         $I = $this->getModule('Mailpit');
 
-        $body = quoted_printable_decode($I->grabTextBodyFromEmail());
+        $body = $I->grabTextBodyFromEmail();
         $urlPattern = sprintf('~%s(?P<url>\S+)~', preg_quote($this->getCurrentBaseUrl(), '~'));
 
         if (preg_match_all($urlPattern, $body, $matches) <= 0) {
