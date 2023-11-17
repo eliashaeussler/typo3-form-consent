@@ -48,6 +48,7 @@ final class FormRequestTypeTransformer implements TypeTransformer
     public function transform(Form\Domain\Runtime\FormRuntime $formRuntime): Type\JsonType
     {
         $request = $formRuntime->getRequest();
+        $pluginNamespace = strtolower('tx_' . $request->getControllerExtensionName() . '_' . $request->getPluginName());
 
         // Handle submitted form values
         $requestParameters = [];
@@ -63,6 +64,14 @@ final class FormRequestTypeTransformer implements TypeTransformer
                 $value = $this->transformUploadedFile($file);
             }
         });
+
+        // Prepend plugin namespace to uploaded files array if not exists
+        // This is necessary since TYPO3 12.0, see https://github.com/typo3/typo3/commit/02198ea257b9f03f910b3b120392ab63fe792a8b
+        if (!isset($uploadedFiles[$pluginNamespace])) {
+            $uploadedFiles = [
+                $pluginNamespace => $uploadedFiles,
+            ];
+        }
 
         Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($requestParameters, $uploadedFiles);
 
