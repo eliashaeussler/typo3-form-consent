@@ -43,6 +43,11 @@ final class ApprovedConsentsWidgetCest
         $this->typo3Version = new Core\Information\Typo3Version();
     }
 
+    public function _before(Tests\Acceptance\Support\AcceptanceTester $I): void
+    {
+        $I->truncateTable('be_dashboards');
+    }
+
     public function canAddANewWidget(
         Tests\Acceptance\Support\AcceptanceTester $I,
         Tests\Acceptance\Support\Helper\ModalDialog $dialog,
