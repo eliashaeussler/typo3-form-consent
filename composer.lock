@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62fd68790079277b3855289678120630",
+    "content-hash": "066d7310e5d5fba03e679f454f2541ba",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -8063,25 +8063,25 @@
         },
         {
             "name": "koehnlein/codeception-email-mailpit",
-            "version": "v0.1.0",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koehnlein/codeception-email-mailpit.git",
-                "reference": "82bd180066fd4fa1a68409d2c98c7f33c16a5f18"
+                "reference": "e3548ff28a11bd84138c503517fb4602b62f2aa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koehnlein/codeception-email-mailpit/zipball/82bd180066fd4fa1a68409d2c98c7f33c16a5f18",
-                "reference": "82bd180066fd4fa1a68409d2c98c7f33c16a5f18",
+                "url": "https://api.github.com/repos/koehnlein/codeception-email-mailpit/zipball/e3548ff28a11bd84138c503517fb4602b62f2aa6",
+                "reference": "e3548ff28a11bd84138c503517fb4602b62f2aa6",
                 "shasum": ""
             },
             "require": {
+                "codeception/codeception": "^5.0",
                 "ext-json": "*",
-                "guzzlehttp/guzzle": "^6.1 | ^7.0",
-                "php": "8.1.* | 8.2.*"
+                "guzzlehttp/guzzle": "^6.1 || ^7.0",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "require-dev": {
-                "codeception/codeception": "^5.0",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "http-interop/http-factory-guzzle": "^1.2",
                 "phpunit/phpunit": "^9.5",
@@ -8122,9 +8122,9 @@
             "description": "Provides test helpers for Codeception when testing email functionality with Mailpit",
             "support": {
                 "issues": "https://github.com/koehnlein/codeception-email-mailpit/issues",
-                "source": "https://github.com/koehnlein/codeception-email-mailpit/tree/v0.1.0"
+                "source": "https://github.com/koehnlein/codeception-email-mailpit/tree/v0.3.0"
             },
-            "time": "2023-09-17T18:22:27+00:00"
+            "time": "2023-11-17T20:04:37+00:00"
         },
         {
             "name": "localheinz/diff",
