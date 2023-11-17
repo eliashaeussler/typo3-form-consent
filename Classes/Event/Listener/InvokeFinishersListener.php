@@ -43,8 +43,7 @@ final class InvokeFinishersListener
     public function __construct(
         private readonly Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
         private readonly Core\Domain\Repository\PageRepository $pageRepository,
-    ) {
-    }
+    ) {}
 
     public function onConsentApprove(Event\ApproveConsentEvent $event): void
     {

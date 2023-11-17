@@ -39,8 +39,7 @@ final class FormRequestTypeTransformer implements TypeTransformer
 {
     public function __construct(
         private readonly Extbase\Security\Cryptography\HashService $hashService,
-    ) {
-    }
+    ) {}
 
     /**
      * @return Type\JsonType<string, array<string, array<string, mixed>>>

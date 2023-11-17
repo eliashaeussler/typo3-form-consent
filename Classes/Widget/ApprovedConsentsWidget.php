@@ -31,6 +31,4 @@ use TYPO3\CMS\Dashboard;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ApprovedConsentsWidget extends Dashboard\Widgets\DoughnutChartWidget
-{
-}
+final class ApprovedConsentsWidget extends Dashboard\Widgets\DoughnutChartWidget {}

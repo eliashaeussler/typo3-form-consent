@@ -41,8 +41,7 @@ final class GenerateHashEvent
     public function __construct(
         private array $components,
         private readonly Domain\Model\Consent $consent,
-    ) {
-    }
+    ) {}
 
     /**
      * @return list<mixed>

@@ -42,8 +42,7 @@ final class DashboardServicesConfigurator
 
     public function __construct(
         private readonly DependencyInjection\Loader\Configurator\ServicesConfigurator $services,
-    ) {
-    }
+    ) {}
 
     public function configureServices(): void
     {
