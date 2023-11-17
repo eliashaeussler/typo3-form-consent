@@ -47,8 +47,7 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
         private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
         private readonly Core\Mail\Mailer $mailer,
         private readonly Extbase\Persistence\PersistenceManagerInterface $persistenceManager,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws Extbase\Persistence\Exception\IllegalObjectTypeException
@@ -71,7 +70,7 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
     private function executeConsent(): void
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
-        $finisherOptions = new FinisherOptions(fn (string $optionName) => $this->parseOption($optionName));
+        $finisherOptions = new FinisherOptions(fn(string $optionName) => $this->parseOption($optionName));
 
         // Create consent
         $consent = $this->consentFactory->createFromForm($finisherOptions, $formRuntime);

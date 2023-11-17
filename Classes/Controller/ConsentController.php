@@ -43,8 +43,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
     public function __construct(
         private readonly Domain\Repository\ConsentRepository $consentRepository,
         private readonly Extbase\Persistence\PersistenceManagerInterface $persistenceManager,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws Extbase\Persistence\Exception\IllegalObjectTypeException

@@ -49,8 +49,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
 
     public function __construct(
         private readonly Core\Database\Connection $connection,
-    ) {
-    }
+    ) {}
 
     public function getIdentifier(): string
     {

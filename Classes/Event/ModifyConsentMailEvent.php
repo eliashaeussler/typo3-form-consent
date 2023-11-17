@@ -37,8 +37,7 @@ final class ModifyConsentMailEvent
     public function __construct(
         private readonly Core\Mail\FluidEmail $mail,
         private readonly Form\Domain\Runtime\FormRuntime $formRuntime,
-    ) {
-    }
+    ) {}
 
     public function getMail(): Core\Mail\FluidEmail
     {
