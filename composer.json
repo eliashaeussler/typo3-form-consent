@@ -39,7 +39,7 @@
 		"codeception/module-webdriver": "^4.0",
 		"eliashaeussler/php-cs-fixer-config": "^1.3",
 		"eliashaeussler/phpstan-config": "^2.1",
-		"eliashaeussler/rector-config": "^1.7 || ^2.0",
+		"eliashaeussler/rector-config": "^2.0",
 		"eliashaeussler/typo3-codeception-helper": "^1.0",
 		"ergebnis/composer-normalize": "^2.15",
 		"helhum/config-loader": "^0.12.5",
