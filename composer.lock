@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "518d6254795e381617b32f093fac3e26",
+    "content-hash": "62fd68790079277b3855289678120630",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6983,22 +6983,22 @@
         },
         {
             "name": "eliashaeussler/rector-config",
-            "version": "1.7.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/rector-config.git",
-                "reference": "dff28041f5925fa5a2c0e8e4eceb088052774abe"
+                "reference": "2eaed22ddc5e893a1b3c415b06863a87d79e7769"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/dff28041f5925fa5a2c0e8e4eceb088052774abe",
-                "reference": "dff28041f5925fa5a2c0e8e4eceb088052774abe",
+                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/2eaed22ddc5e893a1b3c415b06863a87d79e7769",
+                "reference": "2eaed22ddc5e893a1b3c415b06863a87d79e7769",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.0",
-                "php": "~8.1.0 || ~8.2.0",
-                "rector/rector": "^0.15.21 || ^0.16.0 || ^0.17.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+                "rector/rector": "^0.15.21 || ^0.16.0 || ^0.17.0 || ^0.18.0"
             },
             "require-dev": {
                 "armin/editorconfig-cli": "^1.5",
@@ -7037,9 +7037,9 @@
             "description": "My personal configuration for Rector",
             "support": {
                 "issues": "https://github.com/eliashaeussler/rector-config/issues",
-                "source": "https://github.com/eliashaeussler/rector-config/tree/1.7.1"
+                "source": "https://github.com/eliashaeussler/rector-config/tree/2.0.0"
             },
-            "time": "2023-07-01T19:41:27+00:00"
+            "time": "2023-11-17T16:20:45+00:00"
         },
         {
             "name": "eliashaeussler/typo3-codeception-helper",
