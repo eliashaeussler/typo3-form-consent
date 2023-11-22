@@ -10375,16 +10375,16 @@
         },
         {
             "name": "ssch/typo3-rector",
-            "version": "v1.5.0",
+            "version": "v1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabbelasichon/typo3-rector.git",
-                "reference": "2c45ab27b67a346223a208fb94525a3dfb0da36e"
+                "reference": "3e9263ba7a89217c3a34b6a24151ceb3af87a2ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/2c45ab27b67a346223a208fb94525a3dfb0da36e",
-                "reference": "2c45ab27b67a346223a208fb94525a3dfb0da36e",
+                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/3e9263ba7a89217c3a34b6a24151ceb3af87a2ef",
+                "reference": "3e9263ba7a89217c3a34b6a24151ceb3af87a2ef",
                 "shasum": ""
             },
             "require": {
@@ -10468,7 +10468,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-16T22:26:55+00:00"
+            "time": "2023-11-20T10:40:03+00:00"
         },
         {
             "name": "symfony/css-selector",
