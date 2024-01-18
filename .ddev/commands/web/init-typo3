@@ -20,7 +20,7 @@ readonly fixturePath="/var/www/html/Tests/Acceptance/Data/Fixtures"
 readonly installationStepsPath="/var/www/html/Tests/Build/Installation/install-steps.yaml"
 
 typo3Binary="/var/www/html/.Build/bin/typo3"
-typo3Version="$($typo3Binary --version | awk '{print $3}')"
+typo3Version="$($typo3Binary --version --no-ansi | grep ^TYPO3 | awk '{print $3}')"
 typo3Version="${typo3Version%%.*}"
 
 # Use different console binary on TYPO3 v11
