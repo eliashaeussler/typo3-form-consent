@@ -33,7 +33,7 @@
 		"typo3/cms-install": "~11.5.16 || ~12.4.2"
 	},
 	"require-dev": {
-		"armin/editorconfig-cli": "^1.5",
+		"armin/editorconfig-cli": "^1.5 || ^2.0",
 		"codeception/module-asserts": "^3.0",
 		"codeception/module-db": "^3.1",
 		"codeception/module-webdriver": "^4.0",
