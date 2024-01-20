@@ -6912,16 +6912,16 @@
         },
         {
             "name": "eliashaeussler/rector-config",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/rector-config.git",
-                "reference": "2eaed22ddc5e893a1b3c415b06863a87d79e7769"
+                "reference": "5a98a3bee2e67a7c4c3cb7acb7821e7edeaeda7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/2eaed22ddc5e893a1b3c415b06863a87d79e7769",
-                "reference": "2eaed22ddc5e893a1b3c415b06863a87d79e7769",
+                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/5a98a3bee2e67a7c4c3cb7acb7821e7edeaeda7e",
+                "reference": "5a98a3bee2e67a7c4c3cb7acb7821e7edeaeda7e",
                 "shasum": ""
             },
             "require": {
@@ -6930,16 +6930,16 @@
                 "rector/rector": "^0.15.21 || ^0.16.0 || ^0.17.0 || ^0.18.0"
             },
             "require-dev": {
-                "armin/editorconfig-cli": "^1.5",
+                "armin/editorconfig-cli": "^1.8 || ^2.0",
                 "composer/composer": "^2.0",
-                "eliashaeussler/php-cs-fixer-config": "^1.1",
+                "eliashaeussler/php-cs-fixer-config": "^2.0",
                 "eliashaeussler/phpstan-config": "^2.0",
                 "ergebnis/composer-normalize": "^2.30",
                 "phpstan/extension-installer": "^1.2",
                 "phpunit/phpunit": "^10.1",
                 "ssch/typo3-rector": "^1.2",
-                "symfony/config": "^5.4 || ^6.0",
-                "symfony/dependency-injection": "^5.4 || ^6.0",
+                "symfony/config": "^5.4 || ^6.0 || ^7.0",
+                "symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
                 "typo3/cms-core": "^12.4"
             },
             "suggest": {
@@ -6966,9 +6966,9 @@
             "description": "My personal configuration for Rector",
             "support": {
                 "issues": "https://github.com/eliashaeussler/rector-config/issues",
-                "source": "https://github.com/eliashaeussler/rector-config/tree/2.0.0"
+                "source": "https://github.com/eliashaeussler/rector-config/tree/2.0.1"
             },
-            "time": "2023-11-17T16:20:45+00:00"
+            "time": "2024-01-19T10:03:24+00:00"
         },
         {
             "name": "eliashaeussler/typo3-codeception-helper",
@@ -7444,16 +7444,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.47.1",
+            "version": "v3.48.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "173c60d1eff911c9c54322704623a45561d3241d"
+                "reference": "a92472c6fb66349de25211f31c77eceae3df024e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/173c60d1eff911c9c54322704623a45561d3241d",
-                "reference": "173c60d1eff911c9c54322704623a45561d3241d",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/a92472c6fb66349de25211f31c77eceae3df024e",
+                "reference": "a92472c6fb66349de25211f31c77eceae3df024e",
                 "shasum": ""
             },
             "require": {
@@ -7523,7 +7523,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.47.1"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.48.0"
             },
             "funding": [
                 {
@@ -7531,7 +7531,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-16T18:54:21+00:00"
+            "time": "2024-01-19T21:44:39+00:00"
         },
         {
             "name": "helhum/config-loader",
@@ -9156,16 +9156,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.7",
+            "version": "10.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e5c5b397a95cb0db013270a985726fcae93e61b8"
+                "reference": "08f4fa74d5fbfff1ef22abffee47aaedcaea227e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e5c5b397a95cb0db013270a985726fcae93e61b8",
-                "reference": "e5c5b397a95cb0db013270a985726fcae93e61b8",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/08f4fa74d5fbfff1ef22abffee47aaedcaea227e",
+                "reference": "08f4fa74d5fbfff1ef22abffee47aaedcaea227e",
                 "shasum": ""
             },
             "require": {
@@ -9237,7 +9237,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.7"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.8"
             },
             "funding": [
                 {
@@ -9253,7 +9253,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-14T16:40:30+00:00"
+            "time": "2024-01-19T07:07:27+00:00"
         },
         {
             "name": "psy/psysh",
