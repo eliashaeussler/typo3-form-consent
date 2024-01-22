@@ -17,7 +17,7 @@ dedicated consent factory is provided.
 
     Factory class to create new consents from a given form.
 
-    ..  php:method:: createFromForm($finisherOptions, $formRuntime)
+    ..  php:method:: createFromForm($finisherOptions, $finisherContext)
 
         Create a new form consent from the given form, derived from the
         given finisher options.
@@ -28,7 +28,7 @@ dedicated consent factory is provided.
             :ref:`modify-consent-event`.
 
         :param EliasHaeussler\\Typo3FormConsent\\Domain\\Finishers\\FinisherOptions $finisherOptions: Consent finisher options of the current form
-        :param TYPO3\\CMS\\Form\\Domain\\Runtime\\FormRuntime $formRuntime: The current form runtime
+        :param TYPO3\\CMS\\Form\\Domain\\Finishers\\FinisherContext $finisherContext: The current finisher context
         :returntype: EliasHaeussler\\Typo3FormConsent\\Domain\\Model\\Consent
 
 ..  seealso::

@@ -52,8 +52,9 @@ final class ConsentFactory
 
     public function createFromForm(
         Domain\Finishers\FinisherOptions $finisherOptions,
-        Form\Domain\Runtime\FormRuntime $formRuntime,
+        Form\Domain\Finishers\FinisherContext $finisherContext,
     ): Domain\Model\Consent {
+        $formRuntime = $finisherContext->getFormRuntime();
         $submitDate = $this->getSubmitDate();
         $approvalPeriod = $finisherOptions->getApprovalPeriod();
 
@@ -75,7 +76,7 @@ final class ConsentFactory
         $consent->setValidationHash($this->hashService->generate($consent));
 
         // Dispatch ModifyConsent event
-        $this->eventDispatcher->dispatch(new Event\ModifyConsentEvent($consent, $formRuntime));
+        $this->eventDispatcher->dispatch(new Event\ModifyConsentEvent($consent, $finisherContext));
 
         // Re-generate validation hash if consent has changed in the meantime
         if (!$this->hashService->isValid($consent)) {

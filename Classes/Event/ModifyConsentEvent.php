@@ -36,7 +36,7 @@ final class ModifyConsentEvent
 {
     public function __construct(
         private readonly Domain\Model\Consent $consent,
-        private readonly Form\Domain\Runtime\FormRuntime $formRuntime,
+        private readonly Form\Domain\Finishers\FinisherContext $finisherContext,
     ) {}
 
     public function getConsent(): Domain\Model\Consent
@@ -44,8 +44,8 @@ final class ModifyConsentEvent
         return $this->consent;
     }
 
-    public function getFormRuntime(): Form\Domain\Runtime\FormRuntime
+    public function getFinisherContext(): Form\Domain\Finishers\FinisherContext
     {
-        return $this->formRuntime;
+        return $this->finisherContext;
     }
 }
