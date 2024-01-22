@@ -9,6 +9,23 @@ Migration
 This page lists all notable changes and required migrations when
 upgrading to a new major version of this extension.
 
+..  _version-2.0.0:
+
+Version 2.0.0
+=============
+
+Finisher context in event
+-------------------------
+
+-   :php:class:`EliasHaeussler\\Typo3FormConsent\\Event\\ModifyConsentEvent` no longer
+    explicitly provides the current :php:class:`TYPO3\\CMS\\Form\\Domain\\Runtime\\FormRuntime`
+    instance via the :php:`getFormRuntime()` method. Use :php:`getFinisherContext()->getFormRuntime()`
+    instead.
+-   :php:meth:`EliasHaeussler\\Typo3FormConsent\\Domain\\Factory\\ConsentFactory::createFromForm`
+    no longer expects a :php:class:`TYPO3\\CMS\\Form\\Domain\\Runtime\\FormRuntime`
+    as second parameter. Pass the current :php:class:`TYPO3\\CMS\\Form\\Domain\\Finishers\\FinisherContext`
+    instead.
+
 ..  _version-1.0.0:
 
 Version 1.0.0
