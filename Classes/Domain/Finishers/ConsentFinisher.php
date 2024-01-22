@@ -75,6 +75,11 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
         // Create consent
         $consent = $this->consentFactory->createFromForm($finisherOptions, $this->finisherContext);
 
+        // Exit if finisher execution is cancelled
+        if ($this->finisherContext->isCancelled()) {
+            return;
+        }
+
         // Persist consent
         $this->persistenceManager->add($consent);
         $this->persistenceManager->persistAll();

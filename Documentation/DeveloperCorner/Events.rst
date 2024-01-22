@@ -49,7 +49,8 @@ ModifyConsentEvent
 
 This event is dispatched after a new consent was generated, which is
 not yet persisted. It allows to modify the consent while having access
-to the current :php:`FormRuntime`.
+to the current :php:`FinisherContext`. This allows to cancel the whole
+consent process by calling :php:`$event->getFinisherContext()->cancel()`.
 
 ..  _modify-consent-mail-event:
 
