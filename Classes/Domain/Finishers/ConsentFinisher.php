@@ -73,7 +73,7 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
         $finisherOptions = new FinisherOptions(fn(string $optionName) => $this->parseOption($optionName));
 
         // Create consent
-        $consent = $this->consentFactory->createFromForm($finisherOptions, $formRuntime);
+        $consent = $this->consentFactory->createFromForm($finisherOptions, $this->finisherContext);
 
         // Persist consent
         $this->persistenceManager->add($consent);
