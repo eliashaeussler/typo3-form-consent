@@ -6801,16 +6801,16 @@
         },
         {
             "name": "eliashaeussler/php-cs-fixer-config",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/php-cs-fixer-config.git",
-                "reference": "196628c9f827fccadef3bfe83f37ab8b5c32e134"
+                "reference": "f65f2198666db438ee21b44c04c0138077dd6166"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/php-cs-fixer-config/zipball/196628c9f827fccadef3bfe83f37ab8b5c32e134",
-                "reference": "196628c9f827fccadef3bfe83f37ab8b5c32e134",
+                "url": "https://api.github.com/repos/eliashaeussler/php-cs-fixer-config/zipball/f65f2198666db438ee21b44c04c0138077dd6166",
+                "reference": "f65f2198666db438ee21b44c04c0138077dd6166",
                 "shasum": ""
             },
             "require": {
@@ -6824,7 +6824,7 @@
                 "ergebnis/composer-normalize": "^2.29",
                 "phpstan/extension-installer": "^1.2",
                 "phpunit/phpunit": "^10.1",
-                "rector/rector": "^0.18.0"
+                "rector/rector": "^0.19.2"
             },
             "type": "library",
             "autoload": {
@@ -6847,9 +6847,9 @@
             "description": "My personal configuration for PHP-CS-Fixer",
             "support": {
                 "issues": "https://github.com/eliashaeussler/php-cs-fixer-config/issues",
-                "source": "https://github.com/eliashaeussler/php-cs-fixer-config/tree/2.0.0"
+                "source": "https://github.com/eliashaeussler/php-cs-fixer-config/tree/2.1.0"
             },
-            "time": "2024-01-01T12:50:51+00:00"
+            "time": "2024-01-22T15:04:44+00:00"
         },
         {
             "name": "eliashaeussler/phpstan-config",
@@ -9156,16 +9156,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.8",
+            "version": "10.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "08f4fa74d5fbfff1ef22abffee47aaedcaea227e"
+                "reference": "0bd663704f0165c9e76fe4f06ffa6a1ca727fdbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/08f4fa74d5fbfff1ef22abffee47aaedcaea227e",
-                "reference": "08f4fa74d5fbfff1ef22abffee47aaedcaea227e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0bd663704f0165c9e76fe4f06ffa6a1ca727fdbe",
+                "reference": "0bd663704f0165c9e76fe4f06ffa6a1ca727fdbe",
                 "shasum": ""
             },
             "require": {
@@ -9237,7 +9237,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.8"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.9"
             },
             "funding": [
                 {
@@ -9253,7 +9253,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-19T07:07:27+00:00"
+            "time": "2024-01-22T14:35:40+00:00"
         },
         {
             "name": "psy/psysh",
@@ -10382,16 +10382,16 @@
         },
         {
             "name": "ssch/typo3-rector",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabbelasichon/typo3-rector.git",
-                "reference": "fcbab6d4d884e1913b4bfb45594191ebebb01fd6"
+                "reference": "4b63e4867b9c32b1b26ec4ab4c445d800e3caec8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/fcbab6d4d884e1913b4bfb45594191ebebb01fd6",
-                "reference": "fcbab6d4d884e1913b4bfb45594191ebebb01fd6",
+                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/4b63e4867b9c32b1b26ec4ab4c445d800e3caec8",
+                "reference": "4b63e4867b9c32b1b26ec4ab4c445d800e3caec8",
                 "shasum": ""
             },
             "require": {
@@ -10404,13 +10404,13 @@
                 "php": "^7.4 || ^8.0",
                 "phpstan/phpstan": "^1.9.7",
                 "rector/rector": "0.17.0",
-                "symfony/console": "^4.0 || ^5.0 || ^6.0",
-                "symfony/filesystem": "^5.4 || ^6.0",
-                "symfony/finder": "^5.4 || ^6.0",
+                "symfony/console": "^5.4 || ^6.4 || ^7.0",
+                "symfony/filesystem": "^5.4 || ^6.4 || ^7.0",
+                "symfony/finder": "^5.4 || ^6.4 || ^7.0",
                 "symfony/polyfill-php80": "^1.26",
                 "symfony/polyfill-php81": "^1.26",
-                "symfony/string": "^5.0 || ^6.0",
-                "symfony/yaml": "^5.0 || ^6.0",
+                "symfony/string": "^5.4 || ^6.4 || ^7.0",
+                "symfony/yaml": "^5.4 || ^6.4 || ^7.0",
                 "webmozart/assert": "^1.0"
             },
             "conflict": {
@@ -10421,8 +10421,8 @@
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan-phpunit": "^1.1",
                 "phpunit/phpunit": "^9.5",
-                "symfony/dependency-injection": "^5.0 || ^6.0",
-                "symfony/http-kernel": "^5.0 || ^6.0",
+                "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.0",
+                "symfony/http-kernel": "^5.4 || ^6.4 || ^7.0",
                 "symplify/easy-coding-standard": "^12.0"
             },
             "type": "rector-extension",
@@ -10476,7 +10476,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-16T00:48:10+00:00"
+            "time": "2024-01-22T13:30:23+00:00"
         },
         {
             "name": "symfony/css-selector",
