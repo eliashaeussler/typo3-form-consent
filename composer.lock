@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f35736e6f12d409cb9df524cb4675083",
+    "content-hash": "3ad9385bd3f80243c02240c1562a73ff",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6885,22 +6885,22 @@
         },
         {
             "name": "eliashaeussler/rector-config",
-            "version": "2.0.1",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/rector-config.git",
-                "reference": "5a98a3bee2e67a7c4c3cb7acb7821e7edeaeda7e"
+                "reference": "55bd32b120c9d6b2156d9870c9bb1c6c892a9a0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/5a98a3bee2e67a7c4c3cb7acb7821e7edeaeda7e",
-                "reference": "5a98a3bee2e67a7c4c3cb7acb7821e7edeaeda7e",
+                "url": "https://api.github.com/repos/eliashaeussler/rector-config/zipball/55bd32b120c9d6b2156d9870c9bb1c6c892a9a0f",
+                "reference": "55bd32b120c9d6b2156d9870c9bb1c6c892a9a0f",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.0",
                 "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-                "rector/rector": "^0.15.21 || ^0.16.0 || ^0.17.0 || ^0.18.0"
+                "rector/rector": "^1.0"
             },
             "require-dev": {
                 "armin/editorconfig-cli": "^1.8 || ^2.0",
@@ -6908,15 +6908,15 @@
                 "eliashaeussler/php-cs-fixer-config": "^2.0",
                 "eliashaeussler/phpstan-config": "^2.0",
                 "ergebnis/composer-normalize": "^2.30",
+                "illuminate/container": "^10.39",
                 "phpstan/extension-installer": "^1.2",
                 "phpunit/phpunit": "^10.1",
-                "ssch/typo3-rector": "^1.2",
+                "ssch/typo3-rector": "^2.0",
                 "symfony/config": "^5.4 || ^6.0 || ^7.0",
-                "symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
-                "typo3/cms-core": "^12.4"
+                "typo3/cms-core": "^12.4 || ^13.0"
             },
             "suggest": {
-                "ssch/typo3-rector": "Configures additional Rector rules for TYPO3 CMS projects"
+                "ssch/typo3-rector": "Configures additional Rector rules for TYPO3 CMS projects (^2.0)"
             },
             "type": "library",
             "autoload": {
@@ -6939,9 +6939,9 @@
             "description": "My personal configuration for Rector",
             "support": {
                 "issues": "https://github.com/eliashaeussler/rector-config/issues",
-                "source": "https://github.com/eliashaeussler/rector-config/tree/2.0.1"
+                "source": "https://github.com/eliashaeussler/rector-config/tree/3.0.1"
             },
-            "time": "2024-01-19T10:03:24+00:00"
+            "time": "2024-02-14T17:21:32+00:00"
         },
         {
             "name": "eliashaeussler/typo3-codeception-helper",
@@ -8531,16 +8531,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.27",
+            "version": "1.10.58",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640"
+                "reference": "a23518379ec4defd9e47cbf81019526861623ec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a9f44dcea06f59d1363b100bb29f297b311fa640",
-                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a23518379ec4defd9e47cbf81019526861623ec2",
+                "reference": "a23518379ec4defd9e47cbf81019526861623ec2",
                 "shasum": ""
             },
             "require": {
@@ -8589,7 +8589,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-05T09:57:55+00:00"
+            "time": "2024-02-12T20:02:57+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -9305,21 +9305,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.17.0",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "d8da002b107c9b64d464bb48101290d4d078df4b"
+                "reference": "362258a1f6369fc88d02d469a5478d220f78b0e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/d8da002b107c9b64d464bb48101290d4d078df4b",
-                "reference": "d8da002b107c9b64d464bb48101290d4d078df4b",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/362258a1f6369fc88d02d469a5478d220f78b0e6",
+                "reference": "362258a1f6369fc88d02d469a5478d220f78b0e6",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.10.15"
+                "phpstan/phpstan": "^1.10.56"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -9331,11 +9331,6 @@
                 "bin/rector"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "0.15-dev"
-                }
-            },
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -9354,7 +9349,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.17.0"
+                "source": "https://github.com/rectorphp/rector/tree/1.0.0"
             },
             "funding": [
                 {
@@ -9362,7 +9357,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-01T09:42:59+00:00"
+            "time": "2024-02-06T13:38:07+00:00"
         },
         {
             "name": "saschaegerer/phpstan-typo3",
@@ -10351,54 +10346,54 @@
         },
         {
             "name": "ssch/typo3-rector",
-            "version": "v1.8.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabbelasichon/typo3-rector.git",
-                "reference": "e8c7bca9b9e37503a3f9e5116e11321205ea06e6"
+                "reference": "498ec4ba020b8d52dbe8c6314a3aa174afc1c20a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/e8c7bca9b9e37503a3f9e5116e11321205ea06e6",
-                "reference": "e8c7bca9b9e37503a3f9e5116e11321205ea06e6",
+                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/498ec4ba020b8d52dbe8c6314a3aa174afc1c20a",
+                "reference": "498ec4ba020b8d52dbe8c6314a3aa174afc1c20a",
                 "shasum": ""
             },
             "require": {
-                "ext-dom": "*",
-                "ext-libxml": "*",
-                "ext-simplexml": "*",
-                "helmich/typo3-typoscript-parser": "^2.5.0",
                 "nette/utils": "^3.2.10 || ^4.0.4",
                 "nikic/php-parser": "^4.18.0",
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpstan": "^1.10.27",
-                "rector/rector": "0.17.0",
+                "phpstan/phpstan": "^1.10.56",
+                "rector/rector": "^1.0",
                 "symfony/console": "^5.4 || ^6.4 || ^7.0",
                 "symfony/filesystem": "^5.4 || ^6.4 || ^7.0",
                 "symfony/finder": "^5.4 || ^6.4 || ^7.0",
                 "symfony/polyfill-php80": "^1.28.0",
                 "symfony/polyfill-php81": "^1.28.0",
                 "symfony/string": "^5.4 || ^6.4 || ^7.0",
-                "symfony/yaml": "^5.4 || ^6.4 || ^7.0",
                 "webmozart/assert": "^1.11.0"
-            },
-            "conflict": {
-                "phpstan/phpstan": ">= 1.10.28"
             },
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.28",
                 "php-parallel-lint/php-parallel-lint": "^1.3.2",
                 "phpstan/extension-installer": "^1.3.1",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
                 "phpstan/phpstan-phpunit": "^1.3.15",
-                "phpunit/phpunit": "^9.6.16",
+                "phpunit/phpunit": "^9.6.16 || ^10.0",
+                "symfony/config": "^5.0 || ^6.0 || ^7.0",
                 "symfony/dependency-injection": "^5.4.34 || ^6.4.2 || ^7.0.2",
                 "symfony/http-kernel": "^5.4.34 || ^6.4.2 || ^7.0.2",
                 "symplify/easy-coding-standard": "^12.1.8"
             },
+            "suggest": {
+                "ssch/typo3-debug-dump-pass": "^0.0.1"
+            },
+            "bin": [
+                "bin/typo3-init"
+            ],
             "type": "rector-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.0-dev"
+                    "dev-main": "2.0-dev"
                 },
                 "rector": {
                     "includes": [
@@ -10408,7 +10403,10 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Ssch\\TYPO3Rector\\": "src",
+                    "Ssch\\TYPO3Rector\\": [
+                        "src",
+                        "rules"
+                    ],
                     "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src"
                 }
             },
@@ -10449,7 +10447,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-05T13:18:30+00:00"
+            "time": "2024-03-08T14:08:24+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -11432,5 +11430,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
