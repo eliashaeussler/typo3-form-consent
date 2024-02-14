@@ -65,8 +65,8 @@ final class ConsentRepositoryTest extends TestingFramework\Core\Functional\Funct
         $consent = $this->subject->findOneByValidationHash($hash);
 
         self::assertInstanceOf(Src\Domain\Model\Consent::class, $consent);
-        self::assertEquals($hash, $consent->getValidationHash());
-        self::assertEquals($expectedUid, $consent->getUid());
+        self::assertSame($hash, $consent->getValidationHash());
+        self::assertSame($expectedUid, $consent->getUid());
     }
 
     #[Framework\Attributes\Test]
