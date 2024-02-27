@@ -7724,35 +7724,35 @@
         },
         {
             "name": "helmich/typo3-typoscript-lint",
-            "version": "v3.1.0",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/martin-helmich/typo3-typoscript-lint.git",
-                "reference": "85eb5b93baac724785ddb3bcd28ac6a72df0dd6d"
+                "reference": "7399519ff2b755cdf54dc0cefa4d002878e7c6fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/martin-helmich/typo3-typoscript-lint/zipball/85eb5b93baac724785ddb3bcd28ac6a72df0dd6d",
-                "reference": "85eb5b93baac724785ddb3bcd28ac6a72df0dd6d",
+                "url": "https://api.github.com/repos/martin-helmich/typo3-typoscript-lint/zipball/7399519ff2b755cdf54dc0cefa4d002878e7c6fb",
+                "reference": "7399519ff2b755cdf54dc0cefa4d002878e7c6fb",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "helmich/typo3-typoscript-parser": "^2.3",
-                "php": "^7.4 || ^8.0",
-                "symfony/config": "^4.4 || ^5.4 || ^6.2",
-                "symfony/console": "^4.4 || ^5.4 || ^6.2",
-                "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.2",
-                "symfony/event-dispatcher": "^4.4 || ^5.4 || ^6.2",
-                "symfony/filesystem": "^4.4 || ^5.4 || ^6.2",
-                "symfony/finder": "^4.4 || ^5.4 || ^6.2",
-                "symfony/yaml": "^4.4 || ^5.4 || ^6.2"
+                "php": "^8.1",
+                "symfony/config": "^5.4 || ^6.4 || ^7.0",
+                "symfony/console": "^5.4 || ^6.4 || ^7.0",
+                "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.0",
+                "symfony/event-dispatcher": "^5.4 || ^6.4 || ^7.0",
+                "symfony/filesystem": "^5.4 || ^6.4 || ^7.0",
+                "symfony/finder": "^5.4 || ^6.4 || ^7.0",
+                "symfony/yaml": "^5.4 || ^6.4 || ^7.0"
             },
             "require-dev": {
                 "mikey179/vfsstream": "^1.6.11",
-                "phpspec/prophecy-phpunit": "^2.0.1",
-                "phpunit/phpunit": "^9.5.25",
-                "vimeo/psalm": "^4.29.0"
+                "phpspec/prophecy-phpunit": "^2.0.2",
+                "phpunit/phpunit": "^9.6.8",
+                "vimeo/psalm": "^5.22.2"
             },
             "bin": [
                 "typoscript-lint"
@@ -7778,7 +7778,7 @@
             "homepage": "https://github.com/martin-helmich",
             "support": {
                 "issues": "https://github.com/martin-helmich/typo3-typoscript-lint/issues",
-                "source": "https://github.com/martin-helmich/typo3-typoscript-lint/tree/v3.1.0"
+                "source": "https://github.com/martin-helmich/typo3-typoscript-lint/tree/v3.2.0"
             },
             "funding": [
                 {
@@ -7790,34 +7790,34 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-21T14:29:29+00:00"
+            "time": "2024-02-26T21:10:48+00:00"
         },
         {
             "name": "helmich/typo3-typoscript-parser",
-            "version": "v2.5.0",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/martin-helmich/typo3-typoscript-parser.git",
-                "reference": "2c350d1a9148e4fc14d33602bb7fc18fe79b284b"
+                "reference": "cd7935b17249b31f5063c8d01bc57ed5be1794c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/martin-helmich/typo3-typoscript-parser/zipball/2c350d1a9148e4fc14d33602bb7fc18fe79b284b",
-                "reference": "2c350d1a9148e4fc14d33602bb7fc18fe79b284b",
+                "url": "https://api.github.com/repos/martin-helmich/typo3-typoscript-parser/zipball/cd7935b17249b31f5063c8d01bc57ed5be1794c1",
+                "reference": "cd7935b17249b31f5063c8d01bc57ed5be1794c1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.4",
-                "symfony/config": "~3.0|~4.0|~5.0|~6.0",
-                "symfony/dependency-injection": "~3.0|~4.0|~5.0|~6.0",
-                "symfony/yaml": "~3.0|~4.0|~5.0|~6.0"
+                "php": ">=8.1",
+                "symfony/config": "^5.4 || ^6.4 || ^7.0",
+                "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.0",
+                "symfony/yaml": "^5.4 || ^6.4 || ^7.0"
             },
             "require-dev": {
-                "php-vfs/php-vfs": "^1.3",
-                "phpspec/prophecy-phpunit": "^2.0",
-                "phpunit/phpunit": "^9.5",
-                "symfony/phpunit-bridge": "~2.7|~3.0|~4.0|~5.0|~6.0",
-                "vimeo/psalm": "^4.20"
+                "php-vfs/php-vfs": "^1.4.2",
+                "phpspec/prophecy-phpunit": "^2.1.0",
+                "phpunit/phpunit": "^9.6.16",
+                "symfony/phpunit-bridge": "^5.4 || ^6.4 || ^7.0",
+                "vimeo/psalm": "^5.22.0"
             },
             "type": "library",
             "autoload": {
@@ -7840,7 +7840,7 @@
             "homepage": "https://github.com/martin-helmich",
             "support": {
                 "issues": "https://github.com/martin-helmich/typo3-typoscript-parser/issues",
-                "source": "https://github.com/martin-helmich/typo3-typoscript-parser/tree/v2.5.0"
+                "source": "https://github.com/martin-helmich/typo3-typoscript-parser/tree/v2.6.0"
             },
             "funding": [
                 {
@@ -7852,7 +7852,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-13T15:27:29+00:00"
+            "time": "2024-02-26T19:57:25+00:00"
         },
         {
             "name": "idiosyncratic/editorconfig",
