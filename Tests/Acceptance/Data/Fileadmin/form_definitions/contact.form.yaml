@@ -39,6 +39,7 @@ finishers:
           mapOnDatabaseColumn: email
         fileupload-1:
           mapOnDatabaseColumn: image
+          skipIfValueIsEmpty: true
     identifier: SaveToDatabase
 renderables:
   -
