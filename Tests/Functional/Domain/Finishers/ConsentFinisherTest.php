@@ -97,8 +97,8 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/be_users.csv');
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.csv');
 
-        $this->setUpBackendUser(1);
-        Core\Core\Bootstrap::initializeLanguageObject();
+        $backendUser = $this->setUpBackendUser(1);
+        $GLOBALS['LANG'] = $this->get(Core\Localization\LanguageServiceFactory::class)->createFromUserPreferences($backendUser);
     }
 
     #[Framework\Attributes\Test]
