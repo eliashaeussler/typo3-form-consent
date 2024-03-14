@@ -41,7 +41,7 @@ function _setup_v11() {
     export TYPO3_INSTALL_ADMIN_PASSWORD="$adminPassword"
 
     _progress "Installing TYPO3 Console"
-    composer require --dev --quiet helhum/typo3-console:^8.0.3
+    composer require --dev --quiet helhum/typo3-console:^7.1.4 -W
     _done
 
     _progress "Setting up TYPO3 installation"
