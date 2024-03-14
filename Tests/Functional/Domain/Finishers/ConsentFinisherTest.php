@@ -60,6 +60,7 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
     private EventDispatcher\EventDispatcher $eventDispatcher;
     private Src\Domain\Repository\ConsentRepository $consentRepository;
     private Src\Domain\Finishers\ConsentFinisher $subject;
+    private Core\Information\Typo3Version $typo3Version;
 
     public function setUp(): void
     {
@@ -93,6 +94,7 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
             'confirmationPid' => 1,
             'storagePid' => '',
         ]);
+        $this->typo3Version = new Core\Information\Typo3Version();
 
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/be_users.csv');
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.csv');
@@ -124,17 +126,25 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
 
     private function createFinisherContext(): Form\Domain\Finishers\FinisherContext
     {
+        $frontendUserAuthentication = new Frontend\Authentication\FrontendUserAuthentication();
+        $frontendUserAuthentication->initializeUserSessionManager();
+
         // Create and initialize TSFE
         $typoScriptFrontendController = $GLOBALS['TSFE'] = $this->createMock(Frontend\Controller\TypoScriptFrontendController::class);
         $typoScriptFrontendController->method('sL')->willReturn('dummy');
         $typoScriptFrontendController->id = 1;
-        $typoScriptFrontendController->fe_user = new Frontend\Authentication\FrontendUserAuthentication();
-        $typoScriptFrontendController->fe_user->initializeUserSessionManager();
+
+        // @todo Remove once support for TYPO3 v11 and v12 is dropped
+        if ($this->typo3Version->getMajorVersion() < 13) {
+            $typoScriptFrontendController->fe_user = $frontendUserAuthentication;
+        }
 
         // Create basic request
         $request = new Core\Http\ServerRequest();
         $request = $request->withAttribute('extbase', new Extbase\Mvc\ExtbaseRequestParameters());
         $request = $request->withAttribute('applicationType', Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_FE);
+        $request = $request->withAttribute('frontend.user', $frontendUserAuthentication);
+        $request = $request->withAttribute('currentContentObject', $this->get(Frontend\ContentObject\ContentObjectRenderer::class));
         $extbaseRequest = new Extbase\Mvc\Request($request);
 
         // Load form and build form runtime
@@ -149,7 +159,7 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
         ];
 
         // @todo Remove once support for TYPO3 v11 is dropped
-        if ((new Core\Information\Typo3Version())->getMajorVersion() < 12) {
+        if ($this->typo3Version->getMajorVersion() < 12) {
             $constructorArguments[] = new Extbase\Mvc\Controller\ControllerContext();
         }
 
