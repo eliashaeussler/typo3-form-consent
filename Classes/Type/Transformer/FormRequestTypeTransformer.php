@@ -37,10 +37,6 @@ use TYPO3\CMS\Form;
  */
 final class FormRequestTypeTransformer implements TypeTransformer
 {
-    public function __construct(
-        private readonly Extbase\Security\Cryptography\HashService $hashService,
-    ) {}
-
     /**
      * @return Type\JsonType<string, array<string, array<string, mixed>>>
      * @throws JsonException
@@ -88,10 +84,20 @@ final class FormRequestTypeTransformer implements TypeTransformer
         }
 
         $file = $file->getOriginalFile();
+        $resourcePointer = 'file:' . $file->getUid();
+
+        if (class_exists(Core\Crypto\HashService::class)) {
+            $hashService = Core\Utility\GeneralUtility::makeInstance(Core\Crypto\HashService::class);
+            $hashedResourcePointer = $hashService->appendHmac($resourcePointer, self::class);
+        } else {
+            // @todo Remove once support for TYPO3 v11 and v12 is dropped
+            $hashService = Core\Utility\GeneralUtility::makeInstance(Extbase\Security\Cryptography\HashService::class);
+            $hashedResourcePointer = $hashService->appendHmac($resourcePointer);
+        }
 
         return [
             'submittedFile' => [
-                'resourcePointer' => $this->hashService->appendHmac('file:' . $file->getUid()),
+                'resourcePointer' => $hashedResourcePointer,
             ],
         ];
     }
