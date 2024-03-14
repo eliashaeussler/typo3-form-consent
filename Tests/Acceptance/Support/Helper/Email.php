@@ -91,7 +91,7 @@ final class Email extends Module
             $this->fail('No urls found in email.');
         }
 
-        return array_map(fn(string $url): string => '/' . $url, array_values(array_filter($matches['url'])));
+        return array_map(fn (string $url): string => '/' . $url, array_values(array_filter($matches['url'])));
     }
 
     private function getCurrentBaseUrl(): string

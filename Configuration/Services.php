@@ -27,7 +27,7 @@ use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigu
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container): void {
+return static function(ContainerConfigurator $containerConfigurator, ContainerBuilder $container): void {
     if ($container->hasDefinition('dashboard.views.widget')) {
         $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
         $servicesConfigurator->configureServices();

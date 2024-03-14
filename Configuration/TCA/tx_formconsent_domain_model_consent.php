@@ -23,8 +23,8 @@ $tableName = \EliasHaeussler\Typo3FormConsent\Domain\Model\Consent::TABLE_NAME;
 $typo3Version = (new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion();
 
 // @todo Remove once support for TYPO3 v11 is dropped
-$evalRequired = fn(string $eval = '') => $typo3Version < 12 ? $eval : ltrim($eval . ',required', ',');
-$stateItem = function (
+$evalRequired = fn (string $eval = '') => $typo3Version < 12 ? $eval : ltrim($eval . ',required', ',');
+$stateItem = function(
     string $item,
     \EliasHaeussler\Typo3FormConsent\Enums\ConsentState $state,
     string $icon,

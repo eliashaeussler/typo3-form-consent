@@ -58,7 +58,7 @@ final class FormRequestTypeTransformer implements TypeTransformer
 
         // Handle uploaded files
         $uploadedFiles = $request->getUploadedFiles();
-        array_walk_recursive($uploadedFiles, function (&$value, string $elementIdentifier) use ($formRuntime): void {
+        array_walk_recursive($uploadedFiles, function(&$value, string $elementIdentifier) use ($formRuntime): void {
             $file = $formRuntime[$elementIdentifier];
             if ($file instanceof Extbase\Domain\Model\FileReference || $file instanceof Core\Resource\FileReference) {
                 $value = $this->transformUploadedFile($file);
