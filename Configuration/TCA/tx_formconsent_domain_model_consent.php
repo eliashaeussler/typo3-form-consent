@@ -69,14 +69,23 @@ return [
         'date' => [
             'exclude' => true,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('date', $tableName),
-            'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => $evalRequired('datetime,int'),
-                'default' => 0,
-                'readOnly' => true,
-                'required' => true,
-            ],
+            'config' => $typo3Version < 12
+                // @todo Remove once support for TYPO3 v11 is dropped
+                ? [
+                    'type' => 'input',
+                    'renderType' => 'inputDateTime',
+                    'eval' => $evalRequired('datetime,int'),
+                    'default' => 0,
+                    'readOnly' => true,
+                    'required' => true,
+                ]
+                : [
+                    'type' => 'datetime',
+                    'format' => 'datetime',
+                    'default' => 0,
+                    'readOnly' => true,
+                    'required' => true,
+                ],
         ],
         'data' => [
             'exclude' => true,
@@ -149,25 +158,41 @@ return [
             'exclude' => true,
             'displayCond' => 'FIELD:state:>:' . \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('update_date', $tableName),
-            'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
-                'default' => 0,
-                'readOnly' => true,
-            ],
+            'config' => $typo3Version < 12
+                // @todo Remove once support for TYPO3 v11 is dropped
+                ? [
+                    'type' => 'input',
+                    'renderType' => 'inputDateTime',
+                    'eval' => 'datetime,int',
+                    'default' => 0,
+                    'readOnly' => true,
+                ]
+                : [
+                    'type' => 'datetime',
+                    'format' => 'datetime',
+                    'default' => 0,
+                    'readOnly' => true,
+                ],
         ],
         'valid_until' => [
             'exclude' => true,
             'displayCond' => 'FIELD:state:=:' . \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('valid_until', $tableName),
-            'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
-                'default' => 0,
-                'readOnly' => true,
-            ],
+            'config' => $typo3Version < 12
+                // @todo Remove once support for TYPO3 v11 is dropped
+                ? [
+                    'type' => 'input',
+                    'renderType' => 'inputDateTime',
+                    'eval' => 'datetime,int',
+                    'default' => 0,
+                    'readOnly' => true,
+                ]
+                : [
+                    'type' => 'datetime',
+                    'format' => 'datetime',
+                    'default' => 0,
+                    'readOnly' => true,
+                ],
         ],
         'validation_hash' => [
             'exclude' => true,
