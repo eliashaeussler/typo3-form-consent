@@ -98,8 +98,3 @@ if [ -d "$fileadminWebPath" ]; then
     rm -rf "$fileadminWebPath"
 fi
 cp -r "$fileadminFixturePath" "$fileadminWebPath"
-
-# Initialize filesystem
-_progress "Initializing filesystem"
-"$typo3Binary" extension:setup --quiet
-_done

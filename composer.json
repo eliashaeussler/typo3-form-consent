@@ -54,7 +54,6 @@
 		"symfony/event-dispatcher": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
 		"symfony/process": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
 		"typo3/cms-dashboard": "~11.5.16 || ~12.4.2 || ~13.0.0",
-		"typo3/cms-extensionmanager": "~11.5.16 || ~12.4.2 || ~13.0.0",
 		"typo3/cms-filelist": "~11.5.16 || ~12.4.2 || ~13.0.0",
 		"typo3/cms-fluid-styled-content": "~11.5.16 || ~12.4.2 || ~13.0.0",
 		"typo3/cms-lowlevel": "~11.5.16 || ~12.4.2 || ~13.0.0",

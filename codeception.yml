@@ -45,6 +45,7 @@ extensions:
         entrypoints:
           - web-dir: .Build/web
           - web-dir: .Build/web/typo3
+    - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Extension\EnvironmentExtension
 
 coverage:
   enabled: true
