@@ -17,16 +17,11 @@ readonly adminPassword="Passw0rd!"
 readonly fileadminWebPath="/var/www/html/.Build/web/fileadmin"
 readonly fileadminFixturePath="/var/www/html/Tests/Acceptance/Data/Fileadmin"
 readonly fixturePath="/var/www/html/Tests/Acceptance/Data/Fixtures"
-readonly installationStepsPath="/var/www/html/Tests/Build/Installation/install-steps.yaml"
 
 typo3Binary="/var/www/html/.Build/bin/typo3"
+typo3ConsoleBinary="/var/www/html/.Build/bin/typo3cms"
 typo3Version="$($typo3Binary --version --no-ansi | grep ^TYPO3 | awk '{print $3}')"
 typo3Version="${typo3Version%%.*}"
-
-# Use different console binary on TYPO3 v11
-if [ "$typo3Version" -eq 11 ]; then
-    typo3Binary="/var/www/html/.Build/bin/typo3cms"
-fi
 
 function _progress() {
     printf "%s... " "$1"
@@ -45,8 +40,17 @@ function _setup_v11() {
     export TYPO3_INSTALL_ADMIN_USER="$adminUsername"
     export TYPO3_INSTALL_ADMIN_PASSWORD="$adminPassword"
 
+    _progress "Installing TYPO3 Console"
+    composer require --dev --quiet helhum/typo3-console:^8.0.3
+    _done
+
     _progress "Setting up TYPO3 installation"
-    "$typo3Binary" install:setup --no-interaction --force --quiet
+    rm -rf /var/www/html/var
+    "$typo3ConsoleBinary" install:setup --no-interaction --force --quiet
+    _done
+
+    _progress "Removing TYPO3 Console"
+    composer remove --dev --quiet helhum/typo3-console
     _done
 }
 
@@ -97,5 +101,5 @@ cp -r "$fileadminFixturePath" "$fileadminWebPath"
 
 # Initialize filesystem
 _progress "Initializing filesystem"
-"$typo3Binary" install:setup --no-interaction --force --quiet --install-steps-config "$installationStepsPath"
+"$typo3Binary" extension:setup --quiet
 _done
