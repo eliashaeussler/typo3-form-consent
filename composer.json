@@ -60,7 +60,7 @@
 		"typo3/cms-lowlevel": "~11.5.16 || ~12.4.2 || ~13.0.0",
 		"typo3/cms-scheduler": "~11.5.16 || ~12.4.2 || ~13.0.0",
 		"typo3/cms-tstemplate": "~11.5.16 || ~12.4.2 || ~13.0.0",
-		"typo3/coding-standards": "^0.6.0 || ^0.7.0",
+		"typo3/coding-standards": "^0.6.0 || ^0.7.0 || ^0.8.0@dev",
 		"typo3/testing-framework": "^7.0.4 || ^8.0.9",
 		"typo3fluid/fluid": "^2.9",
 		"webmozart/assert": "^1.11"
