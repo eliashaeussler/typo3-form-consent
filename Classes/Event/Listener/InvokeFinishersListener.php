@@ -125,6 +125,10 @@ final class InvokeFinishersListener
         }
     }
 
+    /**
+     * @param Type\JsonType<string, array<string, array<string, mixed>>> $originalRequestParameters
+     * @return Type\JsonType<string, array<string, array<string, mixed>>>
+     */
     private function migrateOriginalRequestParameters(Type\JsonType $originalRequestParameters): Type\JsonType
     {
         // Migration is only needed when upgrading from TYPO3 < v13
