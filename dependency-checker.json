@@ -6,6 +6,7 @@
 		"Configuration/*.php"
 	],
 	"symbol-whitelist": [
-		"TYPO3\\CMS\\Core\\Crypto\\HashService"
+		"TYPO3\\CMS\\Core\\Crypto\\HashService",
+		"TYPO3\\CMS\\Form\\Security\\HashScope"
 	]
 }
