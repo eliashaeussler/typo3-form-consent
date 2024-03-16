@@ -121,9 +121,15 @@ final class Extension
      * Register upgrade wizards.
      *
      * FOR USE IN ext_localconf.php ONLY.
+     *
+     * @todo Remove once support for TYPO3 v11 and v12 is dropped (TYPO3 >= v13 uses attributes)
      */
     public static function registerUpgradeWizards(): void
     {
+        if ((new Core\Information\Typo3Version())->getMajorVersion() >= 13) {
+            return;
+        }
+
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][Updates\MigrateConsentStateUpgradeWizard::IDENTIFIER]
             = Updates\MigrateConsentStateUpgradeWizard::class;
     }
