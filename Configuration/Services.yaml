@@ -7,6 +7,7 @@ services:
   EliasHaeussler\Typo3FormConsent\:
     resource: '../Classes/*'
     exclude:
+      - '../Classes/Compatibility/*'
       - '../Classes/DependencyInjection/*'
       - '../Classes/Domain/Finishers/FinisherOptions.php'
       - '../Classes/Domain/Model/*'

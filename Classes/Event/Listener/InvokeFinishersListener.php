@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Event\Listener;
 
+use EliasHaeussler\Typo3FormConsent\Compatibility;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Event;
 use EliasHaeussler\Typo3FormConsent\Type;
@@ -40,10 +41,14 @@ use TYPO3\CMS\Frontend;
  */
 final class InvokeFinishersListener
 {
+    private readonly Core\Information\Typo3Version $typo3Version;
+
     public function __construct(
         private readonly Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
         private readonly Core\Domain\Repository\PageRepository $pageRepository,
-    ) {}
+    ) {
+        $this->typo3Version = new Core\Information\Typo3Version();
+    }
 
     public function onConsentApprove(Event\ApproveConsentEvent $event): void
     {
@@ -68,6 +73,11 @@ final class InvokeFinishersListener
         ) {
             return null;
         }
+
+        // Migrate legacy HMAC hashes after upgrade to TYPO3 v13
+        $consent->setOriginalRequestParameters(
+            $this->migrateOriginalRequestParameters($consent->getOriginalRequestParameters()),
+        );
 
         // Re-render form to invoke finishers
         $request = $this->createRequestFromOriginalRequestParameters($consent->getOriginalRequestParameters());
@@ -113,6 +123,32 @@ final class InvokeFinishersListener
             // If any immediate response is thrown, use this for further processing
             return $exception->getResponse();
         }
+    }
+
+    private function migrateOriginalRequestParameters(Type\JsonType $originalRequestParameters): Type\JsonType
+    {
+        // Migration is only needed when upgrading from TYPO3 < v13
+        if ($this->typo3Version->getMajorVersion() < 13) {
+            return $originalRequestParameters;
+        }
+
+        $migration = new Compatibility\Migration\HmacHashMigration();
+        $parameters = $originalRequestParameters->toArray();
+
+        array_walk_recursive($parameters, static function(mixed &$value, string|int $key) use ($migration): void {
+            if (!is_string($value) || !is_string($key)) {
+                return;
+            }
+
+            // Migrate EXT:extbase and EXT:form hash scopes
+            $hashScope = Form\Security\HashScope::tryFrom($key) ?? Extbase\Security\HashScope::tryFrom($key);
+
+            if ($hashScope !== null) {
+                $value = $migration->migrate($value, $hashScope->prefix());
+            }
+        });
+
+        return Type\JsonType::fromArray($parameters);
     }
 
     /**
