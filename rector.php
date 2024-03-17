@@ -30,7 +30,7 @@ use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
 use Rector\ValueObject\PhpVersion;
 
-return static function (RectorConfig $rectorConfig): void {
+return static function(RectorConfig $rectorConfig): void {
     Config::create($rectorConfig, PhpVersion::PHP_81)
         ->in(
             __DIR__ . '/Classes',

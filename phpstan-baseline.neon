@@ -1,6 +1,31 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to method appendHmac\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService\\.$#"
+			count: 1
+			path: Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			message: "#^Call to method validateAndStripHmac\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService\\.$#"
+			count: 1
+			path: Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			message: "#^Caught class TYPO3\\\\CMS\\\\Core\\\\Exception\\\\Crypto\\\\InvalidHashStringException not found\\.$#"
+			count: 1
+			path: Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService not found\\.$#"
+			count: 1
+			path: Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			message: "#^Property EliasHaeussler\\\\Typo3FormConsent\\\\Compatibility\\\\Migration\\\\HmacHashMigration\\:\\:\\$coreHashService has unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService as its type\\.$#"
+			count: 1
+			path: Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
 			message: """
 				#^Call to deprecated method getContentObject\\(\\) of class TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\ConfigurationManagerInterface\\:
 				since v12\\. Remove in v13\\.$#
@@ -20,6 +45,21 @@ parameters:
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
 			count: 2
 			path: Classes/Domain/Finishers/FinisherOptions.php
+
+		-
+			message: "#^Call to static method tryFrom\\(\\) on an unknown class TYPO3\\\\CMS\\\\Extbase\\\\Security\\\\HashScope\\.$#"
+			count: 1
+			path: Classes/Event/Listener/InvokeFinishersListener.php
+
+		-
+			message: "#^Call to static method tryFrom\\(\\) on an unknown class TYPO3\\\\CMS\\\\Form\\\\Security\\\\HashScope\\.$#"
+			count: 1
+			path: Classes/Event/Listener/InvokeFinishersListener.php
+
+		-
+			message: "#^Access to constant ResourcePointer on an unknown class TYPO3\\\\CMS\\\\Form\\\\Security\\\\HashScope\\.$#"
+			count: 1
+			path: Classes/Type/Transformer/FormRequestTypeTransformer.php
 
 		-
 			message: "#^Method EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\Transformer\\\\TypeTransformer\\:\\:transform\\(\\) return type with generic class EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\JsonType does not specify its types\\: TKey, TValue$#"
