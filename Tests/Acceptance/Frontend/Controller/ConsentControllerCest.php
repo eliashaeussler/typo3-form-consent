@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Frontend\Controller;
 
 use EliasHaeussler\Typo3FormConsent as Src;
 use EliasHaeussler\Typo3FormConsent\Tests;
+use TYPO3\CMS\Core;
 
 /**
  * ConsentControllerCest
@@ -121,6 +122,65 @@ final class ConsentControllerCest
         $I->seeCurrentUrlEquals('/');
     }
 
+    public function canApproveConsentAndMigrateHmacHashesBeforeInvokingFinishers(
+        Tests\Acceptance\Support\AcceptanceTester $I,
+    ): void {
+        if ((new Core\Information\Typo3Version())->getMajorVersion() < 13) {
+            $I->markTestSkipped('Test can be executed on TYPO3 >= 13 only.');
+        }
+
+        $this->submitFormAndExtractUrls($I, Tests\Acceptance\Support\Helper\Form::CONFIRMATION_AFTER_APPROVE, true);
+
+        $queryParams = $I->extractQueryParametersFromUrl($this->approveUrl);
+        $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
+
+        $I->assertIsString($hash);
+
+        $originalRequestParameters = new Src\Type\JsonType(
+            $I->grabFromDatabase(
+                Src\Domain\Model\Consent::TABLE_NAME,
+                'original_request_parameters',
+                ['validation_hash' => $hash],
+            ),
+        );
+        $parameters = $originalRequestParameters->toArray();
+        $parametersToMigrate = [
+            '__state',
+            '__trustedProperties',
+            'resourcePointer',
+        ];
+
+        // Set encryption key (as defined in Tests/Build/Configuration/system/additional.php)
+        // This is needed to properly run HMAC generation since it uses encryption key as additional secret
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = '22be11b3acb2d0a7427e9f23c6c1d8d2c19b05312d4961c025b9a8b74bd7f4087ad38eca173788364b3cccf7398ed682';
+
+        // Migrate hashes to legacy HMAC to enforce re-migration using HmacHashMigration
+        array_walk_recursive($parameters, static function(mixed &$value, string|int $key) use ($parametersToMigrate): void {
+            if (!is_string($value) || !in_array($key, $parametersToMigrate, true)) {
+                return;
+            }
+
+            $stringWithoutHmac = substr($value, 0, -40);
+            $hmac = Core\Utility\GeneralUtility::hmac($stringWithoutHmac);
+            $value = $stringWithoutHmac . $hmac;
+        });
+
+        $legacyRequestParameters = Src\Type\JsonType::fromArray($parameters);
+
+        $I->updateInDatabase(
+            Src\Domain\Model\Consent::TABLE_NAME,
+            ['original_request_parameters' => (string)$legacyRequestParameters],
+            ['validation_hash' => $hash],
+        );
+
+        $I->amOnPage($this->approveUrl);
+
+        $I->see('Thanks for your consent.');
+
+        var_dump($originalRequestParameters);
+        var_dump($legacyRequestParameters);
+    }
+
     public function canDismissConsentAndInvokeConfirmationFinisher(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $this->submitFormAndExtractUrls($I, Tests\Acceptance\Support\Helper\Form::CONFIRMATION_AFTER_DISMISS);
@@ -214,9 +274,10 @@ final class ConsentControllerCest
     private function submitFormAndExtractUrls(
         Tests\Acceptance\Support\AcceptanceTester $I,
         string $form = Tests\Acceptance\Support\Helper\Form::DEFAULT,
+        bool $attachFile = false,
     ): void {
         $I->amOnPage('/');
-        $I->fillAndSubmitForm($form);
+        $I->fillAndSubmitForm($form, $attachFile);
 
         $I->fetchEmails();
         $I->accessInboxFor('user@example.com');
