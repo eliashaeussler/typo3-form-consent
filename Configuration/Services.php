@@ -23,13 +23,15 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent;
 
-use EliasHaeussler\Typo3FormConsent\DependencyInjection\DashboardServicesConfigurator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection as SymfonyDI;
+use TYPO3\CMS\Dashboard;
 
-return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $container): void {
-    if ($container->hasDefinition('dashboard.views.widget')) {
-        $servicesConfigurator = new DashboardServicesConfigurator($containerConfigurator->services());
+return static function(
+    SymfonyDI\Loader\Configurator\ContainerConfigurator $containerConfigurator,
+    SymfonyDI\ContainerBuilder $container,
+): void {
+    if ($container->hasDefinition(Dashboard\Widgets\ListWidget::class)) {
+        $servicesConfigurator = new DependencyInjection\DashboardServicesConfigurator($containerConfigurator->services());
         $servicesConfigurator->configureServices();
     }
 };

@@ -32,8 +32,8 @@ jobs:
       - name: Install Composer dependencies
         run: |
           composer require --no-progress --no-plugins \
-            typo3/cms-dashboard:"~11.5.16 || ~12.4.2" \
-            typo3/cms-scheduler:"~11.5.16 || ~12.4.2"
+            typo3/cms-dashboard:"~11.5.16 || ~12.4.2 || ~13.0.0" \
+            typo3/cms-scheduler:"~11.5.16 || ~12.4.2 || ~13.0.0"
 
       # Check Composer dependencies
       - name: Check dependencies

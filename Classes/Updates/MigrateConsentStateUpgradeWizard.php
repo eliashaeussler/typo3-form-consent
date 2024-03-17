@@ -37,6 +37,7 @@ use TYPO3\CMS\Install;
  * @license GPL-2.0-or-later
  * @codeCoverageIgnore
  */
+#[Install\Attribute\UpgradeWizard(MigrateConsentStateUpgradeWizard::IDENTIFIER)]
 final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeWizardInterface, Install\Updates\ChattyInterface
 {
     public const IDENTIFIER = 'formConsentMigrateConsentState';
@@ -45,6 +46,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
         'approved',
         'approval_date',
     ];
+
     private Console\Output\OutputInterface $output;
 
     public function __construct(

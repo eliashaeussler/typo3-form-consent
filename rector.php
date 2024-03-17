@@ -31,7 +31,7 @@ use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector;
 
-return static function (RectorConfig $rectorConfig): void {
+return static function(RectorConfig $rectorConfig): void {
     Config::create($rectorConfig, PhpVersion::PHP_81)
         ->in(
             __DIR__ . '/Classes',
