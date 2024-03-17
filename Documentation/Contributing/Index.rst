@@ -104,8 +104,8 @@ Run tests
 
 ..  rst-class:: d-inline-block mb-3
 
-..  image:: https://codecov.io/gh/eliashaeussler/typo3-form-consent/branch/main/graph/badge.svg?token=7M3UXACCKA
-    :target: https://codecov.io/gh/eliashaeussler/typo3-form-consent
+..  image:: https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-form-consent?logo=coveralls
+    :target: https://coveralls.io/github/eliashaeussler/typo3-form-consent
 
 ..  code-block:: bash
 

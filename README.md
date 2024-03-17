@@ -4,7 +4,7 @@
 
 # TYPO3 extension `form_consent`
 
-[![Coverage](https://img.shields.io/codecov/c/github/eliashaeussler/typo3-form-consent?logo=codecov&token=PQ0101QE3S)](https://codecov.io/gh/eliashaeussler/typo3-form-consent)
+[![Coverage](https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-form-consent?logo=coveralls)](https://coveralls.io/github/eliashaeussler/typo3-form-consent)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-form-consent?logo=codeclimate)](https://codeclimate.com/github/eliashaeussler/typo3-form-consent/maintainability)
 [![CGL](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/cgl.yaml?label=cgl&logo=github)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml)
 [![Tests](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/tests.yaml?label=tests&logo=github)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml)
