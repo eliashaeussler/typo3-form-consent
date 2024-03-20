@@ -24,12 +24,11 @@ declare(strict_types=1);
 use EliasHaeussler\RectorConfig\Config\Config;
 use EliasHaeussler\RectorConfig\Entity\Version;
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
-use Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector;
+use Rector\ValueObject\PhpVersion;
 
 return static function(RectorConfig $rectorConfig): void {
     Config::create($rectorConfig, PhpVersion::PHP_81)
@@ -67,7 +66,6 @@ return static function(RectorConfig $rectorConfig): void {
             __DIR__ . '/Tests/Functional/*',
             __DIR__ . '/Tests/Unit/*',
         ])
-        ->skip(QueryLogicalOrAndLogicalAndToArrayParameterRector::class)
         ->apply()
     ;
 
