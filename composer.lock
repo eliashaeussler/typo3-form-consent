@@ -8376,16 +8376,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.58",
+            "version": "1.10.63",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a23518379ec4defd9e47cbf81019526861623ec2"
+                "reference": "ad12836d9ca227301f5fb9960979574ed8628339"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a23518379ec4defd9e47cbf81019526861623ec2",
-                "reference": "a23518379ec4defd9e47cbf81019526861623ec2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ad12836d9ca227301f5fb9960979574ed8628339",
+                "reference": "ad12836d9ca227301f5fb9960979574ed8628339",
                 "shasum": ""
             },
             "require": {
@@ -8434,7 +8434,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-12T20:02:57+00:00"
+            "time": "2024-03-18T16:53:53+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -8538,21 +8538,21 @@
         },
         {
             "name": "phpstan/phpstan-strict-rules",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "b21c03d4f6f3a446e4311155f4be9d65048218e6"
+                "reference": "7a50e9662ee9f3942e4aaaf3d603653f60282542"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/b21c03d4f6f3a446e4311155f4be9d65048218e6",
-                "reference": "b21c03d4f6f3a446e4311155f4be9d65048218e6",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/7a50e9662ee9f3942e4aaaf3d603653f60282542",
+                "reference": "7a50e9662ee9f3942e4aaaf3d603653f60282542",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.10"
+                "phpstan/phpstan": "^1.10.34"
             },
             "require-dev": {
                 "nikic/php-parser": "^4.13.0",
@@ -8581,9 +8581,9 @@
             "description": "Extra strict and opinionated rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.5.1"
+                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.5.2"
             },
-            "time": "2023-03-29T14:47:40+00:00"
+            "time": "2023-10-30T14:35:06+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
