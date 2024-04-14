@@ -36,6 +36,20 @@ use TYPO3\CMS\Install;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  * @codeCoverageIgnore
+ *
+ * @phpstan-type RawRecord array{
+ *     approval_date?: int,
+ *     approved?: int,
+ *     data: string|null,
+ *     deleted: int,
+ *     state: int|numeric-string,
+ *     tstamp: int,
+ *     uid: int,
+ *     update_date: int|null,
+ * }
+ * @phpstan-type ApprovedRecord RawRecord&array{
+ *     approved: int,
+ * }
  */
 #[Install\Attribute\UpgradeWizard(MigrateConsentStateUpgradeWizard::IDENTIFIER)]
 final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeWizardInterface, Install\Updates\ChattyInterface
@@ -73,6 +87,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
         $result = true;
         $legacyColumns = $this->getOutdatedColumns();
 
+        /** @var RawRecord $record */
         foreach ($this->selectAffectedRows($legacyColumns)->fetchAllAssociative() as $record) {
             if ($this->migrateRecord($record)) {
                 $this->output->writeln('<info>Done</info>');
@@ -103,7 +118,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     }
 
     /**
-     * @param array<string, mixed> $record
+     * @param RawRecord $record
      */
     private function migrateRecord(array $record): bool
     {
@@ -140,12 +155,8 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     }
 
     /**
-     * @param array{
-     *     approved?: int,
-     *     data: string|null,
-     *     deleted: int,
-     *     state: int|numeric-string,
-     * } $record
+     * @param RawRecord $record
+     * @param-out ApprovedRecord $record
      */
     private function migrateState(array &$record): bool
     {
@@ -177,12 +188,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     }
 
     /**
-     * @param array{
-     *     approval_date?: int,
-     *     deleted: int,
-     *     tstamp: int,
-     *     update_date: int|null,
-     * } $record
+     * @param RawRecord $record
      */
     private function migrateUpdateDate(array &$record): ?string
     {
