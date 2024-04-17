@@ -7754,16 +7754,16 @@
         },
         {
             "name": "jangregor/phpstan-prophecy",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Jan0707/phpstan-prophecy.git",
-                "reference": "2bc7ca9460395690c6bf7332bdfb2f25d5cae8e0"
+                "reference": "5ee56c7db1d58f0578c82a35e3c1befe840e85a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Jan0707/phpstan-prophecy/zipball/2bc7ca9460395690c6bf7332bdfb2f25d5cae8e0",
-                "reference": "2bc7ca9460395690c6bf7332bdfb2f25d5cae8e0",
+                "url": "https://api.github.com/repos/Jan0707/phpstan-prophecy/zipball/5ee56c7db1d58f0578c82a35e3c1befe840e85a9",
+                "reference": "5ee56c7db1d58f0578c82a35e3c1befe840e85a9",
                 "shasum": ""
             },
             "require": {
@@ -7771,8 +7771,8 @@
                 "phpstan/phpstan": "^1.0.0"
             },
             "conflict": {
-                "phpspec/prophecy": "<1.7.0,>=2.0.0",
-                "phpunit/phpunit": "<6.0.0,>=10.0.0"
+                "phpspec/prophecy": "<1.7.0 || >=2.0.0",
+                "phpunit/phpunit": "<6.0.0 || >=12.0.0"
             },
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.1.1",
@@ -7807,15 +7807,9 @@
             "description": "Provides a phpstan/phpstan extension for phpspec/prophecy",
             "support": {
                 "issues": "https://github.com/Jan0707/phpstan-prophecy/issues",
-                "source": "https://github.com/Jan0707/phpstan-prophecy/tree/1.0.0"
+                "source": "https://github.com/Jan0707/phpstan-prophecy/tree/1.0.2"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/localheinz",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-11-08T16:37:47+00:00"
+            "time": "2024-04-03T08:15:54+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -8578,16 +8572,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.66",
+            "version": "1.10.67",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "94779c987e4ebd620025d9e5fdd23323903950bd"
+                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/94779c987e4ebd620025d9e5fdd23323903950bd",
-                "reference": "94779c987e4ebd620025d9e5fdd23323903950bd",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/16ddbe776f10da6a95ebd25de7c1dbed397dc493",
+                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493",
                 "shasum": ""
             },
             "require": {
@@ -8630,13 +8624,9 @@
                 {
                     "url": "https://github.com/phpstan",
                     "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
-                    "type": "tidelift"
                 }
             ],
-            "time": "2024-03-28T16:17:31+00:00"
+            "time": "2024-04-16T07:22:02+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
