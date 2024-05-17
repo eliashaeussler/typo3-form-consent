@@ -27,7 +27,7 @@ parameters:
 
 		-
 			message: """
-				#^Call to deprecated method getContentObject\\(\\) of class TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\ConfigurationManagerInterface\\:
+				#^Call to deprecated method getContentObject\\(\\) of interface TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\ConfigurationManagerInterface\\:
 				since v12\\. Remove in v13\\.$#
 			"""
 			count: 1
