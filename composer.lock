@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "989a2ce0f530b9d174eccf38788cf2c4",
+    "content-hash": "50e657ff3f3f159f7ac3400723427d2c",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -10448,64 +10448,6 @@
                 }
             ],
             "time": "2023-02-07T11:34:05+00:00"
-        },
-        {
-            "name": "ssch/typo3-debug-dump-pass",
-            "version": "v0.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sabbelasichon/typo3-debug-dump-pass.git",
-                "reference": "44776b48e78e50db999370dc65f85872420b4e79"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sabbelasichon/typo3-debug-dump-pass/zipball/44776b48e78e50db999370dc65f85872420b4e79",
-                "reference": "44776b48e78e50db999370dc65f85872420b4e79",
-                "shasum": ""
-            },
-            "require": {
-                "symfony/config": "^5.0 || ^6.0 || ^7.0",
-                "symfony/dependency-injection": "^5.0 || ^6.0 || ^7.0",
-                "typo3/cms-core": "^10.4 || ^11.5 || ^12.4 || ^13.0"
-            },
-            "require-dev": {
-                "symplify/easy-coding-standard": "^12.1"
-            },
-            "type": "typo3-cms-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.0.x-dev"
-                },
-                "typo3/cms": {
-                    "extension-key": "typo3_debug_dump_pass",
-                    "web-dir": ".Build/Web"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Ssch\\Typo3DebugDumpPass\\": "Classes/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Schreiber",
-                    "email": "me@schreibersebastian.de"
-                }
-            ],
-            "description": "Add debug dump compiler pass for better static analysis",
-            "keywords": [
-                "dev",
-                "refactoring"
-            ],
-            "support": {
-                "issues": "https://github.com/sabbelasichon/typo3-debug-dump-pass/issues",
-                "source": "https://github.com/sabbelasichon/typo3-debug-dump-pass/tree/v0.0.2"
-            },
-            "time": "2024-02-05T19:24:11+00:00"
         },
         {
             "name": "ssch/typo3-rector",
