@@ -25,6 +25,12 @@
 			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.senderName.label" resname="formEditor.elements.Form.finishers.Consent.editor.senderName.label">
 				<source>Sender name</source>
 			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.replyToAddress.label" resname="formEditor.elements.Form.finishers.Consent.editor.replyToAddress.label">
+				<source>Reply-To recipient e-mail address</source>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.replyToName.label" resname="formEditor.elements.Form.finishers.Consent.editor.replyToName.label">
+				<source>Reply-To recipient name</source>
+			</trans-unit>
 			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label" resname="formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label">
 				<source>Approval period</source>
 			</trans-unit>
@@ -72,6 +78,12 @@
 			<trans-unit id="tt_content.finishersDefinition.Consent.senderName.label" resname="tt_content.finishersDefinition.Consent.senderName.label">
 				<source>Sender name</source>
 			</trans-unit>
+			<trans-unit id="tt_content.finishersDefinition.Consent.replyToAddress.label" resname="tt_content.finishersDefinition.Consent.replyToAddress.label">
+				<source>Reply-To recipient e-mail address</source>
+			</trans-unit>
+			<trans-unit id="tt_content.finishersDefinition.Consent.replyToName.label" resname="tt_content.finishersDefinition.Consent.replyToName.label">
+				<source>Reply-To recipient name</source>
+			</trans-unit>
 			<trans-unit id="tt_content.finishersDefinition.Consent.approvalPeriod.label" resname="tt_content.finishersDefinition.Consent.approvalPeriod.label">
 				<source>Approval period</source>
 			</trans-unit>
@@ -93,6 +105,9 @@
 			</trans-unit>
 			<trans-unit id="validation.senderAddress.invalid" resname="validation.senderAddress.invalid">
 				<source>The finisher option "senderAddress" must contain a valid e-mail address.</source>
+			</trans-unit>
+			<trans-unit id="validation.replyToAddress.invalid" resname="validation.replyToAddress.invalid">
+				<source>The finisher option "replyToAddress" must contain a valid e-mail address.</source>
 			</trans-unit>
 			<trans-unit id="validation.approvalPeriod.invalid" resname="validation.approvalPeriod.invalid">
 				<source>The finisher option "approvalPeriod" must be zero or more seconds.</source>

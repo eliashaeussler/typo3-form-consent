@@ -60,6 +60,19 @@ TYPO3:
                           templateName: 'Inspector-TextEditor'
                           label: 'formEditor.elements.Form.finishers.Consent.editor.senderName.label'
                           propertyPath: 'options.senderName'
+                        620:
+                          identifier: 'replyToAddress'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.replyToAddress.label'
+                          propertyPath: 'options.replyToAddress'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        630:
+                          identifier: 'replyToName'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.replyToName.label'
+                          propertyPath: 'options.replyToName'
                         700:
                           identifier: 'approvalPeriod'
                           templateName: 'Inspector-TextEditor'
@@ -109,6 +122,8 @@ TYPO3:
                 recipientName: ''
                 senderAddress: ''
                 senderName: ''
+                replyToAddress: ''
+                replyToName: ''
                 approvalPeriod: ''
                 showDismissLink: false
                 confirmationPid: ''
@@ -126,6 +141,8 @@ TYPO3:
                     recipientName: ''
                     senderAddress: ''
                     senderName: ''
+                    replyToAddress: ''
+                    replyToName: ''
                     # Approval period in seconds (default: 1 day)
                     approvalPeriod: '86400'
                     showDismissLink: false
@@ -158,6 +175,16 @@ TYPO3:
                       eval: 'trim'
                   senderName:
                     label: 'tt_content.finishersDefinition.Consent.senderName.label'
+                    config:
+                      type: 'input'
+                      eval: 'trim'
+                  replyToAddress:
+                    label: 'tt_content.finishersDefinition.Consent.replyToAddress.label'
+                    config:
+                      type: 'input'
+                      eval: 'trim'
+                  replyToName:
+                    label: 'tt_content.finishersDefinition.Consent.replyToName.label'
                     config:
                       type: 'input'
                       eval: 'trim'

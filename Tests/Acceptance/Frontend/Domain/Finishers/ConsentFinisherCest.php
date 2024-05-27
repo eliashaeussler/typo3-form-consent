@@ -158,7 +158,7 @@ final class ConsentFinisherCest
         $I->seeInFilenameOfOpenedAttachment('dummy.png');
     }
 
-    public function canSubmitFormWithCustomSender(Tests\Acceptance\Support\AcceptanceTester $I): void
+    public function canSubmitFormWithCustomSenderAndReplyToRecipient(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::V2);
 
@@ -167,6 +167,7 @@ final class ConsentFinisherCest
         $I->openNextUnreadEmail();
 
         $I->seeInOpenedEmailSender('sender@example.com');
+        $I->seeInOpenedEmailReplyTo('reply-to@example.com');
     }
 
     public function cannotSubmitInvalidForm(Tests\Acceptance\Support\AcceptanceTester $I): void

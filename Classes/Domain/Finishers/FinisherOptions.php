@@ -57,6 +57,8 @@ final class FinisherOptions implements ArrayAccess
      *     recipientName?: string,
      *     senderAddress?: string,
      *     senderName?: string,
+     *     replyToAddress?: string,
+     *     replyToName?: string,
      *     approvalPeriod?: int,
      *     confirmationPid?: int,
      *     storagePid?: int,
@@ -172,6 +174,30 @@ final class FinisherOptions implements ArrayAccess
     {
         return $this->parsedOptions['senderName']
             ?? $this->parsedOptions['senderName'] = (string)($this->optionFetcher)('senderName');
+    }
+
+    public function getReplyToAddress(): string
+    {
+        if (isset($this->parsedOptions['replyToAddress'])) {
+            return $this->parsedOptions['replyToAddress'];
+        }
+
+        $replyToAddress = ($this->optionFetcher)('replyToAddress');
+
+        if (!\is_string($replyToAddress)) {
+            $this->throwException('replyToAddress.invalid', 1716797809);
+        }
+        if (trim($replyToAddress) !== '' && !Core\Utility\GeneralUtility::validEmail($replyToAddress)) {
+            $this->throwException('replyToAddress.invalid', 1716797811);
+        }
+
+        return $this->parsedOptions['replyToAddress'] = $replyToAddress;
+    }
+
+    public function getReplyToName(): string
+    {
+        return $this->parsedOptions['replyToName']
+            ?? $this->parsedOptions['replyToName'] = (string)($this->optionFetcher)('replyToName');
     }
 
     public function getApprovalPeriod(): int

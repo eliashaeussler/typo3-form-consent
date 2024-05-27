@@ -99,6 +99,10 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
             $mail->from(new Mime\Address($senderAddress, $finisherOptions->getSenderName()));
         }
 
+        if ('' !== ($replyToAddress = $finisherOptions->getReplyToAddress())) {
+            $mail->replyTo(new Mime\Address($replyToAddress, $finisherOptions->getReplyToName()));
+        }
+
         // Provide form runtime as view helper variable to allow usage of
         // various form view helpers. This for example allows to list all
         // submitted form values using the <formvh:renderAllFormValues>
