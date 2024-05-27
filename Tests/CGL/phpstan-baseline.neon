@@ -82,14 +82,14 @@ parameters:
 		-
 			message: "#^PHPDoc type EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\AcceptanceTester of property EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\Helper\\\\ModalDialog\\:\\:\\$tester is not the same as PHPDoc type TYPO3\\\\CMS\\\\Core\\\\Tests\\\\Acceptance\\\\Support\\\\ApplicationTester of overridden property TYPO3\\\\TestingFramework\\\\Core\\\\Acceptance\\\\Helper\\\\AbstractModalDialog\\:\\:\\$tester\\.$#"
 			count: 1
-			path: ../../Tests/Acceptance/Support/Helper/ModalDialog.php
+			path: ../Acceptance/Support/Helper/ModalDialog.php
 
 		-
 			message: "#^Instantiated class TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Controller\\\\ControllerContext not found\\.$#"
 			count: 1
-			path: ../../Tests/Functional/Domain/Finishers/ConsentFinisherTest.php
+			path: ../Functional/Domain/Finishers/ConsentFinisherTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$request of class TYPO3\\\\CMS\\\\Form\\\\Domain\\\\Finishers\\\\FinisherContext constructor expects TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Request, TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Controller\\\\ControllerContext\\|TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Request given\\.$#"
 			count: 1
-			path: ../../Tests/Functional/Domain/Finishers/ConsentFinisherTest.php
+			path: ../Functional/Domain/Finishers/ConsentFinisherTest.php
