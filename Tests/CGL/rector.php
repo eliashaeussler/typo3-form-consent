@@ -31,40 +31,46 @@ use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
 use Rector\ValueObject\PhpVersion;
 
 return static function(RectorConfig $rectorConfig): void {
+    $rootPath = dirname(__DIR__, 2);
+
+    require $rootPath . '/.Build/vendor/autoload.php';
+
     Config::create($rectorConfig, PhpVersion::PHP_81)
         ->in(
-            __DIR__ . '/Classes',
-            __DIR__ . '/Configuration',
-            __DIR__ . '/Tests',
+            $rootPath . '/Classes',
+            $rootPath . '/Configuration',
+            $rootPath . '/Tests',
         )
         ->not(
-            __DIR__ . '/.Build/*',
-            __DIR__ . '/.ddev/*',
-            __DIR__ . '/.github/*',
-            __DIR__ . '/config/*',
-            __DIR__ . '/Tests/Acceptance/Support/_generated/*',
-            __DIR__ . '/var/*',
+            $rootPath . '/.Build/*',
+            $rootPath . '/.ddev/*',
+            $rootPath . '/.github/*',
+            $rootPath . '/config/*',
+            $rootPath . '/Tests/Acceptance/Support/_generated/*',
+            $rootPath . '/Tests/Build/Configuration/system/settings.php',
+            $rootPath . '/Tests/CGL/vendor/*',
+            $rootPath . '/var/*',
         )
         ->withPHPUnit()
         ->withSymfony()
         ->withTYPO3(Version::createMajor(11))
         ->skip(AnnotationToAttributeRector::class, [
-            __DIR__ . '/Classes/Extension.php',
-            __DIR__ . '/Classes/Updates/MigrateConsentStateUpgradeWizard.php',
+            $rootPath . '/Classes/Extension.php',
+            $rootPath . '/Classes/Updates/MigrateConsentStateUpgradeWizard.php',
         ])
         ->skip(ClassPropertyAssignToConstructorPromotionRector::class, [
             // We cannot use CPP for properties that are declared in abstract classes
-            __DIR__ . '/Tests/Acceptance/Support/Helper/ModalDialog.php',
+            $rootPath . '/Tests/Acceptance/Support/Helper/ModalDialog.php',
         ])
         ->skip(FinalizeClassesWithoutChildrenRector::class, [
             // Domain models and repositories should stay extendable
-            __DIR__ . '/Classes/Domain/Model/*',
-            __DIR__ . '/Classes/Domain/Repository/*',
+            $rootPath . '/Classes/Domain/Model/*',
+            $rootPath . '/Classes/Domain/Repository/*',
         ])
         ->skip(PrivatizeFinalClassPropertyRector::class, [
             // Test properties must not be private, otherwise TF cannot perform GC tasks
-            __DIR__ . '/Tests/Functional/*',
-            __DIR__ . '/Tests/Unit/*',
+            $rootPath . '/Tests/Functional/*',
+            $rootPath . '/Tests/Unit/*',
         ])
         ->apply()
     ;

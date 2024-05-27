@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "warming".
+ * This file is part of the TYPO3 CMS extension "form_consent".
  *
- * Copyright (C) 2023 Elias Häußler <elias@haeussler.dev>
+ * Copyright (C) 2021-2024 Elias Häußler <elias@haeussler.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,24 +21,8 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\PhpCsFixerConfig;
-use TYPO3\CodingStandards;
-
-$header = PhpCsFixerConfig\Rules\Header::create(
-    'form_consent',
-    PhpCsFixerConfig\Package\Type::TYPO3Extension,
-    PhpCsFixerConfig\Package\Author::create('Elias Häußler', 'elias@haeussler.dev'),
-    PhpCsFixerConfig\Package\CopyrightRange::from(2021),
-    PhpCsFixerConfig\Package\License::GPL2OrLater,
-);
-
-$config = CodingStandards\CsFixerConfig::create();
-$finder = $config->getFinder()
-    ->in(__DIR__)
+return \Symfony\Component\Finder\Finder::create()
+    ->files()
+    ->in(dirname(__DIR__, 2))
     ->ignoreVCSIgnored(true)
-;
-
-return PhpCsFixerConfig\Config::create()
-    ->withConfig($config)
-    ->withRule($header)
 ;

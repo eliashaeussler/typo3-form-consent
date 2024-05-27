@@ -3,27 +3,27 @@ parameters:
 		-
 			message: "#^Call to method appendHmac\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService\\.$#"
 			count: 1
-			path: Classes/Compatibility/Migration/HmacHashMigration.php
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
 			message: "#^Call to method validateAndStripHmac\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService\\.$#"
 			count: 1
-			path: Classes/Compatibility/Migration/HmacHashMigration.php
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
 			message: "#^Caught class TYPO3\\\\CMS\\\\Core\\\\Exception\\\\Crypto\\\\InvalidHashStringException not found\\.$#"
 			count: 1
-			path: Classes/Compatibility/Migration/HmacHashMigration.php
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
 			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService not found\\.$#"
 			count: 1
-			path: Classes/Compatibility/Migration/HmacHashMigration.php
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
 			message: "#^Property EliasHaeussler\\\\Typo3FormConsent\\\\Compatibility\\\\Migration\\\\HmacHashMigration\\:\\:\\$coreHashService has unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService as its type\\.$#"
 			count: 1
-			path: Classes/Compatibility/Migration/HmacHashMigration.php
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
 			message: """
@@ -31,7 +31,7 @@ parameters:
 				since v12\\. Remove in v13\\.$#
 			"""
 			count: 1
-			path: Classes/Domain/Factory/ConsentFactory.php
+			path: ../../Classes/Domain/Factory/ConsentFactory.php
 
 		-
 			message: """
@@ -39,32 +39,32 @@ parameters:
 				Use \\\\TYPO3\\\\CMS\\\\Core\\\\Type\\\\ContextualFeedbackSeverity\\:\\:ERROR instead$#
 			"""
 			count: 1
-			path: Classes/Domain/Finishers/ConsentFinisher.php
+			path: ../../Classes/Domain/Finishers/ConsentFinisher.php
 
 		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
 			count: 2
-			path: Classes/Domain/Finishers/FinisherOptions.php
+			path: ../../Classes/Domain/Finishers/FinisherOptions.php
 
 		-
 			message: "#^Call to static method tryFrom\\(\\) on an unknown class TYPO3\\\\CMS\\\\Extbase\\\\Security\\\\HashScope\\.$#"
 			count: 1
-			path: Classes/Event/Listener/InvokeFinishersListener.php
+			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
 			message: "#^Call to static method tryFrom\\(\\) on an unknown class TYPO3\\\\CMS\\\\Form\\\\Security\\\\HashScope\\.$#"
 			count: 1
-			path: Classes/Event/Listener/InvokeFinishersListener.php
+			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
 			message: "#^Access to constant ResourcePointer on an unknown class TYPO3\\\\CMS\\\\Form\\\\Security\\\\HashScope\\.$#"
 			count: 1
-			path: Classes/Type/Transformer/FormRequestTypeTransformer.php
+			path: ../../Classes/Type/Transformer/FormRequestTypeTransformer.php
 
 		-
 			message: "#^Method EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\Transformer\\\\TypeTransformer\\:\\:transform\\(\\) return type with generic class EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\JsonType does not specify its types\\: TKey, TValue$#"
 			count: 1
-			path: Classes/Type/Transformer/TypeTransformer.php
+			path: ../../Classes/Type/Transformer/TypeTransformer.php
 
 		-
 			message: """
@@ -72,24 +72,24 @@ parameters:
 				Use \\{@see createSchemaManager\\(\\)\\} instead\\.$#
 			"""
 			count: 1
-			path: Classes/Updates/MigrateConsentStateUpgradeWizard.php
+			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
 
 		-
 			message: "#^Call to function method_exists\\(\\) with TYPO3\\\\CMS\\\\Core\\\\Database\\\\Connection and 'createSchemaManager' will always evaluate to true\\.$#"
 			count: 1
-			path: Classes/Updates/MigrateConsentStateUpgradeWizard.php
+			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
 
 		-
 			message: "#^PHPDoc type EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\AcceptanceTester of property EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\Helper\\\\ModalDialog\\:\\:\\$tester is not the same as PHPDoc type TYPO3\\\\CMS\\\\Core\\\\Tests\\\\Acceptance\\\\Support\\\\ApplicationTester of overridden property TYPO3\\\\TestingFramework\\\\Core\\\\Acceptance\\\\Helper\\\\AbstractModalDialog\\:\\:\\$tester\\.$#"
 			count: 1
-			path: Tests/Acceptance/Support/Helper/ModalDialog.php
+			path: ../../Tests/Acceptance/Support/Helper/ModalDialog.php
 
 		-
 			message: "#^Instantiated class TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Controller\\\\ControllerContext not found\\.$#"
 			count: 1
-			path: Tests/Functional/Domain/Finishers/ConsentFinisherTest.php
+			path: ../../Tests/Functional/Domain/Finishers/ConsentFinisherTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$request of class TYPO3\\\\CMS\\\\Form\\\\Domain\\\\Finishers\\\\FinisherContext constructor expects TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Request, TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Controller\\\\ControllerContext\\|TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Request given\\.$#"
 			count: 1
-			path: Tests/Functional/Domain/Finishers/ConsentFinisherTest.php
+			path: ../../Tests/Functional/Domain/Finishers/ConsentFinisherTest.php

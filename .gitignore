@@ -3,6 +3,5 @@
 /Tests/Acceptance/Support/_generated
 /Tests/Build/Configuration/system/settings.php
 /var
-/.php-cs-fixer.cache
 /.phpunit.result.cache
 /c3.php

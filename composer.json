@@ -33,24 +33,13 @@
 		"typo3/cms-install": "~11.5.16 || ~12.4.2 || ~13.0.0"
 	},
 	"require-dev": {
-		"armin/editorconfig-cli": "^1.5 || ^2.0",
 		"codeception/module-asserts": "^3.0",
 		"codeception/module-db": "^3.1",
 		"codeception/module-webdriver": "^4.0",
-		"eliashaeussler/php-cs-fixer-config": "^2.0",
-		"eliashaeussler/phpstan-config": "^2.1",
-		"eliashaeussler/rector-config": "^3.0",
 		"eliashaeussler/typo3-codeception-helper": "^1.0",
-		"ergebnis/composer-normalize": "^2.15",
 		"helhum/config-loader": "^0.12.5",
-		"helmich/typo3-typoscript-lint": "^3.0",
-		"jangregor/phpstan-prophecy": "^1.0",
 		"koehnlein/codeception-email-mailpit": "^0.3.0",
-		"phpstan/extension-installer": "^1.3",
-		"phpstan/phpstan-phpunit": "^1.0",
 		"phpunit/phpcov": "^9.0 || ^10.0",
-		"saschaegerer/phpstan-typo3": "^1.0",
-		"ssch/typo3-rector": "^2.0",
 		"symfony/event-dispatcher": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
 		"symfony/process": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
 		"typo3/cms-dashboard": "~11.5.16 || ~12.4.2 || ~13.0.0",
@@ -59,13 +48,9 @@
 		"typo3/cms-lowlevel": "~11.5.16 || ~12.4.2 || ~13.0.0",
 		"typo3/cms-scheduler": "~11.5.16 || ~12.4.2 || ~13.0.0",
 		"typo3/cms-tstemplate": "~11.5.16 || ~12.4.2 || ~13.0.0",
-		"typo3/coding-standards": "^0.6.0 || ^0.7.0 || ^0.8.0@dev",
 		"typo3/testing-framework": "^7.0.4 || ^8.0.9",
 		"typo3fluid/fluid": "^2.9",
 		"webmozart/assert": "^1.11"
-	},
-	"replace": {
-		"ssch/typo3-debug-dump-pass": "*"
 	},
 	"suggest": {
 		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~11.5.16 || ~12.4.2 || ~13.0.0)",
@@ -84,8 +69,6 @@
 	"config": {
 		"allow-plugins": {
 			"codeception/c3": true,
-			"ergebnis/composer-normalize": true,
-			"phpstan/extension-installer": true,
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
 		},
@@ -100,9 +83,13 @@
 		}
 	},
 	"scripts": {
+		"post-install-cmd": [
+			"@composer -d Tests/CGL install"
+		],
 		"post-autoload-dump": [
 			"@environment:prepare"
 		],
+		"cgl": "@composer -d Tests/CGL --",
 		"docs": [
 			"@docs:cleanup",
 			"@docs:build",
@@ -120,34 +107,6 @@
 			"[ -L .Build/web/typo3conf/AdditionalConfiguration.php ] || ln -snvf ../../../Tests/Build/Configuration/system/additional.php .Build/web/typo3conf/AdditionalConfiguration.php",
 			"codecept build"
 		],
-		"fix": [
-			"@fix:composer",
-			"@fix:editorconfig",
-			"@fix:php",
-			"@fix:typoscript"
-		],
-		"fix:composer": "@composer normalize",
-		"fix:editorconfig": "@lint:editorconfig --fix",
-		"fix:php": "php-cs-fixer fix",
-		"fix:typoscript": "@lint:typoscript",
-		"lint": [
-			"@lint:composer",
-			"@lint:editorconfig",
-			"@lint:php",
-			"@lint:typoscript"
-		],
-		"lint:composer": "@fix:composer --dry-run",
-		"lint:editorconfig": "ec",
-		"lint:php": "@fix:php --dry-run",
-		"lint:typoscript": "typoscript-lint -c typoscript-lint.yml --fail-on-warnings",
-		"migration": [
-			"@migration:rector"
-		],
-		"migration:rector": "rector process -c rector.php",
-		"sca": [
-			"@sca:php"
-		],
-		"sca:php": "phpstan analyse -c phpstan.php",
 		"test": [
 			"@test:acceptance",
 			"@test:functional",

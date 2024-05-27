@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 use EliasHaeussler\PHPStanConfig;
 
-return PHPStanConfig\Config\Config::create(__DIR__)
+$rootPath = dirname(__DIR__, 2);
+
+return PHPStanConfig\Config\Config::create($rootPath)
     ->in(
         'Classes',
         'Configuration',
@@ -31,6 +33,10 @@ return PHPStanConfig\Config\Config::create(__DIR__)
     )
     ->not(
         'Tests/Acceptance/Support/_generated/*',
+        'Tests/CGL',
+    )
+    ->bootstrapFiles(
+        $rootPath . '/.Build/vendor/autoload.php',
     )
     ->withBaseline()
     ->withBleedingEdge()
