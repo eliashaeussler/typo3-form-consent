@@ -21,35 +21,25 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-return [
-    'directories' => [
-        '.build',
-        '.ddev',
-        '.git',
-        '.github',
-        'bin',
-        'build',
-        'public',
-        'tailor-version-upload',
-        'tests',
-        'vendor',
-    ],
-    'files' => [
-        'DS_Store',
-        'c3.php',
-        'CODE_OF_CONDUCT.md',
-        'codeception.yml',
-        'CODEOWNERS',
-        'composer.lock',
-        'CONTRIBUTING.md',
-        'crowdin.yaml',
-        'docker-compose.yml',
-        'editorconfig',
-        'gitattributes',
-        'gitignore',
-        'packaging_exclude.php',
-        'phpunit.functional.xml',
-        'phpunit.unit.xml',
-        'renovate.json',
-    ],
-];
+use EliasHaeussler\PhpCsFixerConfig;
+use TYPO3\CodingStandards;
+
+$header = PhpCsFixerConfig\Rules\Header::create(
+    'form_consent',
+    PhpCsFixerConfig\Package\Type::TYPO3Extension,
+    PhpCsFixerConfig\Package\Author::create('Elias Häußler', 'elias@haeussler.dev'),
+    PhpCsFixerConfig\Package\CopyrightRange::from(2021),
+    PhpCsFixerConfig\Package\License::GPL2OrLater,
+);
+
+$config = CodingStandards\CsFixerConfig::create();
+$finder = $config->getFinder()
+    ->in(dirname(__DIR__, 2))
+    ->ignoreVCSIgnored(true)
+    ->ignoreDotFiles(false)
+;
+
+return PhpCsFixerConfig\Config::create()
+    ->withConfig($config)
+    ->withRule($header)
+;
