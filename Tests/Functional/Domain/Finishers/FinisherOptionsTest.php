@@ -234,6 +234,54 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
     }
 
     #[Framework\Attributes\Test]
+    public function getReplyToAddressReturnsAlreadyParsedReplyToAddress(): void
+    {
+        $this->options['replyToAddress'] = 'foo@baz.de';
+
+        self::assertSame('foo@baz.de', $this->subject->getReplyToAddress());
+
+        $this->options = [];
+
+        self::assertSame('foo@baz.de', $this->subject->getReplyToAddress());
+    }
+
+    #[Framework\Attributes\Test]
+    public function getReplyToAddressThrowsExceptionIfFetchedReplyToAddressIsNotAString(): void
+    {
+        $this->options['replyToAddress'] = null;
+
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
+        $this->expectExceptionCode(1716797809);
+        $this->expectExceptionMessage('The finisher option "replyToAddress" must contain a valid e-mail address.');
+
+        $this->subject->getReplyToAddress();
+    }
+
+    #[Framework\Attributes\Test]
+    public function getReplyToAddressThrowsExceptionIfFetchedReplyToAddressIsNotEmptyAndInvalid(): void
+    {
+        $this->options['replyToAddress'] = 'foo';
+
+        $this->expectException(Form\Domain\Finishers\Exception\FinisherException::class);
+        $this->expectExceptionCode(1716797811);
+        $this->expectExceptionMessage('The finisher option "replyToAddress" must contain a valid e-mail address.');
+
+        $this->subject->getReplyToAddress();
+    }
+
+    #[Framework\Attributes\Test]
+    public function getReplyToNameReturnsReplyToNameAndStoresTheParsedResult(): void
+    {
+        $this->options['replyToName'] = 'foo';
+
+        self::assertSame('foo', $this->subject->getReplyToName());
+
+        $this->options = [];
+
+        self::assertSame('foo', $this->subject->getReplyToName());
+    }
+
+    #[Framework\Attributes\Test]
     public function getApprovalPeriodReturnsAlreadyParsedApprovalPeriod(): void
     {
         $this->options['approvalPeriod'] = 86400;

@@ -13,6 +13,8 @@ finishers:
       recipientName: ''
       senderAddress: 'sender@example.com'
       senderName: ''
+      replyToAddress: 'reply-to@example.com'
+      replyToName: ''
       approvalPeriod: '86400'
       showDismissLink: true
       confirmationPid: '2'

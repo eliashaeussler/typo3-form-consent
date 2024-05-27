@@ -22,6 +22,8 @@ finishers:
       recipientName: ''
       senderAddress: ''
       senderName: ''
+      replyToAddress: ''
+      replyToName: ''
       approvalPeriod: '86400'
       showDismissLink: true
       confirmationPid: '2'

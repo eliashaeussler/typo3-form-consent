@@ -35,6 +35,8 @@ Example
           recipientName: '{first-name} {last-name}'
           senderAddress: ''
           senderName: ''
+          replyToAddress: ''
+          replyToName: ''
           approvalPeriod: '86400'
           showDismissLink: true
           confirmationPid: '277'

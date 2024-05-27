@@ -61,6 +61,34 @@ following options:
     Name of the consent mail sender. May contain placeholders to one or more
     existing form elements.
 
+..  _finisher-config-replyToAddress:
+
+..  confval:: replyToAddress
+
+    :Required: false
+    :type: string
+
+    ..  versionadded:: 2.2.0
+
+        `Feature #221 – Allow configuration of Reply-To recipients in consent mail <https://github.com/eliashaeussler/typo3-form-consent/pull/221>`__
+
+    Email address of the `Reply-To` mail recipient. Can be a placeholder to an
+    existing form element.
+
+..  _finisher-config-replyToName:
+
+..  confval:: replyToName
+
+    :Required: false
+    :type: string
+
+    ..  versionadded:: 2.2.0
+
+        `Feature #221 – Allow configuration of Reply-To recipients in consent mail <https://github.com/eliashaeussler/typo3-form-consent/pull/221>`__
+
+    Name of the `Reply-To` mail recipient. May contain placeholders to one or more
+    existing form elements.
+
 ..  _finisher-config-approvalPeriod:
 
 ..  confval:: approvalPeriod

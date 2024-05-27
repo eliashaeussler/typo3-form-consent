@@ -89,6 +89,8 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
             'recipientName' => '',
             'senderAddress' => '',
             'senderName' => '',
+            'replyToAddress' => '',
+            'replyToName' => '',
             'approvalPeriod' => 86400,
             'showDismissLink' => true,
             'confirmationPid' => 1,
