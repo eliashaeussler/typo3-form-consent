@@ -102,8 +102,20 @@ JS);
 
         $dialog->canSeeDialog();
 
-        $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitle->value);
-        $I->click('Form consent');
+        if ($this->typo3Version->getMajorVersion() >= 13) {
+            $I->executeJS(
+                sprintf(
+                    'document.querySelector(\'%s typo3-backend-new-record-wizard\').shadowRoot.querySelector(\'%s\').click()',
+                    Tests\Acceptance\Support\Helper\ModalDialog::$openedModalSelector,
+                    Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitle->value,
+                ),
+            );
+        } else {
+            // @todo Remove once support for TYPO3 v11 and v12 is dropped
+            $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitleV11V12->value);
+            $I->click('Form consent');
+        }
+
         $I->switchToIFrame(Typo3CodeceptionHelper\Enums\Selectors::BackendContentFrame->value);
         $I->waitForElementVisible(Tests\Acceptance\Support\Enums\Selectors::DashboardWidget->value);
     }

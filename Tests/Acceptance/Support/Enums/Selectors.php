@@ -35,7 +35,7 @@ enum Selectors: string
     case ConsentListItemTitle = 'tr[data-table="tx_formconsent_domain_model_consent"]:first-child td.col-title a';
     case ContactForm = 'form#contact';
     case DashboardAddWidgetButton = '.js-dashboard-addWidget';
-    case DashboardModalItemTitle = '.dashboard-modal-item-title';
+    case DashboardModalItemTitle = '[data-identifier="approvedConsentsWidget"]';
     case DashboardModule = '[data-modulemenu-identifier="dashboard"]';
     case DashboardWidget = '.widget-identifier-approvedConsentsWidget';
     case DashboardWidgetCanvas = '.widget-identifier-approvedConsentsWidget canvas';
@@ -49,4 +49,7 @@ enum Selectors: string
     case DashboardModuleV11 = '#dashboard';
     case FormModuleV11 = '#web_FormFormbuilder';
     case ListModuleV11 = '#web_list';
+
+    // @todo Can be removed once support for TYPO3 v11 and v12 is dropped
+    case DashboardModalItemTitleV11V12 = '.dashboard-modal-item-title';
 }
