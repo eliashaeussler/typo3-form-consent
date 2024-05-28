@@ -74,10 +74,9 @@ return [
                 ? [
                     'type' => 'input',
                     'renderType' => 'inputDateTime',
-                    'eval' => $evalRequired('datetime,int'),
+                    'eval' => 'datetime,int,required',
                     'default' => 0,
                     'readOnly' => true,
-                    'required' => true,
                 ]
                 : [
                     'type' => 'datetime',
