@@ -1,3 +1,5 @@
+# @todo Remove namespace (TYPO3.CMS.Form) once support for TYPO3 v11 is dropped
+# (see https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Important-97517-RemoveTheSuperfluousNamespaceWithinTheFormConfiguration.html)
 TYPO3:
   CMS:
     Form:
