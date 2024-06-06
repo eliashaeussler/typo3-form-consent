@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Service;
 
-use DateTime;
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
 use Psr\EventDispatcher;
@@ -52,9 +51,9 @@ final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalT
 
         $this->consent = (new Src\Domain\Model\Consent())
             ->setEmail('dummy@example.com')
-            ->setDate(new DateTime())
+            ->setDate(new \DateTime())
             ->setData(Src\Type\JsonType::fromArray(['foo' => 'baz']))
-            ->setValidUntil(new DateTime());
+            ->setValidUntil(new \DateTime());
 
         $this->listenerProvider = $this->getContainer()->get(Core\EventDispatcher\ListenerProvider::class);
         $this->subject = new Src\Service\HashService($this->getContainer()->get(EventDispatcher\EventDispatcherInterface::class));

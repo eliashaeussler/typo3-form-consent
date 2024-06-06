@@ -139,7 +139,7 @@ final class InvokeFinishersListener
         $migration = new Compatibility\Migration\HmacHashMigration();
         $parameters = $originalRequestParameters->toArray();
 
-        array_walk_recursive($parameters, static function(mixed &$value, string|int $key) use ($migration): void {
+        array_walk_recursive($parameters, static function (mixed &$value, string|int $key) use ($migration): void {
             if (!is_string($value) || !is_string($key)) {
                 return;
             }

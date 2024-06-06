@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Factory;
 
-use DateTime;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Event;
 use EliasHaeussler\Typo3FormConsent\Service;
@@ -86,12 +85,12 @@ final class ConsentFactory
         return $consent;
     }
 
-    private function getSubmitDate(): DateTime
+    private function getSubmitDate(): \DateTime
     {
-        return new DateTime('@' . $this->context->getPropertyFromAspect('date', 'timestamp', time()));
+        return new \DateTime('@' . $this->context->getPropertyFromAspect('date', 'timestamp', time()));
     }
 
-    private function calculateExpiryDate(int $approvalPeriod, DateTime $submitDate): ?DateTime
+    private function calculateExpiryDate(int $approvalPeriod, \DateTime $submitDate): ?\DateTime
     {
         // Early return if invalid approval period is given
         if ($approvalPeriod <= 0) {
@@ -100,7 +99,7 @@ final class ConsentFactory
 
         $target = $submitDate->getTimestamp() + $approvalPeriod;
 
-        return new DateTime('@' . $target);
+        return new \DateTime('@' . $target);
     }
 
     private function getCurrentContentElementUid(Extbase\Mvc\RequestInterface $request): int

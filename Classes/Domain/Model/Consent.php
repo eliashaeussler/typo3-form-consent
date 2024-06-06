@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Model;
 
-use DateTime;
 use EliasHaeussler\Typo3FormConsent\Type;
 use TYPO3\CMS\Extbase;
 
@@ -44,7 +43,7 @@ class Consent extends Extbase\DomainObject\AbstractEntity
     protected $email = '';
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     protected $date;
 
@@ -74,12 +73,12 @@ class Consent extends Extbase\DomainObject\AbstractEntity
     protected $state;
 
     /**
-     * @var DateTime|null
+     * @var \DateTime|null
      */
     protected $updateDate;
 
     /**
-     * @var DateTime|null
+     * @var \DateTime|null
      */
     protected $validUntil;
 
@@ -99,12 +98,12 @@ class Consent extends Extbase\DomainObject\AbstractEntity
         return $this;
     }
 
-    public function getDate(): DateTime
+    public function getDate(): \DateTime
     {
         return $this->date;
     }
 
-    public function setDate(DateTime $date): self
+    public function setDate(\DateTime $date): self
     {
         $this->date = $date;
         return $this;
@@ -179,7 +178,7 @@ class Consent extends Extbase\DomainObject\AbstractEntity
     public function setApproved(): self
     {
         $this->setState(Type\ConsentStateType::createApproved());
-        $this->setUpdateDate(new DateTime());
+        $this->setUpdateDate(new \DateTime());
 
         return $this;
     }
@@ -192,7 +191,7 @@ class Consent extends Extbase\DomainObject\AbstractEntity
     public function setDismissed(): self
     {
         $this->setState(Type\ConsentStateType::createDismissed());
-        $this->setUpdateDate(new DateTime());
+        $this->setUpdateDate(new \DateTime());
 
         return $this;
     }
@@ -203,23 +202,23 @@ class Consent extends Extbase\DomainObject\AbstractEntity
         return $this;
     }
 
-    public function getUpdateDate(): ?DateTime
+    public function getUpdateDate(): ?\DateTime
     {
         return $this->updateDate;
     }
 
-    public function setUpdateDate(?DateTime $updateDate): self
+    public function setUpdateDate(?\DateTime $updateDate): self
     {
         $this->updateDate = $updateDate;
         return $this;
     }
 
-    public function getValidUntil(): ?DateTime
+    public function getValidUntil(): ?\DateTime
     {
         return $this->validUntil;
     }
 
-    public function setValidUntil(?DateTime $validUntil): self
+    public function setValidUntil(?\DateTime $validUntil): self
     {
         $this->validUntil = $validUntil;
         return $this;

@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Repository;
 
 use EliasHaeussler\Typo3FormConsent as Src;
-use Generator;
 use PHPUnit\Framework;
 use TYPO3\TestingFramework;
 
@@ -91,9 +90,9 @@ final class ConsentRepositoryTest extends TestingFramework\Core\Functional\Funct
     }
 
     /**
-     * @return Generator<string, array{string, int}>
+     * @return \Generator<string, array{string, int}>
      */
-    public static function findByValidationHashReturnsValidConsentDataProvider(): Generator
+    public static function findByValidationHashReturnsValidConsentDataProvider(): \Generator
     {
         yield 'no expiry date' => ['foo', 1];
         yield 'valid until 2038' => ['baz', 2];

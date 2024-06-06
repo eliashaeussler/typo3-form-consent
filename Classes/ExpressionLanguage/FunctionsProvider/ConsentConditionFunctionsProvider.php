@@ -48,9 +48,9 @@ final class ConsentConditionFunctionsProvider implements ExpressionLanguage\Expr
 
     private function getIsConsentApprovedFunction(): ExpressionLanguage\ExpressionFunction
     {
-        return new ExpressionLanguage\ExpressionFunction('isConsentApproved', static function(): void {
+        return new ExpressionLanguage\ExpressionFunction('isConsentApproved', static function (): void {
             // Not implemented, we only use the evaluator
-        }, static function($arguments): bool {
+        }, static function ($arguments): bool {
             $formRuntime = $arguments['formRuntime'] ?? null;
 
             if (!($formRuntime instanceof Form\Domain\Runtime\FormRuntime)) {
@@ -63,9 +63,9 @@ final class ConsentConditionFunctionsProvider implements ExpressionLanguage\Expr
 
     private function getIsConsentDismissedFunction(): ExpressionLanguage\ExpressionFunction
     {
-        return new ExpressionLanguage\ExpressionFunction('isConsentDismissed', static function(): void {
+        return new ExpressionLanguage\ExpressionFunction('isConsentDismissed', static function (): void {
             // Not implemented, we only use the evaluator
-        }, static function($arguments): bool {
+        }, static function ($arguments): bool {
             $formRuntime = $arguments['formRuntime'] ?? null;
 
             if (!($formRuntime instanceof Form\Domain\Runtime\FormRuntime)) {

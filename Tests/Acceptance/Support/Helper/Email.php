@@ -92,9 +92,9 @@ final class Email extends Module
         }
 
         return array_map(
-            static fn (string $url): string => '/' . $url,
+            static fn(string $url): string => '/' . $url,
             array_values(
-                array_filter($matches['url'], static fn (string $url) => trim($url) !== ''),
+                array_filter($matches['url'], static fn(string $url) => trim($url) !== ''),
             ),
         );
     }

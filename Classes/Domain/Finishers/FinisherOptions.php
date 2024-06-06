@@ -40,7 +40,7 @@ use TYPO3\CMS\Form;
  *
  * @implements ArrayAccess<string, string|int|bool|Fluid\View\TemplatePaths>
  */
-final class FinisherOptions implements ArrayAccess
+final class FinisherOptions implements \ArrayAccess
 {
     private static ?Core\Domain\Repository\PageRepository $pageRepository = null;
 

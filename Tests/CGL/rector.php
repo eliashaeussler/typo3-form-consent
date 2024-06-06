@@ -30,7 +30,7 @@ use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
 use Rector\ValueObject\PhpVersion;
 
-return static function(RectorConfig $rectorConfig): void {
+return static function (RectorConfig $rectorConfig): void {
     $rootPath = dirname(__DIR__, 2);
 
     require $rootPath . '/.Build/vendor/autoload.php';

@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Type;
 
 use EliasHaeussler\Typo3FormConsent\Enums;
-use Stringable;
 use TYPO3\CMS\Core;
 
 /**
@@ -33,7 +32,7 @@ use TYPO3\CMS\Core;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentStateType implements Core\Type\TypeInterface, Stringable
+final class ConsentStateType implements Core\Type\TypeInterface, \Stringable
 {
     private readonly Enums\ConsentState $state;
 

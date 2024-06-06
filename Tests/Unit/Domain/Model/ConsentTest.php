@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Domain\Model;
 
-use DateTime;
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
 use TYPO3\TestingFramework;
@@ -56,7 +55,7 @@ final class ConsentTest extends TestingFramework\Core\Unit\UnitTestCase
     #[Framework\Attributes\Test]
     public function setDateStoresCreationDateCorrectly(): void
     {
-        $date = new DateTime();
+        $date = new \DateTime();
         $this->subject->setDate($date);
         self::assertSame($date, $this->subject->getDate());
     }
@@ -159,7 +158,7 @@ final class ConsentTest extends TestingFramework\Core\Unit\UnitTestCase
     #[Framework\Attributes\Test]
     public function setUpdateDateStoresUpdateDateCorrectly(): void
     {
-        $date = new DateTime();
+        $date = new \DateTime();
 
         $this->subject->setUpdateDate($date);
 
@@ -175,8 +174,8 @@ final class ConsentTest extends TestingFramework\Core\Unit\UnitTestCase
     #[Framework\Attributes\Test]
     public function setValidUntilStoresLastPossibleApprovalDateCorrectly(): void
     {
-        $date = DateTime::createFromFormat('U', (string)(time() + 86400));
-        self::assertInstanceOf(DateTime::class, $date);
+        $date = \DateTime::createFromFormat('U', (string)(time() + 86400));
+        self::assertInstanceOf(\DateTime::class, $date);
         $this->subject->setValidUntil($date);
         self::assertSame($date, $this->subject->getValidUntil());
     }
