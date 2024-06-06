@@ -26,7 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent;
 use Symfony\Component\DependencyInjection as SymfonyDI;
 use TYPO3\CMS\Dashboard;
 
-return static function(
+return static function (
     SymfonyDI\Loader\Configurator\ContainerConfigurator $containerConfigurator,
     SymfonyDI\ContainerBuilder $container,
 ): void {

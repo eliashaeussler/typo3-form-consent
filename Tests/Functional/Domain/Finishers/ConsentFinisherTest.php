@@ -112,7 +112,7 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
 
         $this->eventDispatcher->addListener(
             Src\Event\ModifyConsentEvent::class,
-            static function(Src\Event\ModifyConsentEvent $event) use (&$eventDispatched) {
+            static function (Src\Event\ModifyConsentEvent $event) use (&$eventDispatched) {
                 $eventDispatched = true;
                 $event->getFinisherContext()->cancel();
             }

@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Type;
 
 use EliasHaeussler\Typo3FormConsent as Src;
-use Generator;
 use PHPUnit\Framework;
 use TYPO3\TestingFramework;
 
@@ -119,9 +118,9 @@ final class ConsentStateTypeTest extends TestingFramework\Core\Unit\UnitTestCase
     }
 
     /**
-     * @return Generator<string, array{Src\Enums\ConsentState, bool}>
+     * @return \Generator<string, array{Src\Enums\ConsentState, bool}>
      */
-    public static function isNewReturnsConsentCreationStateDataProvider(): Generator
+    public static function isNewReturnsConsentCreationStateDataProvider(): \Generator
     {
         yield 'new consent' => [Src\Enums\ConsentState::New, true];
         yield 'consent approved' => [Src\Enums\ConsentState::Approved, false];
@@ -129,9 +128,9 @@ final class ConsentStateTypeTest extends TestingFramework\Core\Unit\UnitTestCase
     }
 
     /**
-     * @return Generator<string, array{Src\Enums\ConsentState, bool}>
+     * @return \Generator<string, array{Src\Enums\ConsentState, bool}>
      */
-    public static function isApprovedReturnsConsentApprovalStateDataProvider(): Generator
+    public static function isApprovedReturnsConsentApprovalStateDataProvider(): \Generator
     {
         yield 'new consent' => [Src\Enums\ConsentState::New, false];
         yield 'consent approved' => [Src\Enums\ConsentState::Approved, true];
@@ -139,9 +138,9 @@ final class ConsentStateTypeTest extends TestingFramework\Core\Unit\UnitTestCase
     }
 
     /**
-     * @return Generator<string, array{Src\Enums\ConsentState, bool}>
+     * @return \Generator<string, array{Src\Enums\ConsentState, bool}>
      */
-    public static function isDismissedReturnsConsentDismissalStateDataProvider(): Generator
+    public static function isDismissedReturnsConsentDismissalStateDataProvider(): \Generator
     {
         yield 'new consent' => [Src\Enums\ConsentState::New, false];
         yield 'consent approved' => [Src\Enums\ConsentState::Approved, false];

@@ -26,7 +26,6 @@ namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 use EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Event;
-use Exception;
 use Psr\EventDispatcher;
 use Symfony\Component\Mailer;
 use Symfony\Component\Mime;
@@ -65,12 +64,12 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
 
     /**
      * @throws Form\Domain\Finishers\Exception\FinisherException
-     * @throws Exception
+     * @throws \Exception
      */
     private function executeConsent(): void
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
-        $finisherOptions = new FinisherOptions(fn (string $optionName) => $this->parseOption($optionName));
+        $finisherOptions = new FinisherOptions(fn(string $optionName) => $this->parseOption($optionName));
 
         // Create consent
         $consent = $this->consentFactory->createFromForm($finisherOptions, $this->finisherContext);
@@ -137,7 +136,7 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
         ;
     }
 
-    private function addFlashMessage(Exception $exception): void
+    private function addFlashMessage(\Exception $exception): void
     {
         if (class_exists(Core\Type\ContextualFeedbackSeverity::class)) {
             $severity = Core\Type\ContextualFeedbackSeverity::ERROR;

@@ -26,9 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Controller;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Event;
 use EliasHaeussler\Typo3FormConsent\Registry;
-use Exception;
 use Psr\Http\Message;
-use Throwable;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Extbase;
 
@@ -83,7 +81,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
         try {
             $event = new Event\ApproveConsentEvent($consent);
             $this->eventDispatcher->dispatch($event);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return $this->createErrorResponse('unexpectedError', $exception);
         }
 
@@ -127,7 +125,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
         try {
             $event = new Event\DismissConsentEvent($consent);
             $this->eventDispatcher->dispatch($event);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return $this->createErrorResponse('unexpectedError', $exception);
         }
 
@@ -146,7 +144,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
     /**
      * @throws Core\Http\PropagateResponseException
      */
-    private function createErrorResponse(string $reason, Throwable $exception = null): Message\ResponseInterface
+    private function createErrorResponse(string $reason, \Throwable $exception = null): Message\ResponseInterface
     {
         $this->view->assign('error', true);
         $this->view->assign('reason', $reason);

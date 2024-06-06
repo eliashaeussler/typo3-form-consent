@@ -25,7 +25,6 @@ namespace EliasHaeussler\Typo3FormConsent\Type\Transformer;
 
 use EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Type;
-use JsonException;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Extbase;
 use TYPO3\CMS\Form;
@@ -44,7 +43,7 @@ final class FormValuesTypeTransformer implements TypeTransformer
 
     /**
      * @return Type\JsonType<string, mixed>
-     * @throws JsonException
+     * @throws \JsonException
      */
     public function transform(Form\Domain\Runtime\FormRuntime $formRuntime): Type\JsonType
     {

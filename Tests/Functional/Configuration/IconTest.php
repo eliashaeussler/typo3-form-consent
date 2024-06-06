@@ -25,7 +25,6 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
-use ReflectionClass;
 use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
 
@@ -85,7 +84,7 @@ final class IconTest extends TestingFramework\Core\Functional\FunctionalTestCase
         parent::tearDown();
 
         // Reset icon registry in subject
-        $reflectionClass = new ReflectionClass(Src\Configuration\Icon::class);
+        $reflectionClass = new \ReflectionClass(Src\Configuration\Icon::class);
         $reflectionProperty = $reflectionClass->getProperty('iconRegistry');
         $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue(null);

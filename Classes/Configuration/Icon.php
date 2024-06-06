@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Configuration;
 
 use EliasHaeussler\Typo3FormConsent\Extension;
-use InvalidArgumentException;
 use TYPO3\CMS\Core;
 
 /**
@@ -53,7 +52,7 @@ final class Icon
         $pluginName = str_replace('_', '-', Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($pluginName));
 
         if ($pluginName === '') {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Plugin name must not be empty when generating icon plugin identifier.',
                 1587655457
             );
@@ -81,7 +80,7 @@ final class Icon
         $widgetName = str_replace('_', '-', Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($widgetName));
 
         if ($widgetName === '') {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Widget name must not be empty when generating icon widget identifier.',
                 1632850400
             );
@@ -108,7 +107,7 @@ final class Icon
         }
 
         if ($fileName === '') {
-            throw new InvalidArgumentException('No icon filename given.', 1580308459);
+            throw new \InvalidArgumentException('No icon filename given.', 1580308459);
         }
 
         return 'EXT:' . Extension::KEY . '/Resources/Public/Icons/' . $fileName . '.' . $type;

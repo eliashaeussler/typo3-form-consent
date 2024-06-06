@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
 use EliasHaeussler\Typo3FormConsent as Src;
-use Generator;
 use PHPUnit\Framework;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Frontend;
@@ -186,9 +185,9 @@ final class LocalizationTest extends TestingFramework\Core\Functional\Functional
     }
 
     /**
-     * @return Generator<string, array{string, string|null, string}>
+     * @return \Generator<string, array{string, string|null, string}>
      */
-    public static function forKeyReturnsLocalizationKeyDataProvider(): Generator
+    public static function forKeyReturnsLocalizationKeyDataProvider(): \Generator
     {
         yield 'default type' => [
             'foo',

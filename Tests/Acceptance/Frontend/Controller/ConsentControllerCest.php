@@ -155,7 +155,7 @@ final class ConsentControllerCest
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = '22be11b3acb2d0a7427e9f23c6c1d8d2c19b05312d4961c025b9a8b74bd7f4087ad38eca173788364b3cccf7398ed682';
 
         // Migrate hashes to legacy HMAC to enforce re-migration using HmacHashMigration
-        array_walk_recursive($parameters, static function(mixed &$value, string|int $key) use ($parametersToMigrate): void {
+        array_walk_recursive($parameters, static function (mixed &$value, string|int $key) use ($parametersToMigrate): void {
             if (!is_string($value) || !in_array($key, $parametersToMigrate, true)) {
                 return;
             }
