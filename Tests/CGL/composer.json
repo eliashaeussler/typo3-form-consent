@@ -14,7 +14,7 @@
 		"phpstan/phpstan-phpunit": "^1.0",
 		"saschaegerer/phpstan-typo3": "^1.0",
 		"ssch/typo3-rector": "^2.0",
-		"typo3/coding-standards": "^0.6.0 || ^0.7.0 || ^0.8.0@dev"
+		"typo3/coding-standards": "^0.6.0 || ^0.7.0 || ^0.8.0"
 	},
 	"config": {
 		"allow-plugins": {
