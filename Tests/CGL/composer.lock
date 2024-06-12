@@ -4672,16 +4672,16 @@
         },
         {
             "name": "typo3/cms-core",
-            "version": "v12.4.15",
+            "version": "v12.4.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/core.git",
-                "reference": "715ef27bc73ae13662147ba77ee6c7f2db38c75b"
+                "reference": "2523cad81a903f471a4662665024f99486ff3060"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/core/zipball/715ef27bc73ae13662147ba77ee6c7f2db38c75b",
-                "reference": "715ef27bc73ae13662147ba77ee6c7f2db38c75b",
+                "url": "https://api.github.com/repos/TYPO3-CMS/core/zipball/2523cad81a903f471a4662665024f99486ff3060",
+                "reference": "2523cad81a903f471a4662665024f99486ff3060",
                 "shasum": ""
             },
             "require": {
@@ -4808,7 +4808,7 @@
                 "issues": "https://forge.typo3.org",
                 "source": "https://github.com/typo3/typo3"
             },
-            "time": "2024-05-14T08:24:50+00:00"
+            "time": "2024-06-11T07:52:39+00:00"
         },
         {
             "name": "typo3/html-sanitizer",
@@ -7797,16 +7797,16 @@
         },
         {
             "name": "react/stream",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/stream.git",
-                "reference": "6fbc9672905c7d5a885f2da2fc696f65840f4a66"
+                "reference": "1e5b0acb8fe55143b5b426817155190eb6f5b18d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/stream/zipball/6fbc9672905c7d5a885f2da2fc696f65840f4a66",
-                "reference": "6fbc9672905c7d5a885f2da2fc696f65840f4a66",
+                "url": "https://api.github.com/repos/reactphp/stream/zipball/1e5b0acb8fe55143b5b426817155190eb6f5b18d",
+                "reference": "1e5b0acb8fe55143b5b426817155190eb6f5b18d",
                 "shasum": ""
             },
             "require": {
@@ -7816,7 +7816,7 @@
             },
             "require-dev": {
                 "clue/stream-filter": "~1.2",
-                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.35"
+                "phpunit/phpunit": "^9.6 || ^5.7 || ^4.8.36"
             },
             "type": "library",
             "autoload": {
@@ -7863,7 +7863,7 @@
             ],
             "support": {
                 "issues": "https://github.com/reactphp/stream/issues",
-                "source": "https://github.com/reactphp/stream/tree/v1.3.0"
+                "source": "https://github.com/reactphp/stream/tree/v1.4.0"
             },
             "funding": [
                 {
@@ -7871,7 +7871,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-06-16T10:52:11+00:00"
+            "time": "2024-06-11T12:45:25+00:00"
         },
         {
             "name": "rector/rector",
@@ -8606,16 +8606,16 @@
         },
         {
             "name": "typo3/cms-extbase",
-            "version": "v12.4.15",
+            "version": "v12.4.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/extbase.git",
-                "reference": "cb5ae91c3e3cc6f1a93cb4358277aa665a785169"
+                "reference": "ffa17726c3e4085d90036ef3840afbc8535a6686"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/extbase/zipball/cb5ae91c3e3cc6f1a93cb4358277aa665a785169",
-                "reference": "cb5ae91c3e3cc6f1a93cb4358277aa665a785169",
+                "url": "https://api.github.com/repos/TYPO3-CMS/extbase/zipball/ffa17726c3e4085d90036ef3840afbc8535a6686",
+                "reference": "ffa17726c3e4085d90036ef3840afbc8535a6686",
                 "shasum": ""
             },
             "require": {
@@ -8625,7 +8625,7 @@
                 "symfony/dependency-injection": "^6.4 || ^7.0",
                 "symfony/property-access": "^6.4 || ^7.0",
                 "symfony/property-info": "^6.4 || ^7.0",
-                "typo3/cms-core": "12.4.15"
+                "typo3/cms-core": "12.4.16"
             },
             "conflict": {
                 "typo3/cms": "*"
@@ -8672,7 +8672,7 @@
                 "issues": "https://forge.typo3.org",
                 "source": "https://github.com/typo3/typo3"
             },
-            "time": "2024-05-14T08:24:50+00:00"
+            "time": "2024-06-11T07:52:39+00:00"
         },
         {
             "name": "typo3/coding-standards",
