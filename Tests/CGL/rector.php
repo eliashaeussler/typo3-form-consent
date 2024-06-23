@@ -26,7 +26,6 @@ use EliasHaeussler\RectorConfig\Entity\Version;
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
-use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
 use Rector\ValueObject\PhpVersion;
 
@@ -61,11 +60,6 @@ return static function (RectorConfig $rectorConfig): void {
         ->skip(ClassPropertyAssignToConstructorPromotionRector::class, [
             // We cannot use CPP for properties that are declared in abstract classes
             $rootPath . '/Tests/Acceptance/Support/Helper/ModalDialog.php',
-        ])
-        ->skip(FinalizeClassesWithoutChildrenRector::class, [
-            // Domain models and repositories should stay extendable
-            $rootPath . '/Classes/Domain/Model/*',
-            $rootPath . '/Classes/Domain/Repository/*',
         ])
         ->skip(PrivatizeFinalClassPropertyRector::class, [
             // Test properties must not be private, otherwise TF cannot perform GC tasks
