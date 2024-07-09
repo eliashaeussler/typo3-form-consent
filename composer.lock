@@ -6495,23 +6495,23 @@
         },
         {
             "name": "koehnlein/codeception-email-mailpit",
-            "version": "v0.3.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koehnlein/codeception-email-mailpit.git",
-                "reference": "e3548ff28a11bd84138c503517fb4602b62f2aa6"
+                "reference": "31d0b2c151cd9e9147559d0c6e0c60074de825ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koehnlein/codeception-email-mailpit/zipball/e3548ff28a11bd84138c503517fb4602b62f2aa6",
-                "reference": "e3548ff28a11bd84138c503517fb4602b62f2aa6",
+                "url": "https://api.github.com/repos/koehnlein/codeception-email-mailpit/zipball/31d0b2c151cd9e9147559d0c6e0c60074de825ef",
+                "reference": "31d0b2c151cd9e9147559d0c6e0c60074de825ef",
                 "shasum": ""
             },
             "require": {
                 "codeception/codeception": "^5.0",
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^6.1 || ^7.0",
-                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.0",
@@ -6554,9 +6554,9 @@
             "description": "Provides test helpers for Codeception when testing email functionality with Mailpit",
             "support": {
                 "issues": "https://github.com/koehnlein/codeception-email-mailpit/issues",
-                "source": "https://github.com/koehnlein/codeception-email-mailpit/tree/v0.3.0"
+                "source": "https://github.com/koehnlein/codeception-email-mailpit/tree/v0.3.1"
             },
-            "time": "2023-11-17T20:04:37+00:00"
+            "time": "2024-07-08T16:17:19+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -7187,16 +7187,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.25",
+            "version": "10.5.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "831bf82312be6037e811833ddbea0b8de60ea314"
+                "reference": "42e2f13ceaa2e34461bc89bea75407550b40b2aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/831bf82312be6037e811833ddbea0b8de60ea314",
-                "reference": "831bf82312be6037e811833ddbea0b8de60ea314",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/42e2f13ceaa2e34461bc89bea75407550b40b2aa",
+                "reference": "42e2f13ceaa2e34461bc89bea75407550b40b2aa",
                 "shasum": ""
             },
             "require": {
@@ -7268,7 +7268,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.25"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.26"
             },
             "funding": [
                 {
@@ -7284,7 +7284,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-03T05:49:17+00:00"
+            "time": "2024-07-08T05:30:46+00:00"
         },
         {
             "name": "psy/psysh",
