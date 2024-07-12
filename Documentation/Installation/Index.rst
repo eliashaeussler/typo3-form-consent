@@ -28,13 +28,14 @@ Require the extension via Composer (recommended):
 Or download it from the
 `TYPO3 extension repository <https://extensions.typo3.org/extension/form_consent>`__.
 
-..  _typoscript-setup:
+..  _initial-setup:
 
-TypoScript setup
-================
+Initial setup
+=============
 
-Once installed, make sure to include the TypoScript setup at
-:file:`EXT:form_consent/Configuration/TypoScript` in your root template.
+Once installed, make sure to add the site set :yaml:`eliashaeussler/typo3-form-consent`
+as dependency to your site (TYPO3 >= 13.1) or include the TypoScript setup
+at :file:`EXT:form_consent/Configuration/TypoScript` in your root template.
 
 ..  _version-matrix:
 

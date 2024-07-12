@@ -1,5 +1,7 @@
 base: 'https://typo3-ext-form-consent.ddev.site/'
-errorHandling: {  }
+dependencies:
+  - typo3/fluid-styled-content
+  - eliashaeussler/typo3-form-consent
 languages:
   -
     title: English
@@ -14,4 +16,4 @@ languages:
     direction: ltr
     flag: us
 rootPageId: 1
-routes: {  }
+websiteTitle: ''
