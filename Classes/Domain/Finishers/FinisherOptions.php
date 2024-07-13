@@ -241,7 +241,12 @@ final class FinisherOptions implements \ArrayAccess
 
         $storagePid = (int)($this->optionFetcher)('storagePid');
 
-        // Return if storage pid is not set since it is not a mandatory option
+        // Use default storage pid if storage pid is not defined in form
+        if ($storagePid === 0) {
+            $storagePid = $this->fetchDefaultStoragePid();
+        }
+
+        // Early return if storage pid is not set since it is not a mandatory option
         if ($storagePid === 0) {
             return $this->parsedOptions['storagePid'] = $storagePid;
         }
@@ -300,6 +305,18 @@ final class FinisherOptions implements \ArrayAccess
     public function offsetUnset($offset): void
     {
         throw Exception\NotAllowedException::forMethod(__METHOD__);
+    }
+
+    private function fetchDefaultStoragePid(): int
+    {
+        $configurationManager = Core\Utility\GeneralUtility::makeInstance(Extbase\Configuration\ConfigurationManagerInterface::class);
+        $configuration = $configurationManager->getConfiguration(
+            Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            Extension::NAME,
+            Extension::PLUGIN,
+        );
+
+        return (int)($configuration['persistence']['storagePid'] ?? 0);
     }
 
     private function getPageRepository(): Core\Domain\Repository\PageRepository

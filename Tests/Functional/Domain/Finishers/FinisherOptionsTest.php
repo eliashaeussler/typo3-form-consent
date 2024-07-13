@@ -26,6 +26,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Finishers;
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
 use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
 use TYPO3\CMS\Fluid;
 use TYPO3\CMS\Form;
 use TYPO3\TestingFramework;
@@ -47,6 +48,10 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
         'form_consent',
     ];
 
+    /**
+     * @var Framework\MockObject\MockObject&Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+     */
+    protected Framework\MockObject\MockObject $configurationManager;
     protected Src\Domain\Finishers\FinisherOptions $subject;
 
     /**
@@ -58,7 +63,13 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
     {
         parent::setUp();
 
+        $this->configurationManager = $this->createMock(Extbase\Configuration\ConfigurationManagerInterface::class);
         $this->subject = new Src\Domain\Finishers\FinisherOptions($this->fetchOption(...));
+
+        Core\Utility\GeneralUtility::setSingletonInstance(
+            Extbase\Configuration\ConfigurationManagerInterface::class,
+            $this->configurationManager,
+        );
 
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/be_users.csv');
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.csv');
@@ -342,9 +353,29 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
     }
 
     #[Framework\Attributes\Test]
+    public function getStoragePidReturnsDefaultStoragePidIfFetchedStoragePidIsZero(): void
+    {
+        $this->options['storagePid'] = 0;
+
+        $this->configurationManager->method('getConfiguration')->willReturn([
+            'persistence' => [
+                'storagePid' => '1',
+            ],
+        ]);
+
+        self::assertSame(1, $this->subject->getStoragePid());
+    }
+
+    #[Framework\Attributes\Test]
     public function getStoragePidReturnsZeroIfFetchedStoragePidIsZero(): void
     {
         $this->options['storagePid'] = 0;
+
+        $this->configurationManager->method('getConfiguration')->willReturn([
+            'persistence' => [
+                'storagePid' => '0',
+            ],
+        ]);
 
         self::assertSame(0, $this->subject->getStoragePid());
     }

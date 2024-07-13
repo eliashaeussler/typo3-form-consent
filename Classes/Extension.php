@@ -38,6 +38,7 @@ final class Extension
 {
     public const KEY = 'form_consent';
     public const NAME = 'FormConsent';
+    public const PLUGIN = 'Consent';
 
     /**
      * Register additional FormEngine node.
@@ -80,7 +81,7 @@ final class Extension
     {
         Extbase\Utility\ExtensionUtility::configurePlugin(
             self::NAME,
-            'Consent',
+            self::PLUGIN,
             [
                 Controller\ConsentController::class => 'approve, dismiss',
             ],
@@ -97,7 +98,7 @@ final class Extension
      */
     public static function registerIcons(): void
     {
-        Configuration\Icon::registerForPluginIdentifier('Consent');
+        Configuration\Icon::registerForPluginIdentifier(self::PLUGIN);
         Configuration\Icon::registerForWidgetIdentifier('approvedConsents');
     }
 
