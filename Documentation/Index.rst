@@ -82,8 +82,8 @@ compliance with the GDPR.
             ..  container:: card-body
 
                 Learn how to configure the extension in various ways.
-                This includes extension configuration, TypoScript
-                configuration and form finisher configuration.
+                This includes extension configuration, site sets,
+                TypoScript configuration and form finisher configuration.
 
     ..  container:: col-12 col-md-6 pl-0 pr-0 pr-md-3 pt-3 m-0
 
