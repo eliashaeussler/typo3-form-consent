@@ -43,6 +43,15 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
         private readonly Extbase\Persistence\PersistenceManagerInterface $persistenceManager,
     ) {}
 
+    public function initializeAction(): void
+    {
+        if ($this->isPreviewRequested()) {
+            $this->actionMethodName = 'previewAction';
+            $this->request = $this->request->withControllerActionName('preview');
+            $this->arguments->removeAll();
+        }
+    }
+
     /**
      * @throws Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws Core\Http\PropagateResponseException
@@ -156,6 +165,22 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * Dummy preview action for use in backend context.
+     *
+     * This action is not part of any frontend plugin. It is used as dummy action for
+     * preview requests during an active backend session.
+     *
+     * NOTE: Method must not be private, otherwise action is no callable by ActionController.
+     *
+     * @see ConsentController::initializeAction()
+     * @see ConsentController::isPreviewRequested()
+     */
+    protected function previewAction(): Message\ResponseInterface
+    {
+        return $this->htmlResponse();
+    }
+
+    /**
      * @throws Core\Http\PropagateResponseException
      */
     private function createErrorResponse(string $reason, \Throwable $exception = null): Message\ResponseInterface
@@ -187,5 +212,31 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
         }
 
         return $this->htmlResponse();
+    }
+
+    private function isPreviewRequested(): bool
+    {
+        // Early return if no backend session is active
+        if ($this->getBackendUser() === null) {
+            return false;
+        }
+
+        // Early return if at least one argument is given
+        if ($this->request->getArguments() !== []) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function getBackendUser(): ?Core\Authentication\BackendUserAuthentication
+    {
+        $backendUser = $GLOBALS['BE_USER'] ?? null;
+
+        if ($backendUser instanceof Core\Authentication\BackendUserAuthentication) {
+            return $backendUser;
+        }
+
+        return null;
     }
 }

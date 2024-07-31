@@ -109,6 +109,10 @@
 			<trans-unit id="verify.dismiss.linkText" resname="verify.dismiss.linkText">
 				<source>Dismiss</source>
 			</trans-unit>
+
+			<trans-unit id="preview" resname="preview">
+				<source>This is a preview of the form_consent validation plugin without any functionality.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
