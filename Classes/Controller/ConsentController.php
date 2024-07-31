@@ -170,7 +170,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
      * This action is not part of any frontend plugin. It is used as dummy action for
      * preview requests during an active backend session.
      *
-     * NOTE: Method must not be private, otherwise action is no callable by ActionController.
+     * NOTE: Method must not be private, otherwise action is not callable by ActionController.
      *
      * @see ConsentController::initializeAction()
      * @see ConsentController::isPreviewRequested()
