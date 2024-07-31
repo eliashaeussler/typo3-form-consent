@@ -429,6 +429,30 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
     }
 
     #[Framework\Attributes\Test]
+    public function requiresVerificationForApprovalLinkReturnsRequireApproveVerificationAndStoresTheParsedResult(): void
+    {
+        $this->options['requireApproveVerification'] = false;
+
+        self::assertFalse($this->subject->requiresVerificationForApproval());
+
+        $this->options['requireApproveVerification'] = true;
+
+        self::assertFalse($this->subject->requiresVerificationForApproval());
+    }
+
+    #[Framework\Attributes\Test]
+    public function requiresVerificationForDismissalLinkReturnsRequireDismissVerificationAndStoresTheParsedResult(): void
+    {
+        $this->options['requireDismissVerification'] = false;
+
+        self::assertFalse($this->subject->requiresVerificationForDismissal());
+
+        $this->options['requireDismissVerification'] = true;
+
+        self::assertFalse($this->subject->requiresVerificationForDismissal());
+    }
+
+    #[Framework\Attributes\Test]
     public function objectCanBeAccessedAsArrayInReadMode(): void
     {
         // offsetExists()

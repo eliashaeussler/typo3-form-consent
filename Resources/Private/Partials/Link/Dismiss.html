@@ -7,10 +7,14 @@
                   extensionName="FormConsent"
                   pluginName="Consent"
                   absolute="1"
-                  arguments="{hash: consent.validationHash, email: consent.email}"
-                  pageUid="{pageUid}" />
+                  pageUid="{pageUid}"
+                  arguments="{
+                      hash: consent.validationHash,
+                      email: consent.email,
+                      verify: verify
+                  }" />
 </f:variable>
 
-<a href="{link -> f:spaceless()}">{link -> f:spaceless()}</a>
+<a href="{link -> f:spaceless()}">{linkText -> f:or(alternative: link) -> f:spaceless()}</a>
 
 </html>

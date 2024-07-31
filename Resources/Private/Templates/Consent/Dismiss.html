@@ -3,38 +3,17 @@
 
 <f:if condition="{error}">
     <f:then>
-        <f:switch expression="{reason}">
-            <f:case value="invalidConsent">
-                <f:render partial="Message" arguments="{
-                    severity: 'danger',
-                    titleKey: 'consent.dismiss.error.invalidConsent.title',
-                    messageKey: 'consent.dismiss.error.invalidConsent.body'
-                }" />
-            </f:case>
-            <f:case value="invalidEmail">
-                <f:render partial="Message" arguments="{
-                    severity: 'danger',
-                    titleKey: 'consent.dismiss.error.invalidEmail.title',
-                    messageKey: 'consent.dismiss.error.invalidEmail.body'
-                }" />
-            </f:case>
-            <f:case value="unexpectedError">
-                <f:render partial="Message" arguments="{
-                    severity: 'danger',
-                    titleKey: 'consent.dismiss.error.unexpectedError.title',
-                    messageKey: 'consent.dismiss.error.unexpectedError.body',
-                    arguments: {0: exception.code}
-                }" />
-            </f:case>
-            <f:defaultCase>
-                <f:render partial="Message" arguments="{
-                    severity: 'danger',
-                    titleKey: 'consent.dismiss.error.unknown.title',
-                    messageKey: 'consent.dismiss.error.unknown.body'
-                }" />
-            </f:defaultCase>
-        </f:switch>
+        <f:render partial="Error/Dismiss" arguments="{
+            reason: reason,
+            exception: exception
+        }" />
     </f:then>
+    <f:else if="{verificationNeeded}">
+        <f:render partial="Verification" arguments="{
+            action: 'dismiss',
+            consent: consent
+        }" />
+    </f:else>
     <f:else>
         <f:render partial="Message" arguments="{
             severity: 'success',

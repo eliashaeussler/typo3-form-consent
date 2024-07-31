@@ -132,6 +132,8 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
             ->assign('formRuntime', $this->finisherContext->getFormRuntime())
             ->assign('showDismissLink', $finisherOptions->getShowDismissLink())
             ->assign('confirmationPid', $finisherOptions->getConfirmationPid())
+            ->assign('requireApproveVerification', $finisherOptions->requiresVerificationForApproval())
+            ->assign('requireDismissVerification', $finisherOptions->requiresVerificationForDismissal())
             ->setRequest($this->finisherContext->getRequest())
         ;
     }

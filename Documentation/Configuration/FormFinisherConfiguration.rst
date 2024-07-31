@@ -148,6 +148,42 @@ following options:
         See :ref:`site-set-configuration` and :ref:`typoscript-configuration`
         for more information.
 
+..  _finisher-config-requireApproveVerification:
+
+..  confval:: requireApproveVerification
+
+    :Required: false
+    :type: boolean
+    :Default: :yaml:`false`
+
+    ..  versionadded:: 2.3.0
+
+        `Feature #272 – Provide possibility for an additional verification step <https://github.com/eliashaeussler/typo3-form-consent/pull/272>`__
+
+    Enable or disable an additional required verification step for consent
+    approval. If enabled, users must verify their consent approval by
+    additionally clicking on a link on the consent validation page. This is
+    especially useful to avoid that automatic mail link scanners accidentally
+    approving a consent.
+
+..  _finisher-config-requireDismissVerification:
+
+..  confval:: requireDismissVerification
+
+    :Required: false
+    :type: boolean
+    :Default: :yaml:`false`
+
+    ..  versionadded:: 2.3.0
+
+        `Feature #272 – Provide possibility for an additional verification step <https://github.com/eliashaeussler/typo3-form-consent/pull/272>`__
+
+    Enable or disable an additional required verification step for consent
+    dismissal. If enabled, users must verify their consent dismissal by
+    additionally clicking on a link on the consent validation page. This is
+    especially useful to avoid that automatic mail link scanners accidentally
+    approving a consent.
+
 ..  _finisher-config-templateRootPaths:
 
 ..  confval:: templateRootPaths

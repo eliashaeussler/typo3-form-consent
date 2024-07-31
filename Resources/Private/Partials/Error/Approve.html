@@ -1,0 +1,43 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:switch expression="{reason}">
+    <f:case value="invalidConsent">
+        <f:render partial="Message" arguments="{
+            severity: 'danger',
+            titleKey: 'consent.approve.error.invalidConsent.title',
+            messageKey: 'consent.approve.error.invalidConsent.body'
+        }" />
+    </f:case>
+    <f:case value="invalidEmail">
+        <f:render partial="Message" arguments="{
+            severity: 'danger',
+            titleKey: 'consent.approve.error.invalidEmail.title',
+            messageKey: 'consent.approve.error.invalidEmail.body'
+        }" />
+    </f:case>
+    <f:case value="alreadyApproved">
+        <f:render partial="Message" arguments="{
+            severity: 'danger',
+            titleKey: 'consent.approve.error.alreadyApproved.title',
+            messageKey: 'consent.approve.error.alreadyApproved.body'
+        }" />
+    </f:case>
+    <f:case value="unexpectedError">
+        <f:render partial="Message" arguments="{
+            severity: 'danger',
+            titleKey: 'consent.approve.error.unexpectedError.title',
+            messageKey: 'consent.approve.error.unexpectedError.body',
+            arguments: {0: exception.code}
+        }" />
+    </f:case>
+    <f:defaultCase>
+        <f:render partial="Message" arguments="{
+            severity: 'danger',
+            titleKey: 'consent.approve.error.unknown.title',
+            messageKey: 'consent.approve.error.unknown.body'
+        }" />
+    </f:defaultCase>
+</f:switch>
+
+</html>

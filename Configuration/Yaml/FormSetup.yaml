@@ -109,6 +109,18 @@ TYPO3:
                           browsableType: pages
                           iconIdentifier: 'apps-pagetree-page-default'
                           propertyPath: 'options.storagePid'
+                        1100:
+                          identifier: 'requireApproveVerification'
+                          templateName: 'Inspector-CheckboxEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.requireApproveVerification.label'
+                          propertyPath: 'options.requireApproveVerification'
+                          fieldExplanationText: 'formEditor.elements.Form.finishers.Consent.editor.requireApproveVerification.fieldExplanationText'
+                        1200:
+                          identifier: 'requireDismissVerification'
+                          templateName: 'Inspector-CheckboxEditor'
+                          label: 'formEditor.elements.Form.finishers.Consent.editor.requireDismissVerification.label'
+                          propertyPath: 'options.requireDismissVerification'
+                          fieldExplanationText: 'formEditor.elements.Form.finishers.Consent.editor.requireDismissVerification.fieldExplanationText'
                         9999:
                           identifier: removeButton
                           templateName: Inspector-RemoveElementEditor
@@ -130,6 +142,8 @@ TYPO3:
                 showDismissLink: false
                 confirmationPid: ''
                 storagePid: ''
+                requireApproveVerification: false
+                requireDismissVerification: false
                 templateRootPaths: { }
                 partialRootPaths: { }
                 layoutRootPaths: { }
@@ -150,6 +164,8 @@ TYPO3:
                     showDismissLink: false
                     confirmationPid: ''
                     storagePid: ''
+                    requireApproveVerification: false
+                    requireDismissVerification: false
               FormEngine:
                 translationFiles:
                   1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
@@ -217,3 +233,11 @@ TYPO3:
                       size: 1
                       minitems: 1
                       maxitems: 1
+                  requireApproveVerification:
+                    label: 'tt_content.finishersDefinition.Consent.requireApproveVerification.label'
+                    config:
+                      type: 'check'
+                  requireDismissVerification:
+                    label: 'tt_content.finishersDefinition.Consent.requireDismissVerification.label'
+                    config:
+                      type: 'check'

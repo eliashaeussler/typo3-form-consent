@@ -55,6 +55,18 @@
 			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel" resname="formEditor.elements.Form.finishers.Consent.editor.storagePid.buttonLabel">
 				<source>Page</source>
 			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.requireApproveVerification.label" resname="formEditor.elements.Form.finishers.Consent.editor.requireApproveVerification.label">
+				<source>Require verification for consent approval</source>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.requireApproveVerification.fieldExplanationText" resname="formEditor.elements.Form.finishers.Consent.editor.requireApproveVerification.fieldExplanationText">
+				<source>Enable this checkbox if users must verify their consent approval by additionally clicking on a link on the consent validation page. This is especially useful to avoid that automatic mail link scanners accidentally approving a consent.</source>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.requireDismissVerification.label" resname="formEditor.elements.Form.finishers.Consent.editor.requireDismissVerification.label">
+				<source>Require verification for consent dismissal</source>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finishers.Consent.editor.requireDismissVerification.fieldExplanationText" resname="formEditor.elements.Form.finishers.Consent.editor.requireDismissVerification.fieldExplanationText">
+				<source>Enable this checkbox if users must verify their consent dismissal by additionally clicking on a link on the consent validation page. This is especially useful to avoid that automatic mail link scanners accidentally dismissing a consent.</source>
+			</trans-unit>
 
 			<trans-unit id="formEditor.elements.Form.finisher.Consent.editor.header.label" resname="formEditor.elements.Form.finisher.Consent.editor.header.label">
 				<source>Consent</source>
@@ -95,6 +107,12 @@
 			</trans-unit>
 			<trans-unit id="tt_content.finishersDefinition.Consent.storagePid.label" resname="tt_content.finishersDefinition.Consent.storagePid.label">
 				<source>Storage page</source>
+			</trans-unit>
+			<trans-unit id="tt_content.finishersDefinition.Consent.requireApproveVerification.label" resname="tt_content.finishersDefinition.Consent.requireApproveVerification.label">
+				<source>Require verification for consent approval</source>
+			</trans-unit>
+			<trans-unit id="tt_content.finishersDefinition.Consent.requireDismissVerification.label" resname="tt_content.finishersDefinition.Consent.requireDismissVerification.label">
+				<source>Require verification for consent dismissal</source>
 			</trans-unit>
 
 			<trans-unit id="validation.recipientAddress.empty" resname="validation.recipientAddress.empty">
