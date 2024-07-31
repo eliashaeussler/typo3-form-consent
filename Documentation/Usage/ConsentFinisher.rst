@@ -41,6 +41,8 @@ Example
           showDismissLink: true
           confirmationPid: '277'
           storagePid: '276'
+          requireApproveVerification: true
+          requireDismissVerification: true
       -
         identifier: SaveToDatabase
         options:

@@ -212,6 +212,28 @@ final class ConsentControllerCest
         $I->seeCurrentUrlEquals('/');
     }
 
+    public function canApproveConsentWithAdditionalVerificationStep(Tests\Acceptance\Support\AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Tests\Acceptance\Support\Helper\Form::VERIFY);
+
+        $I->amOnPage($this->approveUrl);
+        $I->see('Verify approval');
+
+        $I->click('Approve');
+        $I->see('Consent successful');
+    }
+
+    public function canDismissConsentWithAdditionalVerificationStep(Tests\Acceptance\Support\AcceptanceTester $I): void
+    {
+        $this->submitFormAndExtractUrls($I, Tests\Acceptance\Support\Helper\Form::VERIFY);
+
+        $I->amOnPage($this->dismissUrl);
+        $I->see('Verify dismissal');
+
+        $I->click('Dismiss');
+        $I->see('Consent successfully revoked');
+    }
+
     public function cannotApproveOrDismissAlreadyDismissedConsent(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $this->submitFormAndExtractUrls($I);

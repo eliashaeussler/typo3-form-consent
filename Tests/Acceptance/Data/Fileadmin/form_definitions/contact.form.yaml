@@ -19,6 +19,8 @@ finishers:
       showDismissLink: true
       confirmationPid: '2'
       storagePid: ''
+      requireApproveVerification: false
+      requireDismissVerification: false
     identifier: Consent
   -
     options:

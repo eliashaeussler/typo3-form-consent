@@ -48,7 +48,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
      * @throws Core\Http\PropagateResponseException
      * @throws Extbase\Persistence\Exception\UnknownObjectException
      */
-    public function approveAction(string $hash, string $email): Message\ResponseInterface
+    public function approveAction(string $hash, string $email, bool $verify = false): Message\ResponseInterface
     {
         $consent = $this->consentRepository->findOneByValidationHash($hash);
 
@@ -68,6 +68,13 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
         // Early return if consent is already approved
         if ($consent->isApproved()) {
             return $this->createErrorResponse('alreadyApproved');
+        }
+
+        // Render required user verification button
+        if ($verify) {
+            $this->view->assign('verificationNeeded', true);
+
+            return $this->createHtmlResponse();
         }
 
         // Register consent state
@@ -97,7 +104,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
      * @throws Core\Http\PropagateResponseException
      * @throws Extbase\Persistence\Exception\UnknownObjectException
      */
-    public function dismissAction(string $hash, string $email): Message\ResponseInterface
+    public function dismissAction(string $hash, string $email, bool $verify = false): Message\ResponseInterface
     {
         $consent = $this->consentRepository->findOneByValidationHash($hash);
 
@@ -112,6 +119,13 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
         // Early return if given email does not match registered email
         if ($consent->getEmail() !== $email) {
             return $this->createErrorResponse('invalidEmail');
+        }
+
+        // Render required user verification button
+        if ($verify) {
+            $this->view->assign('verificationNeeded', true);
+
+            return $this->createHtmlResponse();
         }
 
         // Register consent state

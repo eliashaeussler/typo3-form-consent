@@ -89,6 +89,26 @@
 			<trans-unit id="consent.dismiss.success.body" resname="consent.dismiss.success.body">
 				<source>You have successfully revoked your consent. You can now delete the email.</source>
 			</trans-unit>
+
+			<trans-unit id="verify.approve.header" resname="verify.approve.header">
+				<source>Verify approval</source>
+			</trans-unit>
+			<trans-unit id="verify.approve.text" resname="verify.approve.text">
+				<source>Please click on the link below to approve your consent.</source>
+			</trans-unit>
+			<trans-unit id="verify.approve.linkText" resname="verify.approve.linkText">
+				<source>Approve</source>
+			</trans-unit>
+
+			<trans-unit id="verify.dismiss.header" resname="verify.dismiss.header">
+				<source>Verify dismissal</source>
+			</trans-unit>
+			<trans-unit id="verify.dismiss.text" resname="verify.dismiss.text">
+				<source>Please click on the link below to dismiss your consent.</source>
+			</trans-unit>
+			<trans-unit id="verify.dismiss.linkText" resname="verify.dismiss.linkText">
+				<source>Dismiss</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

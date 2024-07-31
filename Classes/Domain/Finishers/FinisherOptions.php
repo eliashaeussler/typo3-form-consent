@@ -63,6 +63,8 @@ final class FinisherOptions implements \ArrayAccess
      *     confirmationPid?: int,
      *     storagePid?: int,
      *     showDismissLink?: bool,
+     *     requireApproveVerification?: bool,
+     *     requireDismissVerification?: bool,
      * }
      */
     private array $parsedOptions = [];
@@ -265,6 +267,18 @@ final class FinisherOptions implements \ArrayAccess
     {
         return $this->parsedOptions['showDismissLink']
             ?? $this->parsedOptions['showDismissLink'] = (bool)($this->optionFetcher)('showDismissLink');
+    }
+
+    public function requiresVerificationForApproval(): bool
+    {
+        return $this->parsedOptions['requireApproveVerification']
+            ?? $this->parsedOptions['requireApproveVerification'] = (bool)($this->optionFetcher)('requireApproveVerification');
+    }
+
+    public function requiresVerificationForDismissal(): bool
+    {
+        return $this->parsedOptions['requireDismissVerification']
+            ?? $this->parsedOptions['requireDismissVerification'] = (bool)($this->optionFetcher)('requireDismissVerification');
     }
 
     public function offsetExists($offset): bool

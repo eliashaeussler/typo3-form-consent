@@ -3,5 +3,5 @@
               extensionName="FormConsent"
               pluginName="Consent"
               absolute="1"
-              arguments="{hash: consent.validationHash, email: consent.email}"
+              arguments="{hash: consent.validationHash, email: consent.email, verify: verify}"
               pageUid="{pageUid}" /></f:format.raw>

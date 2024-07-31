@@ -1,15 +1,15 @@
 
 renderingOptions:
   submitButtonLabel: Submit
-identifier: contact-invalid
-label: 'contact invalid'
+identifier: contact-verify
+label: 'contact verify'
 type: Form
 prototypeName: standard
 finishers:
   -
     options:
       subject: ''
-      recipientAddress: ''
+      recipientAddress: '{email-1}'
       recipientName: ''
       senderAddress: ''
       senderName: ''
@@ -19,14 +19,32 @@ finishers:
       showDismissLink: true
       confirmationPid: '2'
       storagePid: ''
-      requireApproveVerification: false
-      requireDismissVerification: false
+      requireApproveVerification: true
+      requireDismissVerification: true
     identifier: Consent
   -
     options:
       message: 'Please approve your consent.'
       contentElementUid: ''
     identifier: Confirmation
+  -
+    options:
+      table: fe_users
+      mode: insert
+      databaseColumnMappings:
+        pid:
+          value: 1
+        tstamp:
+          value: '{__currentTimestamp}'
+        username:
+          value: 'consent {Consent.lastInsertedConsent.uid}'
+      elements:
+        email-1:
+          mapOnDatabaseColumn: email
+        fileupload-1:
+          mapOnDatabaseColumn: image
+          skipIfValueIsEmpty: true
+    identifier: SaveToDatabase
 renderables:
   -
     renderingOptions:

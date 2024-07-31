@@ -15,7 +15,11 @@
         {f:translate(key: 'consentMail.body.approve', extensionName: 'FormConsent')}
     </p>
     <p>
-        {f:render(partial: 'Link/Approve', arguments: '{consent: consent, pageUid: confirmationPid}')}
+        <f:render partial="Link/Approve" arguments="{
+            consent: consent,
+            pageUid: confirmationPid,
+            verify: requireApproveVerification
+        }" />
     </p>
 
     <f:if condition="{showDismissLink}">
@@ -24,7 +28,11 @@
             {f:translate(key: 'consentMail.body.dismiss', extensionName: 'FormConsent')}
         </p>
         <p>
-            {f:render(partial: 'Link/Dismiss', arguments: '{consent: consent, pageUid: confirmationPid}')}
+            <f:render partial="Link/Dismiss" arguments="{
+                consent: consent,
+                pageUid: confirmationPid,
+                verify: requireDismissVerification
+            }" />
         </p>
     </f:if>
 </f:section>
