@@ -234,6 +234,17 @@ final class ConsentControllerCest
         $I->see('Consent successfully revoked');
     }
 
+    public function canPreviewValidationPluginWithActiveBackendSession(Tests\Acceptance\Support\AcceptanceTester $I): void
+    {
+        $I->amOnPage('/confirmation');
+        $I->see('RequiredArgumentMissingException');
+
+        $I->loginAs('admin');
+
+        $I->amOnPage('/confirmation');
+        $I->see('This is a preview of the form_consent validation plugin without any functionality.');
+    }
+
     public function cannotApproveOrDismissAlreadyDismissedConsent(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $this->submitFormAndExtractUrls($I);
