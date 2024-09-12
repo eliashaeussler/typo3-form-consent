@@ -107,7 +107,7 @@ final class ConsentFactory
         $contentObjectRenderer = $request->getAttribute('currentContentObject');
 
         // @todo Remove if support for TYPO3 v11 is dropped
-        if ($contentObjectRenderer === null) {
+        if ($contentObjectRenderer === null && \method_exists($this->configurationManager, 'getContentObject')) {
             $contentObjectRenderer = $this->configurationManager->getContentObject();
         }
 

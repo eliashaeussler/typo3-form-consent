@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eec1bf7d97e2f296346caec59649e717",
+    "content-hash": "0fbf4c8f24ba702390519bd50ef91723",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -8897,7 +8897,21 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "typo3/cms-backend": 20,
+        "typo3/cms-core": 20,
+        "typo3/cms-extbase": 20,
+        "typo3/cms-fluid": 20,
+        "typo3/cms-form": 20,
+        "typo3/cms-frontend": 20,
+        "typo3/cms-install": 20,
+        "typo3/cms-dashboard": 20,
+        "typo3/cms-filelist": 20,
+        "typo3/cms-fluid-styled-content": 20,
+        "typo3/cms-lowlevel": 20,
+        "typo3/cms-scheduler": 20,
+        "typo3/cms-tstemplate": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
