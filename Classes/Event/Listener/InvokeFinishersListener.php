@@ -44,6 +44,8 @@ final class InvokeFinishersListener
     private readonly Core\Information\Typo3Version $typo3Version;
 
     public function __construct(
+        private readonly Extbase\Configuration\ConfigurationManagerInterface $extbaseConfigurationManager,
+        private readonly Form\Mvc\Configuration\ConfigurationManagerInterface $formConfigurationManager,
         private readonly Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
         private readonly Core\Domain\Repository\PageRepository $pageRepository,
     ) {
@@ -188,7 +190,20 @@ final class InvokeFinishersListener
 
     private function areFinisherVariantsConfigured(string $formPersistenceIdentifier, string $condition): bool
     {
-        $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier);
+        if ($this->typo3Version->getMajorVersion() >= 13) {
+            $typoScriptSettings = $this->extbaseConfigurationManager->getConfiguration(
+                Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+                'form',
+            );
+            $formSettings = $this->formConfigurationManager->getYamlConfiguration($typoScriptSettings, true);
+            $formConfiguration = $this->formPersistenceManager->load(
+                $formPersistenceIdentifier,
+                $formSettings,
+                $typoScriptSettings,
+            );
+        } else {
+            $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier);
+        }
 
         foreach ($formConfiguration['variants'] ?? [] as $variant) {
             if (str_contains($variant['condition'] ?? '', $condition) && isset($variant['finishers'])) {
