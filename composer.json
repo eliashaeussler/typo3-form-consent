@@ -37,6 +37,7 @@
 		"codeception/module-db": "^3.1",
 		"codeception/module-webdriver": "^4.0",
 		"eliashaeussler/typo3-codeception-helper": "^1.0",
+		"eliashaeussler/typo3-form-consent-test-extension": "1.0.0",
 		"helhum/config-loader": "^0.12.5",
 		"koehnlein/codeception-email-mailpit": "^0.3.0",
 		"phpunit/phpcov": "^9.0 || ^10.0",
@@ -56,6 +57,12 @@
 		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~11.5.16 || ~12.4.2 || ~13.3.0@dev)",
 		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~11.5.16 || ~12.4.2 || ~13.3.0@dev)"
 	},
+	"repositories": [
+		{
+			"type": "path",
+			"url": "Tests/Functional/Fixtures/Extensions/*"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"EliasHaeussler\\Typo3FormConsent\\": "Classes/"

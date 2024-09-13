@@ -71,8 +71,8 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
             $this->configurationManager,
         );
 
-        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/be_users.csv');
-        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.csv');
+        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
+        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/pages.csv');
 
         $backendUser = $this->setUpBackendUser(1);
         $GLOBALS['LANG'] = $this->get(Core\Localization\LanguageServiceFactory::class)->createFromUserPreferences($backendUser);

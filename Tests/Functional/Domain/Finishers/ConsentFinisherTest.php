@@ -24,13 +24,13 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Finishers;
 
 use EliasHaeussler\Typo3FormConsent as Src;
+use EliasHaeussler\Typo3FormConsent\Tests;
 use PHPUnit\Framework;
 use Symfony\Component\EventDispatcher;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Extbase;
 use TYPO3\CMS\Form;
 use TYPO3\CMS\Frontend;
-use TYPO3\TestingFramework;
 
 /**
  * ConsentFinisherTest
@@ -39,7 +39,7 @@ use TYPO3\TestingFramework;
  * @license GPL-2.0-or-later
  */
 #[Framework\Attributes\CoversClass(Src\Domain\Finishers\ConsentFinisher::class)]
-final class ConsentFinisherTest extends TestingFramework\Core\Functional\FunctionalTestCase
+final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
         'form',
@@ -70,7 +70,7 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
         $this->consentRepository = $this->get(Src\Domain\Repository\ConsentRepository::class);
         $this->subject = new Src\Domain\Finishers\ConsentFinisher(
             new Src\Domain\Factory\ConsentFactory(
-                $this->get(Extbase\Configuration\ConfigurationManagerInterface::class),
+                $this->configurationManager,
                 $this->get(Core\Context\Context::class),
                 $this->eventDispatcher,
                 $this->get(Src\Type\Transformer\FormRequestTypeTransformer::class),
@@ -98,11 +98,12 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
         ]);
         $this->typo3Version = new Core\Information\Typo3Version();
 
-        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/be_users.csv');
-        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/pages.csv');
+        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
 
         $backendUser = $this->setUpBackendUser(1);
-        $GLOBALS['LANG'] = $this->get(Core\Localization\LanguageServiceFactory::class)->createFromUserPreferences($backendUser);
+        $GLOBALS['LANG'] = $this->get(Core\Localization\LanguageServiceFactory::class)
+            ->createFromUserPreferences($backendUser)
+        ;
     }
 
     #[Framework\Attributes\Test]
@@ -141,20 +142,12 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
             $typoScriptFrontendController->fe_user = $frontendUserAuthentication;
         }
 
-        // Create basic request
-        $request = new Core\Http\ServerRequest();
-        $request = $request->withAttribute('extbase', new Extbase\Mvc\ExtbaseRequestParameters());
-        $request = $request->withAttribute('applicationType', Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_FE);
-        $request = $request->withAttribute('frontend.user', $frontendUserAuthentication);
-        $request = $request->withAttribute('currentContentObject', $this->get(Frontend\ContentObject\ContentObjectRenderer::class));
-        $extbaseRequest = new Extbase\Mvc\Request($request);
-
         // Load form and build form runtime
         $formFactory = $this->get(Form\Domain\Factory\FormFactoryInterface::class);
         $formPersistenceManager = $this->get(Form\Mvc\Persistence\FormPersistenceManagerInterface::class);
-        $formDefinitionArray = $formPersistenceManager->load('1:form_definitions/contact.form.yaml');
+        $formDefinitionArray = $formPersistenceManager->load('1:form_definitions/contact.form.yaml', [], []);
         $formDefinition = $formFactory->build($formDefinitionArray);
-        $formRuntime = $formDefinition->bind($extbaseRequest);
+        $formRuntime = $formDefinition->bind($this->request);
 
         $constructorArguments = [
             $formRuntime,
@@ -165,7 +158,7 @@ final class ConsentFinisherTest extends TestingFramework\Core\Functional\Functio
             $constructorArguments[] = new Extbase\Mvc\Controller\ControllerContext();
         }
 
-        $constructorArguments[] = $extbaseRequest;
+        $constructorArguments[] = $this->request;
 
         return new Form\Domain\Finishers\FinisherContext(...$constructorArguments);
     }
