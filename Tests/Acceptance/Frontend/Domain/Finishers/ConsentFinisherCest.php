@@ -41,7 +41,7 @@ final class ConsentFinisherCest
 
     public function canSubmitForm(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
-        $numberOfFormFixtures = $this->getNumberOfFormFixtures($I);
+        $numberOfPersistedFiles = $I->grabNumRecords('sys_file');
 
         $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::DEFAULT, true);
 
@@ -50,7 +50,7 @@ final class ConsentFinisherCest
         $I->seeInDatabase(
             Src\Domain\Model\Consent::TABLE_NAME,
             [
-                'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
+                'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfPersistedFiles + 1) . '}',
                 'email' => 'user@example.com',
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
@@ -60,7 +60,7 @@ final class ConsentFinisherCest
 
     public function canUseLastInsertedConsentFromFinisherVariableProvider(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
-        $numberOfFormFixtures = $this->getNumberOfFormFixtures($I);
+        $numberOfPersistedFiles = $I->grabNumRecords('sys_file');
 
         $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::DEFAULT, true);
 
@@ -70,7 +70,7 @@ final class ConsentFinisherCest
             Src\Domain\Model\Consent::TABLE_NAME,
             'uid',
             [
-                'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
+                'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfPersistedFiles + 1) . '}',
                 'email' => 'user@example.com',
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
@@ -82,7 +82,7 @@ final class ConsentFinisherCest
             [
                 'username' => 'consent ' . $uid,
                 'email' => 'user@example.com',
-                'image' => $numberOfFormFixtures + 1,
+                'image' => $numberOfPersistedFiles + 1,
             ]
         );
     }
@@ -175,21 +175,5 @@ final class ConsentFinisherCest
         $I->fillAndSubmitForm(Tests\Acceptance\Support\Helper\Form::INVALID);
 
         $I->waitForText('The finisher option "recipientAddress" must be set.', 5);
-    }
-
-    private function getNumberOfFormFixtures(Tests\Acceptance\Support\AcceptanceTester $I): int
-    {
-        $fixtureFiles = glob(\dirname(__DIR__, 3) . '/Data/Fileadmin/form_definitions/*.form.yaml');
-
-        if ($fixtureFiles === false) {
-            $I->fail('Unable to determine number of form fixtures.');
-
-            // Actually, this is superfluous as $I->fail() exists and will never
-            // reach this return. However, since PHPStan does not (yet) understand
-            // Codeception's internal logic, we must teach it ourselves.
-            return 0;
-        }
-
-        return \count($fixtureFiles);
     }
 }
