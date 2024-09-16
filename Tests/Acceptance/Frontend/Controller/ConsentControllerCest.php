@@ -45,6 +45,10 @@ final class ConsentControllerCest
         $queryParams = $I->extractQueryParametersFromUrl($this->approveUrl);
         $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
 
+        // @todo Remove once support for TYPO3 v12 is dropped
+        $typo3Version = new Core\Information\Typo3Version();
+        $expectedValidUntil = $typo3Version->getMajorVersion() >= 13 ? 0 : null;
+
         $I->amOnPage($this->approveUrl);
 
         $I->see('Consent successful');
@@ -59,7 +63,7 @@ final class ConsentControllerCest
                 'original_content_element_uid' => 1,
                 'original_request_parameters !=' => null,
                 'validation_hash' => $hash,
-                'valid_until' => null,
+                'valid_until' => $expectedValidUntil,
             ]
         );
     }
