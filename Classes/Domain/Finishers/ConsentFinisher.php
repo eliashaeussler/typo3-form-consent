@@ -140,18 +140,11 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
 
     private function addFlashMessage(\Exception $exception): void
     {
-        if (class_exists(Core\Type\ContextualFeedbackSeverity::class)) {
-            $severity = Core\Type\ContextualFeedbackSeverity::ERROR;
-        } else {
-            // @todo Remove once support for TYPO3 v11 is dropped
-            $severity = Core\Messaging\AbstractMessage::ERROR;
-        }
-
         $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
         $flashMessageFinisher = $formDefinition->createFinisher('FlashMessage', [
             'messageBody' => $exception->getMessage(),
             'messageCode' => $exception->getCode(),
-            'severity' => $severity,
+            'severity' => Core\Type\ContextualFeedbackSeverity::ERROR,
         ]);
         $flashMessageFinisher->execute($this->finisherContext);
 

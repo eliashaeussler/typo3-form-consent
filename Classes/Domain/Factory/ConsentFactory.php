@@ -41,7 +41,6 @@ use TYPO3\CMS\Form;
 final class ConsentFactory
 {
     public function __construct(
-        private readonly Extbase\Configuration\ConfigurationManagerInterface $configurationManager,
         private readonly Core\Context\Context $context,
         private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
         private readonly Type\Transformer\FormRequestTypeTransformer $formRequestTypeTransformer,
@@ -105,11 +104,6 @@ final class ConsentFactory
     private function getCurrentContentElementUid(Extbase\Mvc\RequestInterface $request): int
     {
         $contentObjectRenderer = $request->getAttribute('currentContentObject');
-
-        // @todo Remove if support for TYPO3 v11 is dropped
-        if ($contentObjectRenderer === null && \method_exists($this->configurationManager, 'getContentObject')) {
-            $contentObjectRenderer = $this->configurationManager->getContentObject();
-        }
 
         if ($contentObjectRenderer !== null) {
             return (int)($contentObjectRenderer->data['uid'] ?? 0);

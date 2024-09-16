@@ -101,12 +101,13 @@ final class InvokeFinishersListener
 
         // Build extbase bootstrap object
         $contentObjectRenderer = Core\Utility\GeneralUtility::makeInstance(Frontend\ContentObject\ContentObjectRenderer::class);
-        $contentObjectRenderer->start($contentElementRecord, 'tt_content', $serverRequest);
+        $contentObjectRenderer->setRequest($serverRequest);
+        $contentObjectRenderer->start($contentElementRecord, 'tt_content');
         $contentObjectRenderer->setUserObjectType(Frontend\ContentObject\ContentObjectRenderer::OBJECTTYPE_USER_INT);
         $bootstrap = Core\Utility\GeneralUtility::makeInstance(Extbase\Core\Bootstrap::class);
         $bootstrap->setContentObjectRenderer($contentObjectRenderer);
 
-        // Inject content object renderer (TYPO3 >= 12)
+        // Inject content object renderer
         $serverRequest = $serverRequest->withAttribute('currentContentObject', $contentObjectRenderer);
 
         $configuration = [

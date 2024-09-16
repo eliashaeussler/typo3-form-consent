@@ -53,7 +53,7 @@ return static function (RectorConfig $rectorConfig): void {
         )
         ->withPHPUnit()
         ->withSymfony()
-        ->withTYPO3(Version::createMajor(11))
+        ->withTYPO3(Version::createMajor(12))
         ->skip(AnnotationToAttributeRector::class, [
             $rootPath . '/Classes/Extension.php',
             $rootPath . '/Classes/Updates/MigrateConsentStateUpgradeWizard.php',

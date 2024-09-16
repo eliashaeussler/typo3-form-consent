@@ -22,26 +22,6 @@
 $tableName = \EliasHaeussler\Typo3FormConsent\Domain\Model\Consent::TABLE_NAME;
 $typo3Version = (new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion();
 
-// @todo Remove once support for TYPO3 v11 is dropped
-$evalRequired = fn(string $eval = '') => $typo3Version < 12 ? $eval : ltrim($eval . ',required', ',');
-$stateItem = function (
-    string $item,
-    \EliasHaeussler\Typo3FormConsent\Enums\ConsentState $state,
-    string $icon,
-) use ($tableName, $typo3Version) {
-    $label = \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, $item);
-
-    if ($typo3Version < 12) {
-        return [$label, $state->value, $icon];
-    }
-
-    return [
-        'label' => $label,
-        'value' => $state->value,
-        'icon' => $icon,
-    ];
-};
-
 return [
     'ctrl' => [
         'label' => 'email',
@@ -60,7 +40,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => $evalRequired('trim'),
+                'eval' => 'trim',
                 'softref' => 'email[subst]',
                 'readOnly' => true,
                 'required' => true,
@@ -69,22 +49,13 @@ return [
         'date' => [
             'exclude' => true,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('date', $tableName),
-            'config' => $typo3Version < 12
-                // @todo Remove once support for TYPO3 v11 is dropped
-                ? [
-                    'type' => 'input',
-                    'renderType' => 'inputDateTime',
-                    'eval' => 'datetime,int,required',
-                    'default' => 0,
-                    'readOnly' => true,
-                ]
-                : [
-                    'type' => 'datetime',
-                    'format' => 'datetime',
-                    'default' => 0,
-                    'readOnly' => true,
-                    'required' => true,
-                ],
+            'config' => [
+                'type' => 'datetime',
+                'format' => 'datetime',
+                'default' => 0,
+                'readOnly' => true,
+                'required' => true,
+            ],
         ],
         'data' => [
             'exclude' => true,
@@ -100,7 +71,6 @@ return [
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('form_persistence_identifier', $tableName),
             'config' => [
                 'type' => 'input',
-                'eval' => $evalRequired(),
                 'softref' => 'formPersistenceIdentifier',
                 'readOnly' => true,
                 'required' => true,
@@ -133,21 +103,21 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    $stateItem(
-                        'new',
-                        \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New,
-                        'overlay-scheduled',
-                    ),
-                    $stateItem(
-                        'approved',
-                        \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Approved,
-                        'overlay-approved',
-                    ),
-                    $stateItem(
-                        'dismissed',
-                        \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Dismissed,
-                        'overlay-readonly',
-                    ),
+                    [
+                        'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'new'),
+                        'value' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
+                        'icon' => 'overlay-scheduled',
+                    ],
+                    [
+                        'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'approved'),
+                        'value' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Approved->value,
+                        'icon' => 'overlay-approved',
+                    ],
+                    [
+                        'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'dismissed'),
+                        'value' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Dismissed->value,
+                        'icon' => 'overlay-readonly',
+                    ],
                 ],
                 'default' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
                 'readOnly' => true,
@@ -157,41 +127,23 @@ return [
             'exclude' => true,
             'displayCond' => 'FIELD:state:>:' . \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('update_date', $tableName),
-            'config' => $typo3Version < 12
-                // @todo Remove once support for TYPO3 v11 is dropped
-                ? [
-                    'type' => 'input',
-                    'renderType' => 'inputDateTime',
-                    'eval' => 'datetime,int',
-                    'default' => 0,
-                    'readOnly' => true,
-                ]
-                : [
-                    'type' => 'datetime',
-                    'format' => 'datetime',
-                    'default' => 0,
-                    'readOnly' => true,
-                ],
+            'config' => [
+                'type' => 'datetime',
+                'format' => 'datetime',
+                'default' => 0,
+                'readOnly' => true,
+            ],
         ],
         'valid_until' => [
             'exclude' => true,
             'displayCond' => 'FIELD:state:=:' . \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
             'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('valid_until', $tableName),
-            'config' => $typo3Version < 12
-                // @todo Remove once support for TYPO3 v11 is dropped
-                ? [
-                    'type' => 'input',
-                    'renderType' => 'inputDateTime',
-                    'eval' => 'datetime,int',
-                    'default' => 0,
-                    'readOnly' => true,
-                ]
-                : [
-                    'type' => 'datetime',
-                    'format' => 'datetime',
-                    'default' => 0,
-                    'readOnly' => true,
-                ],
+            'config' => [
+                'type' => 'datetime',
+                'format' => 'datetime',
+                'default' => 0,
+                'readOnly' => true,
+            ],
         ],
         'validation_hash' => [
             'exclude' => true,

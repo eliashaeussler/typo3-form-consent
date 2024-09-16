@@ -46,8 +46,7 @@ abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Co
 
     protected const BASE_FRONTEND_URL = 'https://typo3-ext-form-consent.ddev.site/';
 
-    protected Message\ServerRequestInterface $request;
-    protected Extbase\Configuration\ConfigurationManagerInterface $configurationManager;
+    protected Extbase\Mvc\Request $request;
 
     protected function setUp(): void
     {
@@ -70,7 +69,7 @@ abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Co
         parent::tearDown();
     }
 
-    protected function provideServerRequest(): Message\ServerRequestInterface
+    protected function provideServerRequest(): Extbase\Mvc\Request
     {
         // Import data
         $this->importCSVDataSet(__DIR__ . '/Fixtures/Database/pages.csv');
@@ -94,17 +93,11 @@ abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Co
 
     protected function prepareExtbaseEnvironment(Message\ServerRequestInterface $request): void
     {
-        $this->configurationManager = $this->get(Extbase\Configuration\ConfigurationManagerInterface::class);
-        $this->configurationManager->setRequest($request);
-    }
+        $configurationManager = $this->get(Extbase\Configuration\ConfigurationManagerInterface::class);
 
-    private function addRequiredPaths(): void
-    {
-        $requiredPaths = \array_diff_assoc(self::REQUIRED_PATHS, $this->pathsToProvideInTestInstance);
+        self::assertInstanceOf(Extbase\Configuration\ConfigurationManager::class, $configurationManager);
 
-        foreach ($requiredPaths as $pathToCopy => $targetPath) {
-            $this->pathsToProvideInTestInstance[$pathToCopy] = $targetPath;
-        }
+        $configurationManager->setRequest($request);
     }
 
     private function addRequiredExtensions(): void

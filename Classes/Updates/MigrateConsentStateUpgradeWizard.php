@@ -225,13 +225,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     private function getOutdatedColumns(): array
     {
         $legacyColumns = [];
-
-        if (method_exists($this->connection, 'createSchemaManager')) {
-            $schemaManager = $this->connection->createSchemaManager();
-        } else {
-            // @todo Remove once support for TYPO3 v11 is dropped
-            $schemaManager = $this->connection->getSchemaManager();
-        }
+        $schemaManager = $this->connection->createSchemaManager();
 
         foreach ($schemaManager->listTableColumns(Domain\Model\Consent::TABLE_NAME) as $column) {
             $columnName = $column->getName();

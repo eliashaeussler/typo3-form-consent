@@ -70,7 +70,6 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
         $this->consentRepository = $this->get(Src\Domain\Repository\ConsentRepository::class);
         $this->subject = new Src\Domain\Finishers\ConsentFinisher(
             new Src\Domain\Factory\ConsentFactory(
-                $this->configurationManager,
                 $this->get(Core\Context\Context::class),
                 $this->eventDispatcher,
                 $this->get(Src\Type\Transformer\FormRequestTypeTransformer::class),
@@ -137,29 +136,26 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
         $typoScriptFrontendController->method('sL')->willReturn('dummy');
         $typoScriptFrontendController->id = 1;
 
-        // @todo Remove once support for TYPO3 v11 and v12 is dropped
-        if ($this->typo3Version->getMajorVersion() < 13) {
+        // Arguments for $formPersistenceManager->load()
+        $persistenceManagerLoadArguments = [
+            '1:form_definitions/contact.form.yaml',
+        ];
+
+        // @todo Remove once support for TYPO3 v12 is dropped
+        if ($this->typo3Version->getMajorVersion() >= 13) {
+            $persistenceManagerLoadArguments[] = [];
+            $persistenceManagerLoadArguments[] = [];
+        } else {
             $typoScriptFrontendController->fe_user = $frontendUserAuthentication;
         }
 
         // Load form and build form runtime
         $formFactory = $this->get(Form\Domain\Factory\FormFactoryInterface::class);
         $formPersistenceManager = $this->get(Form\Mvc\Persistence\FormPersistenceManagerInterface::class);
-        $formDefinitionArray = $formPersistenceManager->load('1:form_definitions/contact.form.yaml', [], []);
+        $formDefinitionArray = $formPersistenceManager->load(...$persistenceManagerLoadArguments);
         $formDefinition = $formFactory->build($formDefinitionArray);
         $formRuntime = $formDefinition->bind($this->request);
 
-        $constructorArguments = [
-            $formRuntime,
-        ];
-
-        // @todo Remove once support for TYPO3 v11 is dropped
-        if ($this->typo3Version->getMajorVersion() < 12) {
-            $constructorArguments[] = new Extbase\Mvc\Controller\ControllerContext();
-        }
-
-        $constructorArguments[] = $this->request;
-
-        return new Form\Domain\Finishers\FinisherContext(...$constructorArguments);
+        return new Form\Domain\Finishers\FinisherContext($formRuntime, $this->request);
     }
 }

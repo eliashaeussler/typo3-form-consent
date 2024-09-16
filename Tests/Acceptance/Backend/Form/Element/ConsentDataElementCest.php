@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend\Form\Element;
 
 use EliasHaeussler\Typo3FormConsent\Tests;
-use TYPO3\CMS\Core;
 
 /**
  * ConsentDataElementCest
@@ -36,20 +35,11 @@ final class ConsentDataElementCest
 {
     public function canSeeConsentInBackendListModule(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
-        $typo3Version = new Core\Information\Typo3Version();
-
-        if ($typo3Version->getMajorVersion() >= 12) {
-            $moduleIdentifier = Tests\Acceptance\Support\Enums\Selectors::ListModule->value;
-        } else {
-            // @todo Remove once support for TYPO3 v11 is dropped
-            $moduleIdentifier = Tests\Acceptance\Support\Enums\Selectors::ListModuleV11->value;
-        }
-
         $I->amOnPage('/');
         $I->fillAndSubmitForm();
 
         $I->loginAs('admin');
-        $I->openModule($moduleIdentifier);
+        $I->openModule(Tests\Acceptance\Support\Enums\Selectors::ListModule->value);
 
         $I->seeElement(Tests\Acceptance\Support\Enums\Selectors::ConsentListCollapsible->value);
         $I->click(Tests\Acceptance\Support\Enums\Selectors::ConsentListItemTitle->value);
