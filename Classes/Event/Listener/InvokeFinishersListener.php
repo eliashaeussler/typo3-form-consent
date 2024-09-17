@@ -52,12 +52,16 @@ final class InvokeFinishersListener
         $this->typo3Version = new Core\Information\Typo3Version();
     }
 
+    // @todo Enable attribute once support for TYPO3 v12 is dropped
+    // #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentApproveListener')]
     public function onConsentApprove(Event\ApproveConsentEvent $event): void
     {
         $response = $this->invokeFinishers($event->getConsent(), 'isConsentApproved()');
         $event->setResponse($response);
     }
 
+    // @todo Enable attribute once support for TYPO3 v12 is dropped
+    // #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentDismissListener')]
     public function onConsentDismiss(Event\DismissConsentEvent $event): void
     {
         $response = $this->invokeFinishers($event->getConsent(), 'isConsentDismissed()');

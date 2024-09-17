@@ -27,6 +27,7 @@ use Doctrine\DBAL;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Enums;
 use Symfony\Component\Console;
+use Symfony\Component\DependencyInjection;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Install;
 
@@ -52,6 +53,7 @@ use TYPO3\CMS\Install;
  * }
  */
 #[Install\Attribute\UpgradeWizard(MigrateConsentStateUpgradeWizard::IDENTIFIER)]
+#[DependencyInjection\Attribute\Autoconfigure(public: true, shared: false)]
 final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeWizardInterface, Install\Updates\ChattyInterface
 {
     public const IDENTIFIER = 'formConsentMigrateConsentState';
@@ -64,6 +66,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     private Console\Output\OutputInterface $output;
 
     public function __construct(
+        #[DependencyInjection\Attribute\Autowire('@connection.tx_formconsent_domain_model_consent')]
         private readonly Core\Database\Connection $connection,
     ) {}
 
