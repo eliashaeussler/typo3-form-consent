@@ -134,7 +134,7 @@ final class InvokeFinishersListener
      */
     private function migrateOriginalRequestParameters(Type\JsonType $originalRequestParameters): Type\JsonType
     {
-        // Migration is only needed when upgrading from TYPO3 < v13
+        // @todo Remove once support for TYPO3 v12 is dropped
         if ($this->typo3Version->getMajorVersion() < 13) {
             return $originalRequestParameters;
         }
@@ -203,6 +203,7 @@ final class InvokeFinishersListener
                 $typoScriptSettings,
             );
         } else {
+            // @todo Remove once support for TYPO3 v12 is dropped
             $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier);
         }
 

@@ -38,7 +38,7 @@ final class HmacHashMigration
 
     public function __construct()
     {
-        // We cannot use DI here because EXT:core HashService exists for TYPO3 >= v13 only
+        // @todo Use DI once support for TYPO3 v12 is dropped
         $this->coreHashService = Core\Utility\GeneralUtility::makeInstance(Core\Crypto\HashService::class);
     }
 

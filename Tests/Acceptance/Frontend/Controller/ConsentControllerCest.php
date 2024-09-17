@@ -129,6 +129,7 @@ final class ConsentControllerCest
     public function canApproveConsentAndMigrateHmacHashesBeforeInvokingFinishers(
         Tests\Acceptance\Support\AcceptanceTester $I,
     ): void {
+        // @todo Remove once support for TYPO3 v12 is dropped
         if ((new Core\Information\Typo3Version())->getMajorVersion() < 13) {
             $I->markTestSkipped('Test can be executed on TYPO3 >= 13 only.');
         }
