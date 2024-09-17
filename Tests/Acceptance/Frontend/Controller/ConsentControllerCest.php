@@ -181,9 +181,6 @@ final class ConsentControllerCest
         $I->amOnPage($this->approveUrl);
 
         $I->see('Thanks for your consent.');
-
-        var_dump($originalRequestParameters);
-        var_dump($legacyRequestParameters);
     }
 
     public function canDismissConsentAndInvokeConfirmationFinisher(Tests\Acceptance\Support\AcceptanceTester $I): void
