@@ -92,17 +92,6 @@ final class Extension
     }
 
     /**
-     * Register custom icons.
-     *
-     * FOR USE IN ext_localconf.php ONLY.
-     */
-    public static function registerIcons(): void
-    {
-        Configuration\Icon::registerForPluginIdentifier(self::PLUGIN);
-        Configuration\Icon::registerForWidgetIdentifier('approvedConsents');
-    }
-
-    /**
      * Register garbage collection task for consent table.
      *
      * FOR USE IN ext_localconf.php ONLY.

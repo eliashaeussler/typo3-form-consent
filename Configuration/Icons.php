@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
  *
@@ -19,9 +21,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    \EliasHaeussler\Typo3FormConsent\Extension::NAME,
-    \EliasHaeussler\Typo3FormConsent\Extension::PLUGIN,
-    \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forPlugin('Consent'),
-    'content-plugin-consent',
-);
+namespace EliasHaeussler\Typo3FormConsent;
+
+use TYPO3\CMS\Core;
+
+return [
+    'content-plugin-consent' => [
+        'provider' => Core\Imaging\IconProvider\SvgIconProvider::class,
+        'source' => 'EXT:form_consent/Resources/Public/Icons/plugin.consent.svg',
+    ],
+    'content-widget-approved-consents' => [
+        'provider' => Core\Imaging\IconProvider\SvgIconProvider::class,
+        'source' => 'EXT:form_consent/Resources/Public/Icons/widget.approvedConsents.svg',
+    ],
+];

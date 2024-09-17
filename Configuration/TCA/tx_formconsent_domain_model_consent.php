@@ -20,7 +20,6 @@
  */
 
 $tableName = \EliasHaeussler\Typo3FormConsent\Domain\Model\Consent::TABLE_NAME;
-$typo3Version = (new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion();
 
 return [
     'ctrl' => [
@@ -29,7 +28,7 @@ return [
         'crdate' => 'crdate',
         'title' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forTable($tableName),
         'delete' => 'deleted',
-        'iconfile' => \EliasHaeussler\Typo3FormConsent\Configuration\Icon::forTable($tableName),
+        'iconfile' => 'EXT:form_consent/Resources/Public/Icons/tx_formconsent_domain_model_consent.svg',
         'searchFields' => 'email, data, form_persistence_identifier, validation_hash',
         'default_sortby' => 'date DESC',
     ],

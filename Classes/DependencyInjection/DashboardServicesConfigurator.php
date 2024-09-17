@@ -66,7 +66,7 @@ final class DashboardServicesConfigurator
                 'groupNames' => 'general',
                 'title' => Configuration\Localization::forWidget('approvedConsents', 'header'),
                 'description' => Configuration\Localization::forWidget('approvedConsents', 'body'),
-                'iconIdentifier' => Configuration\Icon::forWidgetIdentifier('approvedConsents'),
+                'iconIdentifier' => 'content-widget-approved-consents',
                 'height' => 'medium',
                 'width' => 'small',
             ]);
