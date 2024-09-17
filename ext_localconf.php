@@ -23,4 +23,3 @@
 \EliasHaeussler\Typo3FormConsent\Extension::registerPageTsConfig();
 \EliasHaeussler\Typo3FormConsent\Extension::registerPlugin();
 \EliasHaeussler\Typo3FormConsent\Extension::registerGarbageCollectionTask();
-\EliasHaeussler\Typo3FormConsent\Extension::registerUpgradeWizards();
