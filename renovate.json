@@ -6,5 +6,18 @@
 	],
 	"constraints": {
 		"php": "8.1.*"
-	}
+	},
+	"packageRules": [
+		{
+			"extends": [
+				":disableRenovate"
+			],
+			"matchDatasources": [
+				"packagist"
+			],
+			"matchPackageNames": [
+				"eliashaeussler/typo3-form-consent-test-extension"
+			]
+		}
+	]
 }
