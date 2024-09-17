@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eec1bf7d97e2f296346caec59649e717",
+    "content-hash": "0636f4d0b92e734408318e0b4843bcbb",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6360,6 +6360,32 @@
                 "source": "https://github.com/eliashaeussler/typo3-codeception-helper/tree/1.1.1"
             },
             "time": "2024-01-17T12:32:13+00:00"
+        },
+        {
+            "name": "eliashaeussler/typo3-form-consent-test-extension",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "Tests/Functional/Fixtures/Extensions/test_extension",
+                "reference": "13d2fb2aec60733c0506e7db36ab4b4ca9e01102"
+            },
+            "require": {
+                "eliashaeussler/typo3-form-consent": "*@dev"
+            },
+            "type": "typo3-cms-extension",
+            "extra": {
+                "typo3/cms": {
+                    "extension-key": "test_extension"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "EliasHaeussler\\Typo3FormConsent\\TestExtension\\": "Classes/"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "helhum/config-loader",

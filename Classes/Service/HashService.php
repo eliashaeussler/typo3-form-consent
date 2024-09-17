@@ -45,6 +45,7 @@ final class HashService
         $hashComponents = [
             $consent->getDate()->getTimestamp(),
         ];
+
         if ($consent->getData() !== null) {
             $hashComponents[] = (string)$consent->getData();
         }
@@ -59,7 +60,19 @@ final class HashService
             return $hash;
         }
 
-        return Core\Utility\GeneralUtility::hmac(implode('_', $event->getComponents()), $consent->getEmail());
+        $hashInput = implode('_', $event->getComponents());
+        $hashSecret = $consent->getEmail();
+
+        // @todo Remove once support for TYPO3 v12 is dropped
+        if (!\class_exists(Core\Crypto\HashService::class)) {
+            return Core\Utility\GeneralUtility::hmac($hashInput, $hashSecret);
+        }
+
+        // @todo Use DI once support for TYPO3 v12 is dropped
+        /** @var Core\Crypto\HashService $hashService */
+        $hashService = Core\Utility\GeneralUtility::makeInstance(Core\Crypto\HashService::class);
+
+        return $hashService->hmac($hashInput, $hashSecret);
     }
 
     public function isValid(Domain\Model\Consent $consent, string $hash = null): bool

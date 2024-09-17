@@ -59,7 +59,7 @@ final class Extension
      *
      * FOR USE IN ext_localconf.php ONLY.
      *
-     * @todo Remove once support for TYPO3 v11 and v12 is dropped
+     * @todo Remove once support for TYPO3 v12 is dropped
      */
     public static function registerPageTsConfig(): void
     {
@@ -92,17 +92,6 @@ final class Extension
     }
 
     /**
-     * Register custom icons.
-     *
-     * FOR USE IN ext_localconf.php ONLY.
-     */
-    public static function registerIcons(): void
-    {
-        Configuration\Icon::registerForPluginIdentifier(self::PLUGIN);
-        Configuration\Icon::registerForWidgetIdentifier('approvedConsents');
-    }
-
-    /**
      * Register garbage collection task for consent table.
      *
      * FOR USE IN ext_localconf.php ONLY.
@@ -116,22 +105,5 @@ final class Extension
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables'][Domain\Model\Consent::TABLE_NAME] = [
             'expireField' => 'valid_until',
         ];
-    }
-
-    /**
-     * Register upgrade wizards.
-     *
-     * FOR USE IN ext_localconf.php ONLY.
-     *
-     * @todo Remove once support for TYPO3 v11 and v12 is dropped (TYPO3 >= v13 uses attributes)
-     */
-    public static function registerUpgradeWizards(): void
-    {
-        if ((new Core\Information\Typo3Version())->getMajorVersion() >= 13) {
-            return;
-        }
-
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][Updates\MigrateConsentStateUpgradeWizard::IDENTIFIER]
-            = Updates\MigrateConsentStateUpgradeWizard::class;
     }
 }

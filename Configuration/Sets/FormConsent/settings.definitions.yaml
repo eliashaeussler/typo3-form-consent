@@ -1,17 +1,24 @@
+categories:
+  form_consent: ~
+  form_consent.templates:
+    parent: form_consent
+  form_consent.persistence:
+    parent: form_consent
+
 settings:
   plugin.tx_formconsent.view.templateRootPath:
     default: ''
-    label: 'Path to template root (FE)'
     type: string
+    category: form_consent.templates
   plugin.tx_formconsent.view.partialRootPath:
     default: ''
-    label: 'Path to template partials (FE)'
     type: string
+    category: form_consent.templates
   plugin.tx_formconsent.view.layoutRootPath:
     default: ''
-    label: 'Path to template layouts (FE)'
     type: string
+    category: form_consent.templates
   plugin.tx_formconsent.persistence.storagePid:
     default: 0
-    label: 'Default storage PID for consent data'
     type: int
+    category: form_consent.persistence

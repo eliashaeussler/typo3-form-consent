@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:form_consent/Configuration/Sets/FormConsent/labels.xlf" date="2024-09-12T20:05:00Z" product-name="form_consent">
+		<header/>
+		<body>
+			<trans-unit id="label" resname="label">
+				<source>Form Consent</source>
+			</trans-unit>
+
+			<trans-unit id="categories.form_consent" resname="categories.form_consent">
+				<source>Form Consent</source>
+			</trans-unit>
+			<trans-unit id="categories.form_consent.templates" resname="categories.form_consent.templates">
+				<source>Templates</source>
+			</trans-unit>
+			<trans-unit id="categories.form_consent.persistence" resname="categories.form_consent.persistence">
+				<source>Persistence</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_formconsent.view.templateRootPath" resname="settings.plugin.tx_formconsent.view.templateRootPath">
+				<source>Path to template root (FE)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_formconsent.view.partialRootPath" resname="settings.plugin.tx_formconsent.view.partialRootPath">
+				<source>Path to template partials (FE)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_formconsent.view.layoutRootPath" resname="settings.plugin.tx_formconsent.view.layoutRootPath">
+				<source>Path to template layouts (FE)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_formconsent.persistence.storagePid" resname="settings.plugin.tx_formconsent.persistence.storagePid">
+				<source>Default storage PID for consent data</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

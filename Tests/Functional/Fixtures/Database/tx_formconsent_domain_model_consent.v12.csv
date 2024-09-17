@@ -1,6 +1,3 @@
 "tx_formconsent_domain_model_consent",,,,,
 ,"uid","deleted","state","valid_until","validation_hash"
 ,1,0,0,"\NULL","foo"
-,2,0,0,2147483647,"baz"
-,3,1,2,2147483647,"blub"
-,4,0,1,100,"dummy"

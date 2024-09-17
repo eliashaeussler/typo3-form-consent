@@ -19,8 +19,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// @todo Remove once support for TYPO3 v12 is dropped
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     \EliasHaeussler\Typo3FormConsent\Extension::KEY,
     'Configuration/TypoScript',
-    'Basic TypoScript for EXT:form_consent'
+    'Basic TypoScript for EXT:form_consent',
 );

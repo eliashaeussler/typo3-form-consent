@@ -27,6 +27,7 @@ use Doctrine\DBAL;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Enums;
 use Symfony\Component\Console;
+use Symfony\Component\DependencyInjection;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Install;
 
@@ -52,6 +53,7 @@ use TYPO3\CMS\Install;
  * }
  */
 #[Install\Attribute\UpgradeWizard(MigrateConsentStateUpgradeWizard::IDENTIFIER)]
+#[DependencyInjection\Attribute\Autoconfigure(public: true, shared: false)]
 final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeWizardInterface, Install\Updates\ChattyInterface
 {
     public const IDENTIFIER = 'formConsentMigrateConsentState';
@@ -64,6 +66,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     private Console\Output\OutputInterface $output;
 
     public function __construct(
+        #[DependencyInjection\Attribute\Autowire('@connection.tx_formconsent_domain_model_consent')]
         private readonly Core\Database\Connection $connection,
     ) {}
 
@@ -225,13 +228,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     private function getOutdatedColumns(): array
     {
         $legacyColumns = [];
-
-        if (method_exists($this->connection, 'createSchemaManager')) {
-            $schemaManager = $this->connection->createSchemaManager();
-        } else {
-            // @todo Remove once support for TYPO3 v11 is dropped
-            $schemaManager = $this->connection->getSchemaManager();
-        }
+        $schemaManager = $this->connection->createSchemaManager();
 
         foreach ($schemaManager->listTableColumns(Domain\Model\Consent::TABLE_NAME) as $column) {
             $columnName = $column->getName();

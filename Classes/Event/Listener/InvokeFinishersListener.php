@@ -44,18 +44,24 @@ final class InvokeFinishersListener
     private readonly Core\Information\Typo3Version $typo3Version;
 
     public function __construct(
+        private readonly Extbase\Configuration\ConfigurationManagerInterface $extbaseConfigurationManager,
+        private readonly Form\Mvc\Configuration\ConfigurationManagerInterface $formConfigurationManager,
         private readonly Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
         private readonly Core\Domain\Repository\PageRepository $pageRepository,
     ) {
         $this->typo3Version = new Core\Information\Typo3Version();
     }
 
+    // @todo Enable attribute once support for TYPO3 v12 is dropped
+    // #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentApproveListener')]
     public function onConsentApprove(Event\ApproveConsentEvent $event): void
     {
         $response = $this->invokeFinishers($event->getConsent(), 'isConsentApproved()');
         $event->setResponse($response);
     }
 
+    // @todo Enable attribute once support for TYPO3 v12 is dropped
+    // #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentDismissListener')]
     public function onConsentDismiss(Event\DismissConsentEvent $event): void
     {
         $response = $this->invokeFinishers($event->getConsent(), 'isConsentDismissed()');
@@ -99,12 +105,13 @@ final class InvokeFinishersListener
 
         // Build extbase bootstrap object
         $contentObjectRenderer = Core\Utility\GeneralUtility::makeInstance(Frontend\ContentObject\ContentObjectRenderer::class);
-        $contentObjectRenderer->start($contentElementRecord, 'tt_content', $serverRequest);
+        $contentObjectRenderer->setRequest($serverRequest);
+        $contentObjectRenderer->start($contentElementRecord, 'tt_content');
         $contentObjectRenderer->setUserObjectType(Frontend\ContentObject\ContentObjectRenderer::OBJECTTYPE_USER_INT);
         $bootstrap = Core\Utility\GeneralUtility::makeInstance(Extbase\Core\Bootstrap::class);
         $bootstrap->setContentObjectRenderer($contentObjectRenderer);
 
-        // Inject content object renderer (TYPO3 >= 12)
+        // Inject content object renderer
         $serverRequest = $serverRequest->withAttribute('currentContentObject', $contentObjectRenderer);
 
         $configuration = [
@@ -131,7 +138,7 @@ final class InvokeFinishersListener
      */
     private function migrateOriginalRequestParameters(Type\JsonType $originalRequestParameters): Type\JsonType
     {
-        // Migration is only needed when upgrading from TYPO3 < v13
+        // @todo Remove once support for TYPO3 v12 is dropped
         if ($this->typo3Version->getMajorVersion() < 13) {
             return $originalRequestParameters;
         }
@@ -188,7 +195,21 @@ final class InvokeFinishersListener
 
     private function areFinisherVariantsConfigured(string $formPersistenceIdentifier, string $condition): bool
     {
-        $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier);
+        if ($this->typo3Version->getMajorVersion() >= 13) {
+            $typoScriptSettings = $this->extbaseConfigurationManager->getConfiguration(
+                Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+                'form',
+            );
+            $formSettings = $this->formConfigurationManager->getYamlConfiguration($typoScriptSettings, true);
+            $formConfiguration = $this->formPersistenceManager->load(
+                $formPersistenceIdentifier,
+                $formSettings,
+                $typoScriptSettings,
+            );
+        } else {
+            // @todo Remove once support for TYPO3 v12 is dropped
+            $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier);
+        }
 
         foreach ($formConfiguration['variants'] ?? [] as $variant) {
             if (str_contains($variant['condition'] ?? '', $condition) && isset($variant['finishers'])) {

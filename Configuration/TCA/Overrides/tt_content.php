@@ -21,6 +21,7 @@
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     \EliasHaeussler\Typo3FormConsent\Extension::NAME,
-    'Consent',
-    \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forPlugin('Consent')
+    \EliasHaeussler\Typo3FormConsent\Extension::PLUGIN,
+    \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forPlugin('Consent'),
+    'content-plugin-consent',
 );

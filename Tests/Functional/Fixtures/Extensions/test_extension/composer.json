@@ -1,0 +1,18 @@
+{
+	"name": "eliashaeussler/typo3-form-consent-test-extension",
+	"type": "typo3-cms-extension",
+	"version": "1.0.0",
+	"require": {
+		"eliashaeussler/typo3-form-consent": "*@dev"
+	},
+	"autoload": {
+		"psr-4": {
+			"EliasHaeussler\\Typo3FormConsent\\TestExtension\\": "Classes/"
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "test_extension"
+		}
+	}
+}

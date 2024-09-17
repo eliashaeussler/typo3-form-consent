@@ -14,48 +14,55 @@
 	"require": {
 		"php": "~8.1.0 || ~8.2.0 || ~8.3.0",
 		"ext-json": "*",
-		"doctrine/dbal": "^2.13 || ^3.0 || ^4.0",
+		"doctrine/dbal": "^3.0 || ^4.0",
 		"psr/event-dispatcher": "^1.0",
 		"psr/http-factory": "^1.0",
 		"psr/http-message": "^1.0 || ^2.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0",
-		"symfony/console": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
-		"symfony/dependency-injection": "^4.4.30 || ^5.3.7 || ^6.2.5 || ^7.0",
-		"symfony/expression-language": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
-		"symfony/mailer": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
-		"symfony/mime": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
-		"typo3/cms-backend": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-core": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-extbase": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-fluid": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-form": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-frontend": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-install": "~11.5.16 || ~12.4.2 || ~13.1.0"
+		"symfony/console": "^6.4 || ^7.0",
+		"symfony/dependency-injection": "^6.4 || ^7.0",
+		"symfony/expression-language": "^6.4 || ^7.0",
+		"symfony/mailer": "^6.4 || ^7.0",
+		"symfony/mime": "^6.4 || ^7.0",
+		"typo3/cms-backend": "~12.4.2 || ~13.3.0",
+		"typo3/cms-core": "~12.4.2 || ~13.3.0",
+		"typo3/cms-extbase": "~12.4.2 || ~13.3.0",
+		"typo3/cms-fluid": "~12.4.2 || ~13.3.0",
+		"typo3/cms-form": "~12.4.2 || ~13.3.0",
+		"typo3/cms-frontend": "~12.4.2 || ~13.3.0",
+		"typo3/cms-install": "~12.4.2 || ~13.3.0"
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^3.0",
 		"codeception/module-db": "^3.1",
 		"codeception/module-webdriver": "^4.0",
 		"eliashaeussler/typo3-codeception-helper": "^1.0",
+		"eliashaeussler/typo3-form-consent-test-extension": "1.0.0",
 		"helhum/config-loader": "^0.12.5",
 		"koehnlein/codeception-email-mailpit": "^0.3.0",
 		"phpunit/phpcov": "^9.0 || ^10.0",
-		"symfony/event-dispatcher": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
-		"symfony/process": "^4.4.30 || ^5.3.7 || ^6.0 || ^7.0",
-		"typo3/cms-dashboard": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-filelist": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-fluid-styled-content": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-lowlevel": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-scheduler": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/cms-tstemplate": "~11.5.16 || ~12.4.2 || ~13.1.0",
-		"typo3/testing-framework": "^7.0.4 || ^8.0.9",
-		"typo3fluid/fluid": "^2.9",
+		"symfony/event-dispatcher": "^6.4 || ^7.0",
+		"symfony/process": "^6.4 || ^7.0",
+		"typo3/cms-dashboard": "~12.4.2 || ~13.3.0",
+		"typo3/cms-filelist": "~12.4.2 || ~13.3.0",
+		"typo3/cms-fluid-styled-content": "~12.4.2 || ~13.3.0",
+		"typo3/cms-lowlevel": "~12.4.2 || ~13.3.0",
+		"typo3/cms-scheduler": "~12.4.2 || ~13.3.0",
+		"typo3/cms-tstemplate": "~12.4.2 || ~13.3.0",
+		"typo3/testing-framework": "^7.0.4 || ^8.2.1",
+		"typo3fluid/fluid": "^2.9 || ^4.0",
 		"webmozart/assert": "^1.11"
 	},
 	"suggest": {
-		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~11.5.16 || ~12.4.2 || ~13.1.0)",
-		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~11.5.16 || ~12.4.2 || ~13.1.0)"
+		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~12.4.2 || ~13.3.0)",
+		"typo3/cms-scheduler": "Allows garbage collection of expired consents (~12.4.2 || ~13.3.0)"
 	},
+	"repositories": [
+		{
+			"type": "path",
+			"url": "Tests/Functional/Fixtures/Extensions/*"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"EliasHaeussler\\Typo3FormConsent\\": "Classes/"
@@ -87,8 +94,7 @@
 			"@composer -d Tests/CGL install"
 		],
 		"post-autoload-dump": [
-			"@environment:prepare",
-			"Tests/Build/Scripts/fix_invalid_package_path.sh"
+			"@environment:prepare"
 		],
 		"cgl": "@composer -d Tests/CGL --",
 		"docs": [

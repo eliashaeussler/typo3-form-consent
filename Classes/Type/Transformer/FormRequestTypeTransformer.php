@@ -89,7 +89,7 @@ final class FormRequestTypeTransformer implements TypeTransformer
             $hashService = Core\Utility\GeneralUtility::makeInstance(Core\Crypto\HashService::class);
             $hashedResourcePointer = $hashService->appendHmac($resourcePointer, Form\Security\HashScope::ResourcePointer->prefix());
         } else {
-            // @todo Remove once support for TYPO3 v11 and v12 is dropped
+            // @todo Remove once support for TYPO3 v12 is dropped
             $hashService = Core\Utility\GeneralUtility::makeInstance(Extbase\Security\Cryptography\HashService::class);
             $hashedResourcePointer = $hashService->appendHmac($resourcePointer);
         }

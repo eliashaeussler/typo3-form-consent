@@ -12,12 +12,7 @@ services:
       - '../Classes/Domain/Finishers/FinisherOptions.php'
       - '../Classes/Domain/Model/*'
 
-  EliasHaeussler\Typo3FormConsent\Updates\MigrateConsentStateUpgradeWizard:
-    public: true
-    shared: false
-    arguments:
-      $connection: '@connection.tx_formconsent_domain_model_consent'
-
+  # @todo Remove once support for TYPO3 v12 is dropped
   EliasHaeussler\Typo3FormConsent\Event\Listener\InvokeFinishersListener:
     tags:
       - name: event.listener

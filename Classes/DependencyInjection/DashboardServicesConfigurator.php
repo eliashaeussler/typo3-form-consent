@@ -66,12 +66,12 @@ final class DashboardServicesConfigurator
                 'groupNames' => 'general',
                 'title' => Configuration\Localization::forWidget('approvedConsents', 'header'),
                 'description' => Configuration\Localization::forWidget('approvedConsents', 'body'),
-                'iconIdentifier' => Configuration\Icon::forWidgetIdentifier('approvedConsents'),
+                'iconIdentifier' => 'content-widget-approved-consents',
                 'height' => 'medium',
                 'width' => 'small',
             ]);
 
-        // @todo Remove once support for TYPO3 v11 and v12 is dropped
+        // @todo Remove once support for TYPO3 v12 is dropped
         if ($this->typo3Version->getMajorVersion() < 13) {
             $service->arg('$view', new DependencyInjection\Reference('dashboard.views.widget'));
         }

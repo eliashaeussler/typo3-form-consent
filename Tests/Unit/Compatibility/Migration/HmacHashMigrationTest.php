@@ -45,6 +45,7 @@ final class HmacHashMigrationTest extends TestingFramework\Core\Unit\UnitTestCas
     {
         parent::setUp();
 
+        // @todo Remove once support for TYPO3 v12 is dropped
         if ((new Core\Information\Typo3Version())->getMajorVersion() < 13) {
             self::markTestSkipped('Test can be executed on TYPO3 >= 13 only.');
         }

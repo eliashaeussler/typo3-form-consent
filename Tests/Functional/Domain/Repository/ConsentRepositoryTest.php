@@ -24,8 +24,9 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Domain\Repository;
 
 use EliasHaeussler\Typo3FormConsent as Src;
+use EliasHaeussler\Typo3FormConsent\Tests;
 use PHPUnit\Framework;
-use TYPO3\TestingFramework;
+use TYPO3\CMS\Core;
 
 /**
  * ConsentRepositoryTest
@@ -34,7 +35,7 @@ use TYPO3\TestingFramework;
  * @license GPL-2.0-or-later
  */
 #[Framework\Attributes\CoversClass(Src\Domain\Repository\ConsentRepository::class)]
-final class ConsentRepositoryTest extends TestingFramework\Core\Functional\FunctionalTestCase
+final class ConsentRepositoryTest extends Tests\Functional\ExtbaseRequestAwareFunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
         'form',
@@ -54,7 +55,14 @@ final class ConsentRepositoryTest extends TestingFramework\Core\Functional\Funct
         $this->subject = $this->getContainer()->get(Src\Domain\Repository\ConsentRepository::class);
 
         // Import data
-        $this->importCSVDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.csv');
+        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.csv');
+
+        // @todo Remove once support for TYPO3 v12 is dropped
+        if ((new Core\Information\Typo3Version())->getMajorVersion() < 13) {
+            $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.v12.csv');
+        } else {
+            $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.v13.csv');
+        }
     }
 
     #[Framework\Attributes\Test]

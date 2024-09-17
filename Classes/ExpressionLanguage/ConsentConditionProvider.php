@@ -33,11 +33,7 @@ use TYPO3\CMS\Core;
  */
 final class ConsentConditionProvider extends Core\ExpressionLanguage\AbstractProvider
 {
-    public function __construct()
-    {
-        // @todo Move to property once support for TYPO3 v11 is dropped
-        $this->expressionLanguageProviders = [
-            FunctionsProvider\ConsentConditionFunctionsProvider::class,
-        ];
-    }
+    protected array $expressionLanguageProviders = [
+        FunctionsProvider\ConsentConditionFunctionsProvider::class,
+    ];
 }

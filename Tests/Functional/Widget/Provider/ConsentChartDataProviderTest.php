@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Widget\Provider;
 
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
+use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
 
 /**
@@ -57,7 +58,14 @@ final class ConsentChartDataProviderTest extends TestingFramework\Core\Functiona
         $this->subject = new Src\Widget\Provider\ConsentChartDataProvider($connection);
 
         // Import data
-        $this->importCSVDataSet(__DIR__ . '/../../Fixtures/tx_formconsent_domain_model_consent.csv');
+        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.csv');
+
+        // @todo Remove once support for TYPO3 v12 is dropped
+        if ((new Core\Information\Typo3Version())->getMajorVersion() < 13) {
+            $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.v12.csv');
+        } else {
+            $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.v13.csv');
+        }
     }
 
     #[Framework\Attributes\Test]

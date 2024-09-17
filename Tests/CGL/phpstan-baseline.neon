@@ -26,25 +26,14 @@ parameters:
 			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
-			message: """
-				#^Call to deprecated method getContentObject\\(\\) of interface TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\ConfigurationManagerInterface\\:
-				since v12\\. Remove in v13\\.$#
-			"""
-			count: 1
-			path: ../../Classes/Domain/Factory/ConsentFactory.php
-
-		-
-			message: """
-				#^Fetching deprecated class constant ERROR of class TYPO3\\\\CMS\\\\Core\\\\Messaging\\\\AbstractMessage\\:
-				Use \\\\TYPO3\\\\CMS\\\\Core\\\\Type\\\\ContextualFeedbackSeverity\\:\\:ERROR instead$#
-			"""
-			count: 1
-			path: ../../Classes/Domain/Finishers/ConsentFinisher.php
-
-		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
 			count: 2
 			path: ../../Classes/Domain/Finishers/FinisherOptions.php
+
+		-
+			message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Form\\\\Mvc\\\\Configuration\\\\ConfigurationManagerInterface\\:\\:getYamlConfiguration\\(\\)\\.$#"
+			count: 1
+			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
 			message: "#^Call to static method tryFrom\\(\\) on an unknown class TYPO3\\\\CMS\\\\Extbase\\\\Security\\\\HashScope\\.$#"
@@ -57,6 +46,16 @@ parameters:
 			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
+			message: "#^Method TYPO3\\\\CMS\\\\Form\\\\Mvc\\\\Persistence\\\\FormPersistenceManagerInterface\\:\\:load\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 1
+			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
+
+		-
+			message: "#^Property EliasHaeussler\\\\Typo3FormConsent\\\\ExpressionLanguage\\\\ConsentConditionProvider\\:\\:\\$expressionLanguageProviders type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../../Classes/ExpressionLanguage/ConsentConditionProvider.php
+
+		-
 			message: "#^Access to constant ResourcePointer on an unknown class TYPO3\\\\CMS\\\\Form\\\\Security\\\\HashScope\\.$#"
 			count: 1
 			path: ../../Classes/Type/Transformer/FormRequestTypeTransformer.php
@@ -67,29 +66,6 @@ parameters:
 			path: ../../Classes/Type/Transformer/TypeTransformer.php
 
 		-
-			message: """
-				#^Call to deprecated method getSchemaManager\\(\\) of class Doctrine\\\\DBAL\\\\Connection\\:
-				Use \\{@see createSchemaManager\\(\\)\\} instead\\.$#
-			"""
-			count: 1
-			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
-
-		-
-			message: "#^Call to function method_exists\\(\\) with TYPO3\\\\CMS\\\\Core\\\\Database\\\\Connection and 'createSchemaManager' will always evaluate to true\\.$#"
-			count: 1
-			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
-
-		-
 			message: "#^PHPDoc type EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\AcceptanceTester of property EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\Helper\\\\ModalDialog\\:\\:\\$tester is not the same as PHPDoc type TYPO3\\\\CMS\\\\Core\\\\Tests\\\\Acceptance\\\\Support\\\\ApplicationTester of overridden property TYPO3\\\\TestingFramework\\\\Core\\\\Acceptance\\\\Helper\\\\AbstractModalDialog\\:\\:\\$tester\\.$#"
 			count: 1
 			path: ../Acceptance/Support/Helper/ModalDialog.php
-
-		-
-			message: "#^Instantiated class TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Controller\\\\ControllerContext not found\\.$#"
-			count: 1
-			path: ../Functional/Domain/Finishers/ConsentFinisherTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$request of class TYPO3\\\\CMS\\\\Form\\\\Domain\\\\Finishers\\\\FinisherContext constructor expects TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Request, TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Controller\\\\ControllerContext\\|TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Request given\\.$#"
-			count: 1
-			path: ../Functional/Domain/Finishers/ConsentFinisherTest.php

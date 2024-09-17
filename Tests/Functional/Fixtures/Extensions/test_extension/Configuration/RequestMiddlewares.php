@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS extension "form_consent".
  *
@@ -19,7 +21,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-\EliasHaeussler\Typo3FormConsent\Extension::registerFormEngineNode();
-\EliasHaeussler\Typo3FormConsent\Extension::registerPageTsConfig();
-\EliasHaeussler\Typo3FormConsent\Extension::registerPlugin();
-\EliasHaeussler\Typo3FormConsent\Extension::registerGarbageCollectionTask();
+return [
+    'frontend' => [
+        'eliashaeussler/typo3-form-consent-test-extension/request-storage-handler' => [
+            'target' => \EliasHaeussler\Typo3FormConsent\TestExtension\Middleware\RequestStorageHandler::class,
+            'before' => [
+                'typo3/cms-core/response-propagation',
+            ],
+        ],
+    ],
+];

@@ -1,6 +1,8 @@
 # customcategory=plugin.tx_formconsent=Form consent
 # customsubcategory=pids=Page IDs
 
+# @todo Move to Configuration/Sets/FormConsent/constants.typoscript once support for TYPO3 v12 is dropped
+
 plugin.tx_formconsent {
   view {
     # cat=plugin.tx_formconsent/file; type=string; label=Path to template root (FE)

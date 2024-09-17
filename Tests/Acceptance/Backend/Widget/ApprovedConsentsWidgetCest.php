@@ -60,11 +60,6 @@ final class ApprovedConsentsWidgetCest
         Tests\Acceptance\Support\AcceptanceTester $I,
         Tests\Acceptance\Support\Helper\ModalDialog $dialog,
     ): void {
-        // @todo Remove once support for TYPO3 v11 is dropped
-        if ($this->typo3Version->getMajorVersion() < 12) {
-            $I->markTestSkipped('Test can be executed on TYPO3 >= 12 only.');
-        }
-
         $I->truncateTable(Src\Domain\Model\Consent::TABLE_NAME);
 
         $this->createConsents($I);
@@ -111,8 +106,8 @@ JS);
                 ),
             );
         } else {
-            // @todo Remove once support for TYPO3 v11 and v12 is dropped
-            $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitleV11V12->value);
+            // @todo Remove once support for TYPO3 v12 is dropped
+            $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitleV12->value);
             $I->click('Form consent');
         }
 
@@ -159,14 +154,7 @@ JS);
 
     private function logInToBackend(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
-        if ($this->typo3Version->getMajorVersion() >= 12) {
-            $moduleIdentifier = Tests\Acceptance\Support\Enums\Selectors::DashboardModule->value;
-        } else {
-            // @todo Remove once support for TYPO3 v11 is dropped
-            $moduleIdentifier = Tests\Acceptance\Support\Enums\Selectors::DashboardModuleV11->value;
-        }
-
         $I->loginAs('admin');
-        $I->openModule($moduleIdentifier);
+        $I->openModule(Tests\Acceptance\Support\Enums\Selectors::DashboardModule->value);
     }
 }

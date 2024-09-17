@@ -1,6 +1,7 @@
 /.Build
 /config
 /Tests/Acceptance/Support/_generated
+/Tests/Build/Configuration/sites/main/settings.yaml
 /Tests/Build/Configuration/system/settings.php
 /var
 /.phpunit.result.cache
