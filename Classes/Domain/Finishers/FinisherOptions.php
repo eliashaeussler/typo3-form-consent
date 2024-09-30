@@ -121,6 +121,10 @@ final class FinisherOptions implements \ArrayAccess
             $finisherTemplateConfiguration
         );
 
+        ksort($mergedTemplateConfiguration['templateRootPaths']);
+        ksort($mergedTemplateConfiguration['partialRootPaths']);
+        ksort($mergedTemplateConfiguration['layoutRootPaths']);
+
         return $this->parsedOptions['templatePaths'] = Core\Utility\GeneralUtility::makeInstance(
             Fluid\View\TemplatePaths::class,
             $mergedTemplateConfiguration
