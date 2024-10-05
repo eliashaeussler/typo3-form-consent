@@ -126,6 +126,10 @@ final class FinisherOptions implements \ArrayAccess
         $this->parsedOptions['templatePaths']->setPartialRootPaths($mergedTemplateConfiguration['partialRootPaths']);
         $this->parsedOptions['templatePaths']->setLayoutRootPaths($mergedTemplateConfiguration['layoutRootPaths']);
 
+        if (isset($mergedTemplateConfiguration['format'])) {
+            $this->parsedOptions['templatePaths']->setFormat($mergedTemplateConfiguration['format']);
+        }
+
         return $this->parsedOptions['templatePaths'];
     }
 

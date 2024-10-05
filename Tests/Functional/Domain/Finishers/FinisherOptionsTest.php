@@ -124,10 +124,20 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
             ],
         ];
 
-        $templatePathsArray = $this->options;
-        $templatePathsArray['format'] = 'both';
-
-        $expected = new Fluid\View\TemplatePaths($templatePathsArray);
+        $expected = new Fluid\View\TemplatePaths();
+        $expected->setTemplateRootPaths([
+            0 => 'foo',
+            10 => 'baz',
+        ]);
+        $expected->setPartialRootPaths([
+            0 => 'foo',
+            10 => 'baz',
+        ]);
+        $expected->setLayoutRootPaths([
+            0 => 'foo',
+            10 => 'baz',
+        ]);
+        $expected->setFormat('both');
 
         self::assertEquals($expected, $this->subject->getTemplatePaths());
 
