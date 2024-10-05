@@ -118,13 +118,19 @@ final class FinisherOptions implements \ArrayAccess
         $mergedTemplateConfiguration = array_replace_recursive(
             $defaultTemplateConfiguration,
             $typoScriptTemplateConfiguration,
-            $finisherTemplateConfiguration
+            $finisherTemplateConfiguration,
         );
 
-        return $this->parsedOptions['templatePaths'] = Core\Utility\GeneralUtility::makeInstance(
-            Fluid\View\TemplatePaths::class,
-            $mergedTemplateConfiguration
-        );
+        $this->parsedOptions['templatePaths'] = Core\Utility\GeneralUtility::makeInstance(Fluid\View\TemplatePaths::class);
+        $this->parsedOptions['templatePaths']->setTemplateRootPaths($mergedTemplateConfiguration['templateRootPaths']);
+        $this->parsedOptions['templatePaths']->setPartialRootPaths($mergedTemplateConfiguration['partialRootPaths']);
+        $this->parsedOptions['templatePaths']->setLayoutRootPaths($mergedTemplateConfiguration['layoutRootPaths']);
+
+        if (isset($mergedTemplateConfiguration['format'])) {
+            $this->parsedOptions['templatePaths']->setFormat($mergedTemplateConfiguration['format']);
+        }
+
+        return $this->parsedOptions['templatePaths'];
     }
 
     public function getRecipientAddress(): string
