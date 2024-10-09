@@ -51,11 +51,6 @@ parameters:
 			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
-			message: "#^Property EliasHaeussler\\\\Typo3FormConsent\\\\ExpressionLanguage\\\\ConsentConditionProvider\\:\\:\\$expressionLanguageProviders type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ExpressionLanguage/ConsentConditionProvider.php
-
-		-
 			message: "#^Access to constant ResourcePointer on an unknown class TYPO3\\\\CMS\\\\Form\\\\Security\\\\HashScope\\.$#"
 			count: 1
 			path: ../../Classes/Type/Transformer/FormRequestTypeTransformer.php
