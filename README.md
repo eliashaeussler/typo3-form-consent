@@ -60,6 +60,11 @@ Please have a look at the
 Icons made by [Google](https://www.flaticon.com/authors/google) from
 [www.flaticon.com](https://www.flaticon.com/).
 
+## 🔒 Security Policy
+
+Please read our [security policy](SECURITY.md) if you discover a security
+vulnerability in this extension.
+
 ## ⭐ License
 
 This project is licensed under [GNU General Public License 2.0 (or later)](LICENSE.md).
