@@ -1,5 +1,17 @@
 ..  include:: /Includes.rst.txt
 
+..  image:: https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-form-consent?logo=coveralls
+    :target: https://coveralls.io/github/eliashaeussler/typo3-form-consent
+
+..  image:: https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-form-consent?logo=codeclimate
+    :target: https://codeclimate.com/github/eliashaeussler/typo3-form-consent/maintainability
+
+..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/cgl.yaml?label=cgl&logo=github
+    :target: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml
+
+..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/tests.yaml?label=tests&logo=github
+    :target: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml
+
 ..  _contributing:
 
 ============
@@ -63,11 +75,6 @@ You can access the DDEV site at https://typo3-ext-form-consent.ddev.site/.
 Check code quality
 ------------------
 
-..  rst-class:: d-inline-block mb-3
-
-..  image:: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml/badge.svg
-    :target: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml
-
 ..  code-block:: bash
 
     # All linters
@@ -98,14 +105,6 @@ Check code quality
 
 Run tests
 ---------
-
-..  image:: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml/badge.svg
-    :target: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml
-
-..  rst-class:: d-inline-block mb-3
-
-..  image:: https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-form-consent?logo=coveralls
-    :target: https://coveralls.io/github/eliashaeussler/typo3-form-consent
 
 ..  code-block:: bash
 

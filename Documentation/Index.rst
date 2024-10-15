@@ -140,4 +140,3 @@ compliance with the GDPR.
     :hidden:
 
     Sitemap
-    genindex

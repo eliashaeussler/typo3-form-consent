@@ -1,10 +1,13 @@
 filesToModify:
-  - path: Documentation/Settings.cfg
+  - path: Documentation/guides.xml
     patterns:
-      - 'release = {%version%}'
+      - 'release="{%version%}"'
+    reportUnmatched: true
   - path: ext_emconf.php
     patterns:
       - "'version' => '{%version%}'"
+    reportUnmatched: true
+
 releaseOptions:
   commitMessage: '[RELEASE] Release of EXT:form_consent {%version%}'
   signTag: true

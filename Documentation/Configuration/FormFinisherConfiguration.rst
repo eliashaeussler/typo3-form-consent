@@ -12,7 +12,6 @@ following options:
 ..  _finisher-config-subject:
 
 ..  confval:: subject
-
     :Required: true
     :type: string or LLL reference
     :Default: :yaml:`LLL:EXT:warming/Resources/Private/Language/locallang.xlf:consentMail.subject`
@@ -22,7 +21,6 @@ following options:
 ..  _finisher-config-recipientAddress:
 
 ..  confval:: recipientAddress
-
     :Required: true
     :type: string
 
@@ -32,7 +30,6 @@ following options:
 ..  _finisher-config-recipientName:
 
 ..  confval:: recipientName
-
     :Required: false
     :type: string
 
@@ -42,7 +39,6 @@ following options:
 ..  _finisher-config-senderAddress:
 
 ..  confval:: senderAddress
-
     :Required: false
     :type: string
     :Default: :ref:`System default <t3coreapi:mail-sender>` sender e-mail address
@@ -53,7 +49,6 @@ following options:
 ..  _finisher-config-senderName:
 
 ..  confval:: senderName
-
     :Required: false
     :type: string
     :Default: :ref:`System default <t3coreapi:mail-sender>` sender name
@@ -64,7 +59,6 @@ following options:
 ..  _finisher-config-replyToAddress:
 
 ..  confval:: replyToAddress
-
     :Required: false
     :type: string
 
@@ -78,7 +72,6 @@ following options:
 ..  _finisher-config-replyToName:
 
 ..  confval:: replyToName
-
     :Required: false
     :type: string
 
@@ -92,7 +85,6 @@ following options:
 ..  _finisher-config-approvalPeriod:
 
 ..  confval:: approvalPeriod
-
     :Required: false
     :type: integer
     :Default: :yaml:`86400` *(= 1 day)*
@@ -109,7 +101,6 @@ following options:
 ..  _finisher-config-showDismissLink:
 
 ..  confval:: showDismissLink
-
     :Required: false
     :type: boolean
     :Default: :yaml:`false`
@@ -120,7 +111,6 @@ following options:
 ..  _finisher-config-confirmationPid:
 
 ..  confval:: confirmationPid
-
     :Required: true
     :type: integer
 
@@ -132,7 +122,6 @@ following options:
 ..  _finisher-config-storagePid:
 
 ..  confval:: storagePid
-
     :Required: false
     :type: integer
     :Default: :yaml:`0` (falls back to :typoscript:`plugin.tx_formconsent.persistence.storagePid`)
@@ -151,7 +140,6 @@ following options:
 ..  _finisher-config-requireApproveVerification:
 
 ..  confval:: requireApproveVerification
-
     :Required: false
     :type: boolean
     :Default: :yaml:`false`
@@ -169,7 +157,6 @@ following options:
 ..  _finisher-config-requireDismissVerification:
 
 ..  confval:: requireDismissVerification
-
     :Required: false
     :type: boolean
     :Default: :yaml:`false`
@@ -187,7 +174,6 @@ following options:
 ..  _finisher-config-templateRootPaths:
 
 ..  confval:: templateRootPaths
-
     :Required: false
     :type: array
 
@@ -203,7 +189,6 @@ following options:
 ..  _finisher-config-partialRootPaths:
 
 ..  confval:: partialRootPaths
-
     :Required: false
     :type: array
 
@@ -219,7 +204,6 @@ following options:
 ..  _finisher-config-layoutRootPaths:
 
 ..  confval:: layoutRootPaths
-
     :Required: false
     :type: array
 

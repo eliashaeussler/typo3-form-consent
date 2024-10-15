@@ -16,7 +16,7 @@ are actually JSON-encoded strings.
 
 ..  php:class:: JsonType
 
-    Type implementing TYPO3's :php:interface:`TYPO3\\CMS\\Core\\Type\\TypeInterface`
+    Type implementing TYPO3's :php:`\TYPO3\CMS\Core\Type\TypeInterface`
     that accepts and stores JSON-encoded strings.
 
     ..  php:staticmethod:: fromArray($data)
@@ -52,15 +52,15 @@ returned types are JSON types.
         Transform a specific form value from the given form runtime to a
         persistable JSON type.
 
-        :param TYPO3\\CMS\\Form\\Domain\\Runtime\\FormRuntime $formRuntime: Form runtime from which to extract values
+        :param TYPO3\CMS\Form\Domain\Runtime\FormRuntime $formRuntime: Form runtime from which to extract values
         :returntype: EliasHaeussler\\Typo3FormConsent\\Type\\JsonType
 
 The extension ships with two type transformers:
 
--   :php:class:`EliasHaeussler\\Typo3FormConsent\\Type\\Transformer\\FormRequestTypeTransformer`:
+-   :php:`\EliasHaeussler\Typo3FormConsent\Type\Transformer\FormRequestTypeTransformer`:
     Used to transform the current form request parameters to JSON
     type in order to allow resubmission of the given form
--   :php:class:`EliasHaeussler\\Typo3FormConsent\\Type\\Transformer\\FormValuesTypeTransformer`:
+-   :php:`\EliasHaeussler\Typo3FormConsent\Type\Transformer\FormValuesTypeTransformer`:
     Used to transform all submitted form values to JSON type in
     order to store them next to the generated form consent
 
