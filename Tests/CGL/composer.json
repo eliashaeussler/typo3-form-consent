@@ -1,6 +1,6 @@
 {
 	"require": {
-		"typo3/cms-core": "~12.4.2 || ~13.3.0"
+		"typo3/cms-core": "~12.4.2 || ~13.4.0"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.5 || ^2.0",
@@ -16,6 +16,8 @@
 		"ssch/typo3-rector": "^2.0",
 		"typo3/coding-standards": "^0.6.0 || ^0.7.0 || ^0.8.0"
 	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"config": {
 		"allow-plugins": {
 			"ergebnis/composer-normalize": true,

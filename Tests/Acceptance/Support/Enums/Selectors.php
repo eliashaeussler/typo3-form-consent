@@ -39,7 +39,7 @@ enum Selectors: string
     case DashboardModule = '[data-modulemenu-identifier="dashboard"]';
     case DashboardWidget = '.widget-identifier-approvedConsentsWidget';
     case DashboardWidgetCanvas = '.widget-identifier-approvedConsentsWidget canvas';
-    case FormDefinition = '#t3-form-form-definition-label';
+    case FormDefinition = '[data-identifier="formDefinitionLabel"]';
     case FormList = '#forms';
     case FormModule = '[data-modulemenu-identifier="web_FormFormbuilder"]';
     case FormPreviewMode = '[title="Preview mode"]';
