@@ -64,8 +64,6 @@
 			"url": "Tests/Functional/Fixtures/Extensions/*"
 		}
 	],
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"EliasHaeussler\\Typo3FormConsent\\": "Classes/"
