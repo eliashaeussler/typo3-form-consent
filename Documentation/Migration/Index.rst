@@ -17,13 +17,13 @@ Version 2.0.0
 Finisher context in event
 -------------------------
 
--   :php:class:`EliasHaeussler\\Typo3FormConsent\\Event\\ModifyConsentEvent` no longer
-    explicitly provides the current :php:class:`TYPO3\\CMS\\Form\\Domain\\Runtime\\FormRuntime`
+-   :php:`\EliasHaeussler\Typo3FormConsent\Event\ModifyConsentEvent` no longer
+    explicitly provides the current :php:`TYPO3\CMS\Form\Domain\Runtime\FormRuntime`
     instance via the :php:`getFormRuntime()` method. Use :php:`getFinisherContext()->getFormRuntime()`
     instead.
--   :php:meth:`EliasHaeussler\\Typo3FormConsent\\Domain\\Factory\\ConsentFactory::createFromForm`
-    no longer expects a :php:class:`TYPO3\\CMS\\Form\\Domain\\Runtime\\FormRuntime`
-    as second parameter. Pass the current :php:class:`TYPO3\\CMS\\Form\\Domain\\Finishers\\FinisherContext`
+-   :php:meth:`\EliasHaeussler\Typo3FormConsent\Domain\Factory\ConsentFactory::createFromForm`
+    no longer expects a :php:`TYPO3\CMS\Form\Domain\Runtime\FormRuntime`
+    as second parameter. Pass the current :php:`TYPO3\CMS\Form\Domain\Finishers\FinisherContext`
     instead.
 
 ..  _version-1.0.0:
@@ -34,8 +34,8 @@ Version 1.0.0
 Consent state enum
 ------------------
 
--   Different consent states moved from :php:class:`EliasHaeussler\\Typo3FormConsent\\Type\\ConsentStateType`
-    to a new :php:class:`EliasHaeussler\\Typo3FormConsent\\Enums\\ConsentState` enum.
+-   Different consent states moved from :php:`\EliasHaeussler\Typo3FormConsent\Type\ConsentStateType`
+    to a new :php:`\EliasHaeussler\Typo3FormConsent\Enums\ConsentState` enum.
 -   Use enum cases instead of the old class constants.
 
 ..  _version-0.7.0:
@@ -79,7 +79,7 @@ Post-consent dismissal finishers
 
 -   Custom finishers can now be executed after consent was dismissed.
 -   Event listener was renamed. Change references to
-    :php:class:`EliasHaeussler\\Typo3FormConsent\\Event\\Listener\\InvokeFinishersListener`.
+    :php:`\EliasHaeussler\Typo3FormConsent\Event\Listener\InvokeFinishersListener`.
     Adapt your service configuration, if needed.
 -   Listener method was renamed. Use :php:`onConsentApprove($event)` instead of
     :php:`__invoke($event)`.

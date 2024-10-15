@@ -16,7 +16,7 @@ Constants
 ..  _typoscript-constants-view.templateRootPath:
 
 ..  confval:: view.templateRootPath
-
+    :name: ts-view-templateRootPath
     :type: string
     :Path: :typoscript:`plugin.tx_formconsent`
 
@@ -32,7 +32,7 @@ Constants
 ..  _typoscript-constants-view.partialRootPath:
 
 ..  confval:: view.partialRootPath
-
+    :name: ts-view-partialRootPath
     :type: string
     :Path: :typoscript:`plugin.tx_formconsent`
 
@@ -48,7 +48,7 @@ Constants
 ..  _typoscript-constants-view.layoutRootPath:
 
 ..  confval:: view.layoutRootPath
-
+    :name: ts-view-layoutRootPath
     :type: string
     :Path: :typoscript:`plugin.tx_formconsent`
 
@@ -64,7 +64,7 @@ Constants
 ..  _typoscript-constants-persistence.storagePid:
 
 ..  confval:: persistence.storagePid
-
+    :name: ts-persistence-storagePid
     :type: integer
     :Path: :typoscript:`plugin.tx_formconsent`
 

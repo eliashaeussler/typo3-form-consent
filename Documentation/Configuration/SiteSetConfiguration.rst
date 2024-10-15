@@ -24,7 +24,7 @@ Settings
 ..  _site-set-settings-view.templateRootPath:
 
 ..  confval:: view.templateRootPath
-
+    :name: siteset-view-templateRootPath
     :type: string
     :Path: :yaml:`plugin.tx_formconsent`
 
@@ -40,7 +40,7 @@ Settings
 ..  _site-set-settings-view.partialRootPath:
 
 ..  confval:: view.partialRootPath
-
+    :name: siteset-view-partialRootPath
     :type: string
     :Path: :yaml:`plugin.tx_formconsent`
 
@@ -56,7 +56,7 @@ Settings
 ..  _site-set-settings-view.layoutRootPath:
 
 ..  confval:: view.layoutRootPath
-
+    :name: siteset-view-layoutRootPath
     :type: string
     :Path: :yaml:`plugin.tx_formconsent`
 
@@ -72,7 +72,7 @@ Settings
 ..  _site-set-settings-persistence.storagePid:
 
 ..  confval:: persistence.storagePid
-
+    :name: siteset-persistence-storagePid
     :type: integer
     :Path: :yaml:`plugin.tx_formconsent`
 

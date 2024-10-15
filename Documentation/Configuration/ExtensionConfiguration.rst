@@ -11,7 +11,6 @@ The extension currently provides the following configuration options:
 ..  _extconf-limit:
 
 ..  confval:: excludedElements
-
     :Path: :typoscript:`persistence.excludedElements`
     :type: string (comma-separated list)
     :Default: `Honeypot`

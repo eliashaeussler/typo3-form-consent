@@ -27,8 +27,8 @@ dedicated consent factory is provided.
             This method's result can be modified by listening on the
             :ref:`modify-consent-event`.
 
-        :param EliasHaeussler\\Typo3FormConsent\\Domain\\Finishers\\FinisherOptions $finisherOptions: Consent finisher options of the current form
-        :param TYPO3\\CMS\\Form\\Domain\\Finishers\\FinisherContext $finisherContext: The current finisher context
+        :param EliasHaeussler\Typo3FormConsent\Domain\Finishers\FinisherOptions $finisherOptions: Consent finisher options of the current form
+        :param TYPO3\CMS\Form\Domain\Finishers\FinisherContext $finisherContext: The current finisher context
         :returntype: EliasHaeussler\\Typo3FormConsent\\Domain\\Model\\Consent
 
 ..  seealso::
