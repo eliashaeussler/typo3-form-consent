@@ -43,87 +43,55 @@ compliance with the GDPR.
 
 ----
 
-..  container:: row m-0 p-0
+..  card-grid::
+    :columns: 1
+    :columns-md: 2
+    :gap: 4
+    :card-height: 100
 
-    ..  container:: col-12 col-md-6 pl-0 pr-0 pr-md-3 pt-3 m-0
+    ..  card::  Introduction
 
-        ..  container:: card px-0 h-100
+        A quick overview about the main features provided by this extension.
 
-            ..  rst-class:: card-header h3
+        ..  card-footer::   :ref:`Learn more about this extension <introduction>`
+            :button-style: btn btn-secondary stretched-link
 
-                ..  rubric:: :ref:`introduction`
+    ..  card::  Installation
 
-            ..  container:: card-body
+        Instructions on how to install this extension and which TYPO3 and PHP versions are currently supported.
 
-                A quick overview about the main features provided
-                by this extension.
+        ..  card-footer::   :ref:`Getting started <installation>`
+            :button-style: btn btn-secondary stretched-link
 
-    ..  container:: col-12 col-md-6 pl-0 pr-0 pr-md-3 pt-3 m-0
+    ..  card::  Configuration
 
-        ..  container:: card px-0 h-100
+        Learn how to configure the extension in various ways. This includes extension configuration,
+        site sets, TypoScript configuration and form finisher configuration.
 
-            ..  rst-class:: card-header h3
+        ..  card-footer::   :ref:`View configuration options <configuration>`
+            :button-style: btn btn-secondary stretched-link
 
-                ..  rubric:: :ref:`installation`
+    ..  card::  Usage
 
-            ..  container:: card-body
+        This section describes all possible usages of this extension. Learn how to use the consent finisher,
+        validation plugin and other optional features.
 
-                Instructions on how to install this extension and
-                which TYPO3 and PHP versions are currently supported.
+        ..  card-footer::   :ref:`Learn how to use this extension <usage>`
+            :button-style: btn btn-secondary stretched-link
 
-    ..  container:: col-12 col-md-6 pl-0 pr-0 pr-md-3 pt-3 m-0
+    ..  card::  Developer corner
 
-        ..  container:: card px-0 h-100
+        A quick overview about all relevant classes provided by this extension.
 
-            ..  rst-class:: card-header h3
+        ..  card-footer::   :ref:`Deep dive into classes & concepts <developer-corner>`
+            :button-style: btn btn-secondary stretched-link
 
-                ..  rubric:: :ref:`configuration`
+    ..  card::  Migration
 
-            ..  container:: card-body
+        Required migration steps when upgrading the extension to a new major version.
 
-                Learn how to configure the extension in various ways.
-                This includes extension configuration, site sets,
-                TypoScript configuration and form finisher configuration.
-
-    ..  container:: col-12 col-md-6 pl-0 pr-0 pr-md-3 pt-3 m-0
-
-        ..  container:: card px-0 h-100
-
-            ..  rst-class:: card-header h3
-
-                ..  rubric:: :ref:`usage`
-
-            ..  container:: card-body
-
-                This section describes all possible usages of this
-                extension. Learn how to use the consent finisher,
-                validation plugin and other optional features.
-
-    ..  container:: col-12 col-md-6 pl-0 pr-0 pr-md-3 pt-3 m-0
-
-        ..  container:: card px-0 h-100
-
-            ..  rst-class:: card-header h3
-
-                ..  rubric:: :ref:`developer-corner`
-
-            ..  container:: card-body
-
-                A quick overview about all relevant classes provided
-                by this extension.
-
-    ..  container:: col-12 col-md-6 pl-0 pr-0 pr-md-3 pt-3 m-0
-
-        ..  container:: card px-0 h-100
-
-            ..  rst-class:: card-header h3
-
-                ..  rubric:: :ref:`migration`
-
-            ..  container:: card-body
-
-                Required migration steps when upgrading the extension
-                to a new major version.
+        ..  card-footer::   :ref:`View upgrade guide <migration>`
+            :button-style: btn btn-secondary stretched-link
 
 ..  toctree::
     :hidden:
