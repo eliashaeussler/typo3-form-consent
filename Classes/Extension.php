@@ -106,4 +106,22 @@ final class Extension
             'expireField' => 'valid_until',
         ];
     }
+
+    /**
+     * Register global TypoScript setup.
+     *
+     * FOR USE IN ext_localconf.php ONLY.
+     */
+    public static function registerTypoScript(): void
+    {
+        Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
+            module.tx_form {
+                settings {
+                    yamlConfigurations {
+                        1576524005 = EXT:form_consent/Configuration/Yaml/FormSetup.yaml
+                    }
+                }
+            }
+        ');
+    }
 }
