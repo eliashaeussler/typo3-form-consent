@@ -75,7 +75,7 @@ final class HashService
         return $hashService->hmac($hashInput, $hashSecret);
     }
 
-    public function isValid(Domain\Model\Consent $consent, string $hash = null): bool
+    public function isValid(Domain\Model\Consent $consent, ?string $hash = null): bool
     {
         $hash ??= $consent->getValidationHash();
         $newHash = $this->generate($consent);

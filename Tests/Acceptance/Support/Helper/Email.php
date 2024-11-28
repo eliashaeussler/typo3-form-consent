@@ -54,7 +54,7 @@ final class Email extends Module
         return $this->extractUrlsFromEmailBody();
     }
 
-    public function seeUrlsInEmailBody(int $count = null): void
+    public function seeUrlsInEmailBody(?int $count = null): void
     {
         if (!$this->hasModule('Asserts')) {
             $this->fail('Asserts module is not enabled.');

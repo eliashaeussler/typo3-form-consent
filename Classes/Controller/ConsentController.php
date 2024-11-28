@@ -183,7 +183,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
     /**
      * @throws Core\Http\PropagateResponseException
      */
-    private function createErrorResponse(string $reason, \Throwable $exception = null): Message\ResponseInterface
+    private function createErrorResponse(string $reason, ?\Throwable $exception = null): Message\ResponseInterface
     {
         $this->view->assign('error', true);
         $this->view->assign('reason', $reason);
@@ -195,7 +195,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
     /**
      * @throws Core\Http\PropagateResponseException
      */
-    private function createHtmlResponse(Message\ResponseInterface $previous = null): Message\ResponseInterface
+    private function createHtmlResponse(?Message\ResponseInterface $previous = null): Message\ResponseInterface
     {
         if ($previous === null) {
             return $this->htmlResponse();

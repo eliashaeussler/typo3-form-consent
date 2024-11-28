@@ -70,12 +70,12 @@ final class Form extends Module
         );
     }
 
-    private function getFormElementIdentifier(string $form, string $element = null): string
+    private function getFormElementIdentifier(string $form, ?string $element = null): string
     {
         return $form . ($element !== null ? '-' . $element : '');
     }
 
-    private function getFormElementName(string $form, string $element = null): string
+    private function getFormElementName(string $form, ?string $element = null): string
     {
         $nameParts = [
             $form => [],

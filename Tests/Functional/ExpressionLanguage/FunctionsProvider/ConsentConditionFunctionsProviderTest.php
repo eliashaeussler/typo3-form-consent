@@ -104,7 +104,7 @@ final class ConsentConditionFunctionsProviderTest extends TestingFramework\Core\
         self::assertTrue($resolver->evaluate('isConsentDismissed()'));
     }
 
-    private function createResolver(Form\Domain\Runtime\FormRuntime $formRuntime = null): Core\ExpressionLanguage\Resolver
+    private function createResolver(?Form\Domain\Runtime\FormRuntime $formRuntime = null): Core\ExpressionLanguage\Resolver
     {
         $variables = [];
 
