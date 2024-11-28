@@ -79,6 +79,7 @@ final class Extension
      */
     public static function registerPlugin(): void
     {
+        // @todo Migrate to CType once support for TYPO3 v12 is dropped
         Extbase\Utility\ExtensionUtility::configurePlugin(
             self::NAME,
             self::PLUGIN,
@@ -87,7 +88,7 @@ final class Extension
             ],
             [
                 Controller\ConsentController::class => 'approve, dismiss',
-            ]
+            ],
         );
     }
 

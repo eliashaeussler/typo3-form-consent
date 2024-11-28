@@ -54,7 +54,7 @@ final class Localization
         return self::forKey($tableName, self::TYPE_DATABASE, $translate);
     }
 
-    public static function forField(string $fieldName, string $tableName, string $item = null, bool $translate = false): string
+    public static function forField(string $fieldName, string $tableName, ?string $item = null, bool $translate = false): string
     {
         $localizationKey = $tableName . '.' . $fieldName;
         if (\is_string($item) && \strlen($item) > 0) {

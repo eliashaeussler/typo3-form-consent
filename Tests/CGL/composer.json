@@ -1,6 +1,6 @@
 {
 	"require": {
-		"typo3/cms-core": "~12.4.2 || ~13.4.0"
+		"typo3/cms-core": "~12.4.21 || ~13.4.0"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^1.5 || ^2.0",

@@ -20,6 +20,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
+          # @todo Use PHP 8.4 once PHP-CS-Fixer supports PHP 8.4
           php-version: 8.3
           tools: composer:v2, composer-require-checker, composer-unused, cs2pr
           coverage: none
@@ -32,8 +33,8 @@ jobs:
       - name: Install Composer dependencies
         run: |
           composer require --no-progress --no-plugins --no-scripts \
-            typo3/cms-dashboard:"~12.4.2 || ~13.4.0" \
-            typo3/cms-scheduler:"~12.4.2 || ~13.4.0"
+            typo3/cms-dashboard:"~12.4.21 || ~13.4.0" \
+            typo3/cms-scheduler:"~12.4.21 || ~13.4.0"
 
       # Check Composer dependencies
       - name: Check dependencies
