@@ -152,7 +152,8 @@ final class InvokeFinishersListener
             }
 
             // Migrate EXT:extbase and EXT:form hash scopes
-            $hashScope = Form\Security\HashScope::tryFrom($key) ?? Extbase\Security\HashScope::tryFrom($key);
+            $hashScope = Form\Security\HashScope::tryFrom($key);
+            $hashScope ??= Extbase\Security\HashScope::tryFrom($key);
 
             if ($hashScope !== null) {
                 $value = $migration->migrate($value, $hashScope->prefix());
