@@ -19,6 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// @todo Migrate to CType once support for TYPO3 v12 is dropped
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     \EliasHaeussler\Typo3FormConsent\Extension::NAME,
     \EliasHaeussler\Typo3FormConsent\Extension::PLUGIN,
