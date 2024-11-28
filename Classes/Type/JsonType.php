@@ -85,7 +85,7 @@ final class JsonType implements Core\Type\TypeInterface, \ArrayAccess, \JsonSeri
     /**
      * @param TKey $offset
      */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->data[$offset]);
     }
@@ -94,7 +94,7 @@ final class JsonType implements Core\Type\TypeInterface, \ArrayAccess, \JsonSeri
      * @param TKey $offset
      * @return TValue|null
      */
-    public function offsetGet($offset): mixed
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->data[$offset] ?? null;
     }
@@ -103,7 +103,7 @@ final class JsonType implements Core\Type\TypeInterface, \ArrayAccess, \JsonSeri
      * @param TKey $offset
      * @param TValue $value
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->data[$offset] = $value;
     }
@@ -111,7 +111,7 @@ final class JsonType implements Core\Type\TypeInterface, \ArrayAccess, \JsonSeri
     /**
      * @param TKey $offset
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->data[$offset]);
     }
