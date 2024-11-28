@@ -95,7 +95,7 @@ jobs:
           autostart: false
       - name: Configure and start DDEV
         run: |
-          ddev config --project-type=typo3 --php-version=8.4 --xdebug-enabled=true
+          ddev config --project-type=typo3 --xdebug-enabled=true
           ddev start
 
       # Run tests
