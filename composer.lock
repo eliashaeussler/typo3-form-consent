@@ -9003,15 +9003,15 @@
             },
             "type": "typo3-cms-framework",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "12.4.x-dev"
-                },
                 "typo3/cms": {
-                    "extension-key": "dashboard",
                     "Package": {
                         "serviceProvider": "TYPO3\\CMS\\Dashboard\\ServiceProvider",
                         "partOfFactoryDefault": true
-                    }
+                    },
+                    "extension-key": "dashboard"
+                },
+                "branch-alias": {
+                    "dev-main": "12.4.x-dev"
                 }
             },
             "autoload": {
