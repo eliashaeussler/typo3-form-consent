@@ -38,7 +38,7 @@
 		"codeception/module-webdriver": "^4.0",
 		"eliashaeussler/typo3-codeception-helper": "^1.0",
 		"eliashaeussler/typo3-form-consent-test-extension": "1.0.0",
-		"eliashaeussler/version-bumper": "^1.2",
+		"eliashaeussler/version-bumper": "^2.1.1",
 		"helhum/config-loader": "^0.12.5",
 		"koehnlein/codeception-email-mailpit": "^0.3.0",
 		"phpunit/phpcov": "^9.0 || ^10.0",

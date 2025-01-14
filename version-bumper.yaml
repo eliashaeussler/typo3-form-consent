@@ -1,12 +1,6 @@
-filesToModify:
-  - path: Documentation/guides.xml
-    patterns:
-      - 'release="{%version%}"'
-    reportUnmatched: true
-  - path: ext_emconf.php
-    patterns:
-      - "'version' => '{%version%}'"
-    reportUnmatched: true
+presets:
+  - typo3-commit-guidelines
+  - typo3-extension
 
 releaseOptions:
   commitMessage: '[RELEASE] Release of EXT:form_consent {%version%}'
