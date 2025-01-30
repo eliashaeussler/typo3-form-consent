@@ -4274,16 +4274,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v6.4.13",
+            "version": "v6.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "e99b4e94d124b29ee4cf3140e1b537d2dad8cec9"
+                "reference": "bf598c9d9bb4a22f495a4e26e4c4fce2f8ecefc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e99b4e94d124b29ee4cf3140e1b537d2dad8cec9",
-                "reference": "e99b4e94d124b29ee4cf3140e1b537d2dad8cec9",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/bf598c9d9bb4a22f495a4e26e4c4fce2f8ecefc5",
+                "reference": "bf598c9d9bb4a22f495a4e26e4c4fce2f8ecefc5",
                 "shasum": ""
             },
             "require": {
@@ -4326,7 +4326,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v6.4.13"
+                "source": "https://github.com/symfony/yaml/tree/v6.4.18"
             },
             "funding": [
                 {
@@ -4342,7 +4342,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-25T14:18:03+00:00"
+            "time": "2025-01-07T09:44:41+00:00"
         },
         {
             "name": "typo3/class-alias-loader",
@@ -6071,19 +6071,20 @@
         },
         {
             "name": "helmich/typo3-typoscript-lint",
-            "version": "v3.2.1",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/martin-helmich/typo3-typoscript-lint.git",
-                "reference": "1a5eefea17da9441a19cdd8484fa195796a1db67"
+                "reference": "1c99db936e946e8ceb286f132c54216f421490e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/martin-helmich/typo3-typoscript-lint/zipball/1a5eefea17da9441a19cdd8484fa195796a1db67",
-                "reference": "1a5eefea17da9441a19cdd8484fa195796a1db67",
+                "url": "https://api.github.com/repos/martin-helmich/typo3-typoscript-lint/zipball/1c99db936e946e8ceb286f132c54216f421490e2",
+                "reference": "1c99db936e946e8ceb286f132c54216f421490e2",
                 "shasum": ""
             },
             "require": {
+                "ext-dom": "*",
                 "ext-json": "*",
                 "helmich/typo3-typoscript-parser": "^2.3",
                 "php": "^8.1",
@@ -6098,8 +6099,8 @@
             "require-dev": {
                 "mikey179/vfsstream": "^1.6.11",
                 "phpspec/prophecy-phpunit": "^2.0.2",
-                "phpunit/phpunit": "^9.6.8",
-                "vimeo/psalm": "^5.22.2"
+                "phpstan/phpstan": "^2.0.3",
+                "phpunit/phpunit": "^10.5.11 || ^11.5.0"
             },
             "bin": [
                 "typoscript-lint"
@@ -6125,7 +6126,7 @@
             "homepage": "https://github.com/martin-helmich",
             "support": {
                 "issues": "https://github.com/martin-helmich/typo3-typoscript-lint/issues",
-                "source": "https://github.com/martin-helmich/typo3-typoscript-lint/tree/v3.2.1"
+                "source": "https://github.com/martin-helmich/typo3-typoscript-lint/tree/v3.3.0"
             },
             "funding": [
                 {
@@ -6137,7 +6138,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-29T08:41:04+00:00"
+            "time": "2025-01-30T15:00:07+00:00"
         },
         {
             "name": "helmich/typo3-typoscript-parser",
