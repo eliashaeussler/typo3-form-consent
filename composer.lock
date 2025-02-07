@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dde4f55095b2ddd57794acb451f73cff",
+    "content-hash": "1a4acbf8a88498c847cc68d0ce5e402e",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6595,16 +6595,16 @@
         },
         {
             "name": "eliashaeussler/typo3-codeception-helper",
-            "version": "1.1.2",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/typo3-codeception-helper.git",
-                "reference": "6b1018fd98dccb3c97f4a5c201e123ca48ea2e86"
+                "reference": "ab6cdf44d846314c0da0d0c9472517aa1d9d529b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/typo3-codeception-helper/zipball/6b1018fd98dccb3c97f4a5c201e123ca48ea2e86",
-                "reference": "6b1018fd98dccb3c97f4a5c201e123ca48ea2e86",
+                "url": "https://api.github.com/repos/eliashaeussler/typo3-codeception-helper/zipball/ab6cdf44d846314c0da0d0c9472517aa1d9d529b",
+                "reference": "ab6cdf44d846314c0da0d0c9472517aa1d9d529b",
                 "shasum": ""
             },
             "require": {
@@ -6622,9 +6622,12 @@
                 "eliashaeussler/rector-config": "^3.0",
                 "ergebnis/composer-normalize": "^2.30",
                 "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan-phpunit": "^1.1",
+                "phpstan/phpstan-phpunit": "^2.0",
                 "phpunit/phpunit": "^10.2 || ^11.0",
                 "symfony/finder": "^5.4 || ^6.0 || ^7.0"
+            },
+            "suggest": {
+                "codeception/module-webdriver": "Require Codeception's WebDriver module to use the `Backend` module (^4.0)"
             },
             "type": "library",
             "autoload": {
@@ -6647,9 +6650,9 @@
             "description": "Helper functions for Codeception tests within TYPO3 extensions",
             "support": {
                 "issues": "https://github.com/eliashaeussler/typo3-codeception-helper/issues",
-                "source": "https://github.com/eliashaeussler/typo3-codeception-helper/tree/1.1.2"
+                "source": "https://github.com/eliashaeussler/typo3-codeception-helper/tree/1.2.0"
             },
-            "time": "2024-11-27T17:52:54+00:00"
+            "time": "2025-02-07T11:01:50+00:00"
         },
         {
             "name": "eliashaeussler/typo3-form-consent-test-extension",
