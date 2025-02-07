@@ -42,6 +42,7 @@ final class ConsentDataElementCest
         $I->openModule(Tests\Acceptance\Support\Enums\Selectors::ListModule->value);
 
         $I->seeElement(Tests\Acceptance\Support\Enums\Selectors::ConsentListCollapsible->value);
+        $I->scrollToElementInModule(Tests\Acceptance\Support\Enums\Selectors::ConsentListItemTitle->value);
         $I->click(Tests\Acceptance\Support\Enums\Selectors::ConsentListItemTitle->value);
         $I->waitForText('Submitted form data', 5);
     }
