@@ -93,6 +93,7 @@ JS);
         Tests\Acceptance\Support\AcceptanceTester $I,
         Tests\Acceptance\Support\Helper\ModalDialog $dialog,
     ): void {
+        $I->waitForElementClickable(Tests\Acceptance\Support\Enums\Selectors::DashboardAddWidgetButton->value);
         $I->click(Tests\Acceptance\Support\Enums\Selectors::DashboardAddWidgetButton->value);
 
         $dialog->canSeeDialog();
