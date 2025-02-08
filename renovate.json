@@ -15,7 +15,8 @@
 			"matchPackageNames": [
 				"eliashaeussler/typo3-form-consent-test-extension"
 			]
-		},		{
+		},
+		{
 			"matchFileNames": [
 				"composer.json"
 			],
