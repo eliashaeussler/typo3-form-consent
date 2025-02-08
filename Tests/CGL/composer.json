@@ -1,9 +1,6 @@
 {
-	"require": {
-		"typo3/cms-core": "~12.4.21 || ~13.4.0"
-	},
 	"require-dev": {
-		"armin/editorconfig-cli": "^1.5 || ^2.0",
+		"armin/editorconfig-cli": "^2.0",
 		"eliashaeussler/php-cs-fixer-config": "^2.0",
 		"eliashaeussler/phpstan-config": "^2.1",
 		"eliashaeussler/rector-config": "^3.0",
@@ -13,11 +10,13 @@
 		"phpstan/extension-installer": "^1.3",
 		"phpstan/phpstan-phpunit": "^2.0",
 		"saschaegerer/phpstan-typo3": "^2.0",
-		"ssch/typo3-rector": "^2.0",
-		"typo3/coding-standards": "^0.6.0 || ^0.7.0 || ^0.8.0"
+		"ssch/typo3-rector": "^3.0",
+		"typo3/coding-standards": "^0.8.0"
 	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
+	"replace": {
+		"typo3/cms-core": "*",
+		"typo3/cms-extbase": "*"
+	},
 	"config": {
 		"allow-plugins": {
 			"ergebnis/composer-normalize": true,
