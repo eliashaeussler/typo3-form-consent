@@ -4,6 +4,9 @@
 		"local>eliashaeussler/renovate-config",
 		"local>eliashaeussler/renovate-config:typo3-extension"
 	],
+	"constraints": {
+		"php": "8.1.*"
+	},
 	"packageRules": [
 		{
 			"extends": [
@@ -18,15 +21,7 @@
 		},
 		{
 			"matchFileNames": [
-				"composer.json"
-			],
-			"constraints": {
-				"php": "8.1.*"
-			}
-		},
-		{
-			"matchFileNames": [
-				"Tests/CGL/composer.json"
+				"Tests/CGL/composer.*"
 			],
 			"constraints": {
 				"php": "8.3.*"
