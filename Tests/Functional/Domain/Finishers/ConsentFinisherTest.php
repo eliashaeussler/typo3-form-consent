@@ -42,6 +42,7 @@ use TYPO3\CMS\Frontend;
 final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
+        'fluid_styled_content',
         'form',
     ];
 
