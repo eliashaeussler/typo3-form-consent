@@ -119,6 +119,22 @@ prototypes:
                   9999:
                     identifier: removeButton
                     templateName: Inspector-RemoveElementEditor
+              10:
+                editors:
+                  1500:
+                    identifier: needsConsent
+                    templateName: Inspector-CheckboxEditor
+                    label: formEditor.elements.Form.finisher.editor.needsConsent.label
+                    propertyPath: options.needsConsent
+                    fieldExplanationText: formEditor.elements.Form.finisher.editor.needsConsent.fieldExplanationText
+              20:
+                editors:
+                  1500:
+                    identifier: needsConsent
+                    templateName: Inspector-CheckboxEditor
+                    label: formEditor.elements.Form.finisher.editor.needsConsent.label
+                    propertyPath: options.needsConsent
+                    fieldExplanationText: formEditor.elements.Form.finisher.editor.needsConsent.fieldExplanationText
     formEngine:
       translationFiles:
         1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
