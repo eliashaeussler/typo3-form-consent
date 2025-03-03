@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Compatibility\Migration;
 
+use EliasHaeussler\PHPUnitAttributes;
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
-use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
 
 /**
@@ -35,6 +35,8 @@ use TYPO3\TestingFramework;
  * @license GPL-2.0-or-later
  */
 #[Framework\Attributes\CoversClass(Src\Compatibility\Migration\HmacHashMigration::class)]
+// @todo Remove once support for TYPO3 v12 is dropped
+#[PHPUnitAttributes\Attribute\RequiresPackage('typo3/cms-core', '>= 13')]
 final class HmacHashMigrationTest extends TestingFramework\Core\Unit\UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
@@ -44,11 +46,6 @@ final class HmacHashMigrationTest extends TestingFramework\Core\Unit\UnitTestCas
     public function setUp(): void
     {
         parent::setUp();
-
-        // @todo Remove once support for TYPO3 v12 is dropped
-        if ((new Core\Information\Typo3Version())->getMajorVersion() < 13) {
-            self::markTestSkipped('Test can be executed on TYPO3 >= 13 only.');
-        }
 
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'e52bf8903ee05ddfa65107175fbf7c72fd57482f28733701585f11c04885cab5474f2811c442ba87f93e1a63db8c0443';
 
