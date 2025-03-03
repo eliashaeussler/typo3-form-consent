@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a4acbf8a88498c847cc68d0ce5e402e",
+    "content-hash": "11ca5ffdfd594509454b5174e703c744",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6594,6 +6594,60 @@
                 }
             ],
             "time": "2024-11-26T16:23:11+00:00"
+        },
+        {
+            "name": "eliashaeussler/phpunit-attributes",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eliashaeussler/phpunit-attributes.git",
+                "reference": "e83d9210492f3b4996c9075d91013f8a630c736e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eliashaeussler/phpunit-attributes/zipball/e83d9210492f3b4996c9075d91013f8a630c736e",
+                "reference": "e83d9210492f3b4996c9075d91013f8a630c736e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+                "phpunit/phpunit": "^10.5.35 || ^11.4 || ^12.0"
+            },
+            "require-dev": {
+                "armin/editorconfig-cli": "^1.8 || ^2.0",
+                "eliashaeussler/php-cs-fixer-config": "^2.0",
+                "eliashaeussler/phpstan-config": "^2.5.1",
+                "eliashaeussler/rector-config": "^3.0",
+                "ergebnis/composer-normalize": "^2.30",
+                "phpstan/extension-installer": "^1.2",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpcov": "^9.0 || ^10.0 || ^11.0",
+                "symfony/console": "^6.4 || ^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EliasHaeussler\\PHPUnitAttributes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Elias Häußler",
+                    "email": "elias@haeussler.dev",
+                    "homepage": "https://haeussler.dev",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Provides additional attributes for tests with PHPUnit",
+            "support": {
+                "issues": "https://github.com/eliashaeussler/phpunit-attributes/issues",
+                "source": "https://github.com/eliashaeussler/phpunit-attributes/tree/1.3.0"
+            },
+            "time": "2025-02-28T17:51:10+00:00"
         },
         {
             "name": "eliashaeussler/typo3-codeception-helper",
