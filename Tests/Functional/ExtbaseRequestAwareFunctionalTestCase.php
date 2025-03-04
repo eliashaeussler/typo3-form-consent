@@ -37,7 +37,7 @@ use TYPO3\TestingFramework;
 abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     private const REQUIRED_PATHS = [
-        'typo3conf/ext/form_consent/Tests/Build/Configuration/sites/' => 'typo3conf/sites/',
+        'typo3conf/ext/form_consent/Tests/Build/Configuration/sites' => 'typo3conf/sites',
     ];
 
     private const REQUIRED_EXTENSIONS = [
@@ -52,11 +52,14 @@ abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Co
     {
         $this->addRequiredExtensions();
 
-        parent::setUp();
-
         // Make sure site config is always populated
-        $testbase = new TestingFramework\Core\Testbase();
-        $testbase->providePathsInTestInstance($this->instancePath, self::REQUIRED_PATHS);
+        foreach (self::REQUIRED_PATHS as $source => $target) {
+            if (!\in_array($target, $this->pathsToLinkInTestInstance, true)) {
+                $this->pathsToLinkInTestInstance[$source] = $target;
+            }
+        }
+
+        parent::setUp();
 
         $this->request = $GLOBALS['TYPO3_REQUEST'] = $this->provideServerRequest();
         $this->prepareExtbaseEnvironment($this->request);
@@ -76,11 +79,15 @@ abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Co
         $this->importCSVDataSet(__DIR__ . '/Fixtures/Database/sys_template.csv');
         $this->importCSVDataSet(__DIR__ . '/Fixtures/Database/tt_content.csv');
 
-        $this->executeFrontendSubRequest(
-            new TestingFramework\Core\Functional\Framework\Frontend\InternalRequest(
-                self::BASE_FRONTEND_URL,
-            ),
-        );
+        try {
+            $this->executeFrontendSubRequest(
+                new TestingFramework\Core\Functional\Framework\Frontend\InternalRequest(
+                    self::BASE_FRONTEND_URL,
+                ),
+            );
+        } catch (\Exception) {
+            // Ignore any exceptions, we only want to fetch the stored request
+        }
 
         $request = TestExtension\Middleware\RequestStorageHandler::$request;
 
