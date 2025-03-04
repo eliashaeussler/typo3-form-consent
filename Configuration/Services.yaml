@@ -22,8 +22,18 @@ services:
         identifier: 'formConsentInvokeFinishersOnConsentDismissListener'
         method: 'onConsentDismiss'
 
+  EliasHaeussler\Typo3FormConsent\Event\Listener\AfterFormDefinitionLoadedEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'formConsentAfterFormDefinitionLoadedEventListener'
+
+  EliasHaeussler\Typo3FormConsent\Hooks\ModifyFormVariantHook:
+    public: true
+
   connection.tx_formconsent_domain_model_consent:
     class: 'TYPO3\CMS\Core\Database\Connection'
     factory: ['@TYPO3\CMS\Core\Database\ConnectionPool', 'getConnectionForTable']
     arguments:
       - !php/const EliasHaeussler\Typo3FormConsent\Domain\Model\Consent::TABLE_NAME
+
+

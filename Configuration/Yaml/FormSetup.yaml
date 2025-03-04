@@ -122,19 +122,88 @@ prototypes:
               10:
                 editors:
                   1500:
-                    identifier: needsConsent
-                    templateName: Inspector-CheckboxEditor
-                    label: formEditor.elements.Form.finisher.editor.needsConsent.label
-                    propertyPath: options.needsConsent
-                    fieldExplanationText: formEditor.elements.Form.finisher.editor.needsConsent.fieldExplanationText
+                    identifier: consentCondition
+                    templateName: Inspector-SingleSelectEditor
+                    label: formEditor.elements.Form.finisher.editor.consentCondition.label
+                    propertyPath: options.consentCondition
+                    selectOptions:
+                      10:
+                        value: ''
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.noConditionNeeded
+                      15:
+                        value: 'needsApproval'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsApproval
+                      20:
+                        value: 'needsDismissal'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsDismissal
               20:
                 editors:
                   1500:
-                    identifier: needsConsent
-                    templateName: Inspector-CheckboxEditor
-                    label: formEditor.elements.Form.finisher.editor.needsConsent.label
-                    propertyPath: options.needsConsent
-                    fieldExplanationText: formEditor.elements.Form.finisher.editor.needsConsent.fieldExplanationText
+                    identifier: consentCondition
+                    templateName: Inspector-SingleSelectEditor
+                    label: formEditor.elements.Form.finisher.editor.consentCondition.label
+                    propertyPath: options.consentCondition
+                    selectOptions:
+                      10:
+                        value: ''
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.noConditionNeeded
+                      15:
+                        value: 'needsApproval'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsApproval
+                      20:
+                        value: 'needsDismissal'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsDismissal
+              30:
+                editors:
+                  1500:
+                    identifier: consentCondition
+                    templateName: Inspector-SingleSelectEditor
+                    label: formEditor.elements.Form.finisher.editor.consentCondition.label
+                    propertyPath: options.consentCondition
+                    selectOptions:
+                      10:
+                        value: ''
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.noConditionNeeded
+                      15:
+                        value: 'needsApproval'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsApproval
+                      20:
+                        value: 'needsDismissal'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsDismissal
+              40:
+                editors:
+                  1500:
+                    identifier: consentCondition
+                    templateName: Inspector-SingleSelectEditor
+                    label: formEditor.elements.Form.finisher.editor.consentCondition.label
+                    propertyPath: options.consentCondition
+                    selectOptions:
+                      10:
+                        value: ''
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.noConditionNeeded
+                      15:
+                        value: 'needsApproval'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsApproval
+                      20:
+                        value: 'needsDismissal'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsDismissal
+              50:
+                editors:
+                  1500:
+                    identifier: consentCondition
+                    templateName: Inspector-SingleSelectEditor
+                    label: formEditor.elements.Form.finisher.editor.consentCondition.label
+                    propertyPath: options.consentCondition
+                    selectOptions:
+                      10:
+                        value: ''
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.noConditionNeeded
+                      15:
+                        value: 'needsApproval'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsApproval
+                      20:
+                        value: 'needsDismissal'
+                        label: formEditor.elements.Form.finisher.editor.consentCondition.option.needsDismissal
     formEngine:
       translationFiles:
         1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
