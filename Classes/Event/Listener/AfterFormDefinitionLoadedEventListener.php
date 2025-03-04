@@ -40,10 +40,11 @@ class AfterFormDefinitionLoadedEventListener
         private readonly ConsentVariantManager $consentVariantManager
     ){}
 
-    #[AsEventListener(
+    // @todo Enable attribute once support for TYPO3 v12 is dropped
+    /*#[AsEventListener(
         identifier: 'AfterFormDefinitionLoadedEventListener',
         event: AfterFormDefinitionLoadedEvent::class)
-    ]
+    ]*/
     public function __invoke(AfterFormDefinitionLoadedEvent $event)
     {
         // Make sure handler does only get called when processing the form definition in backend

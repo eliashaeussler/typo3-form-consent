@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Hooks;
 
 use EliasHaeussler\Typo3FormConsent\Domain\Variants\ConsentVariantManager;
-use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 /**
  * Event listener to create form variants
  */
-#[Autoconfigure(public: true)]
+// @todo Enable attribute once support for TYPO3 v12 is dropped
+//#[Autoconfigure(public: true)]
 class ModifyFormVariantsHook
 {
     public function __construct(protected ConsentVariantManager $consentVariantManager){}
@@ -41,7 +41,7 @@ class ModifyFormVariantsHook
      */
     public function beforeFormCreate(string $formPersistenceIdentifier, array $form): array
     {
-        return $this->createVariantsWithFinishers($form);
+        return $this->consentVariantManager->addConsentVariants($form);
     }
 
     /**
@@ -51,29 +51,6 @@ class ModifyFormVariantsHook
      */
     public function beforeFormSave(string $formPersistenceIdentifier, array $form): array
     {
-        return $this->createVariantsWithFinishers($form);
-    }
-
-    protected function createVariantsWithFinishers(array $form): array
-    {
-        // modify variants only if Consent finisher is selected
-        if (!$this->consentVariantManager->formHasConsentFinisher($form)) {
-            return $form;
-        }
-
-        $finishersThatNeedConsent = $this->consentVariantManager->findFinishersWithConsentNeeded($form);
-
-        // always rebuild consent variants
-        $form = $this->consentVariantManager->removeConsentVariant($form);
-
-        if (!empty($finishersThatNeedConsent)) {
-            $form = $this->consentVariantManager->removeFinishersWithConsentNeededFromDefault($form, $finishersThatNeedConsent);
-            $consentVariant = [];
-            $consentVariant['identifier'] = ConsentVariantManager::CONSENT_APPROVED_VARIANT_IDENTIFIER;
-            $consentVariant['condition'] = ConsentVariantManager::CONSENT_APPROVED_VARIANT_CONDITION;
-            $consentVariant['finishers'] = $finishersThatNeedConsent;
-            $form['variants'][] = $consentVariant;
-        }
-        return $form;
+        return $this->consentVariantManager->addConsentVariants($form);
     }
 }
