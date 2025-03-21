@@ -113,7 +113,8 @@ JS);
         }
 
         $I->switchToIFrame(Typo3CodeceptionHelper\Enums\Selectors::BackendContentFrame->value);
-        $I->waitForElementVisible(Tests\Acceptance\Support\Enums\Selectors::DashboardWidget->value);
+        $I->waitForElementVisible(Tests\Acceptance\Support\Enums\Selectors::DashboardWidgetCanvas->value);
+        $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardWidget->value);
     }
 
     private function createConsents(Tests\Acceptance\Support\AcceptanceTester $I): void
