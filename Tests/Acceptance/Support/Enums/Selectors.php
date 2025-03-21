@@ -34,11 +34,11 @@ enum Selectors: string
     case ConsentListCollapsible = '#t3-table-tx_formconsent_domain_model_consent';
     case ConsentListItemTitle = 'tr[data-table="tx_formconsent_domain_model_consent"]:first-child td.col-title a';
     case ContactForm = 'form#contact';
-    case DashboardAddWidgetButton = '.js-dashboard-addWidget';
+    case DashboardAddWidgetButton = '.dashboard-add-item > button';
     case DashboardModalItemTitle = '[data-identifier="approvedConsentsWidget"]';
     case DashboardModule = '[data-modulemenu-identifier="dashboard"]';
-    case DashboardWidget = '.widget-identifier-approvedConsentsWidget';
-    case DashboardWidgetCanvas = '.widget-identifier-approvedConsentsWidget canvas';
+    case DashboardWidget = '[data-widget-key="approvedConsentsWidget"]';
+    case DashboardWidgetCanvas = '[data-widget-key="approvedConsentsWidget"] canvas';
     case FormDefinition = '[data-identifier="formDefinitionLabel"]';
     case FormList = '#forms';
     case FormModule = '[data-modulemenu-identifier="web_FormFormbuilder"]';
