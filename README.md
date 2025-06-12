@@ -6,8 +6,7 @@
 
 [![Coverage](https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-form-consent?logo=coveralls)](https://coveralls.io/github/eliashaeussler/typo3-form-consent)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-form-consent?logo=codeclimate)](https://codeclimate.com/github/eliashaeussler/typo3-form-consent/maintainability)
-[![CGL](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/cgl.yaml?label=cgl&logo=github)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml)
-[![Tests](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/tests.yaml?label=tests&logo=github)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml)
+[![CI](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/ci.yaml?label=CI&logo=github)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/ci.yaml)
 [![Supported TYPO3 versions](https://typo3-badges.dev/badge/form_consent/typo3/shields.svg)](https://extensions.typo3.org/extension/form_consent)
 [![Slack](https://img.shields.io/badge/slack-%23ext--form__consent-4a154b?logo=slack)](https://typo3.slack.com/archives/C03719PJJJD)
 

@@ -6,11 +6,8 @@
 ..  image:: https://img.shields.io/codeclimate/maintainability/eliashaeussler/typo3-form-consent?logo=codeclimate
     :target: https://codeclimate.com/github/eliashaeussler/typo3-form-consent/maintainability
 
-..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/cgl.yaml?label=cgl&logo=github
-    :target: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/cgl.yaml
-
-..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/tests.yaml?label=tests&logo=github
-    :target: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/tests.yaml
+..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/ci.yaml?label=CI&logo=github
+    :target: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/ci.yaml
 
 ..  _contributing:
 
@@ -70,6 +67,19 @@ Now start DDEV:
 
 You can access the DDEV site at https://typo3-ext-form-consent.ddev.site/.
 
+..  _analyze-code:
+
+Analyze code
+------------
+
+..  code-block:: bash
+
+    # All analyzers
+    ddev cgl analyze
+
+    # Specific analyzers
+    ddev cgl analyze:dependencies
+
 ..  _check-code-quality:
 
 Check code quality
@@ -115,9 +125,6 @@ Run tests
     ddev test acceptance
     ddev test functional
     ddev test unit
-
-    # Enable Xdebug to collect code coverage
-    ddev xdebug on
 
     # All tests with code coverage
     ddev test coverage
