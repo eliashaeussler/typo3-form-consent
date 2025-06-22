@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent;
 
+use EliasHaeussler\Typo3FormConsent\Hooks\ModifyFormVariantsHook;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Extbase;
 use TYPO3\CMS\Scheduler;
@@ -124,5 +125,18 @@ final class Extension
                 }
             }
         ');
+    }
+
+    /**
+     * Register hooks to set form variants depending on finisher settings.
+     *
+     * FOR USE IN ext_localconf.php ONLY.
+     */
+    public static function registerFormVariantHooks(): void
+    {
+        foreach (['beforeFormCreate', 'beforeFormSave'] as $hook) {
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/form'][$hook]['1740825683'] =
+                ModifyFormVariantsHook::class;
+        }
     }
 }

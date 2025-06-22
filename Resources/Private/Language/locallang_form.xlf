@@ -68,6 +68,19 @@
 				<source>Enable this checkbox if users must verify their consent dismissal by additionally clicking on a link on the consent validation page. This is especially useful to avoid that automatic mail link scanners accidentally dismissing a consent.</source>
 			</trans-unit>
 
+			<trans-unit id="formEditor.elements.Form.finisher.editor.consentCondition.label" resname="formEditor.elements.Form.finisher.editor.consentCondition.label">
+				<source>Consent conditions</source>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finisher.editor.consentCondition.option.noConditionNeeded" resname="formEditor.elements.Form.finisher.editor.consentCondition.option.noConditionNeeded">
+				<source>No condition (default behaviour)</source>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finisher.editor.consentCondition.option.needsApproval" resname="formEditor.elements.Form.finisher.editor.consentCondition.option.needsApproval">
+				<source>Approval (Consent finisher needed)</source>
+			</trans-unit>
+			<trans-unit id="formEditor.elements.Form.finisher.editor.consentCondition.option.needsDismissal" resname="formEditor.elements.Form.finisher.editor.consentCondition.option.needsDismissal">
+				<source>Dismissal (Consent finisher needed)</source>
+			</trans-unit>
+
 			<trans-unit id="formEditor.elements.Form.finisher.Consent.editor.header.label" resname="formEditor.elements.Form.finisher.Consent.editor.header.label">
 				<source>Consent</source>
 			</trans-unit>
