@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Type;
 
-use ArrayAccess;
 use TYPO3\CMS\Core;
 
 /**
@@ -34,7 +33,7 @@ use TYPO3\CMS\Core;
  *
  * @template TKey
  * @template TValue
- * @implements ArrayAccess<TKey, TValue>
+ * @implements \ArrayAccess<TKey, TValue>
  */
 final class JsonType implements Core\Type\TypeInterface, \ArrayAccess, \JsonSerializable, \Stringable
 {
