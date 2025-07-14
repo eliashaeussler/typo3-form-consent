@@ -1,66 +1,85 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to method appendHmac\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService\\.$#"
+			message: '#^Call to method appendHmac\(\) on an unknown class TYPO3\\CMS\\Core\\Crypto\\HashService\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
-			message: "#^Call to method validateAndStripHmac\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService\\.$#"
+			message: '#^Call to method validateAndStripHmac\(\) on an unknown class TYPO3\\CMS\\Core\\Crypto\\HashService\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
-			message: "#^Caught class TYPO3\\\\CMS\\\\Core\\\\Exception\\\\Crypto\\\\InvalidHashStringException not found\\.$#"
+			message: '#^Caught class TYPO3\\CMS\\Core\\Exception\\Crypto\\InvalidHashStringException not found\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
-			message: "#^Class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService not found\\.$#"
+			message: '#^Class TYPO3\\CMS\\Core\\Crypto\\HashService not found\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
-			message: "#^Property EliasHaeussler\\\\Typo3FormConsent\\\\Compatibility\\\\Migration\\\\HmacHashMigration\\:\\:\\$coreHashService has unknown class TYPO3\\\\CMS\\\\Core\\\\Crypto\\\\HashService as its type\\.$#"
+			message: '#^Property EliasHaeussler\\Typo3FormConsent\\Compatibility\\Migration\\HmacHashMigration\:\:\$coreHashService has unknown class TYPO3\\CMS\\Core\\Crypto\\HashService as its type\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 2
 			path: ../../Classes/Domain/Finishers/FinisherOptions.php
 
 		-
-			message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Form\\\\Mvc\\\\Configuration\\\\ConfigurationManagerInterface\\:\\:getYamlConfiguration\\(\\)\\.$#"
+			message: '#^Call to an undefined method TYPO3\\CMS\\Form\\Mvc\\Configuration\\ConfigurationManagerInterface\:\:getYamlConfiguration\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
-			message: "#^Call to static method tryFrom\\(\\) on an unknown class TYPO3\\\\CMS\\\\Extbase\\\\Security\\\\HashScope\\.$#"
+			message: '#^Call to static method tryFrom\(\) on an unknown class TYPO3\\CMS\\Extbase\\Security\\HashScope\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
-			message: "#^Call to static method tryFrom\\(\\) on an unknown class TYPO3\\\\CMS\\\\Form\\\\Security\\\\HashScope\\.$#"
+			message: '#^Call to static method tryFrom\(\) on an unknown class TYPO3\\CMS\\Form\\Security\\HashScope\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
-			message: "#^Method TYPO3\\\\CMS\\\\Form\\\\Mvc\\\\Persistence\\\\FormPersistenceManagerInterface\\:\\:load\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			message: '#^Method TYPO3\\CMS\\Form\\Mvc\\Persistence\\FormPersistenceManagerInterface\:\:load\(\) invoked with 3 parameters, 1 required\.$#'
+			identifier: arguments.count
 			count: 1
 			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
 
 		-
-			message: "#^Access to constant ResourcePointer on an unknown class TYPO3\\\\CMS\\\\Form\\\\Security\\\\HashScope\\.$#"
+			message: '#^Access to constant ResourcePointer on an unknown class TYPO3\\CMS\\Form\\Security\\HashScope\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Type/Transformer/FormRequestTypeTransformer.php
 
 		-
-			message: "#^Method EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\Transformer\\\\TypeTransformer\\:\\:transform\\(\\) return type with generic class EliasHaeussler\\\\Typo3FormConsent\\\\Type\\\\JsonType does not specify its types\\: TKey, TValue$#"
+			message: '#^Method EliasHaeussler\\Typo3FormConsent\\Type\\Transformer\\TypeTransformer\:\:transform\(\) return type with generic class EliasHaeussler\\Typo3FormConsent\\Type\\JsonType does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: ../../Classes/Type/Transformer/TypeTransformer.php
 
 		-
-			message: "#^PHPDoc type EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\AcceptanceTester of property EliasHaeussler\\\\Typo3FormConsent\\\\Tests\\\\Acceptance\\\\Support\\\\Helper\\\\ModalDialog\\:\\:\\$tester is not the same as PHPDoc type TYPO3\\\\CMS\\\\Core\\\\Tests\\\\Acceptance\\\\Support\\\\ApplicationTester of overridden property TYPO3\\\\TestingFramework\\\\Core\\\\Acceptance\\\\Helper\\\\AbstractModalDialog\\:\\:\\$tester\\.$#"
+			message: '#^PHPDoc type EliasHaeussler\\Typo3FormConsent\\Tests\\Acceptance\\Support\\AcceptanceTester of property EliasHaeussler\\Typo3FormConsent\\Tests\\Acceptance\\Support\\Helper\\ModalDialog\:\:\$tester is not the same as PHPDoc type TYPO3\\CMS\\Core\\Tests\\Acceptance\\Support\\ApplicationTester of overridden property TYPO3\\TestingFramework\\Core\\Acceptance\\Helper\\AbstractModalDialog\:\:\$tester\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: ../Acceptance/Support/Helper/ModalDialog.php
+
+		-
+			message: '#^Access to constant String on an unknown class PHPUnit\\Framework\\NativeType\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../Functional/Configuration/LocalizationTest.php

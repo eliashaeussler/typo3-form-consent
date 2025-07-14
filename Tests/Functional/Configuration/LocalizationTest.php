@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Configuration;
 
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
+use PHPUnit\Runner;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Frontend;
 use TYPO3\TestingFramework;
@@ -178,7 +179,11 @@ final class LocalizationTest extends TestingFramework\Core\Functional\Functional
     {
         $tsfeMock = $this->createMock(Frontend\Controller\TypoScriptFrontendController::class);
         $tsfeMock->method('sL')
-            ->with(new Framework\Constraint\IsType('string'))
+            ->with(
+                new Framework\Constraint\IsType(
+                    Runner\Version::majorVersionNumber() >= 12 ? Framework\NativeType::String : Framework\Constraint\IsType::TYPE_STRING,
+                ),
+            )
             ->willReturn($expectedReturnValue)
         ;
         $GLOBALS['TSFE'] = $tsfeMock;
