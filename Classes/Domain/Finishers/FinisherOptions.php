@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 
-use ArrayAccess;
 use EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Exception;
 use EliasHaeussler\Typo3FormConsent\Extension;
@@ -38,7 +37,7 @@ use TYPO3\CMS\Form;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  *
- * @implements ArrayAccess<string, string|int|bool|Fluid\View\TemplatePaths>
+ * @implements \ArrayAccess<string, string|int|bool|Fluid\View\TemplatePaths>
  */
 final class FinisherOptions implements \ArrayAccess
 {
