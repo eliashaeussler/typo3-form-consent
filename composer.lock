@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5a23837351cb3992f8225b5339d35b1",
+    "content-hash": "f6f66263f8621eae9b71291aaf7eaebf",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6067,6 +6067,54 @@
             "time": "2025-04-24T17:18:25+00:00"
         },
         {
+            "name": "codeception/module-cli",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/module-cli.git",
+                "reference": "a3a101fae4049fa2f810107f7bd5db3b3266ce63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/module-cli/zipball/a3a101fae4049fa2f810107f7bd5db3b3266ce63",
+                "reference": "a3a101fae4049fa2f810107f7bd5db3b3266ce63",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "*@dev",
+                "codeception/module-asserts": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "conflict": {
+                "codeception/codeception": "<4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Bodnarchuk"
+                }
+            ],
+            "description": "Codeception module for testing basic shell commands and shell output",
+            "homepage": "https://codeception.com/",
+            "keywords": [
+                "codeception"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeception/module-cli/issues",
+                "source": "https://github.com/Codeception/module-cli/tree/2.0.1"
+            },
+            "time": "2023-01-13T18:41:03+00:00"
+        },
+        {
             "name": "codeception/module-db",
             "version": "3.2.2",
             "source": {
@@ -6519,6 +6567,68 @@
                 }
             ],
             "time": "2024-11-26T16:23:11+00:00"
+        },
+        {
+            "name": "derhansen/form_crshield",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/derhansen/form_crshield.git",
+                "reference": "7d5e097a24feb4b1fce34748afef0a8dd85ca416"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/derhansen/form_crshield/zipball/7d5e097a24feb4b1fce34748afef0a8dd85ca416",
+                "reference": "7d5e097a24feb4b1fce34748afef0a8dd85ca416",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "typo3/cms-core": "^10.4.29 || ^11.5 || ^12.4",
+                "typo3/cms-extbase": "^10.4.29 || ^11.5 || ^12.4",
+                "typo3/cms-form": "^10.4.29 || ^11.5 || ^12.4",
+                "typo3/cms-frontend": "^10.4.29 || ^11.5 || ^12.4"
+            },
+            "replace": {
+                "typo3-ter/form-crshield": "self.version"
+            },
+            "type": "typo3-cms-extension",
+            "extra": {
+                "typo3/cms": {
+                    "extension-key": "form_crshield"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Derhansen\\FormCrshield\\": "Classes"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Torben Hansen",
+                    "email": "derhansen@gmail.com",
+                    "homepage": "https://www.derhansen.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Challenge/response spambot protection for TYPO3 ext:form",
+            "homepage": "https://github.com/derhansen/form_crshield",
+            "keywords": [
+                "TYPO3 CMS",
+                "challenge response",
+                "extbase",
+                "form",
+                "spam protection"
+            ],
+            "support": {
+                "issues": "https://github.com/derhansen/form_crshield/issues",
+                "source": "https://github.com/derhansen/form_crshield/tree/1.4.1"
+            },
+            "time": "2024-02-01T13:08:23+00:00"
         },
         {
             "name": "eliashaeussler/phpunit-attributes",

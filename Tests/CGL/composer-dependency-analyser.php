@@ -57,6 +57,7 @@ $configuration
     )
     ->ignoreErrorsOnPackages(
         [
+            'derhansen/form_crshield',
             'typo3/cms-dashboard',
             'typo3/cms-scheduler',
         ],
