@@ -34,8 +34,10 @@
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^3.0",
+		"codeception/module-cli": "^2.0",
 		"codeception/module-db": "^3.1",
 		"codeception/module-webdriver": "^4.0",
+		"derhansen/form_crshield": "^1.0",
 		"eliashaeussler/typo3-codeception-helper": "^1.0",
 		"helhum/config-loader": "^0.12.5",
 		"koehnlein/codeception-email-mailpit": "^0.3.0",

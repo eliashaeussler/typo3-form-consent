@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Extension;
 
 use Codeception\Events;
 use Codeception\Extension;
+use EliasHaeussler\Typo3FormConsent\Tests;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Install;
 
@@ -41,6 +42,8 @@ final class EnvironmentExtension extends Extension
      */
     public static array $events = [
         Events::SUITE_BEFORE => 'beforeSuite',
+        Events::TEST_BEFORE => 'beforeTest',
+        Events::TEST_AFTER => 'afterTest',
     ];
 
     public function beforeSuite(): void
@@ -51,5 +54,19 @@ final class EnvironmentExtension extends Extension
         // Fix folder structure
         $defaultFactory = Core\Utility\GeneralUtility::makeInstance(Install\FolderStructure\DefaultFactory::class);
         $defaultFactory->getStructure()->fix();
+    }
+
+    public function beforeTest(): void
+    {
+        /** @var Tests\Acceptance\Support\Helper\ExtensionConfiguration $extensionConfiguration */
+        $extensionConfiguration = $this->getModule(Tests\Acceptance\Support\Helper\ExtensionConfiguration::class);
+        $extensionConfiguration->writeConfiguration('form_crshield', 'crJavaScriptDelay', '1');
+    }
+
+    public function afterTest(): void
+    {
+        /** @var Tests\Acceptance\Support\Helper\ExtensionConfiguration $extensionConfiguration */
+        $extensionConfiguration = $this->getModule(Tests\Acceptance\Support\Helper\ExtensionConfiguration::class);
+        $extensionConfiguration->removeConfiguration('form_crshield', 'crJavaScriptDelay');
     }
 }

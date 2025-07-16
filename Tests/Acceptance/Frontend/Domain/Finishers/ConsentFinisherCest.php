@@ -50,7 +50,7 @@ final class ConsentFinisherCest
         $I->seeInDatabase(
             Src\Domain\Model\Consent::TABLE_NAME,
             [
-                'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
+                'data like' => '{"cr-field":"%","email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
                 'email' => 'user@example.com',
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
@@ -70,7 +70,7 @@ final class ConsentFinisherCest
             Src\Domain\Model\Consent::TABLE_NAME,
             'uid',
             [
-                'data' => '{"email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
+                'data like' => '{"cr-field":"%","email-1":"user@example.com","fileupload-1":' . ($numberOfFormFixtures + 1) . '}',
                 'email' => 'user@example.com',
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,

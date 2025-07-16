@@ -52,7 +52,7 @@ final class ConsentControllerCest
         $I->seeInDatabase(
             Src\Domain\Model\Consent::TABLE_NAME,
             [
-                'data' => '{"email-1":"user@example.com","fileupload-1":null}',
+                'data like' => '{"cr-field":"%","email-1":"user@example.com","fileupload-1":null}',
                 'email' => 'user@example.com',
                 'state' => Src\Enums\ConsentState::Approved->value,
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
@@ -232,6 +232,17 @@ final class ConsentControllerCest
 
         $I->click('Dismiss');
         $I->see('Consent successfully revoked');
+    }
+
+    public function canApproveConsentWithThirdPartyHooksInstalled(Tests\Acceptance\Support\AcceptanceTester $I): void
+    {
+        $I->writeConfiguration('form_crshield', 'crJavaScriptDelay', '5');
+
+        $this->submitFormAndExtractUrls($I, Tests\Acceptance\Support\Helper\Form::CONFIRMATION_AFTER_APPROVE);
+
+        $I->amOnPage($this->approveUrl);
+
+        $I->see('Thanks for your consent.');
     }
 
     public function canPreviewValidationPluginWithActiveBackendSession(Tests\Acceptance\Support\AcceptanceTester $I): void

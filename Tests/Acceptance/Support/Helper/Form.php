@@ -56,10 +56,12 @@ final class Form extends Module
             $this->getFormElementName($form, 'email-1') => 'user@example.com',
         ];
 
+        $this->waitForCrChallenge($form);
+
         if ($attachFile) {
             $I->attachFile(
-                sprintf('[name="%s"]', $this->getFormElementName($form, 'fileupload-1')),
-                'dummy.png'
+                WebDriver\WebDriverBy::name($this->getFormElementName($form, 'fileupload-1')),
+                'dummy.png',
             );
         }
 
@@ -67,6 +69,20 @@ final class Form extends Module
             WebDriver\WebDriverBy::id($this->getFormElementIdentifier($form)),
             $elements,
             WebDriver\WebDriverBy::name($this->getFormElementName($form, '__currentPage'))
+        );
+    }
+
+    private function waitForCrChallenge(string $form): void
+    {
+        $I = $this->getWebDriver();
+
+        $crField = $this->getFormElementName($form, 'cr-field');
+        $initialValue = $I->grabValueFrom($crField);
+
+        $I->waitForElementChange(
+            WebDriver\WebDriverBy::name($crField),
+            static fn(WebDriver\WebDriverElement $element) => $element->getAttribute('value') !== $initialValue,
+            10,
         );
     }
 

@@ -6,6 +6,7 @@
 		"Configuration/*.php"
 	],
 	"symbol-whitelist": [
+		"Derhansen\\FormCrshield\\Hooks\\Form",
 		"TYPO3\\CMS\\Core\\Crypto\\HashService",
 		"TYPO3\\CMS\\Core\\Exception\\Crypto\\InvalidHashStringException",
 		"TYPO3\\CMS\\Extbase\\Security\\HashScope",

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Event\Listener;
 
+use Derhansen\FormCrshield;
 use EliasHaeussler\Typo3FormConsent\Compatibility;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Event;
@@ -38,6 +39,7 @@ use TYPO3\CMS\Frontend;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ * @internal
  */
 final class InvokeFinishersListener
 {
@@ -112,6 +114,10 @@ final class InvokeFinishersListener
             'pluginName' => 'Formframework',
         ];
 
+        // Prepare clean environment
+        $globalsBackup = $GLOBALS;
+        $this->disableThirdPartyHooks();
+
         try {
             // Dispatch extbase request
             $content = $bootstrap->run('', $configuration, $serverRequest);
@@ -122,6 +128,11 @@ final class InvokeFinishersListener
         } catch (Core\Http\ImmediateResponseException|Core\Http\PropagateResponseException $exception) {
             // If any immediate response is thrown, use this for further processing
             return $exception->getResponse();
+        } finally {
+            // Restore previous environment
+            foreach ($globalsBackup as $key => $value) {
+                $GLOBALS[$key] = $value;
+            }
         }
     }
 
@@ -184,6 +195,21 @@ final class InvokeFinishersListener
         return $this->getServerRequest()
             ->withMethod('POST')
             ->withParsedBody($originalRequestParameters->toArray());
+    }
+
+    private function disableThirdPartyHooks(): void
+    {
+        // Hooks from EXT:form_crshield must be disabled since they would avoid successful re-rendering
+        if (class_exists(FormCrshield\Hooks\Form::class)) {
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/form']['afterInitializeCurrentPage'] = array_diff(
+                $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/form']['afterInitializeCurrentPage'],
+                [FormCrshield\Hooks\Form::class],
+            );
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/form']['afterSubmit'] = array_diff(
+                $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/form']['afterSubmit'],
+                [FormCrshield\Hooks\Form::class],
+            );
+        }
     }
 
     private function areFinisherVariantsConfigured(string $formPersistenceIdentifier, string $condition): bool
