@@ -6895,23 +6895,23 @@
         },
         {
             "name": "koehnlein/codeception-email-mailpit",
-            "version": "v0.3.1",
+            "version": "v0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koehnlein/codeception-email-mailpit.git",
-                "reference": "31d0b2c151cd9e9147559d0c6e0c60074de825ef"
+                "reference": "4a4b6a11e3feb39f3cfaee53fbc09a98dcbfc2fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koehnlein/codeception-email-mailpit/zipball/31d0b2c151cd9e9147559d0c6e0c60074de825ef",
-                "reference": "31d0b2c151cd9e9147559d0c6e0c60074de825ef",
+                "url": "https://api.github.com/repos/koehnlein/codeception-email-mailpit/zipball/4a4b6a11e3feb39f3cfaee53fbc09a98dcbfc2fe",
+                "reference": "4a4b6a11e3feb39f3cfaee53fbc09a98dcbfc2fe",
                 "shasum": ""
             },
             "require": {
                 "codeception/codeception": "^5.0",
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^6.1 || ^7.0",
-                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.0",
@@ -6954,9 +6954,9 @@
             "description": "Provides test helpers for Codeception when testing email functionality with Mailpit",
             "support": {
                 "issues": "https://github.com/koehnlein/codeception-email-mailpit/issues",
-                "source": "https://github.com/koehnlein/codeception-email-mailpit/tree/v0.3.1"
+                "source": "https://github.com/koehnlein/codeception-email-mailpit/tree/v0.3.3"
             },
-            "time": "2024-07-08T16:17:19+00:00"
+            "time": "2025-07-17T16:19:17+00:00"
         },
         {
             "name": "myclabs/deep-copy",
