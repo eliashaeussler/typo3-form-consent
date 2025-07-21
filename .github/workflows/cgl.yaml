@@ -2,11 +2,10 @@ name: CGL
 on:
   push:
     branches:
-      - main
-      - 'renovate/**'
+      - 2.x
   pull_request:
     branches:
-      - main
+      - 2.x
 
 jobs:
   cgl:
