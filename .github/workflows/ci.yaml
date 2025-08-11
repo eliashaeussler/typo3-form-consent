@@ -20,7 +20,7 @@ jobs:
     needs: prepare
     if: needs.prepare.outputs.continue == 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -74,7 +74,7 @@ jobs:
     needs: prepare
     if: ${{ needs.prepare.outputs.continue == 'true' && github.ref_name == 'main' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Upload sources
         uses: crowdin/github-action@v2
@@ -101,7 +101,7 @@ jobs:
           - php-version: "8.1"
             typo3-version: "13.4"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -160,7 +160,7 @@ jobs:
     needs: prepare
     if: needs.prepare.outputs.continue == 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -223,7 +223,7 @@ jobs:
     needs: test-coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
