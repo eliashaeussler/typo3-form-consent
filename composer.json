@@ -31,6 +31,7 @@
 		"typo3/cms-install": "~12.4.21 || ~13.4.0"
 	},
 	"require-dev": {
+		"behat/gherkin": "< 4.12",
 		"codeception/module-asserts": "^3.0",
 		"codeception/module-cli": "^2.0",
 		"codeception/module-db": "^3.1",
@@ -56,9 +57,6 @@
 		"typo3/testing-framework": "^7.0.4 || ^8.2.3 || ^9.0.1",
 		"typo3fluid/fluid": "^2.9 || ^4.0",
 		"webmozart/assert": "^1.11"
-	},
-	"conflict": {
-		"behat/gherkin": ">= 4.12.0"
 	},
 	"suggest": {
 		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~12.4.21 || ~13.4.0)",
