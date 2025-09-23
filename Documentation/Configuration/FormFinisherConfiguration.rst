@@ -14,7 +14,7 @@ following options:
 ..  confval:: subject
     :Required: true
     :type: string or LLL reference
-    :Default: :yaml:`LLL:EXT:warming/Resources/Private/Language/locallang.xlf:consentMail.subject`
+    :Default: :yaml:`LLL:EXT:form_consent/Resources/Private/Language/locallang.xlf:consentMail.subject`
 
     Mail subject of the consent mail sent to the form submitter.
 
