@@ -148,8 +148,8 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
                 sprintf(
                     '  - Migrate <comment>"%s:%s"</comment> to <comment>"update_date:%s"</comment>.',
                     $dateSource,
-                    $record[$dateSource],
-                    $record['update_date']
+                    (string)($record[$dateSource] ?? null),
+                    (string)$record['update_date'],
                 )
             );
         }
@@ -192,6 +192,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
 
     /**
      * @param RawRecord $record
+     * @return 'approval_date'|'tstamp'|null
      */
     private function migrateUpdateDate(array &$record): ?string
     {
