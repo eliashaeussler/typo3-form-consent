@@ -32,11 +32,11 @@ use TYPO3\CMS\Form;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ModifyConsentMailEvent
+final readonly class ModifyConsentMailEvent
 {
     public function __construct(
-        private readonly Core\Mail\FluidEmail $mail,
-        private readonly Form\Domain\Runtime\FormRuntime $formRuntime,
+        private Core\Mail\FluidEmail $mail,
+        private Form\Domain\Runtime\FormRuntime $formRuntime,
     ) {}
 
     public function getMail(): Core\Mail\FluidEmail

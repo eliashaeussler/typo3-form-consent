@@ -32,10 +32,10 @@ use TYPO3\CMS\Core;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class Configuration
+final readonly class Configuration
 {
     public function __construct(
-        private readonly Core\Configuration\ExtensionConfiguration $configuration,
+        private Core\Configuration\ExtensionConfiguration $configuration,
     ) {}
 
     /**

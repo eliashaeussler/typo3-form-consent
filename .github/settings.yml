@@ -92,14 +92,6 @@ rulesets:
           required_status_checks:
             - context: 'CGL'
               integration_id: 15368
-            - context: 'Tests (PHP 8.1, TYPO3 12.4 & highest dependencies)'
-              integration_id: 15368
-            - context: 'Tests (PHP 8.1, TYPO3 12.4 & lowest dependencies)'
-              integration_id: 15368
-            - context: 'Tests (PHP 8.1, TYPO3 13.4 & highest dependencies)'
-              integration_id: 15368
-            - context: 'Tests (PHP 8.1, TYPO3 13.4 & lowest dependencies)'
-              integration_id: 15368
             - context: 'Tests (PHP 8.2, TYPO3 12.4 & highest dependencies)'
               integration_id: 15368
             - context: 'Tests (PHP 8.2, TYPO3 12.4 & lowest dependencies)'

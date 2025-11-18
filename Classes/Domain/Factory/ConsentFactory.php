@@ -38,14 +38,14 @@ use TYPO3\CMS\Form;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentFactory
+final readonly class ConsentFactory
 {
     public function __construct(
-        private readonly Core\Context\Context $context,
-        private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
-        private readonly Type\Transformer\FormRequestTypeTransformer $formRequestTypeTransformer,
-        private readonly Type\Transformer\FormValuesTypeTransformer $formValuesTypeTransformer,
-        private readonly Service\HashService $hashService,
+        private Core\Context\Context $context,
+        private EventDispatcher\EventDispatcherInterface $eventDispatcher,
+        private Type\Transformer\FormRequestTypeTransformer $formRequestTypeTransformer,
+        private Type\Transformer\FormValuesTypeTransformer $formValuesTypeTransformer,
+        private Service\HashService $hashService,
     ) {}
 
     public function createFromForm(

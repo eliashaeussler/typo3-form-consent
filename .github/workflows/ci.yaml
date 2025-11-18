@@ -28,7 +28,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.4
+          # We use the minimum supported PHP version
+          php-version: 8.2
           tools: composer:v2, cs2pr
           coverage: none
 
@@ -94,12 +95,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ["8.1", "8.2", "8.3", "8.4"]
+        php-version: ["8.2", "8.3", "8.4"]
         typo3-version: ["12.4", "13.4"]
         dependencies: ["highest", "lowest"]
-        exclude:
-          - php-version: "8.1"
-            typo3-version: "13.4"
     steps:
       - uses: actions/checkout@v5
         with:

@@ -34,9 +34,9 @@ use TYPO3\CMS\Core;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ApprovedConsentsWidgetCest
+final readonly class ApprovedConsentsWidgetCest
 {
-    private readonly Core\Information\Typo3Version $typo3Version;
+    private Core\Information\Typo3Version $typo3Version;
 
     public function __construct()
     {

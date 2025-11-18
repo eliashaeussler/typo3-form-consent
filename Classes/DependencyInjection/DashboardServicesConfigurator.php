@@ -35,16 +35,16 @@ use TYPO3\CMS\Core;
  * @license GPL-2.0-or-later
  * @internal
  */
-final class DashboardServicesConfigurator
+final readonly class DashboardServicesConfigurator
 {
     private const APPROVED_CONSENTS_WIDGET = 'dashboard.widget.approved_consents_widget';
     private const APPROVED_CONSENTS_DATA_PROVIDER = 'form_consent.widget.approved_consents.data_provider';
     private const CONSENT_CONNECTION = 'connection.tx_formconsent_domain_model_consent';
 
-    private readonly Core\Information\Typo3Version $typo3Version;
+    private Core\Information\Typo3Version $typo3Version;
 
     public function __construct(
-        private readonly DependencyInjection\Loader\Configurator\ServicesConfigurator $services,
+        private DependencyInjection\Loader\Configurator\ServicesConfigurator $services,
     ) {
         $this->typo3Version = new Core\Information\Typo3Version();
     }
