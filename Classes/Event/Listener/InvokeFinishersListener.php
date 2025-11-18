@@ -41,15 +41,15 @@ use TYPO3\CMS\Frontend;
  * @license GPL-2.0-or-later
  * @internal
  */
-final class InvokeFinishersListener
+final readonly class InvokeFinishersListener
 {
-    private readonly Core\Information\Typo3Version $typo3Version;
+    private Core\Information\Typo3Version $typo3Version;
 
     public function __construct(
-        private readonly Extbase\Configuration\ConfigurationManagerInterface $extbaseConfigurationManager,
-        private readonly Form\Mvc\Configuration\ConfigurationManagerInterface $formConfigurationManager,
-        private readonly Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
-        private readonly Core\Domain\Repository\PageRepository $pageRepository,
+        private Extbase\Configuration\ConfigurationManagerInterface $extbaseConfigurationManager,
+        private Form\Mvc\Configuration\ConfigurationManagerInterface $formConfigurationManager,
+        private Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
+        private Core\Domain\Repository\PageRepository $pageRepository,
     ) {
         $this->typo3Version = new Core\Information\Typo3Version();
     }

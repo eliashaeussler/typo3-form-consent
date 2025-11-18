@@ -35,10 +35,10 @@ use TYPO3\CMS\Dashboard;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentChartDataProvider implements Dashboard\Widgets\ChartDataProviderInterface
+final readonly class ConsentChartDataProvider implements Dashboard\Widgets\ChartDataProviderInterface
 {
     public function __construct(
-        private readonly Core\Database\Connection $connection,
+        private Core\Database\Connection $connection,
     ) {}
 
     /**

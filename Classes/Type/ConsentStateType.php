@@ -32,9 +32,9 @@ use TYPO3\CMS\Core;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ConsentStateType implements Core\Type\TypeInterface, \Stringable
+final readonly class ConsentStateType implements Core\Type\TypeInterface, \Stringable
 {
-    private readonly Enums\ConsentState $state;
+    private Enums\ConsentState $state;
 
     public function __construct(string|int|Enums\ConsentState $state = Enums\ConsentState::New)
     {

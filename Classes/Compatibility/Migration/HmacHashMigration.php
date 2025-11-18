@@ -32,9 +32,9 @@ use TYPO3\CMS\Core;
  * @license GPL-2.0-or-later
  * @internal
  */
-final class HmacHashMigration
+final readonly class HmacHashMigration
 {
-    private readonly Core\Crypto\HashService $coreHashService;
+    private Core\Crypto\HashService $coreHashService;
 
     public function __construct()
     {

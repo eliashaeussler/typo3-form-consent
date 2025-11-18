@@ -32,11 +32,11 @@ use TYPO3\CMS\Form;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class ModifyConsentEvent
+final readonly class ModifyConsentEvent
 {
     public function __construct(
-        private readonly Domain\Model\Consent $consent,
-        private readonly Form\Domain\Finishers\FinisherContext $finisherContext,
+        private Domain\Model\Consent $consent,
+        private Form\Domain\Finishers\FinisherContext $finisherContext,
     ) {}
 
     public function getConsent(): Domain\Model\Consent

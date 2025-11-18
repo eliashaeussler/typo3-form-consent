@@ -35,7 +35,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     require $rootPath . '/.Build/vendor/autoload.php';
 
-    Config::create($rectorConfig, PhpVersion::PHP_81)
+    Config::create($rectorConfig, PhpVersion::PHP_82)
         ->in(
             $rootPath . '/Classes',
             $rootPath . '/Configuration',

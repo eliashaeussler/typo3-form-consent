@@ -34,10 +34,10 @@ use TYPO3\CMS\Core;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class HashService
+final readonly class HashService
 {
     public function __construct(
-        private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
+        private EventDispatcher\EventDispatcherInterface $eventDispatcher,
     ) {}
 
     public function generate(Domain\Model\Consent $consent): string

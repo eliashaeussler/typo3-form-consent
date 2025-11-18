@@ -6,7 +6,7 @@
 		"local>eliashaeussler/renovate-config:ddev"
 	],
 	"constraints": {
-		"php": "8.1.*"
+		"php": "8.2.*"
 	},
 	"packageRules": [
 		{
@@ -26,6 +26,19 @@
 			],
 			"matchFileNames": [
 				"Tests/CGL/composer.*"
+			]
+		},
+		{
+			"enabled": false,
+			"matchCurrentVersion": "8.2",
+			"matchDatasources": [
+				"github-tags"
+			],
+			"matchDepNames": [
+				"php"
+			],
+			"matchFileNames": [
+				".github/workflows/ci.yaml"
 			]
 		}
 	]

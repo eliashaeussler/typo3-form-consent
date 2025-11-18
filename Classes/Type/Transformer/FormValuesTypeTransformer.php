@@ -35,10 +35,10 @@ use TYPO3\CMS\Form;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class FormValuesTypeTransformer implements TypeTransformer
+final readonly class FormValuesTypeTransformer implements TypeTransformer
 {
     public function __construct(
-        private readonly Configuration\Configuration $configuration,
+        private Configuration\Configuration $configuration,
     ) {}
 
     /**
