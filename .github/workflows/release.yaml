@@ -14,7 +14,7 @@ jobs:
     name: Build extension artefact
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # Check if tag is valid
       - name: Check tag
@@ -52,7 +52,7 @@ jobs:
     outputs:
       release-notes-url: ${{ steps.create-release.outputs.url }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Download extension artefact
         id: download
@@ -74,7 +74,7 @@ jobs:
     env:
       TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Download extension artefact
         id: download
