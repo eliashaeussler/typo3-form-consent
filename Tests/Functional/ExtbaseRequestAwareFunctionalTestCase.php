@@ -76,7 +76,6 @@ abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Co
     {
         // Import data
         $this->importCSVDataSet(__DIR__ . '/Fixtures/Database/pages.csv');
-        $this->importCSVDataSet(__DIR__ . '/Fixtures/Database/sys_template.csv');
         $this->importCSVDataSet(__DIR__ . '/Fixtures/Database/tt_content.csv');
 
         try {

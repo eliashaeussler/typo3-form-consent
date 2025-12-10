@@ -25,7 +25,6 @@ namespace EliasHaeussler\Typo3FormConsent\DependencyInjection;
 
 use EliasHaeussler\Typo3FormConsent\Widget;
 use Symfony\Component\DependencyInjection;
-use TYPO3\CMS\Core;
 
 /**
  * DashboardServicesConfigurator
@@ -40,13 +39,9 @@ final readonly class DashboardServicesConfigurator
     private const APPROVED_CONSENTS_DATA_PROVIDER = 'form_consent.widget.approved_consents.data_provider';
     private const CONSENT_CONNECTION = 'connection.tx_formconsent_domain_model_consent';
 
-    private Core\Information\Typo3Version $typo3Version;
-
     public function __construct(
         private DependencyInjection\Loader\Configurator\ServicesConfigurator $services,
-    ) {
-        $this->typo3Version = new Core\Information\Typo3Version();
-    }
+    ) {}
 
     public function configureServices(): void
     {
@@ -56,7 +51,7 @@ final readonly class DashboardServicesConfigurator
     private function configureWidgets(): void
     {
         // Widget "approved consents"
-        $service = $this->services->set(self::APPROVED_CONSENTS_WIDGET)
+        $this->services->set(self::APPROVED_CONSENTS_WIDGET)
             ->autowire()
             ->class(Widget\ApprovedConsentsWidget::class)
             ->arg('$dataProvider', new DependencyInjection\Reference(self::APPROVED_CONSENTS_DATA_PROVIDER))
@@ -69,11 +64,6 @@ final readonly class DashboardServicesConfigurator
                 'height' => 'medium',
                 'width' => 'small',
             ]);
-
-        // @todo Remove once support for TYPO3 v12 is dropped
-        if ($this->typo3Version->getMajorVersion() < 13) {
-            $service->arg('$view', new DependencyInjection\Reference('dashboard.views.widget'));
-        }
 
         // Data provider for widget "approved consents"
         $this->services->set(self::APPROVED_CONSENTS_DATA_PROVIDER)

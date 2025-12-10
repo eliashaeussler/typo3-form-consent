@@ -26,7 +26,6 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend\Widget;
 use EliasHaeussler\Typo3CodeceptionHelper;
 use EliasHaeussler\Typo3FormConsent as Src;
 use EliasHaeussler\Typo3FormConsent\Tests;
-use TYPO3\CMS\Core;
 
 /**
  * ApprovedConsentsWidgetCest
@@ -36,13 +35,6 @@ use TYPO3\CMS\Core;
  */
 final readonly class ApprovedConsentsWidgetCest
 {
-    private Core\Information\Typo3Version $typo3Version;
-
-    public function __construct()
-    {
-        $this->typo3Version = new Core\Information\Typo3Version();
-    }
-
     public function _before(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->truncateTable('be_dashboards');
@@ -98,20 +90,13 @@ JS);
 
         $dialog->canSeeDialog();
 
-        if ($this->typo3Version->getMajorVersion() >= 13) {
-            $I->executeJS(
-                sprintf(
-                    'document.querySelector(\'%s typo3-backend-new-record-wizard\').shadowRoot.querySelector(\'%s\').click()',
-                    Tests\Acceptance\Support\Helper\ModalDialog::$openedModalSelector,
-                    Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitle->value,
-                ),
-            );
-        } else {
-            // @todo Remove once support for TYPO3 v12 is dropped
-            $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitleV12->value);
-            $I->click('Form consent');
-        }
-
+        $I->executeJS(
+            sprintf(
+                'document.querySelector(\'%s typo3-backend-new-record-wizard\').shadowRoot.querySelector(\'%s\').click()',
+                Tests\Acceptance\Support\Helper\ModalDialog::$openedModalSelector,
+                Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitle->value,
+            ),
+        );
         $I->switchToIFrame(Typo3CodeceptionHelper\Enums\Selectors::BackendContentFrame);
         $I->waitForElementVisible(Tests\Acceptance\Support\Enums\Selectors::DashboardWidgetCanvas->value);
         $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardWidget->value);

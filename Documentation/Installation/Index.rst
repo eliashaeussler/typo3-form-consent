@@ -12,7 +12,7 @@ Requirements
 ============
 
 -   PHP 8.2 - 8.4
--   TYPO3 12.4 LTS - 13.4 LTS
+-   TYPO3 13.4 LTS
 
 ..  _steps:
 
@@ -34,8 +34,7 @@ Initial setup
 =============
 
 Once installed, make sure to add the site set :yaml:`eliashaeussler/typo3-form-consent`
-as dependency to your site (TYPO3 >= 13.1) or include the TypoScript setup
-at :file:`EXT:form_consent/Configuration/TypoScript` in your root template.
+as dependency to your site.
 
 ..  _version-matrix:
 
@@ -45,7 +44,7 @@ Version matrix
 +--------------------+-------------------------+---------------+
 | Extension versions | TYPO3 versions          | PHP versions  |
 +====================+=========================+===============+
-| **since 4.0.0**    | **12.4 LTS - 13.4 LTS** | **8.2 - 8.4** |
+| **since 4.0.0**    | **13.4 LTS**            | **8.2 - 8.4** |
 +--------------------+-------------------------+---------------+
 | 3.1.2 - 3.1.5      | 12.4 LTS - 13.4 LTS     | 8.1 - 8.4     |
 +--------------------+-------------------------+---------------+

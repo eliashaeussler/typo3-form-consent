@@ -39,29 +39,29 @@ use TYPO3\TestingFramework;
 final class ModifyConsentMailEventTest extends TestingFramework\Core\Unit\UnitTestCase
 {
     protected Src\Event\ModifyConsentMailEvent $subject;
-    protected Core\Mail\FluidEmail $mailMock;
-    protected Form\Domain\Runtime\FormRuntime $formRuntimeMock;
+    protected Core\Mail\FluidEmail $mailStub;
+    protected Form\Domain\Runtime\FormRuntime $formRuntimeStub;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->mailMock = $this->createMock(Core\Mail\FluidEmail::class);
-        $this->formRuntimeMock = $this->createMock(Form\Domain\Runtime\FormRuntime::class);
-        $this->subject = new Src\Event\ModifyConsentMailEvent($this->mailMock, $this->formRuntimeMock);
+        $this->mailStub = self::createStub(Core\Mail\FluidEmail::class);
+        $this->formRuntimeStub = self::createStub(Form\Domain\Runtime\FormRuntime::class);
+        $this->subject = new Src\Event\ModifyConsentMailEvent($this->mailStub, $this->formRuntimeStub);
     }
 
     #[Framework\Attributes\Test]
     public function getMailReturnsInitialMail(): void
     {
-        $expected = $this->mailMock;
+        $expected = $this->mailStub;
         self::assertSame($expected, $this->subject->getMail());
     }
 
     #[Framework\Attributes\Test]
     public function getFormRuntimeReturnsInitialFormRuntime(): void
     {
-        $expected = $this->formRuntimeMock;
+        $expected = $this->formRuntimeStub;
         self::assertSame($expected, $this->subject->getFormRuntime());
     }
 }

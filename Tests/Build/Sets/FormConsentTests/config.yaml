@@ -1,0 +1,5 @@
+name: eliashaeussler/typo3-form-consent-tests
+label: Form Consent Tests
+dependencies:
+  - typo3/fluid-styled-content
+  - eliashaeussler/typo3-form-consent

@@ -61,7 +61,6 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
     private EventDispatcher\EventDispatcher $eventDispatcher;
     private Src\Domain\Repository\ConsentRepository $consentRepository;
     private Src\Domain\Finishers\ConsentFinisher $subject;
-    private Core\Information\Typo3Version $typo3Version;
 
     public function setUp(): void
     {
@@ -97,7 +96,6 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
             'confirmationPid' => 1,
             'storagePid' => '',
         ]);
-        $this->typo3Version = new Core\Information\Typo3Version();
 
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
 
@@ -133,28 +131,10 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
         $frontendUserAuthentication = new Frontend\Authentication\FrontendUserAuthentication();
         $frontendUserAuthentication->initializeUserSessionManager();
 
-        // Create and initialize TSFE
-        $typoScriptFrontendController = $GLOBALS['TSFE'] = $this->createMock(Frontend\Controller\TypoScriptFrontendController::class);
-        $typoScriptFrontendController->method('sL')->willReturn('dummy');
-        $typoScriptFrontendController->id = 1;
-
-        // Arguments for $formPersistenceManager->load()
-        $persistenceManagerLoadArguments = [
-            '1:form_definitions/contact.form.yaml',
-        ];
-
-        // @todo Remove once support for TYPO3 v12 is dropped
-        if ($this->typo3Version->getMajorVersion() >= 13) {
-            $persistenceManagerLoadArguments[] = [];
-            $persistenceManagerLoadArguments[] = [];
-        } else {
-            $typoScriptFrontendController->fe_user = $frontendUserAuthentication;
-        }
-
         // Load form and build form runtime
         $formFactory = $this->get(Form\Domain\Factory\FormFactoryInterface::class);
         $formPersistenceManager = $this->get(Form\Mvc\Persistence\FormPersistenceManagerInterface::class);
-        $formDefinitionArray = $formPersistenceManager->load(...$persistenceManagerLoadArguments);
+        $formDefinitionArray = $formPersistenceManager->load('1:form_definitions/contact.form.yaml', [], []);
         $formDefinition = $formFactory->build($formDefinitionArray);
         $formRuntime = $formDefinition->bind($this->request);
 

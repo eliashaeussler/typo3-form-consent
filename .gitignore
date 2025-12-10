@@ -1,5 +1,6 @@
 /.Build
 /config
+/Configuration/Sets/FormConsentTests
 /Tests/Acceptance/Support/_generated
 /Tests/Build/Configuration/sites/main/settings.yaml
 /Tests/Build/Configuration/system/settings.php

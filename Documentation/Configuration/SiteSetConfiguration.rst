@@ -2,24 +2,18 @@
 
 ..  _site-set-configuration:
 
-=====================
-SiteSet configuration
-=====================
+======================
+Site set configuration
+======================
 
 ..  versionadded:: 2.3.0
 
     `Feature #259 – Add support for site sets (TYPO3 >= v13.1) <https://github.com/eliashaeussler/typo3-form-consent/pull/259>`__
 
 The extension ships with a :ref:`site set <t3coreapi:site-sets>` called
-:yaml:`eliashaeussler/typo3-form-consent`. It can be used as drop-in replacement
-for :ref:`TypoScript <typoscript-configuration>` in TYPO3 v13.1 or later.
+:yaml:`eliashaeussler/typo3-form-consent`.
 
 The following settings are available for the site set:
-
-..  _site-set-settings:
-
-Settings
-========
 
 ..  _site-set-settings-view.templateRootPath:
 

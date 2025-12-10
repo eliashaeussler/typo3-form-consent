@@ -1,7 +1,6 @@
 base: 'https://typo3-ext-form-consent.ddev.site/'
 dependencies:
-  - typo3/fluid-styled-content
-  - eliashaeussler/typo3-form-consent
+  - eliashaeussler/typo3-form-consent-tests
 languages:
   -
     title: English

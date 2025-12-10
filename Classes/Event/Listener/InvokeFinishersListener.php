@@ -43,27 +43,22 @@ use TYPO3\CMS\Frontend;
  */
 final readonly class InvokeFinishersListener
 {
-    private Core\Information\Typo3Version $typo3Version;
-
     public function __construct(
         private Extbase\Configuration\ConfigurationManagerInterface $extbaseConfigurationManager,
         private Form\Mvc\Configuration\ConfigurationManagerInterface $formConfigurationManager,
         private Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
+        private Compatibility\Migration\HmacHashMigration $hmacHashMigration,
         private Core\Domain\Repository\PageRepository $pageRepository,
-    ) {
-        $this->typo3Version = new Core\Information\Typo3Version();
-    }
+    ) {}
 
-    // @todo Enable attribute once support for TYPO3 v12 is dropped
-    // #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentApproveListener')]
+    #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentApproveListener')]
     public function onConsentApprove(Event\ApproveConsentEvent $event): void
     {
         $response = $this->invokeFinishers($event->getConsent(), 'isConsentApproved()');
         $event->setResponse($response);
     }
 
-    // @todo Enable attribute once support for TYPO3 v12 is dropped
-    // #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentDismissListener')]
+    #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentDismissListener')]
     public function onConsentDismiss(Event\DismissConsentEvent $event): void
     {
         $response = $this->invokeFinishers($event->getConsent(), 'isConsentDismissed()');
@@ -149,15 +144,9 @@ final readonly class InvokeFinishersListener
      */
     private function migrateOriginalRequestParameters(Type\JsonType $originalRequestParameters): Type\JsonType
     {
-        // @todo Remove once support for TYPO3 v12 is dropped
-        if ($this->typo3Version->getMajorVersion() < 13) {
-            return $originalRequestParameters;
-        }
-
-        $migration = new Compatibility\Migration\HmacHashMigration();
         $parameters = $originalRequestParameters->toArray();
 
-        array_walk_recursive($parameters, static function (mixed &$value, string|int $key) use ($migration): void {
+        array_walk_recursive($parameters, function (mixed &$value, string|int $key): void {
             if (!is_string($value) || !is_string($key)) {
                 return;
             }
@@ -167,7 +156,7 @@ final readonly class InvokeFinishersListener
             $hashScope ??= Extbase\Security\HashScope::tryFrom($key);
 
             if ($hashScope !== null) {
-                $value = $migration->migrate($value, $hashScope->prefix());
+                $value = $this->hmacHashMigration->migrate($value, $hashScope->prefix());
             }
         });
 
@@ -222,21 +211,16 @@ final readonly class InvokeFinishersListener
 
     private function areFinisherVariantsConfigured(string $formPersistenceIdentifier, string $condition): bool
     {
-        if ($this->typo3Version->getMajorVersion() >= 13) {
-            $typoScriptSettings = $this->extbaseConfigurationManager->getConfiguration(
-                Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-                'form',
-            );
-            $formSettings = $this->formConfigurationManager->getYamlConfiguration($typoScriptSettings, true);
-            $formConfiguration = $this->formPersistenceManager->load(
-                $formPersistenceIdentifier,
-                $formSettings,
-                $typoScriptSettings,
-            );
-        } else {
-            // @todo Remove once support for TYPO3 v12 is dropped
-            $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier);
-        }
+        $typoScriptSettings = $this->extbaseConfigurationManager->getConfiguration(
+            Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'form',
+        );
+        $formSettings = $this->formConfigurationManager->getYamlConfiguration($typoScriptSettings, true);
+        $formConfiguration = $this->formPersistenceManager->load(
+            $formPersistenceIdentifier,
+            $formSettings,
+            $typoScriptSettings,
+        );
 
         foreach ($formConfiguration['variants'] ?? [] as $variant) {
             if (str_contains($variant['condition'] ?? '', $condition) && isset($variant['finishers'])) {

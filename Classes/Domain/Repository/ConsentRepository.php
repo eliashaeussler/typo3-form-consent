@@ -46,16 +46,12 @@ class ConsentRepository extends Extbase\Persistence\Repository
 
     public function findOneByValidationHash(string $validationHash): ?Domain\Model\Consent
     {
-        // @todo Remove once support for TYPO3 v12 is dropped
-        $typo3Version = new Core\Information\Typo3Version();
-        $emptyValidUntil = $typo3Version->getMajorVersion() >= 13 ? 0 : null;
-
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
                 $query->equals('validation_hash', $validationHash),
                 $query->logicalOr(
-                    $query->equals('valid_until', $emptyValidUntil),
+                    $query->equals('valid_until', 0),
                     $query->greaterThanOrEqual('valid_until', time()),
                 ),
             ),

@@ -23,9 +23,6 @@ declare(strict_types=1);
 
 use Composer\Autoload;
 use ShipMonk\ComposerDependencyAnalyser;
-use TYPO3\CMS\Core;
-use TYPO3\CMS\Extbase;
-use TYPO3\CMS\Form;
 
 $rootPath = dirname(__DIR__, 2);
 
@@ -38,12 +35,6 @@ $configuration
     ->addPathsToExclude([
         $rootPath . '/Tests/Build',
         $rootPath . '/Tests/CGL',
-    ])
-    ->ignoreUnknownClasses([
-        Core\Crypto\HashService::class,
-        Core\Exception\Crypto\InvalidHashStringException::class,
-        Extbase\Security\HashScope::class,
-        Form\Security\HashScope::class,
     ])
     ->ignoreErrorsOnPackages(
         [
