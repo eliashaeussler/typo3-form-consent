@@ -132,10 +132,8 @@ following options:
     ..  note::
 
         Set to :yaml:`0` to use the default storage PID configured in
-        site set setting :yaml:`plugin.tx_formconsent.persistence.storagePid`
-        or TypoScript configuration :typoscript:`plugin.tx_formconsent.persistence.storagePid`.
-        See :ref:`site-set-configuration` and :ref:`typoscript-configuration`
-        for more information.
+        site set setting :yaml:`plugin.tx_formconsent.persistence.storagePid`.
+        See :ref:`site-set-configuration` for more information.
 
 ..  _finisher-config-requireApproveVerification:
 
@@ -183,8 +181,7 @@ following options:
     ..  note::
 
         Template root paths configured in form finishers take precedence over
-        the ones configured within :ref:`site settings <site-set-configuration>`
-        and :ref:`TypoScript <typoscript-configuration>`.
+        the ones configured within :ref:`site settings <site-set-configuration>`.
 
 ..  _finisher-config-partialRootPaths:
 
@@ -198,8 +195,7 @@ following options:
     ..  note::
 
         Partial root paths configured in form finishers take precedence over
-        the ones configured within :ref:`site settings <site-set-configuration>`
-        and :ref:`TypoScript <typoscript-configuration>`.
+        the ones configured within :ref:`site settings <site-set-configuration>`.
 
 ..  _finisher-config-layoutRootPaths:
 
@@ -213,5 +209,4 @@ following options:
     ..  note::
 
         Layout root paths configured in form finishers take precedence over
-        the ones configured within :ref:`site settings <site-set-configuration>`
-        and :ref:`TypoScript <typoscript-configuration>`.
+        the ones configured within :ref:`site settings <site-set-configuration>`.

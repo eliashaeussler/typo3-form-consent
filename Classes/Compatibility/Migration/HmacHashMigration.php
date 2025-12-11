@@ -34,18 +34,25 @@ use TYPO3\CMS\Core;
  */
 final readonly class HmacHashMigration
 {
-    private Core\Crypto\HashService $coreHashService;
-
-    public function __construct()
-    {
-        // @todo Use DI once support for TYPO3 v12 is dropped
-        $this->coreHashService = Core\Utility\GeneralUtility::makeInstance(Core\Crypto\HashService::class);
-    }
+    public function __construct(
+        private Core\Crypto\HashService $hashService,
+    ) {}
 
     public function migrate(string $string, string $secret): string
     {
+        // Early return if string does not have HMAC appended
+        if (strlen($string) < 40) {
+            return $string;
+        }
+
+        // Early return if secret is empty
+        if ($secret === '') {
+            return $string;
+        }
+
+        // Validate hash
         try {
-            $this->coreHashService->validateAndStripHmac($string, $secret);
+            $this->hashService->validateAndStripHmac($string, $secret);
 
             // Hash is valid
             return $string;
@@ -53,13 +60,8 @@ final readonly class HmacHashMigration
             // Hash is invalid and needs migration
         }
 
-        // Early return if string does not have HMAC appended
-        if (strlen($string) < 40) {
-            return $string;
-        }
-
         $string = substr($string, 0, -40);
 
-        return $this->coreHashService->appendHmac($string, $secret);
+        return $this->hashService->appendHmac($string, $secret);
     }
 }

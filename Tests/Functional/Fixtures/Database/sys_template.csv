@@ -1,4 +1,0 @@
-"sys_template",,,,,,
-,"uid","pid","title","constants","include_static_file","config"
-,"1","1","Root","","EXT:fluid_styled_content/Configuration/TypoScript/,EXT:form/Configuration/TypoScript/,EXT:form_consent/Configuration/TypoScript","page = PAGE
-page.10 < styles.content.get"

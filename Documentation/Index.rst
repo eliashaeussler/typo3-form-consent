@@ -66,7 +66,7 @@ compliance with the GDPR.
     ..  card::  Configuration
 
         Learn how to configure the extension in various ways. This includes extension configuration,
-        site sets, TypoScript configuration and form finisher configuration.
+        site sets, and form finisher configuration.
 
         ..  card-footer::   :ref:`View configuration options <configuration>`
             :button-style: btn btn-secondary stretched-link

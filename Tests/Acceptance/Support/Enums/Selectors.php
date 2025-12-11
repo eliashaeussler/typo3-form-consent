@@ -44,7 +44,4 @@ enum Selectors: string
     case FormModule = '[data-modulemenu-identifier="web_FormFormbuilder"]';
     case FormPreviewMode = '[title="Preview mode"]';
     case ListModule = '[data-modulemenu-identifier="web_list"]';
-
-    // @todo Remove once support for TYPO3 v12 is dropped
-    case DashboardModalItemTitleV12 = '.dashboard-modal-item-title';
 }

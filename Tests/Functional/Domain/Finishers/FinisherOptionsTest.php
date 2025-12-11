@@ -49,9 +49,9 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
     ];
 
     /**
-     * @var Framework\MockObject\MockObject&Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+     * @var Framework\MockObject\Stub&Extbase\Configuration\ConfigurationManagerInterface $configurationManagerStub
      */
-    protected Framework\MockObject\MockObject $configurationManager;
+    protected Framework\MockObject\Stub $configurationManagerStub;
     protected Src\Domain\Finishers\FinisherOptions $subject;
 
     /**
@@ -63,7 +63,7 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
     {
         parent::setUp();
 
-        $this->configurationManager = $this->createMock(Extbase\Configuration\ConfigurationManagerInterface::class);
+        $this->configurationManagerStub = self::createStub(Extbase\Configuration\ConfigurationManagerInterface::class);
         $this->subject = new Src\Domain\Finishers\FinisherOptions(
             $this->fetchOption(...),
             new Core\Http\ServerRequest(),
@@ -71,7 +71,7 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
 
         Core\Utility\GeneralUtility::setSingletonInstance(
             Extbase\Configuration\ConfigurationManagerInterface::class,
-            $this->configurationManager,
+            $this->configurationManagerStub,
         );
 
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
@@ -370,7 +370,7 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
     {
         $this->options['storagePid'] = 0;
 
-        $this->configurationManager->method('getConfiguration')->willReturn([
+        $this->configurationManagerStub->method('getConfiguration')->willReturn([
             'persistence' => [
                 'storagePid' => '1',
             ],
@@ -384,7 +384,7 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
     {
         $this->options['storagePid'] = 0;
 
-        $this->configurationManager->method('getConfiguration')->willReturn([
+        $this->configurationManagerStub->method('getConfiguration')->willReturn([
             'persistence' => [
                 'storagePid' => '0',
             ],

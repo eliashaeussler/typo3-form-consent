@@ -25,7 +25,6 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Frontend\Controller;
 
 use EliasHaeussler\Typo3FormConsent as Src;
 use EliasHaeussler\Typo3FormConsent\Tests;
-use TYPO3\CMS\Core;
 
 /**
  * ConsentControllerCest
@@ -45,10 +44,6 @@ final class ConsentControllerCest
         $queryParams = $I->extractQueryParametersFromUrl($this->approveUrl);
         $hash = $queryParams['tx_formconsent_consent']['hash'] ?? null;
 
-        // @todo Remove once support for TYPO3 v12 is dropped
-        $typo3Version = new Core\Information\Typo3Version();
-        $expectedValidUntil = $typo3Version->getMajorVersion() >= 13 ? 0 : null;
-
         $I->amOnPage($this->approveUrl);
 
         $I->see('Consent successful');
@@ -63,7 +58,7 @@ final class ConsentControllerCest
                 'original_content_element_uid' => 1,
                 'original_request_parameters !=' => null,
                 'validation_hash' => $hash,
-                'valid_until' => $expectedValidUntil,
+                'valid_until' => 0,
             ]
         );
     }
@@ -129,11 +124,6 @@ final class ConsentControllerCest
     public function canApproveConsentAndMigrateHmacHashesBeforeInvokingFinishers(
         Tests\Acceptance\Support\AcceptanceTester $I,
     ): void {
-        // @todo Remove once support for TYPO3 v12 is dropped
-        if ((new Core\Information\Typo3Version())->getMajorVersion() < 13) {
-            $I->markTestSkipped('Test can be executed on TYPO3 >= 13 only.');
-        }
-
         $this->submitFormAndExtractUrls($I, Tests\Acceptance\Support\Helper\Form::CONFIRMATION_AFTER_APPROVE, true);
 
         $queryParams = $I->extractQueryParametersFromUrl($this->approveUrl);
@@ -166,7 +156,8 @@ final class ConsentControllerCest
             }
 
             $stringWithoutHmac = substr($value, 0, -40);
-            $hmac = Core\Utility\GeneralUtility::hmac($stringWithoutHmac);
+            // Inlined from deprecated GeneralUtility::hmac() method
+            $hmac = hash_hmac('sha1', $stringWithoutHmac, (string)$GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey']);
             $value = $stringWithoutHmac . $hmac;
         });
 

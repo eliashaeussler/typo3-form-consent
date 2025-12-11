@@ -52,12 +52,10 @@ use TYPO3\CMS\Install;
  *     approved: int,
  * }
  */
-#[Install\Attribute\UpgradeWizard(MigrateConsentStateUpgradeWizard::IDENTIFIER)]
+#[Install\Attribute\UpgradeWizard('formConsentMigrateConsentState')]
 #[DependencyInjection\Attribute\Autoconfigure(public: true, shared: false)]
 final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeWizardInterface, Install\Updates\ChattyInterface
 {
-    public const IDENTIFIER = 'formConsentMigrateConsentState';
-
     private const LEGACY_COLUMNS = [
         'approved',
         'approval_date',
@@ -69,11 +67,6 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
         #[DependencyInjection\Attribute\Autowire('@connection.tx_formconsent_domain_model_consent')]
         private readonly Core\Database\Connection $connection,
     ) {}
-
-    public function getIdentifier(): string
-    {
-        return self::IDENTIFIER;
-    }
 
     public function getTitle(): string
     {

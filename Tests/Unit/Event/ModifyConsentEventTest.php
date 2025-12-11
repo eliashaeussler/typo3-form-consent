@@ -39,15 +39,15 @@ final class ModifyConsentEventTest extends TestingFramework\Core\Unit\UnitTestCa
 {
     protected Src\Event\ModifyConsentEvent $subject;
     protected Src\Domain\Model\Consent $consent;
-    protected Form\Domain\Finishers\FinisherContext $finisherContextMock;
+    protected Form\Domain\Finishers\FinisherContext $finisherContextStub;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->consent = new Src\Domain\Model\Consent();
-        $this->finisherContextMock = $this->createMock(Form\Domain\Finishers\FinisherContext::class);
-        $this->subject = new Src\Event\ModifyConsentEvent($this->consent, $this->finisherContextMock);
+        $this->finisherContextStub = self::createStub(Form\Domain\Finishers\FinisherContext::class);
+        $this->subject = new Src\Event\ModifyConsentEvent($this->consent, $this->finisherContextStub);
     }
 
     #[Framework\Attributes\Test]
@@ -60,7 +60,7 @@ final class ModifyConsentEventTest extends TestingFramework\Core\Unit\UnitTestCa
     #[Framework\Attributes\Test]
     public function getFinisherContextReturnsInitialFinisherContext(): void
     {
-        $expected = $this->finisherContextMock;
+        $expected = $this->finisherContextStub;
         self::assertSame($expected, $this->subject->getFinisherContext());
     }
 }

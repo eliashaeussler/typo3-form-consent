@@ -34,8 +34,12 @@ use TYPO3\CMS\Form;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final class FormRequestTypeTransformer implements TypeTransformer
+final readonly class FormRequestTypeTransformer implements TypeTransformer
 {
+    public function __construct(
+        private Core\Crypto\HashService $hashService,
+    ) {}
+
     /**
      * @return Type\JsonType<string, array<string, array<string, mixed>>>
      * @throws \JsonException
@@ -85,18 +89,13 @@ final class FormRequestTypeTransformer implements TypeTransformer
         $file = $file->getOriginalFile();
         $resourcePointer = 'file:' . $file->getUid();
 
-        if (class_exists(Core\Crypto\HashService::class)) {
-            $hashService = Core\Utility\GeneralUtility::makeInstance(Core\Crypto\HashService::class);
-            $hashedResourcePointer = $hashService->appendHmac($resourcePointer, Form\Security\HashScope::ResourcePointer->prefix());
-        } else {
-            // @todo Remove once support for TYPO3 v12 is dropped
-            $hashService = Core\Utility\GeneralUtility::makeInstance(Extbase\Security\Cryptography\HashService::class);
-            $hashedResourcePointer = $hashService->appendHmac($resourcePointer);
-        }
-
         return [
             'submittedFile' => [
-                'resourcePointer' => $hashedResourcePointer,
+                'resourcePointer' => $this->hashService->appendHmac(
+                    $resourcePointer,
+                    /* @phpstan-ignore argument.type */
+                    Form\Security\HashScope::ResourcePointer->prefix(),
+                ),
             ],
         ];
     }

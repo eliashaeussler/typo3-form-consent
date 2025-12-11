@@ -25,7 +25,6 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Functional\Service;
 
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
-use Psr\EventDispatcher;
 use Symfony\Component\DependencyInjection;
 use TYPO3\CMS\Core;
 use TYPO3\TestingFramework;
@@ -39,6 +38,14 @@ use TYPO3\TestingFramework;
 #[Framework\Attributes\CoversClass(Src\Service\HashService::class)]
 final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalTestCase
 {
+    protected array $testExtensionsToLoad = [
+        'form_consent',
+    ];
+
+    protected array $coreExtensionsToLoad = [
+        'form',
+    ];
+
     protected bool $initializeDatabase = false;
 
     protected Src\Domain\Model\Consent $consent;
@@ -56,7 +63,7 @@ final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalT
             ->setValidUntil(new \DateTime());
 
         $this->listenerProvider = $this->getContainer()->get(Core\EventDispatcher\ListenerProvider::class);
-        $this->subject = new Src\Service\HashService($this->getContainer()->get(EventDispatcher\EventDispatcherInterface::class));
+        $this->subject = $this->get(Src\Service\HashService::class);
     }
 
     #[Framework\Attributes\Test]

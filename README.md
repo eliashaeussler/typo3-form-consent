@@ -27,7 +27,7 @@ compliance with the GDPR.
 * Several events for better customization
 * Scheduler garbage collection task for expired consents
 * Dashboard widget for approved, non-approved and dismissed consents
-* Compatible with TYPO3 12.4 LTS and 13.4 LTS
+* Compatible with TYPO3 13.4 LTS
 
 ## 🔥 Installation
 

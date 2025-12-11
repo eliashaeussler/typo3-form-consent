@@ -14,6 +14,23 @@ upgrading to a new major version of this extension.
 Version 4.0.0
 =============
 
+Plugin migrated to CType
+------------------------
+
+-   The `Consent` plugin was migrated to a dedicated CType.
+-   Use the provided upgrade wizard to migrate your database. When done manually,
+    rewrite affected content elements by migrating the `CType` value from `list`
+    to `formconsent_consent`.
+
+TypoScript moved to site set
+----------------------------
+
+-   TypoScript setup moved from :file:`Configuration/TypoScript` to the site set
+    `eliashaeussler/typo3-form-consent`.
+-   TypoScript constants were replaced by site settings.
+-   Replace TypoScript includes and imports with a dependency to the site set.
+-   Migrate TypoScript constants to site settings.
+
 :php:`Localization` class dropped
 ---------------------------------
 

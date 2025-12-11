@@ -55,31 +55,12 @@ final class Extension
     }
 
     /**
-     * Register additional PageTsConfig.
-     *
-     * FOR USE IN ext_localconf.php ONLY.
-     *
-     * @todo Remove once support for TYPO3 v12 is dropped
-     */
-    public static function registerPageTsConfig(): void
-    {
-        if ((new Core\Information\Typo3Version())->getMajorVersion() >= 13) {
-            return;
-        }
-
-        Core\Utility\ExtensionManagementUtility::addPageTSConfig('
-            @import "EXT:' . self::KEY . '/Configuration/TSconfig/Page.tsconfig"
-        ');
-    }
-
-    /**
      * Register validation plugin.
      *
      * FOR USE IN ext_localconf.php ONLY.
      */
     public static function registerPlugin(): void
     {
-        // @todo Migrate to CType once support for TYPO3 v12 is dropped
         Extbase\Utility\ExtensionUtility::configurePlugin(
             self::NAME,
             self::PLUGIN,
@@ -89,6 +70,7 @@ final class Extension
             [
                 Controller\ConsentController::class => 'approve, dismiss',
             ],
+            Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
         );
     }
 

@@ -61,13 +61,6 @@ final class ConsentChartDataProviderTest extends TestingFramework\Core\Functiona
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.csv');
 
-        // @todo Remove once support for TYPO3 v12 is dropped
-        if ((new Core\Information\Typo3Version())->getMajorVersion() < 13) {
-            $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.v12.csv');
-        } else {
-            $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.v13.csv');
-        }
-
         $this->setUpBackendUser(1);
     }
 
