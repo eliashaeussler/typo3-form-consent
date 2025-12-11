@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 
-use EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Event;
 use Psr\EventDispatcher;
@@ -41,11 +40,14 @@ use TYPO3\CMS\Form;
  */
 final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
 {
+    private ?Core\Localization\LanguageService $languageService = null;
+
     public function __construct(
         private readonly Domain\Factory\ConsentFactory $consentFactory,
         private readonly EventDispatcher\EventDispatcherInterface $eventDispatcher,
         private readonly Core\Mail\Mailer $mailer,
         private readonly Extbase\Persistence\PersistenceManagerInterface $persistenceManager,
+        private readonly Core\Localization\LanguageServiceFactory $languageServiceFactory,
     ) {}
 
     /**
@@ -69,7 +71,10 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
     private function executeConsent(): void
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
-        $finisherOptions = new FinisherOptions(fn(string $optionName) => $this->parseOption($optionName));
+        $finisherOptions = new FinisherOptions(
+            fn(string $optionName) => $this->parseOption($optionName),
+            $formRuntime->getRequest(),
+        );
 
         // Create consent
         $consent = $this->consentFactory->createFromForm($finisherOptions, $this->finisherContext);
@@ -117,8 +122,8 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
             $this->mailer->send($mail);
         } catch (Mailer\Exception\TransportExceptionInterface) {
             throw new Form\Domain\Finishers\Exception\FinisherException(
-                Configuration\Localization::forKey('consentMail.error', null, true),
-                1577109483
+                $this->translate('LLL:EXT:form_consent/Resources/Private/Language/locallang.xlf:consentMail.error'),
+                1577109483,
             );
         }
     }
@@ -150,5 +155,17 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
 
         // Cancel execution
         $this->finisherContext->cancel();
+    }
+
+    private function translate(string $key): string
+    {
+        $this->languageService ??= $this->languageServiceFactory->createFromUserPreferences($this->getBackendUser());
+
+        return $this->languageService->sL($key);
+    }
+
+    private function getBackendUser(): Core\Authentication\BackendUserAuthentication
+    {
+        return $GLOBALS['BE_USER'];
     }
 }

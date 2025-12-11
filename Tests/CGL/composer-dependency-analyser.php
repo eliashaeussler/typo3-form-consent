@@ -22,7 +22,6 @@ declare(strict_types=1);
  */
 
 use Composer\Autoload;
-use PHPUnit\Framework;
 use ShipMonk\ComposerDependencyAnalyser;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Extbase;
@@ -45,7 +44,6 @@ $configuration
         Core\Exception\Crypto\InvalidHashStringException::class,
         Extbase\Security\HashScope::class,
         Form\Security\HashScope::class,
-        Framework\NativeType::class,
     ])
     ->ignoreErrorsOnPackages(
         [

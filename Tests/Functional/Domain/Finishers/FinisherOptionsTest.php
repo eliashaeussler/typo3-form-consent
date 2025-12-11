@@ -64,7 +64,10 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
         parent::setUp();
 
         $this->configurationManager = $this->createMock(Extbase\Configuration\ConfigurationManagerInterface::class);
-        $this->subject = new Src\Domain\Finishers\FinisherOptions($this->fetchOption(...));
+        $this->subject = new Src\Domain\Finishers\FinisherOptions(
+            $this->fetchOption(...),
+            new Core\Http\ServerRequest(),
+        );
 
         Core\Utility\GeneralUtility::setSingletonInstance(
             Extbase\Configuration\ConfigurationManagerInterface::class,

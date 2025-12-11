@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\DependencyInjection;
 
-use EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Widget;
 use Symfony\Component\DependencyInjection;
 use TYPO3\CMS\Core;
@@ -64,8 +63,8 @@ final readonly class DashboardServicesConfigurator
             ->tag('dashboard.widget', [
                 'identifier' => 'approvedConsentsWidget',
                 'groupNames' => 'general',
-                'title' => Configuration\Localization::forWidget('approvedConsents', 'header'),
-                'description' => Configuration\Localization::forWidget('approvedConsents', 'body'),
+                'title' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:widgets.approvedConsents.header',
+                'description' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:widgets.approvedConsents.body',
                 'iconIdentifier' => 'content-widget-approved-consents',
                 'height' => 'medium',
                 'width' => 'small',
@@ -78,6 +77,7 @@ final readonly class DashboardServicesConfigurator
 
         // Data provider for widget "approved consents"
         $this->services->set(self::APPROVED_CONSENTS_DATA_PROVIDER)
+            ->autowire()
             ->class(Widget\Provider\ConsentChartDataProvider::class)
             ->arg('$connection', new DependencyInjection\Reference(self::CONSENT_CONNECTION));
     }

@@ -26,7 +26,7 @@ return [
         'label' => 'email',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'title' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forTable($tableName),
+        'title' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent',
         'delete' => 'deleted',
         'iconfile' => 'EXT:form_consent/Resources/Public/Icons/tx_formconsent_domain_model_consent.svg',
         'searchFields' => 'email, data, form_persistence_identifier, validation_hash',
@@ -35,7 +35,7 @@ return [
     'columns' => [
         'email' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('email', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.email',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -47,7 +47,7 @@ return [
         ],
         'date' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('date', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.date',
             'config' => [
                 'type' => 'datetime',
                 'format' => 'datetime',
@@ -58,7 +58,7 @@ return [
         ],
         'data' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('data', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.data',
             'config' => [
                 'type' => 'user',
                 'renderType' => 'consentData',
@@ -67,7 +67,7 @@ return [
         ],
         'form_persistence_identifier' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('form_persistence_identifier', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.form_persistence_identifier',
             'config' => [
                 'type' => 'input',
                 'softref' => 'formPersistenceIdentifier',
@@ -77,14 +77,14 @@ return [
         ],
         'original_request_parameters' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('original_request_parameters', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.original_request_parameters',
             'config' => [
                 'type' => 'passthrough',
             ],
         ],
         'original_content_element_uid' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('original_content_element_uid', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.original_content_element_uid',
             'config' => [
                 'type' => 'group',
                 'allowed' => 'tt_content',
@@ -97,25 +97,25 @@ return [
         ],
         'state' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.state',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'new'),
+                        'label' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->label(),
                         'value' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
-                        'icon' => 'overlay-scheduled',
+                        'icon' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->icon(),
                     ],
                     [
-                        'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'approved'),
+                        'label' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Approved->label(),
                         'value' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Approved->value,
-                        'icon' => 'overlay-approved',
+                        'icon' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Approved->icon(),
                     ],
                     [
-                        'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('state', $tableName, 'dismissed'),
+                        'label' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Dismissed->label(),
                         'value' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Dismissed->value,
-                        'icon' => 'overlay-readonly',
+                        'icon' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::Dismissed->icon(),
                     ],
                 ],
                 'default' => \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
@@ -125,7 +125,7 @@ return [
         'update_date' => [
             'exclude' => true,
             'displayCond' => 'FIELD:state:>:' . \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('update_date', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.update_date',
             'config' => [
                 'type' => 'datetime',
                 'format' => 'datetime',
@@ -136,7 +136,7 @@ return [
         'valid_until' => [
             'exclude' => true,
             'displayCond' => 'FIELD:state:=:' . \EliasHaeussler\Typo3FormConsent\Enums\ConsentState::New->value,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('valid_until', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.valid_until',
             'config' => [
                 'type' => 'datetime',
                 'format' => 'datetime',
@@ -146,7 +146,7 @@ return [
         ],
         'validation_hash' => [
             'exclude' => true,
-            'label' => \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forField('validation_hash', $tableName),
+            'label' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent.validation_hash',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -158,13 +158,13 @@ return [
     'types' => [
         '0' => [
             'showitem' => '
-                --div--;' . \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forTab('general', true) . ',
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
                     email,
                     date,
                     data,
                     form_persistence_identifier,
                     original_content_element_uid,
-                --div--;' . \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forTab('consent') . ',
+                --div--;LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tabs.consent,
                     state,
                     update_date,
                     valid_until,

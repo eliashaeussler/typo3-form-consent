@@ -77,9 +77,3 @@ parameters:
 			identifier: property.phpDocType
 			count: 1
 			path: ../Acceptance/Support/Helper/ModalDialog.php
-
-		-
-			rawMessage: Access to constant String on an unknown class PHPUnit\Framework\NativeType.
-			identifier: class.notFound
-			count: 1
-			path: ../Functional/Configuration/LocalizationTest.php
