@@ -5,7 +5,6 @@
 # TYPO3 extension `form_consent`
 
 [![Coverage](https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-form-consent?logo=coveralls)](https://coveralls.io/github/eliashaeussler/typo3-form-consent)
-[![Maintainability](https://qlty.sh/gh/eliashaeussler/projects/typo3-form-consent/maintainability.svg)](https://qlty.sh/gh/eliashaeussler/projects/typo3-form-consent)
 [![CI](https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/ci.yaml?label=CI&logo=github)](https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/ci.yaml)
 [![Supported TYPO3 versions](https://typo3-badges.dev/badge/form_consent/typo3/shields.svg)](https://extensions.typo3.org/extension/form_consent)
 [![Slack](https://img.shields.io/badge/slack-%23ext--form__consent-4a154b?logo=slack)](https://typo3.slack.com/archives/C03719PJJJD)

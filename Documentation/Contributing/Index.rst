@@ -3,9 +3,6 @@
 ..  image:: https://img.shields.io/coverallsCoverage/github/eliashaeussler/typo3-form-consent?logo=coveralls
     :target: https://coveralls.io/github/eliashaeussler/typo3-form-consent
 
-..  image:: https://qlty.sh/gh/eliashaeussler/projects/typo3-form-consent/maintainability.svg
-    :target: https://qlty.sh/gh/eliashaeussler/projects/typo3-form-consent
-
 ..  image:: https://img.shields.io/github/actions/workflow/status/eliashaeussler/typo3-form-consent/ci.yaml?label=CI&logo=github
     :target: https://github.com/eliashaeussler/typo3-form-consent/actions/workflows/ci.yaml
 

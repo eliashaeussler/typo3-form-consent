@@ -9,9 +9,9 @@ Migration
 This page lists all notable changes and required migrations when
 upgrading to a new major version of this extension.
 
-..  _version-3.0.0:
+..  _version-4.0.0:
 
-Version 3.0.0
+Version 4.0.0
 =============
 
 :php:`Localization` class dropped
