@@ -23,6 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Enums;
 
+use EliasHaeussler\Typo3FormConsent\Domain;
+use EliasHaeussler\Typo3FormConsent\Extension;
+
 /**
  * ConsentState
  *
@@ -34,4 +37,27 @@ enum ConsentState: int
     case New = 0;
     case Approved = 1;
     case Dismissed = 2;
+
+    public function label(): string
+    {
+        return sprintf(
+            'LLL:EXT:%s/Resources/Private/Language/locallang_db.xlf:%s.state.%s',
+            Extension::KEY,
+            Domain\Model\Consent::TABLE_NAME,
+            match ($this) {
+                self::New => 'new',
+                self::Approved => 'approved',
+                self::Dismissed => 'dismissed',
+            },
+        );
+    }
+
+    public function icon(): string
+    {
+        return match ($this) {
+            self::New => 'overlay-scheduled',
+            self::Approved => 'overlay-approved',
+            self::Dismissed => 'overlay-readonly',
+        };
+    }
 }

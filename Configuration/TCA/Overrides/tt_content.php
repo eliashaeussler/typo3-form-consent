@@ -23,6 +23,6 @@
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     \EliasHaeussler\Typo3FormConsent\Extension::NAME,
     \EliasHaeussler\Typo3FormConsent\Extension::PLUGIN,
-    \EliasHaeussler\Typo3FormConsent\Configuration\Localization::forPlugin('Consent'),
+    'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:plugins.consent',
     'content-plugin-consent',
 );

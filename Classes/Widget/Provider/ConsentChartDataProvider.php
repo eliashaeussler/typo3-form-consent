@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Widget\Provider;
 
-use EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Enums;
 use TYPO3\CMS\Core;
@@ -35,10 +34,13 @@ use TYPO3\CMS\Dashboard;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
-final readonly class ConsentChartDataProvider implements Dashboard\Widgets\ChartDataProviderInterface
+final class ConsentChartDataProvider implements Dashboard\Widgets\ChartDataProviderInterface
 {
+    private ?Core\Localization\LanguageService $languageService = null;
+
     public function __construct(
-        private Core\Database\Connection $connection,
+        private readonly Core\Database\Connection $connection,
+        private readonly Core\Localization\LanguageServiceFactory $languageServiceFactory,
     ) {}
 
     /**
@@ -48,9 +50,9 @@ final readonly class ConsentChartDataProvider implements Dashboard\Widgets\Chart
     {
         return [
             'labels' => [
-                Configuration\Localization::forChart('approved', true),
-                Configuration\Localization::forChart('nonApproved', true),
-                Configuration\Localization::forChart('dismissed', true),
+                $this->translate('LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:charts.approved'),
+                $this->translate('LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:charts.nonApproved'),
+                $this->translate('LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:charts.dismissed'),
             ],
             'datasets' => [
                 [
@@ -96,5 +98,17 @@ final readonly class ConsentChartDataProvider implements Dashboard\Widgets\Chart
             ->executeQuery();
 
         return (int)$result->fetchOne();
+    }
+
+    private function translate(string $key): string
+    {
+        $this->languageService ??= $this->languageServiceFactory->createFromUserPreferences($this->getBackendUser());
+
+        return $this->languageService->sL($key);
+    }
+
+    private function getBackendUser(): Core\Authentication\BackendUserAuthentication
+    {
+        return $GLOBALS['BE_USER'];
     }
 }

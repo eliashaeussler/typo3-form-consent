@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Form\Element;
 
-use EliasHaeussler\Typo3FormConsent\Configuration;
 use TYPO3\CMS\Backend;
 use TYPO3\CMS\Extbase;
 
@@ -56,7 +55,7 @@ final class ConsentDataElement extends Backend\Form\Element\AbstractFormElement
         $row = $this->data['databaseRow'] ?? [];
         $formData = (string)$row['data'];
         $formData = json_decode($formData, true) ?? [];
-        $title = Configuration\Localization::forBackendForm('data.header', true);
+        $title = $this->getLanguageService()->sL('LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:form.data.header');
 
         if (!\is_array($formData) || $formData === []) {
             return $this->renderAlert('noDataAvailable');
@@ -94,7 +93,7 @@ final class ConsentDataElement extends Backend\Form\Element\AbstractFormElement
     {
         $html = [];
         $html[] = '<div class="alert alert-info alert-message" role="alert">';
-        $html[] =   Configuration\Localization::forBackendForm('message.' . $localizationKey, true);
+        $html[] =     $this->getLanguageService()->sL('LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:message.' . $localizationKey);
         $html[] = '</div>';
 
         return implode(PHP_EOL, $html);

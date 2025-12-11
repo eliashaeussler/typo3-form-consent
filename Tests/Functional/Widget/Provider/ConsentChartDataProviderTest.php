@@ -45,8 +45,6 @@ final class ConsentChartDataProviderTest extends TestingFramework\Core\Functiona
         'form_consent',
     ];
 
-    private static string $languagePrefix = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:';
-
     protected Src\Widget\Provider\ConsentChartDataProvider $subject;
 
     protected function setUp(): void
@@ -54,10 +52,13 @@ final class ConsentChartDataProviderTest extends TestingFramework\Core\Functiona
         parent::setUp();
 
         // Build subject
-        $connection = $this->getConnectionPool()->getConnectionForTable(Src\Domain\Model\Consent::TABLE_NAME);
-        $this->subject = new Src\Widget\Provider\ConsentChartDataProvider($connection);
+        $this->subject = new Src\Widget\Provider\ConsentChartDataProvider(
+            $this->getConnectionPool()->getConnectionForTable(Src\Domain\Model\Consent::TABLE_NAME),
+            $this->get(Core\Localization\LanguageServiceFactory::class),
+        );
 
         // Import data
+        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
         $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.csv');
 
         // @todo Remove once support for TYPO3 v12 is dropped
@@ -66,6 +67,8 @@ final class ConsentChartDataProviderTest extends TestingFramework\Core\Functiona
         } else {
             $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.v13.csv');
         }
+
+        $this->setUpBackendUser(1);
     }
 
     #[Framework\Attributes\Test]
@@ -77,9 +80,9 @@ final class ConsentChartDataProviderTest extends TestingFramework\Core\Functiona
         $chartData = $this->subject->getChartData();
 
         $labels = $chartData['labels'];
-        self::assertSame(self::$languagePrefix . 'charts.approved', $labels[0]);
-        self::assertSame(self::$languagePrefix . 'charts.nonApproved', $labels[1]);
-        self::assertSame(self::$languagePrefix . 'charts.dismissed', $labels[2]);
+        self::assertSame('approved', $labels[0]);
+        self::assertSame('non-approved', $labels[1]);
+        self::assertSame('dismissed', $labels[2]);
 
         $data = $chartData['datasets'][0]['data'];
         self::assertSame($expectedApprovedCount, $data[0]);

@@ -9,6 +9,20 @@ Migration
 This page lists all notable changes and required migrations when
 upgrading to a new major version of this extension.
 
+..  _version-3.0.0:
+
+Version 3.0.0
+=============
+
+:php:`Localization` class dropped
+---------------------------------
+
+-   The :php:`\EliasHaeussler\Typo3FormConsent\Configuration\Localization` was dropped.
+    Consuming code was adapted to directly call TYPO3's :php:`LanguageServiceFactory`.
+-   Adapt all usages by either writing `LLL` strings on your own or – if necessary –
+    consult :ref:`t3coreapi:extension-localization-php` to learn how to translate strings
+    in PHP.
+
 ..  _version-2.0.0:
 
 Version 2.0.0

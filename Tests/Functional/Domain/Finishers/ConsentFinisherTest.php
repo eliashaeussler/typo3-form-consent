@@ -80,6 +80,7 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
             $this->eventDispatcher,
             $this->get(Core\Mail\Mailer::class),
             $this->get(Extbase\Persistence\PersistenceManagerInterface::class),
+            $this->get(Core\Localization\LanguageServiceFactory::class),
         );
 
         $this->subject->setFinisherIdentifier('Consent');

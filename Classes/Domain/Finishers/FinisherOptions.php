@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 
-use EliasHaeussler\Typo3FormConsent\Configuration;
 use EliasHaeussler\Typo3FormConsent\Exception;
 use EliasHaeussler\Typo3FormConsent\Extension;
+use Psr\Http\Message;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Extbase;
 use TYPO3\CMS\Fluid;
@@ -42,11 +42,7 @@ use TYPO3\CMS\Form;
 final class FinisherOptions implements \ArrayAccess
 {
     private static ?Core\Domain\Repository\PageRepository $pageRepository = null;
-
-    /**
-     * @var callable(string): mixed
-     */
-    private $optionFetcher;
+    private static ?Core\Localization\LanguageService $languageService = null;
 
     /**
      * @var array{
@@ -69,12 +65,12 @@ final class FinisherOptions implements \ArrayAccess
     private array $parsedOptions = [];
 
     /**
-     * @param callable(string): mixed $optionFetcher
+     * @param \Closure(string): mixed $optionFetcher
      */
-    public function __construct(callable $optionFetcher)
-    {
-        $this->optionFetcher = $optionFetcher;
-    }
+    public function __construct(
+        private readonly \Closure $optionFetcher,
+        private readonly Message\ServerRequestInterface $request,
+    ) {}
 
     public function getSubject(): string
     {
@@ -85,10 +81,10 @@ final class FinisherOptions implements \ArrayAccess
         $subject = trim((string)($this->optionFetcher)('subject'));
 
         if (str_starts_with($subject, 'LLL:')) {
-            $subject = Configuration\Localization::translate($subject);
+            $subject = $this->getLanguageService()->sL($subject);
         }
         if ($subject === '') {
-            $subject = Configuration\Localization::forKey('consentMail.subject', null, true);
+            $subject = $this->getLanguageService()->sL('LLL:EXT:form_consent/Resources/Private/Language/locallang.xlf:consentMail.subject');
         }
 
         return $this->parsedOptions['subject'] = $subject;
@@ -338,6 +334,19 @@ final class FinisherOptions implements \ArrayAccess
         return (int)($configuration['persistence']['storagePid'] ?? 0);
     }
 
+    /**
+     * @throws Form\Domain\Finishers\Exception\FinisherException
+     */
+    private function throwException(string $message, int $code = 0): never
+    {
+        $localizationKey = 'LLL:EXT:form_consent/Resources/Private/Language/locallang_form.xlf:validation.' . $message;
+
+        throw new Form\Domain\Finishers\Exception\FinisherException(
+            $this->getLanguageService()->sL($localizationKey),
+            $code,
+        );
+    }
+
     private function getPageRepository(): Core\Domain\Repository\PageRepository
     {
         if (self::$pageRepository === null) {
@@ -347,14 +356,21 @@ final class FinisherOptions implements \ArrayAccess
         return self::$pageRepository;
     }
 
-    /**
-     * @throws Form\Domain\Finishers\Exception\FinisherException
-     */
-    private function throwException(string $message, int $code = 0): never
+    private function getLanguageService(): Core\Localization\LanguageService
     {
-        throw new Form\Domain\Finishers\Exception\FinisherException(
-            Configuration\Localization::forFormValidation($message, true),
-            $code,
-        );
+        if (self::$languageService !== null) {
+            return self::$languageService;
+        }
+
+        $languageServiceFactory = Core\Utility\GeneralUtility::makeInstance(Core\Localization\LanguageServiceFactory::class);
+        $siteLanguage = $this->request->getAttribute('language');
+
+        if ($siteLanguage instanceof Core\Site\Entity\SiteLanguage) {
+            self::$languageService = $languageServiceFactory->createFromSiteLanguage($siteLanguage);
+        } else {
+            self::$languageService = $languageServiceFactory->createFromUserPreferences(null);
+        }
+
+        return self::$languageService;
     }
 }
