@@ -1,10 +1,106 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: Access to constant SHA1 on an unknown class TYPO3\CMS\Core\Crypto\HashAlgo.
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			rawMessage: Access to constant SHA3_256 on an unknown class TYPO3\CMS\Core\Crypto\HashAlgo.
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			rawMessage: 'Method EliasHaeussler\Typo3FormConsent\Compatibility\Migration\HmacHashMigration::getRequiredHashAlgo() has invalid return type TYPO3\CMS\Core\Crypto\HashAlgo.'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			rawMessage: 'Method TYPO3\CMS\Core\Crypto\HashService::appendHmac() invoked with 3 parameters, 2 required.'
+			identifier: arguments.count
+			count: 1
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			rawMessage: 'Method TYPO3\CMS\Core\Crypto\HashService::validateAndStripHmac() invoked with 3 parameters, 2 required.'
+			identifier: arguments.count
+			count: 1
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			rawMessage: 'Parameter #2 $additionalSecret of method TYPO3\CMS\Core\Crypto\HashService::appendHmac() expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 2
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			rawMessage: 'Parameter #2 $additionalSecret of method TYPO3\CMS\Core\Crypto\HashService::validateAndStripHmac() expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 2
+			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
+
+		-
+			rawMessage: Class Derhansen\FormCrshield\EventListener\FormCrShield not found.
+			identifier: class.notFound
+			count: 2
+			path: ../../Classes/DependencyInjection/ThirdPartyServicePass.php
+
+		-
 			rawMessage: 'Call to function is_string() with string will always evaluate to true.'
 			identifier: function.alreadyNarrowedType
 			count: 2
 			path: ../../Classes/Domain/Finishers/FinisherOptions.php
+
+		-
+			rawMessage: Access to property $formRuntime on an unknown class TYPO3\CMS\Form\Event\AfterCurrentPageIsResolvedEvent.
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Event/Listener/ThirdPartyEventListenerProxy.php
+
+		-
+			rawMessage: Access to property $formRuntime on an unknown class TYPO3\CMS\Form\Event\BeforeRenderableIsValidatedEvent.
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Event/Listener/ThirdPartyEventListenerProxy.php
+
+		-
+			rawMessage: 'Call to method afterInitializeCurrentPage() on an unknown class Derhansen\FormCrshield\EventListener\FormCrShield.'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Event/Listener/ThirdPartyEventListenerProxy.php
+
+		-
+			rawMessage: 'Call to method afterSubmit() on an unknown class Derhansen\FormCrshield\EventListener\FormCrShield.'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Event/Listener/ThirdPartyEventListenerProxy.php
+
+		-
+			rawMessage: 'Parameter $event of method EliasHaeussler\Typo3FormConsent\Event\Listener\ThirdPartyEventListenerProxy::afterCurrentPageIsResolved() has invalid type TYPO3\CMS\Form\Event\AfterCurrentPageIsResolvedEvent.'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Event/Listener/ThirdPartyEventListenerProxy.php
+
+		-
+			rawMessage: 'Parameter $event of method EliasHaeussler\Typo3FormConsent\Event\Listener\ThirdPartyEventListenerProxy::beforeRenderableIsValidated() has invalid type TYPO3\CMS\Form\Event\BeforeRenderableIsValidatedEvent.'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Event/Listener/ThirdPartyEventListenerProxy.php
+
+		-
+			rawMessage: 'Parameter $formCrShield of method EliasHaeussler\Typo3FormConsent\Event\Listener\ThirdPartyEventListenerProxy::__construct() has invalid type Derhansen\FormCrshield\EventListener\FormCrShield.'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Event/Listener/ThirdPartyEventListenerProxy.php
+
+		-
+			rawMessage: Property EliasHaeussler\Typo3FormConsent\Event\Listener\ThirdPartyEventListenerProxy::$formCrShield has unknown class Derhansen\FormCrshield\EventListener\FormCrShield as its type.
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Event/Listener/ThirdPartyEventListenerProxy.php
 
 		-
 			rawMessage: 'Method EliasHaeussler\Typo3FormConsent\Type\Transformer\TypeTransformer::transform() return type with generic class EliasHaeussler\Typo3FormConsent\Type\JsonType does not specify its types: TKey, TValue'
@@ -13,7 +109,37 @@ parameters:
 			path: ../../Classes/Type/Transformer/TypeTransformer.php
 
 		-
+			rawMessage: Access to constant SHA1 on an unknown class TYPO3\CMS\Core\Crypto\HashAlgo.
+			identifier: class.notFound
+			count: 1
+			path: ../Acceptance/Frontend/Controller/ConsentControllerCest.php
+
+		-
+			rawMessage: Access to constant SHA3_256 on an unknown class TYPO3\CMS\Core\Crypto\HashAlgo.
+			identifier: class.notFound
+			count: 1
+			path: ../Acceptance/Frontend/Controller/ConsentControllerCest.php
+
+		-
+			rawMessage: 'Parameter #3 $length of function substr expects int|null, float|int given.'
+			identifier: argument.type
+			count: 1
+			path: ../Acceptance/Frontend/Controller/ConsentControllerCest.php
+
+		-
 			rawMessage: PHPDoc type EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester of property EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\ModalDialog::$tester is not the same as PHPDoc type TYPO3\CMS\Core\Tests\Acceptance\Support\ApplicationTester of overridden property TYPO3\TestingFramework\Core\Acceptance\Helper\AbstractModalDialog::$tester.
 			identifier: property.phpDocType
 			count: 1
 			path: ../Acceptance/Support/Helper/ModalDialog.php
+
+		-
+			rawMessage: 'Call to an undefined method EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher::injectTranslationService().'
+			identifier: method.notFound
+			count: 1
+			path: ../Functional/Domain/Finishers/ConsentFinisherTest.php
+
+		-
+			rawMessage: 'Call to an undefined method EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher::injectViewFactory().'
+			identifier: method.notFound
+			count: 1
+			path: ../Functional/Domain/Finishers/ConsentFinisherTest.php

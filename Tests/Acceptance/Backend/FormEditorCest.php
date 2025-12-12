@@ -36,14 +36,14 @@ final class FormEditorCest
     public function canOpenFormWithConsentFinisherInPreviewMode(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->loginAs('admin');
-        $I->openModule(Tests\Acceptance\Support\Enums\Selectors::FormModule->value);
+        $I->openModule(Tests\Acceptance\Support\Enums\Selectors::FormModule);
 
         $I->waitForText('contact');
-        $I->click('contact', Tests\Acceptance\Support\Enums\Selectors::FormList->value);
+        $I->click('contact', Tests\Acceptance\Support\Enums\Selectors::FormList);
 
-        $I->waitForText('contact', 5, Tests\Acceptance\Support\Enums\Selectors::FormDefinition->value);
-        $I->seeElement(Tests\Acceptance\Support\Enums\Selectors::FormPreviewMode->value);
-        $I->click(Tests\Acceptance\Support\Enums\Selectors::FormPreviewMode->value);
-        $I->waitForElement(Tests\Acceptance\Support\Enums\Selectors::ContactForm->value);
+        $I->waitForText('contact', 5, Tests\Acceptance\Support\Enums\Selectors::FormDefinition);
+        $I->seeElement(Tests\Acceptance\Support\Enums\Selectors::FormPreviewMode);
+        $I->click(Tests\Acceptance\Support\Enums\Selectors::FormPreviewMode);
+        $I->waitForElement(Tests\Acceptance\Support\Enums\Selectors::ContactForm);
     }
 }

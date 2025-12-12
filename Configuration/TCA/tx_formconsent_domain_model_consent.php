@@ -19,9 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-$tableName = \EliasHaeussler\Typo3FormConsent\Domain\Model\Consent::TABLE_NAME;
-
-return [
+$tca = [
     'ctrl' => [
         'label' => 'email',
         'tstamp' => 'tstamp',
@@ -29,7 +27,6 @@ return [
         'title' => 'LLL:EXT:form_consent/Resources/Private/Language/locallang_db.xlf:tx_formconsent_domain_model_consent',
         'delete' => 'deleted',
         'iconfile' => 'EXT:form_consent/Resources/Public/Icons/tx_formconsent_domain_model_consent.svg',
-        'searchFields' => 'email, data, form_persistence_identifier, validation_hash',
         'default_sortby' => 'date DESC',
     ],
     'columns' => [
@@ -173,3 +170,10 @@ return [
         ],
     ],
 ];
+
+// @todo Remove once support for TYPO3 v13 is dropped
+if ((new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion() === 13) {
+    $tca['ctrl']['searchFields'] = 'email, data, form_persistence_identifier, validation_hash';
+}
+
+return $tca;

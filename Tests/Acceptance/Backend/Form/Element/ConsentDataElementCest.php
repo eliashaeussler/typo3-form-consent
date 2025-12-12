@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Backend\Form\Element;
 
 use EliasHaeussler\Typo3FormConsent\Tests;
+use TYPO3\CMS\Core;
 
 /**
  * ConsentDataElementCest
@@ -38,12 +39,19 @@ final class ConsentDataElementCest
         $I->amOnPage('/');
         $I->fillAndSubmitForm();
 
-        $I->loginAs('admin');
-        $I->openModule(Tests\Acceptance\Support\Enums\Selectors::ListModule->value);
+        if ((new Core\Information\Typo3Version())->getMajorVersion() >= 14) {
+            $recordsModuleIdentifier = Tests\Acceptance\Support\Enums\Selectors::RecordsModule;
+        } else {
+            // @todo Remove once support for TYPO3 v13 is dropped
+            $recordsModuleIdentifier = Tests\Acceptance\Support\Enums\Selectors::RecordsModuleLegacy;
+        }
 
-        $I->seeElement(Tests\Acceptance\Support\Enums\Selectors::ConsentListCollapsible->value);
-        $I->scrollToElementInModule(Tests\Acceptance\Support\Enums\Selectors::ConsentListItemTitle->value);
-        $I->click(Tests\Acceptance\Support\Enums\Selectors::ConsentListItemTitle->value);
+        $I->loginAs('admin');
+        $I->openModule($recordsModuleIdentifier);
+
+        $I->seeElement(Tests\Acceptance\Support\Enums\Selectors::ConsentListCollapsible);
+        $I->scrollToElementInModule(Tests\Acceptance\Support\Enums\Selectors::ConsentListItemTitle);
+        $I->click(Tests\Acceptance\Support\Enums\Selectors::ConsentListItemTitle);
         $I->waitForText('Submitted form data', 5);
     }
 }

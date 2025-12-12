@@ -24,6 +24,7 @@ declare(strict_types=1);
 use EliasHaeussler\RectorConfig\Config\Config;
 use EliasHaeussler\RectorConfig\Entity\Version;
 use Rector\Config\RectorConfig;
+use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector;
@@ -70,6 +71,11 @@ return static function (RectorConfig $rectorConfig): void {
             // Test properties must not be private, otherwise TF cannot perform GC tasks
             $rootPath . '/Tests/Functional/*',
             $rootPath . '/Tests/Unit/*',
+        ])
+        ->skip(RemoveExtraParametersRector::class, [
+            // HashService method calls are different between TYPO3 versions
+            // @todo Remove once support for TYPO3 v13 is dropped
+            $rootPath . '/Classes/Compatibility/Migration/HmacHashMigration.php',
         ])
         ->apply()
     ;

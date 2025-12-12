@@ -156,7 +156,7 @@ final readonly class InvokeFinishersListener
             $hashScope ??= Extbase\Security\HashScope::tryFrom($key);
 
             if ($hashScope !== null) {
-                $value = $this->hmacHashMigration->migrate($value, $hashScope->prefix());
+                $value = $this->hmacHashMigration->migrate($value, $hashScope);
             }
         });
 
@@ -194,6 +194,9 @@ final readonly class InvokeFinishersListener
             ->withParsedBody($originalRequestParameters->toArray());
     }
 
+    /**
+     * @todo Remove once support for EXT:form_crshield v3 / TYPO3 v13 is dropped
+     */
     private function disableThirdPartyHooks(): void
     {
         // Hooks from EXT:form_crshield must be disabled since they would avoid successful re-rendering

@@ -25,6 +25,7 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Frontend\Controller;
 
 use EliasHaeussler\Typo3FormConsent as Src;
 use EliasHaeussler\Typo3FormConsent\Tests;
+use TYPO3\CMS\Core;
 
 /**
  * ConsentControllerCest
@@ -34,8 +35,14 @@ use EliasHaeussler\Typo3FormConsent\Tests;
  */
 final class ConsentControllerCest
 {
-    private string $approveUrl;
-    private string $dismissUrl;
+    private readonly Core\Information\Typo3Version $typo3Version;
+    private string $approveUrl = '';
+    private string $dismissUrl = '';
+
+    public function __construct()
+    {
+        $this->typo3Version = new Core\Information\Typo3Version();
+    }
 
     public function canApproveConsentViaMail(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
@@ -150,12 +157,20 @@ final class ConsentControllerCest
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = '22be11b3acb2d0a7427e9f23c6c1d8d2c19b05312d4961c025b9a8b74bd7f4087ad38eca173788364b3cccf7398ed682';
 
         // Migrate hashes to legacy HMAC to enforce re-migration using HmacHashMigration
-        array_walk_recursive($parameters, static function (mixed &$value, string|int $key) use ($parametersToMigrate): void {
+        array_walk_recursive($parameters, function (mixed &$value, string|int $key) use ($parametersToMigrate): void {
             if (!is_string($value) || !in_array($key, $parametersToMigrate, true)) {
                 return;
             }
 
-            $stringWithoutHmac = substr($value, 0, -40);
+            if ($this->typo3Version->getMajorVersion() === 14) {
+                $hashAlgo = $key === 'resourcePointer' ? Core\Crypto\HashAlgo::SHA1 : Core\Crypto\HashAlgo::SHA3_256;
+                $hashLength = $hashAlgo->length();
+            } else {
+                // @todo Remove once support for TYPO3 v13 is dropped
+                $hashLength = 40;
+            }
+
+            $stringWithoutHmac = substr($value, 0, -$hashLength);
             // Inlined from deprecated GeneralUtility::hmac() method
             $hmac = hash_hmac('sha1', $stringWithoutHmac, (string)$GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey']);
             $value = $stringWithoutHmac . $hmac;
@@ -297,7 +312,13 @@ final class ConsentControllerCest
         $this->submitFormAndExtractUrls($I, Tests\Acceptance\Support\Helper\Form::INVALID_CLOSURE_AFTER_APPROVE);
 
         $I->amOnPage($this->approveUrl);
-        $I->see('An unexpected error occurred while processing the consent. Please try again or contact the webmaster of this website with the following error code: 1332155239');
+
+        if ($this->typo3Version->getMajorVersion() === 13) {
+            // @todo Remove once support for TYPO3 v13 is dropped
+            $I->see('An unexpected error occurred while processing the consent. Please try again or contact the webmaster of this website with the following error code: 1332155239');
+        } else {
+            $I->see('Your form could not be submitted due to a technical issue. It might be a temporary issue, but can also be related to your input.');
+        }
     }
 
     public function seeErrorOnFinisherExceptionDuringConsentDismissal(Tests\Acceptance\Support\AcceptanceTester $I): void
@@ -305,7 +326,13 @@ final class ConsentControllerCest
         $this->submitFormAndExtractUrls($I, Tests\Acceptance\Support\Helper\Form::INVALID_CLOSURE_AFTER_DISMISS);
 
         $I->amOnPage($this->dismissUrl);
-        $I->see('An unexpected error occurred while processing the consent. Please try again or contact the webmaster of this website with the following error code: 1332155239');
+
+        if ($this->typo3Version->getMajorVersion() === 13) {
+            // @todo Remove once support for TYPO3 v13 is dropped
+            $I->see('An unexpected error occurred while processing the consent. Please try again or contact the webmaster of this website with the following error code: 1332155239');
+        } else {
+            $I->see('Your form could not be submitted due to a technical issue. It might be a temporary issue, but can also be related to your input.');
+        }
     }
 
     private function submitFormAndExtractUrls(
