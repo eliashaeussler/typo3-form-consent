@@ -82,6 +82,12 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
             $this->get(Core\Localization\LanguageServiceFactory::class),
         );
 
+        // @todo Simplify once support for TYPO3 v13 is dropped
+        if ((new Core\Information\Typo3Version())->getMajorVersion() >= 14) {
+            $this->subject->injectTranslationService($this->get(Form\Service\TranslationService::class));
+            $this->subject->injectViewFactory($this->get(Core\View\ViewFactoryInterface::class));
+        }
+
         $this->subject->setFinisherIdentifier('Consent');
         $this->subject->setOptions([
             'subject' => '',

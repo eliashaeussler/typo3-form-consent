@@ -10,6 +10,8 @@ services:
       - '../Classes/DependencyInjection/*'
       - '../Classes/Domain/Finishers/FinisherOptions.php'
       - '../Classes/Domain/Model/*'
+      # @todo Remove once support for EXT:form_crshield v3 / TYPO3 v13 is dropped
+      - '../Classes/Event/Listener/ThirdPartyEventListenerProxy.php'
 
   connection.tx_formconsent_domain_model_consent:
     class: 'TYPO3\CMS\Core\Database\Connection'
