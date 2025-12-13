@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent;
 
+use Derhansen\FormCrshield;
 use Symfony\Component\DependencyInjection as SymfonyDI;
 use TYPO3\CMS\Dashboard;
 
@@ -30,8 +31,22 @@ return static function (
     SymfonyDI\Loader\Configurator\ContainerConfigurator $containerConfigurator,
     SymfonyDI\ContainerBuilder $container,
 ): void {
+    $services = $containerConfigurator->services();
+
     if ($container->hasDefinition(Dashboard\Widgets\ListWidget::class)) {
-        $servicesConfigurator = new DependencyInjection\DashboardServicesConfigurator($containerConfigurator->services());
+        $servicesConfigurator = new DependencyInjection\DashboardServicesConfigurator($services);
         $servicesConfigurator->configureServices();
+    }
+
+    // @todo Remove once support for EXT:form_crshield v3 / TYPO3 v13 is dropped
+    if ($container->hasDefinition(FormCrshield\EventListener\FormCrShield::class)) {
+        $services->get(FormCrshield\EventListener\FormCrShield::class)
+            ->autoconfigure(false)
+        ;
+
+        $services->set(Event\Listener\ThirdPartyEventListenerProxy::class)
+            ->autowire()
+            ->autoconfigure()
+        ;
     }
 };

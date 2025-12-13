@@ -22,7 +22,9 @@ declare(strict_types=1);
  */
 
 use Composer\Autoload;
+use Derhansen\FormCrshield;
 use ShipMonk\ComposerDependencyAnalyser;
+use TYPO3\CMS\Form;
 
 $rootPath = dirname(__DIR__, 2);
 
@@ -54,6 +56,11 @@ $configuration
             ComposerDependencyAnalyser\Config\ErrorType::DEV_DEPENDENCY_IN_PROD,
         ],
     )
+    ->ignoreUnknownClasses([
+        Form\Event\AfterCurrentPageIsResolvedEvent::class,
+        Form\Event\BeforeRenderableIsValidatedEvent::class,
+        FormCrshield\EventListener\FormCrShield::class,
+    ])
 ;
 
 return $configuration;
