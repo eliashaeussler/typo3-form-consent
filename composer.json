@@ -36,7 +36,7 @@
 		"codeception/module-cli": "^2.0",
 		"codeception/module-db": "^3.1",
 		"codeception/module-webdriver": "^4.0",
-		"derhansen/form_crshield": "^1.0 || ^2.0 || ^3.0",
+		"derhansen/form_crshield": "^1.0 || ^2.0 || ^3.0 || ^4.0",
 		"eliashaeussler/typo3-codeception-helper": "^2.0",
 		"eliashaeussler/typo3-form-consent-test-extension": "1.0.0",
 		"eliashaeussler/version-bumper": "^3.0",
