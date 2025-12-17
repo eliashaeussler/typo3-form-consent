@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace EliasHaeussler\Typo3FormConsent\Compatibility\Migration;
 
 use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Form;
 
 /**
  * HmacHashMigration
@@ -34,25 +36,26 @@ use TYPO3\CMS\Core;
  */
 final readonly class HmacHashMigration
 {
+    private const LEGACY_HASH_LENGTH = 40;
+
+    private Core\Information\Typo3Version $typo3Version;
+
     public function __construct(
         private Core\Crypto\HashService $hashService,
-    ) {}
+    ) {
+        $this->typo3Version = new Core\Information\Typo3Version();
+    }
 
-    public function migrate(string $string, string $secret): string
+    public function migrate(string $string, Extbase\Security\HashScope|Form\Security\HashScope $hashScope): string
     {
         // Early return if string does not have HMAC appended
-        if (strlen($string) < 40) {
-            return $string;
-        }
-
-        // Early return if secret is empty
-        if ($secret === '') {
+        if (strlen($string) < self::LEGACY_HASH_LENGTH) {
             return $string;
         }
 
         // Validate hash
         try {
-            $this->hashService->validateAndStripHmac($string, $secret);
+            $this->validateHashedString($string, $hashScope);
 
             // Hash is valid
             return $string;
@@ -60,8 +63,48 @@ final readonly class HmacHashMigration
             // Hash is invalid and needs migration
         }
 
-        $string = substr($string, 0, -40);
+        /** @var non-empty-string $string */
+        $string = substr($string, 0, -self::LEGACY_HASH_LENGTH);
 
-        return $this->hashService->appendHmac($string, $secret);
+        return $this->migrateString($string, $hashScope);
+    }
+
+    /**
+     * @param non-empty-string $string
+     */
+    private function validateHashedString(string $string, Extbase\Security\HashScope|Form\Security\HashScope $hashScope): void
+    {
+        if ($this->typo3Version->getMajorVersion() === 13) {
+            // @todo Remove once support for TYPO3 v13 is dropped
+            $this->hashService->validateAndStripHmac($string, $hashScope->prefix());
+        } else {
+            $this->hashService->validateAndStripHmac($string, $hashScope->prefix(), $this->getRequiredHashAlgo($hashScope));
+        }
+    }
+
+    /**
+     * @param non-empty-string $string
+     */
+    private function migrateString(string $string, Extbase\Security\HashScope|Form\Security\HashScope $hashScope): string
+    {
+        // @todo Remove once support for TYPO3 v13 is dropped
+        if ($this->typo3Version->getMajorVersion() === 13) {
+            return $this->hashService->appendHmac($string, $hashScope->prefix());
+        }
+
+        return $this->hashService->appendHmac($string, $hashScope->prefix(), $this->getRequiredHashAlgo($hashScope));
+    }
+
+    private function getRequiredHashAlgo(Extbase\Security\HashScope|Form\Security\HashScope $hashScope): ?Core\Crypto\HashAlgo
+    {
+        if ($this->typo3Version->getMajorVersion() === 13) {
+            return null;
+        }
+
+        if ($hashScope === Form\Security\HashScope::ResourcePointer) {
+            return Core\Crypto\HashAlgo::SHA1;
+        }
+
+        return Core\Crypto\HashAlgo::SHA3_256;
     }
 }

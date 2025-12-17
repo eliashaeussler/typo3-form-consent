@@ -31,17 +31,20 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Enums;
  */
 enum Selectors: string
 {
-    case ConsentListCollapsible = '#t3-table-tx_formconsent_domain_model_consent';
-    case ConsentListItemTitle = 'tr[data-table="tx_formconsent_domain_model_consent"]:first-child td.col-title a';
-    case ContactForm = 'form#contact';
-    case DashboardAddWidgetButton = '.dashboard-add-item > button';
-    case DashboardModalItemTitle = '[data-identifier="approvedConsentsWidget"]';
-    case DashboardModule = '[data-modulemenu-identifier="dashboard"]';
-    case DashboardWidget = '[data-widget-key="approvedConsentsWidget"]';
-    case DashboardWidgetCanvas = '[data-widget-key="approvedConsentsWidget"] canvas';
-    case FormDefinition = '[data-identifier="formDefinitionLabel"]';
-    case FormList = '#forms';
-    case FormModule = '[data-modulemenu-identifier="web_FormFormbuilder"]';
-    case FormPreviewMode = '[title="Preview mode"]';
-    case ListModule = '[data-modulemenu-identifier="web_list"]';
+    public const ConsentListCollapsible = '#t3-table-tx_formconsent_domain_model_consent';
+    public const ConsentListItemTitle = 'tr[data-table="tx_formconsent_domain_model_consent"]:first-child td.col-title a';
+    public const ContactForm = 'form#contact';
+    public const DashboardAddWidgetButton = '.dashboard-add-item > button';
+    public const DashboardModalItemTitle = '[data-identifier="approvedConsentsWidget"]';
+    public const DashboardModule = '[data-modulemenu-identifier="dashboard"]';
+    public const DashboardWidget = '[data-widget-key="approvedConsentsWidget"]';
+    public const DashboardWidgetCanvas = '[data-widget-key="approvedConsentsWidget"] canvas';
+    public const FormDefinition = '[data-identifier="formDefinitionLabel"]';
+    public const FormList = '#forms';
+    public const FormModule = '[data-modulemenu-identifier="web_FormFormbuilder"]';
+    public const FormPreviewMode = '[title="Preview mode"]';
+    public const RecordsModule = '[data-moduleroute-identifier="records"]';
+
+    // @todo Remove once support for TYPO3 v13 is dropped
+    public const RecordsModuleLegacy = '[data-moduleroute-identifier="web_list"]';
 }

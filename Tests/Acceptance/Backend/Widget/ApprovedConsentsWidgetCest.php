@@ -58,7 +58,7 @@ final readonly class ApprovedConsentsWidgetCest
         $this->logInToBackend($I);
         $this->addWidget($I, $dialog);
 
-        $canvasSelector = Tests\Acceptance\Support\Enums\Selectors::DashboardWidgetCanvas->value;
+        $canvasSelector = Tests\Acceptance\Support\Enums\Selectors::DashboardWidgetCanvas;
 
         $I->waitForElementVisible($canvasSelector);
 
@@ -85,8 +85,8 @@ JS);
         Tests\Acceptance\Support\AcceptanceTester $I,
         Tests\Acceptance\Support\Helper\ModalDialog $dialog,
     ): void {
-        $I->waitForElementClickable(Tests\Acceptance\Support\Enums\Selectors::DashboardAddWidgetButton->value);
-        $I->click(Tests\Acceptance\Support\Enums\Selectors::DashboardAddWidgetButton->value);
+        $I->waitForElementClickable(Tests\Acceptance\Support\Enums\Selectors::DashboardAddWidgetButton);
+        $I->click(Tests\Acceptance\Support\Enums\Selectors::DashboardAddWidgetButton);
 
         $dialog->canSeeDialog();
 
@@ -94,12 +94,12 @@ JS);
             sprintf(
                 'document.querySelector(\'%s typo3-backend-new-record-wizard\').shadowRoot.querySelector(\'%s\').click()',
                 Tests\Acceptance\Support\Helper\ModalDialog::$openedModalSelector,
-                Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitle->value,
+                Tests\Acceptance\Support\Enums\Selectors::DashboardModalItemTitle,
             ),
         );
         $I->switchToIFrame(Typo3CodeceptionHelper\Enums\Selectors::BackendContentFrame);
-        $I->waitForElementVisible(Tests\Acceptance\Support\Enums\Selectors::DashboardWidgetCanvas->value);
-        $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardWidget->value);
+        $I->waitForElementVisible(Tests\Acceptance\Support\Enums\Selectors::DashboardWidgetCanvas);
+        $I->see('Form consent', Tests\Acceptance\Support\Enums\Selectors::DashboardWidget);
     }
 
     private function createConsents(Tests\Acceptance\Support\AcceptanceTester $I): void
@@ -142,6 +142,6 @@ JS);
     private function logInToBackend(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->loginAs('admin');
-        $I->openModule(Tests\Acceptance\Support\Enums\Selectors::DashboardModule->value);
+        $I->openModule(Tests\Acceptance\Support\Enums\Selectors::DashboardModule);
     }
 }

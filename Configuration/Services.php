@@ -30,8 +30,17 @@ return static function (
     SymfonyDI\Loader\Configurator\ContainerConfigurator $containerConfigurator,
     SymfonyDI\ContainerBuilder $container,
 ): void {
+    $services = $containerConfigurator->services();
+
     if ($container->hasDefinition(Dashboard\Widgets\ListWidget::class)) {
-        $servicesConfigurator = new DependencyInjection\DashboardServicesConfigurator($containerConfigurator->services());
+        $servicesConfigurator = new DependencyInjection\DashboardServicesConfigurator($services);
         $servicesConfigurator->configureServices();
     }
+
+    // @todo Remove once support for EXT:form_crshield v3 / TYPO3 v13 is dropped
+    $container->addCompilerPass(
+        new DependencyInjection\ThirdPartyServicePass(),
+        SymfonyDI\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION,
+        2000,
+    );
 };

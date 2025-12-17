@@ -26,6 +26,8 @@ namespace EliasHaeussler\Typo3FormConsent\Tests\Unit\Compatibility\Migration;
 use EliasHaeussler\Typo3FormConsent as Src;
 use PHPUnit\Framework;
 use TYPO3\CMS\Core;
+use TYPO3\CMS\Extbase;
+use TYPO3\CMS\Form;
 use TYPO3\TestingFramework;
 
 /**
@@ -53,27 +55,65 @@ final class HmacHashMigrationTest extends TestingFramework\Core\Unit\UnitTestCas
     #[Framework\Attributes\Test]
     public function migrateReturnsGivenStringIfNoMigrationIsNeeded(): void
     {
-        $string = 'foo313c270e69b0eea4749c7decd66120c50a579586';
+        $string = 'foobe86a0104bea86e3102d6931e120dd6a4566fb50';
 
-        self::assertSame($string, $this->subject->migrate($string, 'foo'));
+        self::assertSame($string, $this->subject->migrate($string, Form\Security\HashScope::ResourcePointer));
     }
 
     #[Framework\Attributes\Test]
     public function migrateReturnsGivenStringIfStringDoesNotHaveHmacAppended(): void
     {
-        self::assertSame('foo', $this->subject->migrate('foo', 'foo'));
+        self::assertSame(
+            'foo',
+            $this->subject->migrate('foo', Form\Security\HashScope::ResourcePointer),
+        );
+    }
+
+    /**
+     * @return \Generator<string, array{Extbase\Security\HashScope|Form\Security\HashScope, string}>
+     */
+    public static function migrateReturnsGivenStringWithMigratedHmacAppendedDataProvider(): \Generator
+    {
+        // @todo Remove once support for TYPO3 v13 is dropped
+        $typo3Version = new Core\Information\Typo3Version();
+        $v14 = $typo3Version->getMajorVersion() === 14;
+
+        yield 'ReferringRequest' => [
+            Extbase\Security\HashScope::ReferringRequest,
+            $v14 ? 'foo5bbaa9729251609473cd14926e46030d4fdc04ed83a11ce8645b5ef88a0958a9' : 'fooeaa999e3f43a1a8e63c5fc399c570dd19468f7c6',
+        ];
+        yield 'ReferringArguments' => [
+            Extbase\Security\HashScope::ReferringArguments,
+            $v14 ? 'foo51a5ab03254d75c356bc74c7a611e324953acf36f1ab084b3c2e10742a21c0a1' : 'foo44104958c0c3fd4492cc488d52c047d768dac9f9',
+        ];
+        yield 'TrustedProperties' => [
+            Extbase\Security\HashScope::TrustedProperties,
+            $v14 ? 'foo36b72dcc980f4872cd47778ecdba8f0869e8077ac83616b393b323502fe599d6' : 'fooa7fea09ebf675eea58acdadb6cbf608cd25d8cd2',
+        ];
+        yield 'FormState' => [
+            Form\Security\HashScope::FormState,
+            $v14 ? 'foo2ec50719ebb99fa8203f56d727a3da8c81e17ff188526f3c5e749feab22a9740' : 'foobc178d95510a2bd1c46aea04b049bf089f848775',
+        ];
+        yield 'FormSession' => [
+            Form\Security\HashScope::FormSession,
+            $v14 ? 'foob5df4983e1ef1e3f13b9dad3051202230169e3f7da85d47b1767b41a881e9c66' : 'foo16b5167577eb96cd9b28bed88ccc2b7239ac5668',
+        ];
+        yield 'ResourcePointer' => [
+            Form\Security\HashScope::ResourcePointer,
+            'foobe86a0104bea86e3102d6931e120dd6a4566fb50',
+        ];
     }
 
     #[Framework\Attributes\Test]
-    public function migrateReturnsGivenStringWithMigratedHmacAppended(): void
-    {
+    #[Framework\Attributes\DataProvider('migrateReturnsGivenStringWithMigratedHmacAppendedDataProvider')]
+    public function migrateReturnsGivenStringWithMigratedHmacAppended(
+        Extbase\Security\HashScope|Form\Security\HashScope $hashScope,
+        string $expected,
+    ): void {
         // HMAC generated with TYPO3 v12
         $string = 'foo4581597e40df301d174185e6bca346b412c1953c';
 
-        // HMAC generated with TYPO3 v13
-        $expected = 'foo313c270e69b0eea4749c7decd66120c50a579586';
-
-        self::assertSame($expected, $this->subject->migrate($string, 'foo'));
+        self::assertSame($expected, $this->subject->migrate($string, $hashScope));
     }
 
     protected function tearDown(): void
