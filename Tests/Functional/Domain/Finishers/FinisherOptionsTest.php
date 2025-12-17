@@ -465,43 +465,6 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
         self::assertFalse($this->subject->requiresVerificationForDismissal());
     }
 
-    #[Framework\Attributes\Test]
-    public function objectCanBeAccessedAsArrayInReadMode(): void
-    {
-        // offsetExists()
-        self::assertArrayHasKey('approvalPeriod', $this->subject);
-        self::assertArrayNotHasKey('foo', $this->subject);
-
-        // offsetGet()
-        self::assertSame(0, $this->subject['approvalPeriod']);
-        self::assertNull($this->subject['foo']);
-        self::assertNull($this->subject[null]);
-    }
-
-    #[Framework\Attributes\Test]
-    public function objectCannotBeAccessedAsArrayInWriteModeViaOffsetSet(): void
-    {
-        $this->expectException(Src\Exception\NotAllowedException::class);
-        $this->expectExceptionCode(1645781267);
-        $this->expectExceptionMessage(
-            sprintf('Calling the method "%s" is not allowed.', Src\Domain\Finishers\FinisherOptions::class . '::offsetSet')
-        );
-
-        $this->subject['approvalPeriod'] = 0;
-    }
-
-    #[Framework\Attributes\Test]
-    public function objectCannotBeAccessedAsArrayInWriteModeViaOffsetUnset(): void
-    {
-        $this->expectException(Src\Exception\NotAllowedException::class);
-        $this->expectExceptionCode(1645781267);
-        $this->expectExceptionMessage(
-            sprintf('Calling the method "%s" is not allowed.', Src\Domain\Finishers\FinisherOptions::class . '::offsetUnset')
-        );
-
-        unset($this->subject['approvalPeriod']);
-    }
-
     public function fetchOption(string $optionName): mixed
     {
         return $this->options[$optionName] ?? null;

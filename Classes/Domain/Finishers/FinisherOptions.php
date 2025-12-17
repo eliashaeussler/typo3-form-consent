@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Domain\Finishers;
 
-use EliasHaeussler\Typo3FormConsent\Exception;
 use EliasHaeussler\Typo3FormConsent\Extension;
 use Psr\Http\Message;
 use TYPO3\CMS\Core;
@@ -36,10 +35,8 @@ use TYPO3\CMS\Form;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
- *
- * @implements \ArrayAccess<string, string|int|bool|Fluid\View\TemplatePaths>
  */
-final class FinisherOptions implements \ArrayAccess
+final class FinisherOptions
 {
     private static ?Core\Domain\Repository\PageRepository $pageRepository = null;
     private static ?Core\Localization\LanguageService $languageService = null;
@@ -280,46 +277,6 @@ final class FinisherOptions implements \ArrayAccess
     {
         return $this->parsedOptions['requireDismissVerification']
             ?? $this->parsedOptions['requireDismissVerification'] = (bool)($this->optionFetcher)('requireDismissVerification');
-    }
-
-    public function offsetExists($offset): bool
-    {
-        if (!\is_string($offset)) {
-            return false;
-        }
-
-        $getterMethodName = 'get' . ucfirst($offset);
-        if (method_exists($this, $getterMethodName)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function offsetGet($offset): mixed
-    {
-        if (!\is_string($offset)) {
-            return null;
-        }
-
-        $getterMethodName = 'get' . ucfirst($offset);
-        $callable = [$this, $getterMethodName];
-
-        if (\is_callable($callable)) {
-            return \call_user_func($callable);
-        }
-
-        return null;
-    }
-
-    public function offsetSet($offset, $value): void
-    {
-        throw Exception\NotAllowedException::forMethod(__METHOD__);
-    }
-
-    public function offsetUnset($offset): void
-    {
-        throw Exception\NotAllowedException::forMethod(__METHOD__);
     }
 
     private function fetchDefaultStoragePid(): int

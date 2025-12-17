@@ -40,6 +40,14 @@ TypoScript moved to site set
     consult :ref:`t3coreapi:extension-localization-php` to learn how to translate strings
     in PHP.
 
+Array access to :php:`FinisherOptions` dropped
+----------------------------------------------
+
+-   The :php:`\EliasHaeussler\Typo3FormConsent\Domain\Finishers\FinisherOptions` class
+    no longer implements the :php:`\ArrayAccess` interface. Consumers can no longer
+    access single finisher options by using array notation.
+-   Migrate your codebase to use the appropriate getter methods instead.
+
 ..  _version-2.0.0:
 
 Version 2.0.0

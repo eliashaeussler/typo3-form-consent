@@ -49,12 +49,6 @@ parameters:
 			path: ../../Classes/DependencyInjection/ThirdPartyServicePass.php
 
 		-
-			rawMessage: 'Call to function is_string() with string will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 2
-			path: ../../Classes/Domain/Finishers/FinisherOptions.php
-
-		-
 			rawMessage: Access to property $formRuntime on an unknown class TYPO3\CMS\Form\Event\AfterCurrentPageIsResolvedEvent.
 			identifier: class.notFound
 			count: 1
