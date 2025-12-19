@@ -96,7 +96,7 @@ final class FinisherOptions
         $configurationManager = Core\Utility\GeneralUtility::makeInstance(Extbase\Configuration\ConfigurationManagerInterface::class);
         $typoScriptConfiguration = $configurationManager->getConfiguration(
             Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-            Extension::NAME
+            Extension::NAME,
         );
         $typoScriptTemplateConfiguration = $typoScriptConfiguration['view'] ?? [];
 

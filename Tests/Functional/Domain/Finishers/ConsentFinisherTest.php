@@ -121,7 +121,7 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
             static function (Src\Event\ModifyConsentEvent $event) use (&$eventDispatched) {
                 $eventDispatched = true;
                 $event->getFinisherContext()->cancel();
-            }
+            },
         );
 
         $finisherContext = $this->createFinisherContext();

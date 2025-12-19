@@ -92,8 +92,8 @@ final class ConsentChartDataProvider implements Dashboard\Widgets\ChartDataProvi
             ->where(
                 $queryBuilder->expr()->eq(
                     'state',
-                    $queryBuilder->createNamedParameter($state->value, Core\Database\Connection::PARAM_INT)
-                )
+                    $queryBuilder->createNamedParameter($state->value, Core\Database\Connection::PARAM_INT),
+                ),
             )
             ->executeQuery();
 
