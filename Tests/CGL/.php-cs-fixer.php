@@ -22,7 +22,7 @@ declare(strict_types=1);
  */
 
 use EliasHaeussler\PhpCsFixerConfig;
-use TYPO3\CodingStandards;
+use Symfony\Component\Finder;
 
 $header = PhpCsFixerConfig\Rules\Header::create(
     'form_consent',
@@ -32,14 +32,13 @@ $header = PhpCsFixerConfig\Rules\Header::create(
     PhpCsFixerConfig\Package\License::GPL2OrLater,
 );
 
-$config = CodingStandards\CsFixerConfig::create();
-$finder = $config->getFinder()
-    ->in(dirname(__DIR__, 2))
-    ->ignoreVCSIgnored(true)
-    ->ignoreDotFiles(false)
-;
-
 return PhpCsFixerConfig\Config::create()
-    ->withConfig($config)
+    ->withFinder(
+        static fn(Finder\Finder $finder) => $finder
+            ->in(dirname(__DIR__, 2))
+            ->ignoreVCSIgnored(true)
+            ->ignoreDotFiles(false),
+    )
+    ->withRule(PhpCsFixerConfig\Rules\Set\TYPO3RuleSet::create(), false)
     ->withRule($header)
 ;
