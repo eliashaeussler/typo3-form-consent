@@ -66,7 +66,7 @@ final class ConsentControllerCest
                 'original_request_parameters !=' => null,
                 'validation_hash' => $hash,
                 'valid_until' => 0,
-            ]
+            ],
         );
     }
 
@@ -92,7 +92,7 @@ final class ConsentControllerCest
                 'original_content_element_uid' => 1,
                 'original_request_parameters' => null,
                 'validation_hash' => $hash,
-            ]
+            ],
         );
     }
 
@@ -287,7 +287,7 @@ final class ConsentControllerCest
         $I->updateInDatabase(
             Src\Domain\Model\Consent::TABLE_NAME,
             ['email' => 'foo'],
-            ['validation_hash' => $hash]
+            ['validation_hash' => $hash],
         );
 
         $I->amOnPage($this->approveUrl);

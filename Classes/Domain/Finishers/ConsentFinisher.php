@@ -92,7 +92,7 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
         $this->finisherContext->getFinisherVariableProvider()->add(
             $this->shortFinisherIdentifier,
             'lastInsertedConsent',
-            $consent
+            $consent,
         );
 
         // Build mail

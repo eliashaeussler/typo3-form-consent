@@ -39,7 +39,7 @@ final class Email extends Module
 
         if (!isset($urls[$index])) {
             $this->fail(
-                sprintf('Only %d urls were extracted from email body, index %d requested.', \count($urls), $index)
+                sprintf('Only %d urls were extracted from email body, index %d requested.', \count($urls), $index),
             );
         }
 

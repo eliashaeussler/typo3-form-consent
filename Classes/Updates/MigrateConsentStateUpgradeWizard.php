@@ -121,7 +121,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
         $uid = $record['uid'];
 
         $this->output->writeln(
-            sprintf('Starting migration of record <comment>"%s.%d"</comment>...', Domain\Model\Consent::TABLE_NAME, $uid)
+            sprintf('Starting migration of record <comment>"%s.%d"</comment>...', Domain\Model\Consent::TABLE_NAME, $uid),
         );
 
         // Migrate consent state
@@ -130,8 +130,8 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
                 sprintf(
                     '  - Migrate <comment>"approved:%s"</comment> to <comment>"state:%s"</comment>.',
                     $record['approved'],
-                    $record['state']
-                )
+                    $record['state'],
+                ),
             );
         }
 
@@ -143,7 +143,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
                     $dateSource,
                     (string)($record[$dateSource] ?? null),
                     (string)$record['update_date'],
-                )
+                ),
             );
         }
 
@@ -289,14 +289,14 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
         return $expr->or(
             $expr->and(
                 $expr->eq('approved', $queryBuilder->createNamedParameter(true, Core\Database\Connection::PARAM_BOOL)),
-                $expr->eq('state', $queryBuilder->createNamedParameter(Enums\ConsentState::New->value, Core\Database\Connection::PARAM_INT))
+                $expr->eq('state', $queryBuilder->createNamedParameter(Enums\ConsentState::New->value, Core\Database\Connection::PARAM_INT)),
             ),
             $expr->and(
                 $expr->eq('approved', $queryBuilder->createNamedParameter(false, Core\Database\Connection::PARAM_BOOL)),
                 $expr->eq('state', $queryBuilder->createNamedParameter(Enums\ConsentState::New->value, Core\Database\Connection::PARAM_INT)),
                 $expr->eq('deleted', $queryBuilder->createNamedParameter(true, Core\Database\Connection::PARAM_BOOL)),
-                $expr->isNull('data')
-            )
+                $expr->isNull('data'),
+            ),
         );
     }
 
@@ -306,7 +306,7 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
 
         return $expr->and(
             $expr->neq('approval_date', $queryBuilder->createNamedParameter(0, Core\Database\Connection::PARAM_INT)),
-            $expr->isNull('update_date')
+            $expr->isNull('update_date'),
         );
     }
 }

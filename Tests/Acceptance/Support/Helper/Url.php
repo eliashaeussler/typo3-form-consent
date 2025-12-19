@@ -79,7 +79,7 @@ final class Url extends Module
             $I->assertEquals($expected, $actual);
         } catch (Core\Utility\Exception\MissingArrayPathException $exception) {
             $this->fail(
-                sprintf('Query parameter "%s" was not found in URL: %s', $path, $exception->getMessage())
+                sprintf('Query parameter "%s" was not found in URL: %s', $path, $exception->getMessage()),
             );
         }
     }

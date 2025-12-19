@@ -45,7 +45,7 @@ $configuration
             'php-webdriver/webdriver',
             'phpunit/phpunit',
         ],
-        [ComposerDependencyAnalyser\Config\ErrorType::SHADOW_DEPENDENCY]
+        [ComposerDependencyAnalyser\Config\ErrorType::SHADOW_DEPENDENCY],
     )
     ->ignoreErrorsOnPackages(
         [

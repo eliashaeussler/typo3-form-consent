@@ -54,7 +54,7 @@ final class ConsentFinisherCest
                 'email' => 'user@example.com',
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
-            ]
+            ],
         );
     }
 
@@ -74,7 +74,7 @@ final class ConsentFinisherCest
                 'email' => 'user@example.com',
                 'form_persistence_identifier' => '1:/form_definitions/contact.form.yaml',
                 'original_content_element_uid' => 1,
-            ]
+            ],
         );
 
         $I->seeInDatabase(
@@ -83,7 +83,7 @@ final class ConsentFinisherCest
                 'username' => 'consent ' . $uid,
                 'email' => 'user@example.com',
                 'image' => $numberOfPersistedFiles + 1,
-            ]
+            ],
         );
     }
 

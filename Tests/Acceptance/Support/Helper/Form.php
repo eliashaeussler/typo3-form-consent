@@ -68,7 +68,7 @@ final class Form extends Module
         $I->submitForm(
             WebDriver\WebDriverBy::id($this->getFormElementIdentifier($form)),
             $elements,
-            WebDriver\WebDriverBy::name($this->getFormElementName($form, '__currentPage'))
+            WebDriver\WebDriverBy::name($this->getFormElementName($form, '__currentPage')),
         );
     }
 

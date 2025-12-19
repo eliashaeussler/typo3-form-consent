@@ -92,7 +92,7 @@ final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalT
                 {
                     $event->setComponents([]);
                 }
-            }
+            },
         );
 
         $hashWithNoComponents = $this->subject->generate($this->consent);
@@ -113,7 +113,7 @@ final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalT
                 {
                     $event->setHash('foo');
                 }
-            }
+            },
         );
 
         $customHashGeneration = $this->subject->generate($this->consent);
@@ -159,7 +159,7 @@ final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalT
                 {
                     $event->setComponents([]);
                 }
-            }
+            },
         );
 
         $hash = $this->subject->generate($this->consent);
