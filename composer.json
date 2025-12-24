@@ -55,7 +55,7 @@
 		"typo3/cms-tstemplate": "~13.4.0 || ~14.0.1",
 		"typo3/testing-framework": "^9.0.3",
 		"typo3fluid/fluid": "^4.0 || ^5.0",
-		"webmozart/assert": "^1.11"
+		"webmozart/assert": "^1.11 || ^2.0"
 	},
 	"suggest": {
 		"typo3/cms-dashboard": "Adds a custom form consent widget to the TYPO3 dashboard (~13.4.0 || ~14.0.1)",
