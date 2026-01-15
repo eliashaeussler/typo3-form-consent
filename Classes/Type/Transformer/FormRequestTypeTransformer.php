@@ -93,7 +93,6 @@ final readonly class FormRequestTypeTransformer implements TypeTransformer
             'submittedFile' => [
                 'resourcePointer' => $this->hashService->appendHmac(
                     $resourcePointer,
-                    /* @phpstan-ignore argument.type */
                     Form\Security\HashScope::ResourcePointer->prefix(),
                 ),
             ],
