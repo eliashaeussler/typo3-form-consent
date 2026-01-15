@@ -31,18 +31,6 @@ parameters:
 			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
 
 		-
-			rawMessage: 'Parameter #2 $additionalSecret of method TYPO3\CMS\Core\Crypto\HashService::appendHmac() expects non-empty-string, string given.'
-			identifier: argument.type
-			count: 2
-			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
-
-		-
-			rawMessage: 'Parameter #2 $additionalSecret of method TYPO3\CMS\Core\Crypto\HashService::validateAndStripHmac() expects non-empty-string, string given.'
-			identifier: argument.type
-			count: 2
-			path: ../../Classes/Compatibility/Migration/HmacHashMigration.php
-
-		-
 			rawMessage: Class Derhansen\FormCrshield\EventListener\FormCrShield not found.
 			identifier: class.notFound
 			count: 2
