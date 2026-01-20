@@ -43,13 +43,17 @@ use TYPO3\CMS\Frontend;
  */
 final readonly class InvokeFinishersListener
 {
+    private Core\Information\Typo3Version $typo3Version;
+
     public function __construct(
         private Extbase\Configuration\ConfigurationManagerInterface $extbaseConfigurationManager,
         private Form\Mvc\Configuration\ConfigurationManagerInterface $formConfigurationManager,
         private Form\Mvc\Persistence\FormPersistenceManagerInterface $formPersistenceManager,
         private Compatibility\Migration\HmacHashMigration $hmacHashMigration,
         private Core\Domain\Repository\PageRepository $pageRepository,
-    ) {}
+    ) {
+        $this->typo3Version = new Core\Information\Typo3Version();
+    }
 
     #[Core\Attribute\AsEventListener('formConsentInvokeFinishersOnConsentApproveListener')]
     public function onConsentApprove(Event\ApproveConsentEvent $event): void
@@ -218,12 +222,18 @@ final readonly class InvokeFinishersListener
             Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'form',
         );
-        $formSettings = $this->formConfigurationManager->getYamlConfiguration($typoScriptSettings, true);
-        $formConfiguration = $this->formPersistenceManager->load(
-            $formPersistenceIdentifier,
-            $formSettings,
-            $typoScriptSettings,
-        );
+
+        if ($this->typo3Version->getMajorVersion() >= 14) {
+            $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier, $typoScriptSettings);
+        } else {
+            // @todo Remove once support for TYPO3 v13 is dropped
+            $formSettings = $this->formConfigurationManager->getYamlConfiguration($typoScriptSettings, true);
+            $formConfiguration = $this->formPersistenceManager->load(
+                $formPersistenceIdentifier,
+                $formSettings,
+                $typoScriptSettings,
+            );
+        }
 
         foreach ($formConfiguration['variants'] ?? [] as $variant) {
             if (str_contains($variant['condition'] ?? '', $condition) && isset($variant['finishers'])) {

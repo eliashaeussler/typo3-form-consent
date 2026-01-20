@@ -140,7 +140,14 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
         // Load form and build form runtime
         $formFactory = $this->get(Form\Domain\Factory\FormFactoryInterface::class);
         $formPersistenceManager = $this->get(Form\Mvc\Persistence\FormPersistenceManagerInterface::class);
-        $formDefinitionArray = $formPersistenceManager->load('1:form_definitions/contact.form.yaml', [], []);
+
+        if ((new Core\Information\Typo3Version())->getMajorVersion() >= 14) {
+            $formDefinitionArray = $formPersistenceManager->load('1:form_definitions/contact.form.yaml', []);
+        } else {
+            // @todo Remove once support for TYPO3 v13 is dropped
+            $formDefinitionArray = $formPersistenceManager->load('1:form_definitions/contact.form.yaml', [], []);
+        }
+
         $formDefinition = $formFactory->build($formDefinitionArray);
         $formRuntime = $formDefinition->bind($this->request);
 
