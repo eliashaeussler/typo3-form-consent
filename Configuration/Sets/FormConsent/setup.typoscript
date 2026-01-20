@@ -21,10 +21,13 @@ plugin.tx_formconsent {
   }
 }
 
-plugin.tx_form {
-  settings {
-    yamlConfigurations {
-      1576524005 = EXT:form_consent/Configuration/Yaml/FormSetup.yaml
+# @todo Remove once support for TYPO3 v13 is dropped
+[typo3.branch == "13.4"]
+  plugin.tx_form {
+    settings {
+      yamlConfigurations {
+        1576524005 = EXT:form_consent/Configuration/Yaml/FormSetup.yaml
+      }
     }
   }
-}
+[end]

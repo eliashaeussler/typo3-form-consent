@@ -94,17 +94,21 @@ final class Extension
      * Register global TypoScript setup.
      *
      * FOR USE IN ext_localconf.php ONLY.
+     *
+     * @todo Remove once support for TYPO3 v13 is dropped
      */
     public static function registerTypoScript(): void
     {
-        Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
-            module.tx_form {
-                settings {
-                    yamlConfigurations {
-                        1576524005 = EXT:form_consent/Configuration/Yaml/FormSetup.yaml
+        if ((new Core\Information\Typo3Version())->getMajorVersion() < 14) {
+            Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
+                module.tx_form {
+                    settings {
+                        yamlConfigurations {
+                            1576524005 = EXT:form_consent/Configuration/Yaml/FormSetup.yaml
+                        }
                     }
                 }
-            }
-        ');
+            ');
+        }
     }
 }

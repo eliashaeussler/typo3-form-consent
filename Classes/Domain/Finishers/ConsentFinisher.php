@@ -157,6 +157,9 @@ final class ConsentFinisher extends Form\Domain\Finishers\AbstractFinisher
         $this->finisherContext->cancel();
     }
 
+    /**
+     * @todo Inject and use TranslatorInterface once support for TYPO3 v13 is dropped
+     */
     private function translate(string $key): string
     {
         $this->languageService ??= $this->languageServiceFactory->createFromUserPreferences($this->getBackendUser());
