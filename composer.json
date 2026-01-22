@@ -31,7 +31,7 @@
 		"typo3/cms-install": "~13.4.0 || ~14.0.1"
 	},
 	"require-dev": {
-		"behat/gherkin": "< 4.12",
+		"codeception/codeception": "^5.3.4",
 		"codeception/module-asserts": "^3.0",
 		"codeception/module-cli": "^2.0",
 		"codeception/module-db": "^3.1",
