@@ -75,6 +75,7 @@ $GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive(
             'displayErrors' => 1,
             'encryptionKey' => '22be11b3acb2d0a7427e9f23c6c1d8d2c19b05312d4961c025b9a8b74bd7f4087ad38eca173788364b3cccf7398ed682',
             'trustedHostsPattern' => '.*.*',
+            'exceptionalErrors' => 4098,
         ],
     ],
 );

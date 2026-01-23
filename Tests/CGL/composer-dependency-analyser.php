@@ -41,7 +41,6 @@ $configuration
     ])
     ->ignoreErrorsOnPackages(
         [
-            'codeception/codeception',
             'php-webdriver/webdriver',
             'phpunit/phpunit',
         ],
