@@ -37,6 +37,12 @@ parameters:
 			path: ../../Classes/DependencyInjection/ThirdPartyServicePass.php
 
 		-
+			rawMessage: 'Method TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::load() invoked with 2 parameters, 3 required.'
+			identifier: arguments.count
+			count: 1
+			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
+
+		-
 			rawMessage: Access to property $formRuntime on an unknown class TYPO3\CMS\Form\Event\AfterCurrentPageIsResolvedEvent.
 			identifier: class.notFound
 			count: 1
@@ -123,5 +129,11 @@ parameters:
 		-
 			rawMessage: 'Call to an undefined method EliasHaeussler\Typo3FormConsent\Domain\Finishers\ConsentFinisher::injectViewFactory().'
 			identifier: method.notFound
+			count: 1
+			path: ../Functional/Domain/Finishers/ConsentFinisherTest.php
+
+		-
+			rawMessage: 'Method TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::load() invoked with 2 parameters, 3 required.'
+			identifier: arguments.count
 			count: 1
 			path: ../Functional/Domain/Finishers/ConsentFinisherTest.php
