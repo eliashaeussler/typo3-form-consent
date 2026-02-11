@@ -73,6 +73,9 @@ final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalT
         $this->consent->setValidUntil(null);
 
         $hashWithoutValidUntil = $this->subject->generate($this->consent);
+
+        self::assertNotNull($validUntil);
+
         $this->consent->setValidUntil($validUntil);
         $hashWithValidUntil = $this->subject->generate($this->consent);
 
