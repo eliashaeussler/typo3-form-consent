@@ -42,7 +42,7 @@
 		"eliashaeussler/version-bumper": "^3.0",
 		"helhum/config-loader": "^0.12.5",
 		"koehnlein/codeception-email-mailpit": "^0.3.0",
-		"phpunit/phpcov": "^10.0 || ^11.0",
+		"phpunit/phpcov": "^10.0 || ^11.0 || ^12.0",
 		"psr/http-server-handler": "^1.0",
 		"psr/http-server-middleware": "^1.0",
 		"symfony/event-dispatcher": "^7.0",
