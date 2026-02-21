@@ -119,6 +119,8 @@ jobs:
           ddev start
 
       # Install dependencies
+      - name: Ignore firebase/php-jwt vulnerability
+        run: composer config -jm audit.ignore '{"CVE-2025-45769":"disputed"}'
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
         with:
