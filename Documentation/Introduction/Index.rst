@@ -32,7 +32,7 @@ Features
 -   :ref:`Scheduler task <scheduler-task>` for expired consents
 -   :ref:`Dashboard widget <dashboard-widget>` for approved, non-approved
     and dismissed consents
--   Compatible with TYPO3 13.4 LTS and 14.0
+-   Compatible with TYPO3 13.4 LTS and 14.2
 
 ..  _support:
 
