@@ -27,6 +27,7 @@ use EliasHaeussler\Typo3FormConsent\Domain;
 use EliasHaeussler\Typo3FormConsent\Event;
 use EliasHaeussler\Typo3FormConsent\Registry;
 use Psr\Http\Message;
+use Psr\Log;
 use TYPO3\CMS\Core;
 use TYPO3\CMS\Extbase;
 
@@ -41,6 +42,7 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
     public function __construct(
         private readonly Domain\Repository\ConsentRepository $consentRepository,
         private readonly Extbase\Persistence\PersistenceManagerInterface $persistenceManager,
+        private readonly Log\LoggerInterface $logger,
     ) {}
 
     public function initializeAction(): void
@@ -98,6 +100,15 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
             $event = new Event\ApproveConsentEvent($consent);
             $this->eventDispatcher->dispatch($event);
         } catch (\Exception $exception) {
+            $this->logger->error(
+                'Approval failed for consent {consentUid} and form {formPersistenceIdentifier}.',
+                [
+                    'consentUid' => $consent->getUid(),
+                    'formPersistenceIdentifier' => $consent->getFormPersistenceIdentifier(),
+                    'exception' => $exception,
+                ],
+            );
+
             return $this->createErrorResponse('unexpectedError', $exception);
         }
 
@@ -149,6 +160,15 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
             $event = new Event\DismissConsentEvent($consent);
             $this->eventDispatcher->dispatch($event);
         } catch (\Exception $exception) {
+            $this->logger->error(
+                'Dismissal failed for consent {consentUid} and form {formPersistenceIdentifier}.',
+                [
+                    'consentUid' => $consent->getUid(),
+                    'formPersistenceIdentifier' => $consent->getFormPersistenceIdentifier(),
+                    'exception' => $exception,
+                ],
+            );
+
             return $this->createErrorResponse('unexpectedError', $exception);
         }
 
