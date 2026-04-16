@@ -37,7 +37,7 @@ jobs:
 
       # Install dependencies
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       # Analyze
       - name: Analyze dependencies
@@ -122,7 +122,7 @@ jobs:
       - name: Ignore firebase/php-jwt vulnerability
         run: composer config -jm audit.ignore '{"CVE-2025-45769":"disputed"}'
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
           composer-options: --with=typo3/cms-core:"^${{ matrix.typo3-version }}"
