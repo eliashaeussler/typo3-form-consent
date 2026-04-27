@@ -94,7 +94,7 @@ jobs:
       fail-fast: false
       matrix:
         php-version: ["8.2", "8.3", "8.4", "8.5"]
-        typo3-version: ["13.4", "14.2"]
+        typo3-version: ["13.4", "14.3"]
         dependencies: ["highest", "lowest"]
     steps:
       - uses: actions/checkout@v6
@@ -125,7 +125,11 @@ jobs:
         uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
-          composer-options: --with=typo3/cms-core:"^${{ matrix.typo3-version }}"
+          # @todo Remove --no-plugins and subsequent "composer install" once typo3/class-alias-loader
+          #       is bumped to ^2.0 (this is possible once support for TYPO3 v13 is dropped)
+          composer-options: --with=typo3/cms-core:"^${{ matrix.typo3-version }}" --no-plugins
+      - name: Install Composer dependencies (with plugins enabled)
+        uses: ramsey/composer-install@v4
 
       # Run tests
       - name: Run functional and unit tests
