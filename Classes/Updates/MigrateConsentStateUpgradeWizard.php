@@ -223,9 +223,10 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     {
         $legacyColumns = [];
         $schemaManager = $this->connection->createSchemaManager();
+        $columns = $schemaManager->introspectTableColumnsByUnquotedName(Domain\Model\Consent::TABLE_NAME);
 
-        foreach ($schemaManager->listTableColumns(Domain\Model\Consent::TABLE_NAME) as $column) {
-            $columnName = $column->getName();
+        foreach ($columns as $column) {
+            $columnName = $column->getObjectName()->toString();
 
             if (\in_array($columnName, self::LEGACY_COLUMNS, true)) {
                 $legacyColumns[] = $columnName;
