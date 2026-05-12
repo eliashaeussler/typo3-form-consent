@@ -3,5 +3,4 @@ presets:
   - typo3-extension
 
 releaseOptions:
-  commitMessage: '[RELEASE] Release of EXT:form_consent {%version%}'
   signTag: true
