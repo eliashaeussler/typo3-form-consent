@@ -65,7 +65,7 @@ final class ConsentControllerCest
                 'original_content_element_uid' => 1,
                 'original_request_parameters !=' => null,
                 'validation_hash' => $hash,
-                'valid_until' => 0,
+                'valid_until' => null,
             ],
         );
     }
