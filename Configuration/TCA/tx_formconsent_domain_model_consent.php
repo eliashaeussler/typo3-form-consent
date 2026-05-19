@@ -126,8 +126,8 @@ $tca = [
             'config' => [
                 'type' => 'datetime',
                 'format' => 'datetime',
-                'default' => 0,
                 'readOnly' => true,
+                'nullable' => true,
             ],
         ],
         'valid_until' => [
@@ -137,8 +137,8 @@ $tca = [
             'config' => [
                 'type' => 'datetime',
                 'format' => 'datetime',
-                'default' => 0,
                 'readOnly' => true,
+                'nullable' => true,
             ],
         ],
         'validation_hash' => [

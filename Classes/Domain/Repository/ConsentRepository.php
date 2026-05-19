@@ -51,7 +51,11 @@ class ConsentRepository extends Extbase\Persistence\Repository
             $query->logicalAnd(
                 $query->equals('validation_hash', $validationHash),
                 $query->logicalOr(
-                    $query->equals('valid_until', 0),
+                    $query->logicalOr(
+                        // BC: Legacy consents may have been persisted with "0" instead of "NULL"
+                        $query->equals('valid_until', 0),
+                        $query->equals('valid_until', null),
+                    ),
                     $query->greaterThanOrEqual('valid_until', time()),
                 ),
             ),
