@@ -14,7 +14,7 @@ jobs:
     name: Build extension artefact
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       # Check if tag is valid
       - name: Check tag
@@ -25,7 +25,7 @@ jobs:
 
       # Prepare environment
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
         with:
           php-version: 8.5
           tools: composer:v2, typo3/tailor
@@ -52,7 +52,7 @@ jobs:
     outputs:
       release-notes-url: ${{ steps.create-release.outputs.url }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Download extension artefact
         id: download
@@ -62,7 +62,7 @@ jobs:
 
       - name: Create release
         id: create-release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
         with:
           generate_release_notes: true
           files: ${{ steps.download.outputs.download-path }}/${{ env.EXTENSION_ARTEFACT }}
@@ -74,7 +74,7 @@ jobs:
     env:
       TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Download extension artefact
         id: download
@@ -87,7 +87,7 @@ jobs:
         run: echo "comment=See release notes at ${{ needs.release.outputs.release-notes-url }}" >> $GITHUB_OUTPUT
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
         with:
           php-version: 8.5
           extensions: intl, mbstring, json, zip, curl
