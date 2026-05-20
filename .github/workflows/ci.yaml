@@ -12,7 +12,7 @@ permissions: read-all
 jobs:
   prepare:
     name: Prepare workflow
-    uses: eliashaeussler/.github/.github/workflows/pull-request.yaml@main
+    uses: eliashaeussler/.github/.github/workflows/pull-request.yaml@76514ec3b1ca3ae6de8d56490ddcfe7f05139590 # main
 
   cgl:
     name: CGL
@@ -20,11 +20,11 @@ jobs:
     needs: prepare
     if: needs.prepare.outputs.continue == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       # Prepare environment
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
         with:
           # We use the minimum supported PHP version
           php-version: 8.2 # renovate-ignore
@@ -37,7 +37,7 @@ jobs:
 
       # Install dependencies
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v4
+        uses: ramsey/composer-install@5c2bcf28d7b060ef3c601d7b476d5430a7b46c27 # v4
 
       # Analyze
       - name: Analyze dependencies
@@ -73,10 +73,10 @@ jobs:
     needs: prepare
     if: ${{ needs.prepare.outputs.continue == 'true' && github.ref_name == 'main' }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Upload sources
-        uses: crowdin/github-action@v2
+        uses: crowdin/github-action@8868a33591d21088edfc398968173a3b98d51706 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -97,11 +97,11 @@ jobs:
         typo3-version: ["13.4", "14.3"]
         dependencies: ["highest", "lowest"]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       # Prepare environment
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
         with:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
@@ -109,7 +109,7 @@ jobs:
 
       # Setup DDEV
       - name: Setup DDEV
-        uses: ddev/github-action-setup-ddev@v1
+        uses: ddev/github-action-setup-ddev@fdf2f5c97943bae638f31df6df86f1defa6210c0 # v1
         with:
           version: '1.25.2'
           autostart: false
@@ -122,14 +122,14 @@ jobs:
       - name: Ignore firebase/php-jwt vulnerability
         run: composer config -jm audit.ignore '{"CVE-2025-45769":"disputed"}'
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v4
+        uses: ramsey/composer-install@5c2bcf28d7b060ef3c601d7b476d5430a7b46c27 # v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
           # @todo Remove --no-plugins and subsequent "composer install" once typo3/class-alias-loader
           #       is bumped to ^2.0 (this is possible once support for TYPO3 v13 is dropped)
           composer-options: --with=typo3/cms-core:"^${{ matrix.typo3-version }}" --no-plugins
       - name: Install Composer dependencies (with plugins enabled)
-        uses: ramsey/composer-install@v4
+        uses: ramsey/composer-install@5c2bcf28d7b060ef3c601d7b476d5430a7b46c27 # v4
 
       # Run tests
       - name: Run functional and unit tests
@@ -137,7 +137,7 @@ jobs:
           ddev composer test:functional
           ddev composer test:unit
       - name: Run acceptance tests
-        uses: nick-fields/retry@v4
+        uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4
         with:
           max_attempts: 3
           retry_on: error
@@ -160,11 +160,11 @@ jobs:
     needs: prepare
     if: needs.prepare.outputs.continue == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       # Prepare environment
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
         with:
           php-version: 8.5
           tools: composer:v2
@@ -172,7 +172,7 @@ jobs:
 
       # Setup DDEV
       - name: Setup DDEV
-        uses: ddev/github-action-setup-ddev@v1
+        uses: ddev/github-action-setup-ddev@fdf2f5c97943bae638f31df6df86f1defa6210c0 # v1
         with:
           version: '1.25.2'
           autostart: false
@@ -187,7 +187,7 @@ jobs:
           ddev composer test:coverage:functional
           ddev composer test:coverage:unit
       - name: Run acceptance tests
-        uses: nick-fields/retry@v4
+        uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4
         with:
           max_attempts: 3
           retry_on: error
@@ -221,7 +221,7 @@ jobs:
     needs: test-coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       # Download artifact
       - name: Download coverage artifact
@@ -232,6 +232,6 @@ jobs:
 
       # Coveralls
       - name: Coveralls report
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
         with:
           file: ${{ steps.download.outputs.download-path }}/clover.xml
