@@ -60,9 +60,11 @@ use TYPO3\CMS\Install;
  *     approved: int,
  * }
  */
+// @todo Switch attributes and interfaces once support for TYPO3 v13 is dropped
+// #[Core\Attribute\UpgradeWizard('formConsentMigrateConsentState')]
 #[Install\Attribute\UpgradeWizard('formConsentMigrateConsentState')]
 #[DependencyInjection\Attribute\Autoconfigure(public: true, shared: false)]
-final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeWizardInterface, Install\Updates\ChattyInterface
+final class MigrateConsentStateUpgradeWizard implements /* Core\Upgrades\UpgradeWizardInterface, Core\Upgrades\ChattyInterface */ Install\Updates\UpgradeWizardInterface, Install\Updates\ChattyInterface
 {
     private const LEGACY_COLUMNS = [
         'approved',
@@ -112,6 +114,8 @@ final class MigrateConsentStateUpgradeWizard implements Install\Updates\UpgradeW
     public function getPrerequisites(): array
     {
         return [
+            // @todo Switch class names once support for TYPO3 v13 is dropped
+            // Core\Upgrades\DatabaseUpdatedPrerequisite::class,
             Install\Updates\DatabaseUpdatedPrerequisite::class,
         ];
     }

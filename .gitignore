@@ -2,8 +2,6 @@
 /config
 /Configuration/Sets/FormConsentTests
 /Tests/Acceptance/Support/_generated
-/Tests/Build/Configuration/sites/main/settings.yaml
-/Tests/Build/Configuration/system/settings.php
 /var
-/.phpunit.result.cache
+/.php-cs-fixer.cache
 /c3.php

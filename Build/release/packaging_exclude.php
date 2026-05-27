@@ -21,24 +21,32 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\PhpCsFixerConfig;
-use Symfony\Component\Finder;
-
-$header = PhpCsFixerConfig\Rules\Header::create(
-    'form_consent',
-    PhpCsFixerConfig\Package\Type::TYPO3Extension,
-    PhpCsFixerConfig\Package\Author::create('Elias Häußler', 'elias@haeussler.dev'),
-    PhpCsFixerConfig\Package\CopyrightRange::from(2021),
-    PhpCsFixerConfig\Package\License::GPL2OrLater,
-);
-
-return PhpCsFixerConfig\Config::create()
-    ->withFinder(
-        static fn(Finder\Finder $finder) => $finder
-            ->in(dirname(__DIR__, 2))
-            ->ignoreVCSIgnored(true)
-            ->ignoreDotFiles(false),
-    )
-    ->withRule(PhpCsFixerConfig\Rules\Set\TYPO3RuleSet::create(), false)
-    ->withRule($header)
-;
+return [
+    'directories' => [
+        '.build',
+        '.ddev',
+        '.git',
+        '.github',
+        'bin',
+        'build',
+        'public',
+        'tailor-version-upload',
+        'tests',
+        'vendor',
+    ],
+    'files' => [
+        'DS_Store',
+        'c3.php',
+        'CODE_OF_CONDUCT.md',
+        'codeception.yml',
+        'CODEOWNERS',
+        'composer.lock',
+        'CONTRIBUTING.md',
+        'crowdin.yaml',
+        'editorconfig',
+        'gitattributes',
+        'gitignore',
+        'renovate.json',
+        'SECURITY.md',
+    ],
+];

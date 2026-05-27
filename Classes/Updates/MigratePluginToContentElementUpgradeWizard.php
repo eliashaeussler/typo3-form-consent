@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace EliasHaeussler\Typo3FormConsent\Updates;
 
+use TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate;
 use TYPO3\CMS\Install;
 
 /**
@@ -31,8 +32,10 @@ use TYPO3\CMS\Install;
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
  */
+// @todo Switch attribute and interface once support for TYPO3 v13 is dropped
+// #[Core\Attribute\UpgradeWizard('formConsentMigratePluginToContentElement')]
 #[Install\Attribute\UpgradeWizard('formConsentMigratePluginToContentElement')]
-final class MigratePluginToContentElementUpgradeWizard extends Install\Updates\AbstractListTypeToCTypeUpdate
+final class MigratePluginToContentElementUpgradeWizard extends /* AbstractListTypeToCTypeUpdate */ Install\Updates\AbstractListTypeToCTypeUpdate
 {
     public function getTitle(): string
     {

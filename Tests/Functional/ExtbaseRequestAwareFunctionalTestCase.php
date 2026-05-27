@@ -37,7 +37,7 @@ use TYPO3\TestingFramework;
 abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Core\Functional\FunctionalTestCase
 {
     private const REQUIRED_PATHS = [
-        'typo3conf/ext/form_consent/Tests/Build/Configuration/sites' => 'typo3conf/sites',
+        'typo3conf/ext/form_consent/Build/environment/config/sites' => 'typo3conf/sites',
     ];
 
     private const REQUIRED_EXTENSIONS = [

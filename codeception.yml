@@ -47,7 +47,9 @@ extensions:
     - EliasHaeussler\Typo3CodeceptionHelper\Codeception\Extension\ApplicationEntrypointModifier:
         entrypoints:
           - web-dir: .Build/web
+          # @todo Remove entrypoint once support for TYPO3 v13 is dropped
           - web-dir: .Build/web/typo3
+            optional: true
     - EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Extension\EnvironmentExtension
 
 coverage:
@@ -57,7 +59,7 @@ coverage:
 
 paths:
   tests: Tests/Acceptance
-  output: .Build/log/acceptance-reports
+  output: Build/tests/log/acceptance-reports
   data: Tests/Acceptance/Data
   support: Tests/Acceptance/Support
 

@@ -43,18 +43,11 @@ return static function (RectorConfig $rectorConfig): void {
             $rootPath . '/Tests',
         )
         ->not(
-            $rootPath . '/.Build/*',
-            $rootPath . '/.ddev/*',
-            $rootPath . '/.github/*',
-            $rootPath . '/config/*',
             $rootPath . '/Tests/Acceptance/Support/_generated/*',
-            $rootPath . '/Tests/Build/Configuration/system/settings.php',
-            $rootPath . '/Tests/CGL/vendor/*',
-            $rootPath . '/var/*',
         )
         ->withPHPUnit()
         ->withSymfony()
-        ->withTYPO3(Version::createMajor(12))
+        ->withTYPO3(Version::createMajor(13))
         ->skip(AnnotationToAttributeRector::class, [
             $rootPath . '/Classes/Extension.php',
             $rootPath . '/Classes/Updates/MigrateConsentStateUpgradeWizard.php',

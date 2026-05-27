@@ -95,12 +95,8 @@ final readonly class HmacHashMigration
         return $this->hashService->appendHmac($string, $hashScope->prefix(), $this->getRequiredHashAlgo($hashScope));
     }
 
-    private function getRequiredHashAlgo(Extbase\Security\HashScope|Form\Security\HashScope $hashScope): ?Core\Crypto\HashAlgo
+    private function getRequiredHashAlgo(Extbase\Security\HashScope|Form\Security\HashScope $hashScope): Core\Crypto\HashAlgo
     {
-        if ($this->typo3Version->getMajorVersion() === 13) {
-            return null;
-        }
-
         if ($hashScope === Form\Security\HashScope::ResourcePointer) {
             return Core\Crypto\HashAlgo::SHA1;
         }

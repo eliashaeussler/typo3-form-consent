@@ -19,14 +19,6 @@
 			"matchPackageNames": [
 				"eliashaeussler/typo3-form-consent-test-extension"
 			]
-		},
-		{
-			"extends": [
-				":pinVersions"
-			],
-			"matchFileNames": [
-				"Tests/CGL/composer.*"
-			]
 		}
 	]
 }
