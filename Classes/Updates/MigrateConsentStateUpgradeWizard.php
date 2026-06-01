@@ -48,7 +48,15 @@ use TYPO3\CMS\Install;
  *     uid: int,
  *     update_date: int|null,
  * }
- * @phpstan-type ApprovedRecord RawRecord&array{
+ * @phpstan-type ApprovedRecord array{
+ *     approval_date?: int,
+ *     approved?: int,
+ *     data: string|null,
+ *     deleted: int,
+ *     state: int|numeric-string,
+ *     tstamp: int,
+ *     uid: int,
+ *     update_date: int|null,
  *     approved: int,
  * }
  */
