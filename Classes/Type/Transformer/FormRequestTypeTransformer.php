@@ -33,6 +33,8 @@ use TYPO3\CMS\Form;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ *
+ * @implements TypeTransformer<string, array<string, array<string, mixed>>>
  */
 final readonly class FormRequestTypeTransformer implements TypeTransformer
 {
@@ -40,10 +42,6 @@ final readonly class FormRequestTypeTransformer implements TypeTransformer
         private Core\Crypto\HashService $hashService,
     ) {}
 
-    /**
-     * @return Type\JsonType<string, array<string, array<string, mixed>>>
-     * @throws \JsonException
-     */
     public function transform(Form\Domain\Runtime\FormRuntime $formRuntime): Type\JsonType
     {
         $request = $formRuntime->getRequest();

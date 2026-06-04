@@ -21,24 +21,14 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use Composer\Autoload;
 use Derhansen\FormCrshield;
 use ShipMonk\ComposerDependencyAnalyser;
-use TYPO3\CMS\Core;
-use TYPO3\CMS\Form;
 
 $rootPath = dirname(__DIR__, 2);
-
-/** @var Autoload\ClassLoader $loader */
-$loader = require $rootPath . '/.Build/vendor/autoload.php';
-$loader->register();
-
 $configuration = new ComposerDependencyAnalyser\Config\Configuration();
 $configuration
     ->addPathsToExclude([
         $rootPath . '/Tests/Acceptance/Support/_generated',
-        $rootPath . '/Tests/Build',
-        $rootPath . '/Tests/CGL',
     ])
     ->ignoreErrorsOnPackages(
         [
@@ -57,11 +47,16 @@ $configuration
             ComposerDependencyAnalyser\Config\ErrorType::DEV_DEPENDENCY_IN_PROD,
         ],
     )
+    ->ignoreErrorsOnPackages(
+        [
+            'typo3/cms-install',
+        ],
+        [
+            ComposerDependencyAnalyser\Config\ErrorType::PROD_DEPENDENCY_ONLY_IN_DEV,
+        ],
+    )
     ->ignoreUnknownClasses([
-        Core\Crypto\HashAlgo::class,
-        Form\Event\AfterCurrentPageIsResolvedEvent::class,
-        Form\Event\BeforeRenderableIsValidatedEvent::class,
-        FormCrshield\EventListener\FormCrShield::class,
+        FormCrshield\Hooks\Form::class,
     ])
 ;
 

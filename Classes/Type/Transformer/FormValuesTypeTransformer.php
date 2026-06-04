@@ -34,6 +34,8 @@ use TYPO3\CMS\Form;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ *
+ * @implements TypeTransformer<string, mixed>
  */
 final readonly class FormValuesTypeTransformer implements TypeTransformer
 {
@@ -41,10 +43,6 @@ final readonly class FormValuesTypeTransformer implements TypeTransformer
         private Configuration\Configuration $configuration,
     ) {}
 
-    /**
-     * @return Type\JsonType<string, mixed>
-     * @throws \JsonException
-     */
     public function transform(Form\Domain\Runtime\FormRuntime $formRuntime): Type\JsonType
     {
         // Early return if form state is not available

@@ -152,7 +152,7 @@ final class ConsentControllerCest
             'resourcePointer',
         ];
 
-        // Set encryption key (as defined in Tests/Build/Configuration/system/additional.php)
+        // Set encryption key (as defined in Build/environment/config/system/additional.php)
         // This is needed to properly run HMAC generation since it uses encryption key as additional secret
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = '22be11b3acb2d0a7427e9f23c6c1d8d2c19b05312d4961c025b9a8b74bd7f4087ad38eca173788364b3cccf7398ed682';
 

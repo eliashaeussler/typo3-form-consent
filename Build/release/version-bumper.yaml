@@ -4,3 +4,5 @@ presets:
 
 releaseOptions:
   signTag: true
+
+rootPath: ../../

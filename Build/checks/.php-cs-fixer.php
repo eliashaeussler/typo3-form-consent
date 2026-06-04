@@ -21,25 +21,25 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\PHPStanConfig;
+use EliasHaeussler\PhpCsFixerConfig;
+use TYPO3\CodingStandards;
 
-return PHPStanConfig\Config\Config::create(dirname(__DIR__, 2))
-    ->in(
-        'Classes',
-        'Configuration',
-        'Tests',
-    )
-    ->not(
-        'Tests/Acceptance/Support/_generated/*',
-        'Tests/CGL',
-    )
-    ->bootstrapFiles(
-        '.Build/vendor/autoload.php',
-    )
-    ->withBaseline(__DIR__ . '/phpstan-baseline.neon')
-    ->withBleedingEdge([
-        'internalTag' => false,
-    ])
-    ->level(8)
-    ->toArray()
+$header = PhpCsFixerConfig\Rules\Header::create(
+    'form_consent',
+    PhpCsFixerConfig\Package\Type::TYPO3Extension,
+    PhpCsFixerConfig\Package\Author::create('Elias Häußler', 'elias@haeussler.dev'),
+    PhpCsFixerConfig\Package\CopyrightRange::from(2021),
+    PhpCsFixerConfig\Package\License::GPL2OrLater,
+);
+
+$config = CodingStandards\CsFixerConfig::create();
+$finder = $config->getFinder()
+    ->in(dirname(__DIR__, 2))
+    ->ignoreVCSIgnored(true)
+    ->ignoreDotFiles(false)
+;
+
+return PhpCsFixerConfig\Config::create()
+    ->withConfig($config)
+    ->withRule($header)
 ;

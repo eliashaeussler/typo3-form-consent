@@ -1,0 +1,85 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: 'Parameter #3 $request of method TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::load() expects Psr\Http\Message\ServerRequestInterface|null, array given.'
+			identifier: argument.type
+			count: 1
+			path: ../../Classes/Event/Listener/InvokeFinishersListener.php
+
+		-
+			rawMessage: '''
+				Access to constant on deprecated class TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite:
+				since v14.0, will be removed in TYPO3 v15.0. Use \TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite instead.
+			'''
+			identifier: classConstant.deprecatedClass
+			count: 1
+			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
+
+		-
+			rawMessage: 'Attribute class TYPO3\CMS\Install\Attribute\UpgradeWizard is deprecated: since v14.0, will be removed in TYPO3 v15.0. Use \TYPO3\CMS\Core\Attribute\UpgradeWizard instead.'
+			identifier: attribute.deprecated
+			count: 1
+			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
+
+		-
+			rawMessage: '''
+				Attribute references deprecated class TYPO3\CMS\Install\Attribute\UpgradeWizard:
+				since v14.0, will be removed in TYPO3 v15.0. Use \TYPO3\CMS\Core\Attribute\UpgradeWizard instead.
+			'''
+			identifier: attribute.deprecatedClass
+			count: 1
+			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
+
+		-
+			rawMessage: '''
+				Class EliasHaeussler\Typo3FormConsent\Updates\MigrateConsentStateUpgradeWizard implements deprecated interface TYPO3\CMS\Install\Updates\ChattyInterface:
+				since v14.0, will be removed in TYPO3 v15.0. Use \TYPO3\CMS\Core\Upgrades\ChattyInterface instead.
+			'''
+			identifier: class.implementsDeprecatedInterface
+			count: 1
+			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
+
+		-
+			rawMessage: '''
+				Class EliasHaeussler\Typo3FormConsent\Updates\MigrateConsentStateUpgradeWizard implements deprecated interface TYPO3\CMS\Install\Updates\UpgradeWizardInterface:
+				since v14.0, will be removed in TYPO3 v15.0. Use \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface instead.
+			'''
+			identifier: class.implementsDeprecatedInterface
+			count: 1
+			path: ../../Classes/Updates/MigrateConsentStateUpgradeWizard.php
+
+		-
+			rawMessage: 'Attribute class TYPO3\CMS\Install\Attribute\UpgradeWizard is deprecated: since v14.0, will be removed in TYPO3 v15.0. Use \TYPO3\CMS\Core\Attribute\UpgradeWizard instead.'
+			identifier: attribute.deprecated
+			count: 1
+			path: ../../Classes/Updates/MigratePluginToContentElementUpgradeWizard.php
+
+		-
+			rawMessage: '''
+				Attribute references deprecated class TYPO3\CMS\Install\Attribute\UpgradeWizard:
+				since v14.0, will be removed in TYPO3 v15.0. Use \TYPO3\CMS\Core\Attribute\UpgradeWizard instead.
+			'''
+			identifier: attribute.deprecatedClass
+			count: 1
+			path: ../../Classes/Updates/MigratePluginToContentElementUpgradeWizard.php
+
+		-
+			rawMessage: '''
+				Class EliasHaeussler\Typo3FormConsent\Updates\MigratePluginToContentElementUpgradeWizard extends deprecated class TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate:
+				since v14.0, will be removed in TYPO3 v15.0. Use \TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate instead.
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: ../../Classes/Updates/MigratePluginToContentElementUpgradeWizard.php
+
+		-
+			rawMessage: PHPDoc type EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\AcceptanceTester of property EliasHaeussler\Typo3FormConsent\Tests\Acceptance\Support\Helper\ModalDialog::$tester is not the same as PHPDoc type TYPO3\CMS\Core\Tests\Acceptance\Support\ApplicationTester of overridden property TYPO3\TestingFramework\Core\Acceptance\Helper\AbstractModalDialog::$tester.
+			identifier: property.phpDocType
+			count: 1
+			path: ../../Tests/Acceptance/Support/Helper/ModalDialog.php
+
+		-
+			rawMessage: 'Parameter #3 $request of method TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface::load() expects Psr\Http\Message\ServerRequestInterface|null, array given.'
+			identifier: argument.type
+			count: 1
+			path: ../../Tests/Functional/Domain/Finishers/ConsentFinisherTest.php

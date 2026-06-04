@@ -31,8 +31,14 @@ use TYPO3\CMS\Form;
  *
  * @author Elias Häußler <elias@haeussler.dev>
  * @license GPL-2.0-or-later
+ *
+ * @template TKey
+ * @template TValue
  */
 interface TypeTransformer
 {
+    /**
+     * @return Type\JsonType<TKey, TValue>
+     */
     public function transform(Form\Domain\Runtime\FormRuntime $formRuntime): Type\JsonType;
 }
