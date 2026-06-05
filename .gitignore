@@ -1,6 +1,7 @@
 /.Build
 /config
 /Configuration/Sets/FormConsentTests
+/packages
 /Tests/Acceptance/Support/_generated
 /var
 /.php-cs-fixer.cache
