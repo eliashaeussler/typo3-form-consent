@@ -83,6 +83,7 @@ A typical contribution workflow looks like this:
             composer check:style:composer
             composer check:style:editorconfig
             composer check:style:php
+            composer check:style:typoscript
 
         ..  _refactorings:
 
