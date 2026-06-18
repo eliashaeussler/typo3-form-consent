@@ -14,7 +14,7 @@ permissions:
 jobs:
   prepare:
     name: 'Prepare workflow'
-    uses: eliashaeussler/gha/.github/workflows/preparation.yaml@b205b470c2f8b2eec7ca41caedf3c401abda2dcf # 0.7.1
+    uses: eliashaeussler/gha/.github/workflows/preparation.yaml@25277ecb47b0e804f4cc464509789a0183cb78fc # 0.7.3
 
   checks:
     name: 'Checks'
@@ -26,7 +26,7 @@ jobs:
       contents: read
       security-events: write
 
-    uses: eliashaeussler/gha/.github/workflows/checks.yaml@b205b470c2f8b2eec7ca41caedf3c401abda2dcf # 0.7.1
+    uses: eliashaeussler/gha/.github/workflows/checks.yaml@25277ecb47b0e804f4cc464509789a0183cb78fc # 0.7.3
     with:
       # We use the minimum supported PHP version
       php-version: 8.2 # renovate-ignore
@@ -44,7 +44,7 @@ jobs:
         typo3-version: ["13.4", "14.3"]
         dependencies: ["highest", "lowest"]
 
-    uses: eliashaeussler/gha/.github/workflows/typo3-tests.yaml@b205b470c2f8b2eec7ca41caedf3c401abda2dcf # 0.7.1
+    uses: eliashaeussler/gha/.github/workflows/typo3-tests.yaml@25277ecb47b0e804f4cc464509789a0183cb78fc # 0.7.3
     with:
       php-version: ${{ matrix.php-version }}
       typo3-version: ${{ matrix.typo3-version }}
@@ -57,7 +57,7 @@ jobs:
     needs: [prepare]
     if: ${{ needs.prepare.outputs.continue == 'true' }}
 
-    uses: eliashaeussler/gha/.github/workflows/typo3-test-coverage.yaml@b205b470c2f8b2eec7ca41caedf3c401abda2dcf # 0.7.1
+    uses: eliashaeussler/gha/.github/workflows/typo3-test-coverage.yaml@25277ecb47b0e804f4cc464509789a0183cb78fc # 0.7.3
     with:
       ddev-version: '1.25.2'
 
@@ -70,6 +70,6 @@ jobs:
     secrets:
       CROWDIN_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
-    uses: eliashaeussler/gha/.github/workflows/crowdin.yaml@b205b470c2f8b2eec7ca41caedf3c401abda2dcf # 0.7.1
+    uses: eliashaeussler/gha/.github/workflows/crowdin.yaml@25277ecb47b0e804f4cc464509789a0183cb78fc # 0.7.3
     with:
       project-id: 477445
