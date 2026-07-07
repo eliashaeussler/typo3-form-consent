@@ -49,7 +49,7 @@ jobs:
       php-version: ${{ matrix.php-version }}
       typo3-version: ${{ matrix.typo3-version }}
       dependencies: ${{ matrix.dependencies }}
-      ddev-version: '1.25.2'
+      ddev-version: '1.25.3'
 
   test-coverage:
     name: 'Test coverage'
@@ -59,7 +59,7 @@ jobs:
 
     uses: eliashaeussler/gha/.github/workflows/typo3-test-coverage.yaml@24c8e1aa6eb95107a2f97721f962cc6372ae9016 # 0.8.1
     with:
-      ddev-version: '1.25.2'
+      ddev-version: '1.25.3'
 
   crowdin:
     name: 'Synchronize with Crowdin'
