@@ -873,22 +873,22 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.14.0",
+            "version": "7.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "aef242412e13128b5049864867bb49fc37dd39de"
+                "reference": "6b1d2429a2c312474c523aa9017fba0c07b5f4a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/aef242412e13128b5049864867bb49fc37dd39de",
-                "reference": "aef242412e13128b5049864867bb49fc37dd39de",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/6b1d2429a2c312474c523aa9017fba0c07b5f4a0",
+                "reference": "6b1d2429a2c312474c523aa9017fba0c07b5f4a0",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "guzzlehttp/promises": "^2.5.1",
-                "guzzlehttp/psr7": "^2.12.4",
+                "guzzlehttp/psr7": "^2.12.5",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0",
                 "symfony/deprecation-contracts": "^2.5 || ^3.0",
@@ -981,7 +981,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.14.0"
+                "source": "https://github.com/guzzle/guzzle/tree/7.14.1"
             },
             "funding": [
                 {
@@ -997,7 +997,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-08T22:54:09+00:00"
+            "time": "2026-07-13T01:32:54+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1085,16 +1085,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.12.4",
+            "version": "2.12.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "51e27f9e2b332ab3e72f4520d5ff4f3c68c3577c"
+                "reference": "9365d578a9fd1552ad6ca9c3cb530708526feb09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/51e27f9e2b332ab3e72f4520d5ff4f3c68c3577c",
-                "reference": "51e27f9e2b332ab3e72f4520d5ff4f3c68c3577c",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/9365d578a9fd1552ad6ca9c3cb530708526feb09",
+                "reference": "9365d578a9fd1552ad6ca9c3cb530708526feb09",
                 "shasum": ""
             },
             "require": {
@@ -1184,7 +1184,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.12.4"
+                "source": "https://github.com/guzzle/psr7/tree/2.12.5"
             },
             "funding": [
                 {
@@ -1200,7 +1200,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-08T15:56:20+00:00"
+            "time": "2026-07-13T01:27:20+00:00"
         },
         {
             "name": "lolli42/finediff",
@@ -11235,16 +11235,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.5.5",
+            "version": "2.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "9718a72e7f1aacacbdcb6eeed07a47147bce802e"
+                "reference": "ba22f8c087848278fed6b4910d4cf1108096d8d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/9718a72e7f1aacacbdcb6eeed07a47147bce802e",
-                "reference": "9718a72e7f1aacacbdcb6eeed07a47147bce802e",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/ba22f8c087848278fed6b4910d4cf1108096d8d3",
+                "reference": "ba22f8c087848278fed6b4910d4cf1108096d8d3",
                 "shasum": ""
             },
             "require": {
@@ -11283,7 +11283,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.5.5"
+                "source": "https://github.com/rectorphp/rector/tree/2.5.7"
             },
             "funding": [
                 {
@@ -11291,7 +11291,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-09T09:48:44+00:00"
+            "time": "2026-07-13T15:24:18+00:00"
         },
         {
             "name": "saschaegerer/phpstan-typo3",
