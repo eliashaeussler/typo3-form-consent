@@ -42,7 +42,7 @@ final class Url extends Module
         $queryParams = [];
         $parsedUrl = parse_url($url);
 
-        \assert(\is_array($parsedUrl));
+        assert(is_array($parsedUrl));
 
         parse_str($parsedUrl['query'] ?? '', $queryParams);
 

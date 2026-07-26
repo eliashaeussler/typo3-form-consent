@@ -59,8 +59,8 @@ final class ConsentChartDataProviderTest extends TestingFramework\Core\Functiona
         );
 
         // Import data
-        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
-        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.csv');
+        $this->importCSVDataSet(dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
+        $this->importCSVDataSet(dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.csv');
 
         $this->setUpBackendUser(1);
     }

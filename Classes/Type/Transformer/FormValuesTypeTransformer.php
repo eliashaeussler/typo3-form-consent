@@ -78,6 +78,6 @@ final readonly class FormValuesTypeTransformer implements TypeTransformer
         $excludedElements = $this->configuration->getExcludedElementsFromPersistence();
         $element = $formRuntime->getFormDefinition()->getElementByIdentifier($elementIdentifier);
 
-        return $element !== null && \in_array($element->getType(), $excludedElements, true);
+        return $element !== null && in_array($element->getType(), $excludedElements, true);
     }
 }

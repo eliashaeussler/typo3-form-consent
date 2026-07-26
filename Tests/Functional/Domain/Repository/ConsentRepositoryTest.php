@@ -56,7 +56,7 @@ final class ConsentRepositoryTest extends Tests\Functional\ExtbaseRequestAwareFu
         $this->subject = $this->getContainer()->get(Src\Domain\Repository\ConsentRepository::class);
 
         // Import data
-        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.csv');
+        $this->importCSVDataSet(dirname(__DIR__, 2) . '/Fixtures/Database/tx_formconsent_domain_model_consent.csv');
     }
 
     #[Framework\Attributes\Test]

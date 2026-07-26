@@ -49,7 +49,7 @@ final readonly class FormRequestTypeTransformer implements TypeTransformer
 
         // Handle submitted form values
         $requestParameters = [];
-        if (\is_array($request->getParsedBody())) {
+        if (is_array($request->getParsedBody())) {
             $requestParameters = $request->getParsedBody();
         }
 
