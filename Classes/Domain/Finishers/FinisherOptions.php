@@ -133,7 +133,7 @@ final class FinisherOptions
 
         $recipientAddress = ($this->optionFetcher)('recipientAddress');
 
-        if (!\is_string($recipientAddress)) {
+        if (!is_string($recipientAddress)) {
             $this->throwException('recipientAddress.invalid', 1640186663);
         }
         if (trim($recipientAddress) === '') {
@@ -160,7 +160,7 @@ final class FinisherOptions
 
         $senderAddress = ($this->optionFetcher)('senderAddress');
 
-        if (!\is_string($senderAddress)) {
+        if (!is_string($senderAddress)) {
             $this->throwException('senderAddress.invalid', 1640186811);
         }
         if (trim($senderAddress) !== '' && !Core\Utility\GeneralUtility::validEmail($senderAddress)) {
@@ -184,7 +184,7 @@ final class FinisherOptions
 
         $replyToAddress = ($this->optionFetcher)('replyToAddress');
 
-        if (!\is_string($replyToAddress)) {
+        if (!is_string($replyToAddress)) {
             $this->throwException('replyToAddress.invalid', 1716797809);
         }
         if (trim($replyToAddress) !== '' && !Core\Utility\GeneralUtility::validEmail($replyToAddress)) {
@@ -226,7 +226,7 @@ final class FinisherOptions
         if ($confirmationPid <= 0) {
             $this->throwException('confirmationPid.empty', 1576948961);
         }
-        if (!\is_array($this->getPageRepository()->checkRecord('pages', $confirmationPid))) {
+        if (!is_array($this->getPageRepository()->checkRecord('pages', $confirmationPid))) {
             $this->throwException('confirmationPid.invalid', 1576949163);
         }
 
@@ -254,7 +254,7 @@ final class FinisherOptions
         if ($storagePid < 0) {
             $this->throwException('storagePid.empty', 1576951495);
         }
-        if (!\is_array($this->getPageRepository()->checkRecord('pages', $storagePid))) {
+        if (!is_array($this->getPageRepository()->checkRecord('pages', $storagePid))) {
             $this->throwException('storagePid.invalid', 1576951499);
         }
 

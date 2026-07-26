@@ -148,7 +148,7 @@ final class MigrateConsentStateUpgradeWizard implements /* Core\Upgrades\Upgrade
         }
 
         // Migrate update date
-        if (\is_string($dateSource = $this->migrateUpdateDate($record))) {
+        if (is_string($dateSource = $this->migrateUpdateDate($record))) {
             $this->output->writeln(
                 sprintf(
                     '  - Migrate <comment>"%s:%s"</comment> to <comment>"update_date:%s"</comment>.',
@@ -202,7 +202,7 @@ final class MigrateConsentStateUpgradeWizard implements /* Core\Upgrades\Upgrade
     private function migrateUpdateDate(array &$record): ?string
     {
         // Early return if update date was already migrated
-        if (\is_int($record['update_date']) && $record['update_date'] > 0) {
+        if (is_int($record['update_date']) && $record['update_date'] > 0) {
             return null;
         }
 
@@ -240,7 +240,7 @@ final class MigrateConsentStateUpgradeWizard implements /* Core\Upgrades\Upgrade
         foreach ($columns as $column) {
             $columnName = $column->getObjectName()->toString();
 
-            if (\in_array($columnName, self::LEGACY_COLUMNS, true)) {
+            if (in_array($columnName, self::LEGACY_COLUMNS, true)) {
                 $legacyColumns[] = $columnName;
             }
         }

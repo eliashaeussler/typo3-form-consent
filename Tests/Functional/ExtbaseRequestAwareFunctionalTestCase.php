@@ -54,7 +54,7 @@ abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Co
 
         // Make sure site config is always populated
         foreach (self::REQUIRED_PATHS as $source => $target) {
-            if (!\in_array($target, $this->pathsToLinkInTestInstance, true)) {
+            if (!in_array($target, $this->pathsToLinkInTestInstance, true)) {
                 $this->pathsToLinkInTestInstance[$source] = $target;
             }
         }
@@ -108,7 +108,7 @@ abstract class ExtbaseRequestAwareFunctionalTestCase extends TestingFramework\Co
 
     private function addRequiredExtensions(): void
     {
-        $requiredExtensions = \array_diff(self::REQUIRED_EXTENSIONS, $this->testExtensionsToLoad);
+        $requiredExtensions = array_diff(self::REQUIRED_EXTENSIONS, $this->testExtensionsToLoad);
 
         foreach ($requiredExtensions as $requiredExtension) {
             $this->testExtensionsToLoad[] = $requiredExtension;

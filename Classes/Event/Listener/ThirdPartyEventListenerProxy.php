@@ -60,8 +60,8 @@ final readonly class ThirdPartyEventListenerProxy
     {
         $persistenceIdentifier = $formRuntime->getFormDefinition()->getPersistenceIdentifier();
 
-        return !Registry\ConsentManagerRegistry::isConsentApproved($persistenceIdentifier) &&
-            !Registry\ConsentManagerRegistry::isConsentDismissed($persistenceIdentifier)
+        return !Registry\ConsentManagerRegistry::isConsentApproved($persistenceIdentifier)
+            && !Registry\ConsentManagerRegistry::isConsentDismissed($persistenceIdentifier)
         ;
     }
 }

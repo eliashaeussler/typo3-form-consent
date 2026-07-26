@@ -100,7 +100,7 @@ final readonly class InvokeFinishersListener
         $contentElementRecord = $this->fetchOriginalContentElementRecord($consent->getOriginalContentElementUid());
 
         // Early return if content element record cannot be resolved
-        if (!\is_array($contentElementRecord)) {
+        if (!is_array($contentElementRecord)) {
             return null;
         }
 
@@ -181,7 +181,7 @@ final readonly class InvokeFinishersListener
         $record = $this->pageRepository->checkRecord('tt_content', $contentElementUid);
 
         // Early return if content element record cannot be resolved
-        if (!\is_array($record)) {
+        if (!is_array($record)) {
             return null;
         }
 

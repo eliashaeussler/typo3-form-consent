@@ -46,7 +46,7 @@ final readonly class Configuration
         try {
             $configurationValue = $this->configuration->get(Extension::KEY, 'persistence/excludedElements');
 
-            if (!\is_string($configurationValue)) {
+            if (!is_string($configurationValue)) {
                 return [];
             }
 

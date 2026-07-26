@@ -104,7 +104,7 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
             'storagePid' => '',
         ]);
 
-        $this->importCSVDataSet(\dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
+        $this->importCSVDataSet(dirname(__DIR__, 2) . '/Fixtures/Database/be_users.csv');
 
         $backendUser = $this->setUpBackendUser(1);
         $GLOBALS['LANG'] = $this->get(Core\Localization\LanguageServiceFactory::class)

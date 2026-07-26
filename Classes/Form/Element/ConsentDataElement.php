@@ -57,7 +57,7 @@ final class ConsentDataElement extends Backend\Form\Element\AbstractFormElement
         $formData = json_decode($formData, true) ?? [];
         $title = $this->getLanguageService()->sL('LLL:EXT:form_consent/Resources/Private/Language/locallang_be.xlf:form.data.header');
 
-        if (!\is_array($formData) || $formData === []) {
+        if (!is_array($formData) || $formData === []) {
             return $this->renderAlert('noDataAvailable');
         }
 

@@ -38,10 +38,10 @@ final readonly class ConsentStateType implements Core\Type\TypeInterface, \Strin
 
     public function __construct(string|int|Enums\ConsentState $state = Enums\ConsentState::New)
     {
-        if (\is_string($state)) {
+        if (is_string($state)) {
             $state = (int)$state;
         }
-        if (\is_int($state)) {
+        if (is_int($state)) {
             $state = Enums\ConsentState::from($state);
         }
 
