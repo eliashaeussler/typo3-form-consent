@@ -75,6 +75,7 @@ prototypes:
                     templateName: 'Inspector-TextEditor'
                     label: 'formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.label'
                     propertyPath: 'options.approvalPeriod'
+                    # @todo Switch to "description" once support for TYPO3 v13 is dropped
                     fieldExplanationText: 'formEditor.elements.Form.finishers.Consent.editor.approvalPeriod.fieldExplanationText'
                     propertyValidators:
                       10: 'NotEmpty'
@@ -84,6 +85,7 @@ prototypes:
                     templateName: 'Inspector-CheckboxEditor'
                     label: 'formEditor.elements.Form.finishers.Consent.editor.showDismissLink.label'
                     propertyPath: 'options.showDismissLink'
+                    # @todo Switch to "description" once support for TYPO3 v13 is dropped
                     fieldExplanationText: 'formEditor.elements.Form.finishers.Consent.editor.showDismissLink.fieldExplanationText'
                   900:
                     identifier: 'confirmationPid'
@@ -109,12 +111,14 @@ prototypes:
                     templateName: 'Inspector-CheckboxEditor'
                     label: 'formEditor.elements.Form.finishers.Consent.editor.requireApproveVerification.label'
                     propertyPath: 'options.requireApproveVerification'
+                    # @todo Switch to "description" once support for TYPO3 v13 is dropped
                     fieldExplanationText: 'formEditor.elements.Form.finishers.Consent.editor.requireApproveVerification.fieldExplanationText'
                   1200:
                     identifier: 'requireDismissVerification'
                     templateName: 'Inspector-CheckboxEditor'
                     label: 'formEditor.elements.Form.finishers.Consent.editor.requireDismissVerification.label'
                     propertyPath: 'options.requireDismissVerification'
+                    # @todo Switch to "description" once support for TYPO3 v13 is dropped
                     fieldExplanationText: 'formEditor.elements.Form.finishers.Consent.editor.requireDismissVerification.fieldExplanationText'
                   9999:
                     identifier: removeButton
