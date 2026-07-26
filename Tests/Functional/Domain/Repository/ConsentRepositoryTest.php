@@ -39,6 +39,7 @@ final class ConsentRepositoryTest extends Tests\Functional\ExtbaseRequestAwareFu
     protected array $coreExtensionsToLoad = [
         'fluid_styled_content',
         'form',
+        'install',
     ];
 
     protected array $testExtensionsToLoad = [

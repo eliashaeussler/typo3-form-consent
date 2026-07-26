@@ -40,6 +40,7 @@ final class HashServiceTest extends TestingFramework\Core\Functional\FunctionalT
 {
     protected array $testExtensionsToLoad = [
         'form_consent',
+        'install',
     ];
 
     protected array $coreExtensionsToLoad = [

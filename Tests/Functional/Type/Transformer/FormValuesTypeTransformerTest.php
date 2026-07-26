@@ -39,6 +39,7 @@ final class FormValuesTypeTransformerTest extends TestingFramework\Core\Function
 {
     protected array $coreExtensionsToLoad = [
         'form',
+        'install',
     ];
 
     protected array $testExtensionsToLoad = [

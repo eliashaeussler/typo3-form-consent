@@ -39,6 +39,7 @@ final class ConsentChartDataProviderTest extends TestingFramework\Core\Functiona
 {
     protected array $coreExtensionsToLoad = [
         'form',
+        'install',
     ];
 
     protected array $testExtensionsToLoad = [
