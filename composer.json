@@ -112,7 +112,7 @@
 				"providesPackages": {}
 			},
 			"extension-key": "form_consent",
-			"version": "4.2.2",
+			"version": "4.2.3",
 			"web-dir": ".Build/web"
 		},
 		"version-bumper": {
