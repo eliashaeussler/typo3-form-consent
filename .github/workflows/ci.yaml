@@ -73,3 +73,16 @@ jobs:
     uses: eliashaeussler/gha/.github/workflows/crowdin.yaml@a6093ebd6b0e93dedcb221832dadcb279bff4cbd # 0.9.1
     with:
       project-id: 477445
+
+  automerge:
+    name: 'Automerge modified Renovate branch'
+
+    needs: [checks, tests, test-coverage]
+
+    secrets:
+      MERGE_TOKEN: ${{ secrets.REBUILD_ASSETS_TOKEN }}
+
+    permissions:
+      contents: read
+
+    uses: eliashaeussler/gha/.github/workflows/renovate-merge.yaml@a6093ebd6b0e93dedcb221832dadcb279bff4cbd # 0.9.1
