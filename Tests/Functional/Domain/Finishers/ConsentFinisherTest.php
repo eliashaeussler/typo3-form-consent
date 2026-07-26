@@ -44,6 +44,7 @@ final class ConsentFinisherTest extends Tests\Functional\ExtbaseRequestAwareFunc
     protected array $coreExtensionsToLoad = [
         'fluid_styled_content',
         'form',
+        'install',
     ];
 
     protected array $testExtensionsToLoad = [

@@ -42,6 +42,7 @@ final class FinisherOptionsTest extends TestingFramework\Core\Functional\Functio
 {
     protected array $coreExtensionsToLoad = [
         'form',
+        'install',
     ];
 
     protected array $testExtensionsToLoad = [

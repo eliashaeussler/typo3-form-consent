@@ -40,6 +40,7 @@ final class ConsentConditionFunctionsProviderTest extends TestingFramework\Core\
 {
     protected array $coreExtensionsToLoad = [
         'form',
+        'install',
     ];
 
     protected array $testExtensionsToLoad = [
