@@ -114,3 +114,90 @@ given and a redirect to the configured confirmation page would take place.
 
 The same behavior can be achieved in case the user revokes his consent. The
 condition :php:`isConsentDismissed()` must then be used instead.
+
+..  _post-consent-finisher-invocation-form-editor:
+
+Configuration in the form editor
+--------------------------------
+
+Form variants do not need to be maintained by hand. Every finisher that can be
+added in the form editor provides an additional :guilabel:`Execute finisher`
+option, which is especially useful to store personal data only after the
+consent was actually approved:
+
+*   :guilabel:`Immediately on form submit (default)` – the finisher is
+    executed as usual, that is, when the form is submitted
+*   :guilabel:`Only after the consent was approved` – the finisher is
+    executed once the user approves the consent
+*   :guilabel:`Only after the consent was dismissed` – the finisher is
+    executed once the user dismisses the consent
+
+The selection is stored as :yaml:`consentCondition` option of the according
+finisher:
+
+..  code-block:: yaml
+    :emphasize-lines: 9
+
+    finishers:
+      -
+        identifier: Consent
+        options:
+          # ...
+      -
+        identifier: EmailToReceiver
+        options:
+          consentCondition: needsApproval
+          # ...
+
+During form runtime, the required form variants are derived from these
+options. The persisted form definition remains unchanged, so the form editor
+stays in full control of the configured finishers and their order.
+
+..  note::
+
+    The option only takes effect if the form uses the
+    :ref:`Consent finisher <consent-finisher>` as well. Otherwise, all
+    finishers are executed as usual.
+
+..  note::
+
+    The option is only available for finishers that can be added in the form
+    editor. Finishers such as :yaml:`SaveToDatabase`, :yaml:`Closure` and
+    :yaml:`FlashMessage` are excluded, because EXT:form rejects any property
+    that the form editor adds to them.
+
+    For those finishers, add the option to the :file:`.form.yaml` file
+    manually – it is evaluated the same way:
+
+    ..  code-block:: yaml
+
+        finishers:
+          -
+            identifier: Consent
+            options:
+              # ...
+          -
+            identifier: SaveToDatabase
+            options:
+              consentCondition: needsApproval
+              # ...
+
+    This is especially relevant to store personal data only after the consent
+    was actually approved.
+
+..  warning::
+
+    Do not combine both ways of configuration for the same condition within
+    one form. A form variant replaces the whole finisher list as soon as its
+    condition matches, and variants are applied in the order they are defined.
+    Since the derived variants are prepended, a manually configured variant
+    with the same condition is applied last and **discards** the finishers
+    that were marked in the form editor.
+
+    Use either the form editor or a manually configured variant per condition.
+
+..  tip::
+
+    Finishers provided by third-party extensions can opt in by adding the
+    same inspector editor to their form editor setup, see
+    :file:`Configuration/Yaml/FormSetup.yaml` of this extension.
