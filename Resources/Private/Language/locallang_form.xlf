@@ -72,6 +72,22 @@
         <source>Consent</source>
       </trans-unit>
 
+      <trans-unit id="formEditor.elements.Form.finisher.consentCondition.label" resname="formEditor.elements.Form.finisher.consentCondition.label">
+        <source>Execute finisher</source>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finisher.consentCondition.description" resname="formEditor.elements.Form.finisher.consentCondition.description">
+        <source>A condition only takes effect if this form also uses the Consent finisher. Without it, the finisher is always executed on form submit.</source>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finisher.consentCondition.option.none" resname="formEditor.elements.Form.finisher.consentCondition.option.none">
+        <source>Immediately on form submit (default)</source>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finisher.consentCondition.option.needsApproval" resname="formEditor.elements.Form.finisher.consentCondition.option.needsApproval">
+        <source>Only after the consent was approved</source>
+      </trans-unit>
+      <trans-unit id="formEditor.elements.Form.finisher.consentCondition.option.needsDismissal" resname="formEditor.elements.Form.finisher.consentCondition.option.needsDismissal">
+        <source>Only after the consent was dismissed</source>
+      </trans-unit>
+
       <trans-unit id="tt_content.finishersDefinition.Consent.label" resname="tt_content.finishersDefinition.Consent.label">
         <source>Consent</source>
       </trans-unit>
