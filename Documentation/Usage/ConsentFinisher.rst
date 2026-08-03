@@ -120,10 +120,10 @@ condition :php:`isConsentDismissed()` must then be used instead.
 Configuration in the form editor
 --------------------------------
 
-Form variants do not need to be maintained by hand. Each finisher that is
-shipped by EXT:form provides an additional :guilabel:`Execute finisher`
-option in the form editor, which is especially useful to store personal data
-only after the consent was actually approved:
+Form variants do not need to be maintained by hand. Every finisher that can be
+added in the form editor provides an additional :guilabel:`Execute finisher`
+option, which is especially useful to store personal data only after the
+consent was actually approved:
 
 *   :guilabel:`Immediately on form submit (default)` – the finisher is
     executed as usual, that is, when the form is submitted
