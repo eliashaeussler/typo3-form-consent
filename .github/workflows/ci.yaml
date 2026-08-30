@@ -14,7 +14,7 @@ permissions:
 jobs:
   prepare:
     name: 'Prepare workflow'
-    uses: eliashaeussler/gha/.github/workflows/preparation.yaml@92f522bc65751d9af12baa0969faf3caadd59e92 # 1.1.1
+    uses: eliashaeussler/gha/.github/workflows/preparation.yaml@6f449e3c6a24edf70fd6e69945a8be1b2d8f8c4c # 1.1.4
 
   checks:
     name: 'Checks'
@@ -26,7 +26,7 @@ jobs:
       contents: read
       security-events: write
 
-    uses: eliashaeussler/gha/.github/workflows/checks.yaml@92f522bc65751d9af12baa0969faf3caadd59e92 # 1.1.1
+    uses: eliashaeussler/gha/.github/workflows/checks.yaml@6f449e3c6a24edf70fd6e69945a8be1b2d8f8c4c # 1.1.4
     with:
       # We use the minimum supported PHP version
       php-version: 8.2 # renovate-ignore
@@ -44,7 +44,7 @@ jobs:
         typo3-version: ["13.4", "14.3"]
         dependencies: ["highest", "lowest"]
 
-    uses: eliashaeussler/gha/.github/workflows/typo3-tests.yaml@92f522bc65751d9af12baa0969faf3caadd59e92 # 1.1.1
+    uses: eliashaeussler/gha/.github/workflows/typo3-tests.yaml@6f449e3c6a24edf70fd6e69945a8be1b2d8f8c4c # 1.1.4
     with:
       php-version: ${{ matrix.php-version }}
       typo3-version: ${{ matrix.typo3-version }}
@@ -57,7 +57,7 @@ jobs:
     needs: [prepare]
     if: ${{ needs.prepare.outputs.continue == 'true' }}
 
-    uses: eliashaeussler/gha/.github/workflows/typo3-test-coverage.yaml@92f522bc65751d9af12baa0969faf3caadd59e92 # 1.1.1
+    uses: eliashaeussler/gha/.github/workflows/typo3-test-coverage.yaml@6f449e3c6a24edf70fd6e69945a8be1b2d8f8c4c # 1.1.4
     with:
       ddev-version: '1.25.3'
 
@@ -70,7 +70,7 @@ jobs:
     secrets:
       CROWDIN_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
-    uses: eliashaeussler/gha/.github/workflows/crowdin.yaml@92f522bc65751d9af12baa0969faf3caadd59e92 # 1.1.1
+    uses: eliashaeussler/gha/.github/workflows/crowdin.yaml@6f449e3c6a24edf70fd6e69945a8be1b2d8f8c4c # 1.1.4
     with:
       project-id: 477445
 
@@ -85,4 +85,4 @@ jobs:
     permissions:
       contents: read
 
-    uses: eliashaeussler/gha/.github/workflows/renovate-merge.yaml@92f522bc65751d9af12baa0969faf3caadd59e92 # 1.1.1
+    uses: eliashaeussler/gha/.github/workflows/renovate-merge.yaml@6f449e3c6a24edf70fd6e69945a8be1b2d8f8c4c # 1.1.4
