@@ -123,6 +123,47 @@ prototypes:
                   9999:
                     identifier: removeButton
                     templateName: Inspector-RemoveElementEditor
+              # Allow to mark finishers shipped by EXT:form as consent dependent.
+              # Third-party finishers can opt in by adding the same editor.
+              #
+              # Only finishers that can be added in the form editor may receive
+              # this editor: for all other finishers, EXT:form validates every
+              # property against a hmac on save and rejects properties that were
+              # not part of the loaded form definition.
+              # @see FormDefinitionValidationService::validateAllPropertyCollectionElementValuesByHmac()
+              10:
+                editors:
+                  1500: &consentConditionEditor
+                    identifier: 'consentCondition'
+                    templateName: 'Inspector-SingleSelectEditor'
+                    label: 'formEditor.elements.Form.finisher.consentCondition.label'
+                    propertyPath: 'options.consentCondition'
+                    # Rendered by TYPO3 v14 only: the "Inspector-SingleSelectEditor"
+                    # template of TYPO3 v13 has no slot for it, neither for
+                    # "description" nor for "fieldExplanationText"
+                    description: 'formEditor.elements.Form.finisher.consentCondition.description'
+                    selectOptions:
+                      10:
+                        value: ''
+                        label: 'formEditor.elements.Form.finisher.consentCondition.option.none'
+                      20:
+                        value: 'needsApproval'
+                        label: 'formEditor.elements.Form.finisher.consentCondition.option.needsApproval'
+                      30:
+                        value: 'needsDismissal'
+                        label: 'formEditor.elements.Form.finisher.consentCondition.option.needsDismissal'
+              20:
+                editors:
+                  1500: *consentConditionEditor
+              30:
+                editors:
+                  1500: *consentConditionEditor
+              40:
+                editors:
+                  1500: *consentConditionEditor
+              50:
+                editors:
+                  1500: *consentConditionEditor
     formEngine:
       translationFiles:
         1632317570: 'EXT:form_consent/Resources/Private/Language/locallang_form.xlf'
