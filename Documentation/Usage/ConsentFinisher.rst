@@ -196,8 +196,52 @@ stays in full control of the configured finishers and their order.
 
     Use either the form editor or a manually configured variant per condition.
 
-..  tip::
+..  _post-consent-finisher-invocation-third-party:
 
-    Finishers provided by third-party extensions can opt in by adding the
-    same inspector editor to their form editor setup, see
-    :file:`Configuration/Yaml/FormSetup.yaml` of this extension.
+Finishers of third-party extensions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The :guilabel:`Execute finisher` option is provided for the finishers of
+EXT:form only. Finishers of other extensions can opt in by adding the same
+inspector editor to your own form setup. This requires the finisher to be
+addable in the form editor, otherwise EXT:form rejects the option on save
+(see above).
+
+Use the array key under which the finisher is registered in
+:yaml:`formElementsDefinition.Form.formEditor.propertyCollections.finishers`
+of its extension. It is the same key that is used for the finisher in the
+:yaml:`selectOptions` of the finishers editor. The following example adds the
+option to a finisher registered with key :yaml:`1560425499`:
+
+..  code-block:: yaml
+    :caption: EXT:my_sitepackage/Configuration/Yaml/FormSetup.yaml
+
+    prototypes:
+      standard:
+        formElementsDefinition:
+          Form:
+            formEditor:
+              propertyCollections:
+                finishers:
+                  # Key of the third-party finisher
+                  1560425499:
+                    editors:
+                      1500:
+                        identifier: 'consentCondition'
+                        templateName: 'Inspector-SingleSelectEditor'
+                        label: 'formEditor.elements.Form.finisher.consentCondition.label'
+                        propertyPath: 'options.consentCondition'
+                        description: 'formEditor.elements.Form.finisher.consentCondition.description'
+                        selectOptions:
+                          10:
+                            value: ''
+                            label: 'formEditor.elements.Form.finisher.consentCondition.option.none'
+                          20:
+                            value: 'needsApproval'
+                            label: 'formEditor.elements.Form.finisher.consentCondition.option.needsApproval'
+                          30:
+                            value: 'needsDismissal'
+                            label: 'formEditor.elements.Form.finisher.consentCondition.option.needsDismissal'
+
+The labels are provided by this extension, no additional translation file is
+required.
