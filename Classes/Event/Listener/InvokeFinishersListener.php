@@ -224,7 +224,7 @@ final readonly class InvokeFinishersListener
         );
 
         if ($this->typo3Version->getMajorVersion() >= 14) {
-            $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier, $typoScriptSettings);
+            $formConfiguration = $this->formPersistenceManager->load($formPersistenceIdentifier, $typoScriptSettings, $this->getServerRequest());
         } else {
             // @todo Remove once support for TYPO3 v13 is dropped
             $formSettings = $this->formConfigurationManager->getYamlConfiguration($typoScriptSettings, true);
