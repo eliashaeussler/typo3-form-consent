@@ -59,9 +59,10 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
      * @throws Core\Http\PropagateResponseException
      * @throws Extbase\Persistence\Exception\UnknownObjectException
      */
-    public function approveAction(string $hash, string $email, bool $verify = false): Message\ResponseInterface
+    public function approveAction(string $hash = '', string $email = '', bool $verify = false): Message\ResponseInterface
     {
-        $consent = $this->consentRepository->findOneByValidationHash($hash);
+        // Requests without hash (e.g. the confirmation page opened directly) are treated as invalid links
+        $consent = $hash !== '' ? $this->consentRepository->findOneByValidationHash($hash) : null;
 
         // Add template variable
         $this->view->assign('consent', $consent);
@@ -124,9 +125,10 @@ final class ConsentController extends Extbase\Mvc\Controller\ActionController
      * @throws Core\Http\PropagateResponseException
      * @throws Extbase\Persistence\Exception\UnknownObjectException
      */
-    public function dismissAction(string $hash, string $email, bool $verify = false): Message\ResponseInterface
+    public function dismissAction(string $hash = '', string $email = '', bool $verify = false): Message\ResponseInterface
     {
-        $consent = $this->consentRepository->findOneByValidationHash($hash);
+        // Requests without hash (e.g. the confirmation page opened directly) are treated as invalid links
+        $consent = $hash !== '' ? $this->consentRepository->findOneByValidationHash($hash) : null;
 
         // Add template variable
         $this->view->assign('consent', $consent);
