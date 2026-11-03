@@ -256,12 +256,19 @@ final class ConsentControllerCest
     public function canPreviewValidationPluginWithActiveBackendSession(Tests\Acceptance\Support\AcceptanceTester $I): void
     {
         $I->amOnPage('/confirmation');
-        $I->see('RequiredArgumentMissingException');
+        $I->dontSee('This is a preview of the form_consent validation plugin without any functionality.');
 
         $I->loginAs('admin');
 
         $I->amOnPage('/confirmation');
         $I->see('This is a preview of the form_consent validation plugin without any functionality.');
+    }
+
+    public function showsInvalidLinkMessageIfConfirmationPageIsAccessedWithoutArguments(Tests\Acceptance\Support\AcceptanceTester $I): void
+    {
+        $I->amOnPage('/confirmation');
+        $I->dontSee('RequiredArgumentMissingException');
+        $I->see('The link you clicked is no longer valid or has already been clicked. Please fill out the form again.');
     }
 
     public function cannotApproveOrDismissAlreadyDismissedConsent(Tests\Acceptance\Support\AcceptanceTester $I): void
